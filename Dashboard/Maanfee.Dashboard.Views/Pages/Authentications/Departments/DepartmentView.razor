@@ -1,0 +1,138 @@
+﻿@page "/Departments/DepartmentView"
+@inherits _BaseView
+
+<style>
+    .mud-dialog-width-full {
+        direction: rtl;
+    }
+</style>
+
+@if (!IsLoaded)
+{
+    <PublicOverlay />
+}
+else
+{
+    <ComponentDashboardTitle Title="@DashboardResource.StringDepartment" Description="" />
+
+    <MudGrid>
+        <MudItem md="6" xs="6">
+            <EditForm OnValidSubmit="OnSubmit" Model="SubmitDepartmentViewModel">
+                <DataAnnotationsValidator />
+                <MudCard>
+                    <MudCardContent>
+                        <MudGrid>
+                            <MudItem md="12" xs="12">
+                                <MudTextField Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Filled.AccountTree"
+                                          @bind-Value="SubmitDepartmentViewModel.Title" 
+                                          For="@(() => SubmitDepartmentViewModel.Title)" 
+                                          Label="@DashboardResource.StringDepartment" />
+                            </MudItem>
+                            <MudItem md="12" xs="12">
+                                <MudAutocomplete T="DropDownDepartmentViewModel" Label="@DashboardResource.StringParent"
+                                             ResetValueOnEmptyText="true" Clearable="true" MaxItems="null"
+                                             @bind-Value="SubmitDepartmentViewModel.Parent" Variant="Variant.Outlined"
+                                             SearchFunc="GetParentsAsync" ToStringFunc="@(e=> e==null?null : $"{e.Title}")" />
+                            </MudItem>
+                        </MudGrid>
+                    </MudCardContent>
+                </MudCard>
+
+               <MudPaper Class="pa-4 my-1" Square="true">
+					<MudStack Row="true" Spacing="2" AlignItems="AlignItems.Start">
+						@if (CanCreate)
+						{
+							<MudPaper>
+								<MudButton Disabled="@IsProcessing" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Tertiary">
+									@if (IsProcessing)
+									{
+										<MudProgressCircular Size="Size.Small" Indeterminate="true" />
+										<MudText Class="ms-2">@DashboardResource.StringProcessing</MudText>
+									}
+									else
+									{
+										<MudIcon Icon="@Icons.Material.Filled.Save" Color="Color.Surface" />
+										<MudText>@DashboardResource.StringSave</MudText>
+									}
+								</MudButton>
+							</MudPaper>
+						}
+						@if (CanDelete)
+						{
+							<MudPaper>
+								<MudButton OnClick="@((e) => OpenDeleteDialog(maxWidth))" Variant="Variant.Filled" Color="Color.Error"
+								   Disabled=@(SubmitDepartmentViewModel?.Id == 0 ||SubmitDepartmentViewModel?.Id == null ? true : false)>
+									<MudIcon Icon="@Icons.Material.Filled.DeleteForever" Color="Color.Surface" />
+									<MudText>@DashboardResource.StringDelete</MudText>
+								</MudButton>
+							</MudPaper>
+						}
+						<MudPaper>
+							<MudButton OnClick="@OpenDepartmentPermissionDialog" Variant="Variant.Filled" Color="Color.Primary"
+								   Disabled=@(SubmitDepartmentViewModel?.Id == 0 ||SubmitDepartmentViewModel?.Id == null ? true : false)>
+								<MudIcon Icon="@Icons.Filled.PermContactCalendar" Color="Color.Surface" />
+								<MudText>@DashboardResource.StringPermission</MudText>
+							</MudButton>
+						</MudPaper>
+						<MudPaper>
+							<MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="@ResetAsync">
+								@DashboardResource.StringReload
+							</MudButton>
+						</MudPaper>
+						<MudPaper>
+							<MudButton Variant="Variant.Filled" Color="Color.Info" OnClick="@CreateAsync"
+								   Disabled=@(SubmitDepartmentViewModel?.Id == 0 ||SubmitDepartmentViewModel?.Id == null ? true : false)>
+								@DashboardResource.StringCreate
+							</MudButton>
+						</MudPaper>
+					</MudStack>
+				</MudPaper>
+
+                @{
+                    if (SelectedValue != null)
+                    {
+                        SubmitDepartmentViewModel.Id = SelectedValue?.Id ?? null;
+                        SubmitDepartmentViewModel.Title = SelectedValue?.Title;
+                        SubmitDepartmentViewModel.Parent = Parents.FirstOrDefault(x => x.Id == SelectedValue?.IdParent) ?? null;
+
+                        SelectedValue = null;
+                    }
+                }
+            </EditForm>
+        </MudItem>
+        <MudItem md="6" xs="6">
+            <MudCard>
+                <MudCardHeader>
+                    <MudText Color="Color.Error">@DashboardResource.StringOrganizationalChart</MudText>
+                </MudCardHeader>
+                <MudCardContent>
+                    @*@bind-SelectedValues="SelectedValues" @bind-ActivatedValue="ActivatedValue" *@
+                    <MudTreeView Items="Departments" CanHover="true" Color="Color.Tertiary" @bind-SelectedValue="SelectedValue">
+                        <ItemTemplate>
+                            <MudTreeViewItem Items="@context.Department1" Expanded="true"
+                                         Value="@context" Text="@context.Title" EndTextTypo="@Typo.caption" />
+                        </ItemTemplate>
+                    </MudTreeView>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+
+    @*
+        <div style="width: 100%">
+        <MudText Typo="@Typo.subtitle1">Activated Key: @(ActivatedValue?.Id)
+
+        </MudText>
+        <MudText Typo="@Typo.subtitle1">Activated item: @(ActivatedValue?.Title)</MudText>
+        </div>
+
+        <MudTreeView Items="TreeItems" CanHover="true" ExpandOnClick="true" Color="Color.Tertiary"
+        @bind-ActivatedValue="ActivatedValue" @bind-SelectedValues="SelectedValues">
+        <ItemTemplate>
+        <MudTreeViewItem @bind-Expanded="@context.IsExpanded" Items="@context.TreeItems"
+        Value="@context" Text="@context.Title" EndTextTypo="@Typo.caption" />
+        </ItemTemplate>
+        </MudTreeView>
+    *@
+
+}

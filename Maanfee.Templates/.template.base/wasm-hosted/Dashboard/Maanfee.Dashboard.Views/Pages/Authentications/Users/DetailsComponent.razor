@@ -1,0 +1,105 @@
+﻿
+<MudCard>
+	<MudCardHeader>
+		<MudText Color="Color.Error">@Title</MudText>
+	</MudCardHeader>
+	<MudDivider DividerType="DividerType.FullWidth" />
+	<MudCardContent>
+		<MudGrid>
+			<MudItem xs="12" sm="4" md="3">
+				<MudCard Elevation="25">
+					<MudCardContent>
+						<div class="d-flex justify-center mb-4">
+							<MudAvatar Image="@StringAvatar"
+									   Class="ma-2" Style="height:150px; width:150px;" />
+						</div>
+						<MudText Typo="Typo.h6" Align="Align.Center">@Model?.UserName</MudText>
+						<MudText Typo="Typo.h6" Align="Align.Center" Color="Color.Primary">
+							@Model?.RoleName
+						</MudText>
+						<MudText Typo="Typo.h6" Align="Align.Center">@Model?.PersonalCode</MudText>
+					</MudCardContent>
+				</MudCard>
+			</MudItem>
+			<MudItem xs="12" sm="8" md="9">
+				<MudCard Elevation="25">
+					<MudCardHeader>
+						<CardHeaderContent>
+							<MudText>@DashboardResource.StringPersonalInformation</MudText>
+						</CardHeaderContent>
+					</MudCardHeader>
+					<MudCardContent>
+						<MudGrid>
+							<MudItem xs="12" md="4">
+								<MudField Disabled="true" Label="@DashboardResource.StringName" Variant="Variant.Outlined"
+										  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Group">
+									@Model.Name
+								</MudField>
+							</MudItem>
+							<MudItem xs="12" md="4">
+								<MudField Disabled="true" Label="@DashboardResource.StringFatherName" Variant="Variant.Outlined"
+										  Adornment="Adornment.Start" AdornmentIcon="@Icons.Filled.AssignmentInd">
+									@Model.FatherName
+								</MudField>
+							</MudItem>
+							<MudItem xs="12" md="4">
+								<MudField Disabled="true" Label="@DashboardResource.StringNationalCode" Variant="Variant.Outlined"
+										  Adornment="Adornment.Start" AdornmentIcon="@Icons.Filled.PersonalInjury">
+									@Model.NationalCode
+								</MudField>
+							</MudItem>
+							<MudItem xs="12" md="4">
+								<MudField Disabled="true" Label="@DashboardResource.StringGender" Variant="Variant.Outlined">
+									@Model?.Gender?.Sex
+								</MudField>
+							</MudItem>
+							<MudItem xs="12" md="4">
+								<MudField Disabled="true" Label="@DashboardResource.StringPhoneNumber" Variant="Variant.Outlined"
+										  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Smartphone">
+									@Model?.PhoneNumber
+								</MudField>
+							</MudItem>
+							<MudItem xs="12" md="4">
+								<MudField Disabled="true" Label="@DashboardResource.StringPassword" Variant="Variant.Outlined"
+										  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Password">
+									@Model?.Password
+								</MudField>
+							</MudItem>
+
+							<MudItem xs="12" md="4">
+								<MudField Disabled="true" Label="@DashboardResource.StringPersonalPost" Variant="Variant.Outlined"
+										  Adornment="Adornment.Start" AdornmentIcon="@Icons.Filled.AccountTree">
+									@Model?.UserDepartmentsPersonalTitle
+								</MudField>
+							</MudItem>
+							<MudItem xs="12" md="4">
+								<MudField Disabled="true" Label="@DashboardResource.StringManagementPost" Variant="Variant.Outlined"
+										  Adornment="Adornment.Start" AdornmentIcon="@Icons.Filled.AccountTree">
+									@Model?.UserDepartmentsManagementTitle
+								</MudField>
+							</MudItem>
+							<MudItem xs="12" md="4">
+								<MudField Disabled="true" Label="@DashboardResource.StringGroup" Variant="Variant.Outlined"
+										  Adornment="Adornment.Start" AdornmentIcon="@Icons.Filled.Title">
+									@Model?.UserGroupTitle
+								</MudField>
+							</MudItem>
+						</MudGrid>
+					</MudCardContent>
+				</MudCard>
+			</MudItem>
+		</MudGrid>
+	</MudCardContent>
+</MudCard>
+
+@code
+{
+	[Parameter]
+	public string Title { get; set; }
+
+	[Parameter]
+	public GetUserViewModel Model { get; set; }
+
+	[Parameter]
+	public string StringAvatar { get; set; }
+}

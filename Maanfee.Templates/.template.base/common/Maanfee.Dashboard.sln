@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31825.309
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dashboard", "Dashboard", "{342164AC-9C15-41A5-8AE0-A8DF2E00782A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maanfee.Dashboard.Views.Base", "Dashboard\Maanfee.Dashboard.Views.Base\Maanfee.Dashboard.Views.Base.csproj", "{E8BE84F5-912D-4C31-BE4F-1061B82046CA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maanfee.Dashboard.Views", "Dashboard\Maanfee.Dashboard.Views\Maanfee.Dashboard.Views.csproj", "{1D555FF8-A9CD-4F60-A11B-A2B505B685A5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maanfee.Dashboard.Server", "Dashboard\Maanfee.Dashboard.Server\Maanfee.Dashboard.Server.csproj", "{0B08B0A4-AD97-4884-86E5-CF4AC1EB28B1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{3AF1FBE4-22B7-481F-BD62-1F5C4EC9051F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maanfee.Dashboard.Examples.Views", "Examples\Maanfee.Dashboard.Examples.Views\Maanfee.Dashboard.Examples.Views.csproj", "{FC31EDC2-C643-49F0-A785-A4CD37D8F7BC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maanfee.Dashboard.Examples.Views.JsInterop", "Examples\Maanfee.Dashboard.Examples.Views.JsInterop\Maanfee.Dashboard.Examples.Views.JsInterop.csproj", "{1A20901B-AAB3-465B-AD9D-51C6C949ADD5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E8BE84F5-912D-4C31-BE4F-1061B82046CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8BE84F5-912D-4C31-BE4F-1061B82046CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8BE84F5-912D-4C31-BE4F-1061B82046CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8BE84F5-912D-4C31-BE4F-1061B82046CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D555FF8-A9CD-4F60-A11B-A2B505B685A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D555FF8-A9CD-4F60-A11B-A2B505B685A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D555FF8-A9CD-4F60-A11B-A2B505B685A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D555FF8-A9CD-4F60-A11B-A2B505B685A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B08B0A4-AD97-4884-86E5-CF4AC1EB28B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B08B0A4-AD97-4884-86E5-CF4AC1EB28B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B08B0A4-AD97-4884-86E5-CF4AC1EB28B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B08B0A4-AD97-4884-86E5-CF4AC1EB28B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC31EDC2-C643-49F0-A785-A4CD37D8F7BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC31EDC2-C643-49F0-A785-A4CD37D8F7BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC31EDC2-C643-49F0-A785-A4CD37D8F7BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC31EDC2-C643-49F0-A785-A4CD37D8F7BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A20901B-AAB3-465B-AD9D-51C6C949ADD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A20901B-AAB3-465B-AD9D-51C6C949ADD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A20901B-AAB3-465B-AD9D-51C6C949ADD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A20901B-AAB3-465B-AD9D-51C6C949ADD5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E8BE84F5-912D-4C31-BE4F-1061B82046CA} = {342164AC-9C15-41A5-8AE0-A8DF2E00782A}
+		{1D555FF8-A9CD-4F60-A11B-A2B505B685A5} = {342164AC-9C15-41A5-8AE0-A8DF2E00782A}
+		{0B08B0A4-AD97-4884-86E5-CF4AC1EB28B1} = {342164AC-9C15-41A5-8AE0-A8DF2E00782A}
+		{FC31EDC2-C643-49F0-A785-A4CD37D8F7BC} = {3AF1FBE4-22B7-481F-BD62-1F5C4EC9051F}
+		{1A20901B-AAB3-465B-AD9D-51C6C949ADD5} = {3AF1FBE4-22B7-481F-BD62-1F5C4EC9051F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E3DD1F6F-DB97-4380-9B9B-3F37A2C8D178}
+	EndGlobalSection
+EndGlobal

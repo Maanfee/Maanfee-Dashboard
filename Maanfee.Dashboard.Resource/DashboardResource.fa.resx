@@ -1,0 +1,573 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MessageCannotInsertDuplicate" xml:space="preserve">
+    <value>این مورد قبلاً درج شده است</value>
+  </data>
+  <data name="MessageChangeIsNotPossible" xml:space="preserve">
+    <value>تغییر امکان پذیر نمی باشد</value>
+  </data>
+  <data name="MessageDeleteConstraint" xml:space="preserve">
+    <value>این داده در جای دیگری استفاده شده و نمی توان آن را حذف کرد</value>
+  </data>
+  <data name="MessageDeletedSuccessfully" xml:space="preserve">
+    <value>حذف با موفقیت انجام شد</value>
+  </data>
+  <data name="MessageDocumentAttachment" xml:space="preserve">
+    <value>پیوست مستندات اجباری است</value>
+  </data>
+  <data name="MessageFileSizeError" xml:space="preserve">
+    <value>حجم فایل زیاد است. فایل {0} بارگذاری نشد</value>
+  </data>
+  <data name="MessageInvalidReferralCode" xml:space="preserve">
+    <value>کد ارجاع معتبر نیست</value>
+  </data>
+  <data name="MessageInvalidUsername" xml:space="preserve">
+    <value>نام کاربری نامعتبر است، فقط می تواند شامل حروف یا اعداد باشد</value>
+  </data>
+  <data name="MessageItemAlreadyTaken" xml:space="preserve">
+    <value>این نام کاربری قبلاً ثبت شده است</value>
+  </data>
+  <data name="MessageMaximumNumberOfFiles" xml:space="preserve">
+    <value>حداکثر تعداد فایل های قابل پذیرفته 10 می باشد، اما {0} فایل ارائه شده است. می توانید دوباره آن را تکرار کنید.</value>
+  </data>
+  <data name="MessageNoMatchingRecordsFound" xml:space="preserve">
+    <value>هیچ رکورد منطبقی یافت نشد</value>
+  </data>
+  <data name="MessagePrimaryKeyConstraint" xml:space="preserve">
+    <value>محدودیت کلید اولیه لطفا کد را تغییر دهید</value>
+  </data>
+  <data name="MessageSavedSuccessfully" xml:space="preserve">
+    <value>ثبت با موفقیت انجام شد</value>
+  </data>
+  <data name="MessageServiceCommunicationError" xml:space="preserve">
+    <value>ارتباط با سرویس امکان پذیر نمی باشد</value>
+  </data>
+  <data name="MessageThisItemCouldNoBeASubsetOfItself" xml:space="preserve">
+    <value>این مورد نمی تواند زیرمجموعه ای از خودش باشد</value>
+  </data>
+  <data name="MessageUnableToSendRequest" xml:space="preserve">
+    <value>امکان ارسال درخواست وجود ندارد</value>
+  </data>
+  <data name="MessageUserIsNotExsist" xml:space="preserve">
+    <value>کاربر موجود نمی باشد</value>
+  </data>
+  <data name="SignalRReceiveChatNotification" xml:space="preserve">
+    <value>یک پیام جدید از طرف {0} ارسال شده است</value>
+  </data>
+  <data name="StringAbout" xml:space="preserve">
+    <value>درباره</value>
+  </data>
+  <data name="StringAcceptTerms" xml:space="preserve">
+    <value>شرایط خدمات را خوانده ام و می پذیرم</value>
+  </data>
+  <data name="StringAccessDenied" xml:space="preserve">
+    <value>امکان دسترسی وجود ندارد</value>
+  </data>
+  <data name="StringAccessDenied2" xml:space="preserve">
+    <value>به نظر می رسد شما مجوز دسترسی به این منبع را ندارید</value>
+  </data>
+  <data name="StringAccessDenied3" xml:space="preserve">
+    <value>برای امکان دسترسی به این صفحه با مدیر سیستم تماس بگیرید</value>
+  </data>
+  <data name="StringAccount" xml:space="preserve">
+    <value>حساب کاربری</value>
+  </data>
+  <data name="StringAction" xml:space="preserve">
+    <value>عمل</value>
+  </data>
+  <data name="StringAdministrator" xml:space="preserve">
+    <value>مدیر سیستم</value>
+  </data>
+  <data name="StringAlert" xml:space="preserve">
+    <value>هشدار</value>
+  </data>
+  <data name="StringAlreadyAccount" xml:space="preserve">
+    <value>از قبل حساب کاربری دارید؟</value>
+  </data>
+  <data name="StringAreYouSureToDeleteThisItem" xml:space="preserve">
+    <value>آیا مطمئن هستید که این مورد را حذف می کنید؟</value>
+  </data>
+  <data name="StringAuthentication" xml:space="preserve">
+    <value>احراز هویت</value>
+  </data>
+  <data name="StringAvatar" xml:space="preserve">
+    <value>آواتار</value>
+  </data>
+  <data name="StringBytes" xml:space="preserve">
+    <value>بایت</value>
+  </data>
+  <data name="StringCancel" xml:space="preserve">
+    <value>لغو</value>
+  </data>
+  <data name="StringChat" xml:space="preserve">
+    <value>گپ</value>
+  </data>
+  <data name="StringChats" xml:space="preserve">
+    <value>گپ ها</value>
+  </data>
+  <data name="StringCode" xml:space="preserve">
+    <value>کد</value>
+  </data>
+  <data name="StringComment" xml:space="preserve">
+    <value>اظهار نظر</value>
+  </data>
+  <data name="StringCommunications" xml:space="preserve">
+    <value>ارتباطات</value>
+  </data>
+  <data name="StringCommunity" xml:space="preserve">
+    <value>انجمن</value>
+  </data>
+  <data name="StringConfirmation" xml:space="preserve">
+    <value>تایید</value>
+  </data>
+  <data name="StringConfirmNewPassword" xml:space="preserve">
+    <value>تایید گذرواژه جدید</value>
+  </data>
+  <data name="StringConfirmPassword" xml:space="preserve">
+    <value>تایید رمز عبور</value>
+  </data>
+  <data name="StringCreate" xml:space="preserve">
+    <value>ایجاد</value>
+  </data>
+  <data name="StringDashboard" xml:space="preserve">
+    <value>داشبورد</value>
+  </data>
+  <data name="StringDatabase" xml:space="preserve">
+    <value>پایگاه داده</value>
+  </data>
+  <data name="StringDate" xml:space="preserve">
+    <value>تاریخ</value>
+  </data>
+  <data name="StringDelete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="StringDense" xml:space="preserve">
+    <value>تراکم</value>
+  </data>
+  <data name="StringDepartment" xml:space="preserve">
+    <value>سمت</value>
+  </data>
+  <data name="StringDescription" xml:space="preserve">
+    <value>شرح</value>
+  </data>
+  <data name="StringDetails" xml:space="preserve">
+    <value>جزییات</value>
+  </data>
+  <data name="StringDiagram" xml:space="preserve">
+    <value>نمودار</value>
+  </data>
+  <data name="StringDocuments" xml:space="preserve">
+    <value>مستندات</value>
+  </data>
+  <data name="StringDontAccount" xml:space="preserve">
+    <value>حساب کاربری ندارید؟</value>
+  </data>
+  <data name="StringdotNet" xml:space="preserve">
+    <value>دات نت</value>
+  </data>
+  <data name="StringEdit" xml:space="preserve">
+    <value>ویرایش</value>
+  </data>
+  <data name="StringError" xml:space="preserve">
+    <value>خطا</value>
+  </data>
+  <data name="StringFatherName" xml:space="preserve">
+    <value>نام پدر</value>
+  </data>
+  <data name="StringFile" xml:space="preserve">
+    <value>فایل</value>
+  </data>
+  <data name="StringFirstName" xml:space="preserve">
+    <value>نام</value>
+  </data>
+  <data name="StringFixedHeader" xml:space="preserve">
+    <value>سرتیتر ثابت</value>
+  </data>
+  <data name="StringForgotPassword" xml:space="preserve">
+    <value>رمز عبور را فراموش کرده اید؟</value>
+  </data>
+  <data name="StringFramework" xml:space="preserve">
+    <value>چارچوب</value>
+  </data>
+  <data name="StringGender" xml:space="preserve">
+    <value>جنسیت</value>
+  </data>
+  <data name="StringGroup" xml:space="preserve">
+    <value>گروه</value>
+  </data>
+  <data name="StringHasChanged" xml:space="preserve">
+    <value>تغییرکرده</value>
+  </data>
+  <data name="StringImage" xml:space="preserve">
+    <value>تصویر</value>
+  </data>
+  <data name="StringIsActive" xml:space="preserve">
+    <value>فعال</value>
+  </data>
+  <data name="StringLastName" xml:space="preserve">
+    <value>نام خانوادگی</value>
+  </data>
+  <data name="StringList" xml:space="preserve">
+    <value>فهرست</value>
+  </data>
+  <data name="StringLoading" xml:space="preserve">
+    <value>در حال بارگزاری ...</value>
+  </data>
+  <data name="StringLogout" xml:space="preserve">
+    <value>خروج</value>
+  </data>
+  <data name="StringLogoutConfirmation" xml:space="preserve">
+    <value>تایید خروج</value>
+  </data>
+  <data name="StringManagementPost" xml:space="preserve">
+    <value>پست مدیریتی</value>
+  </data>
+  <data name="StringManagePermission" xml:space="preserve">
+    <value>مدیریت مجوزها</value>
+  </data>
+  <data name="StringMaximumFileSize" xml:space="preserve">
+    <value>حجم فایل برای بارگذاری حداکثر باید {0} کیلوبایت باشد</value>
+  </data>
+  <data name="StringMessageEnterYourMessage" xml:space="preserve">
+    <value>پیام خود را وارد نمایید...</value>
+  </data>
+  <data name="StringModuleName" xml:space="preserve">
+    <value>ماژول</value>
+  </data>
+  <data name="StringName" xml:space="preserve">
+    <value>نام و نام خانوادگی</value>
+  </data>
+  <data name="StringNationalCode" xml:space="preserve">
+    <value>کد ملی</value>
+  </data>
+  <data name="StringNewPassword" xml:space="preserve">
+    <value>گذرواژه جدید</value>
+  </data>
+  <data name="StringNormalizedName" xml:space="preserve">
+    <value>نام عادی</value>
+  </data>
+  <data name="StringNotifications" xml:space="preserve">
+    <value>اطلاعیه</value>
+  </data>
+  <data name="StringNumberOfFiles" xml:space="preserve">
+    <value>تعداد فایل ها</value>
+  </data>
+  <data name="StringOrganizationalChart" xml:space="preserve">
+    <value>چارت سازمانی</value>
+  </data>
+  <data name="StringPageNotExist" xml:space="preserve">
+    <value>صفحه موجود نمی باشد</value>
+  </data>
+  <data name="StringParent" xml:space="preserve">
+    <value>والد</value>
+  </data>
+  <data name="StringPassword" xml:space="preserve">
+    <value>گذرواژه</value>
+  </data>
+  <data name="StringPath" xml:space="preserve">
+    <value>مسیر</value>
+  </data>
+  <data name="StringPermission" xml:space="preserve">
+    <value>مجوزها</value>
+  </data>
+  <data name="StringPersonalCode" xml:space="preserve">
+    <value>شماره پرسنلی</value>
+  </data>
+  <data name="StringPersonalInformation" xml:space="preserve">
+    <value>اطلاعات فردی</value>
+  </data>
+  <data name="StringPersonalPost" xml:space="preserve">
+    <value>پست شخصی</value>
+  </data>
+  <data name="StringPhoneNumber" xml:space="preserve">
+    <value>شماره تلفن</value>
+  </data>
+  <data name="StringPrint" xml:space="preserve">
+    <value>چاپ</value>
+  </data>
+  <data name="StringProcessing" xml:space="preserve">
+    <value>در حال پردازش</value>
+  </data>
+  <data name="StringQuickStartGuide" xml:space="preserve">
+    <value>راهنمای سریع نرم افزار</value>
+  </data>
+  <data name="StringReallyLogout" xml:space="preserve">
+    <value>آیا واقعاً می خواهید از سیستم خارج شوید؟</value>
+  </data>
+  <data name="StringRegister" xml:space="preserve">
+    <value>ثبت نام</value>
+  </data>
+  <data name="StringRegisterhere" xml:space="preserve">
+    <value>اینجا ثبت نام کنید</value>
+  </data>
+  <data name="StringRegistrantName" xml:space="preserve">
+    <value>نام ثبت کننده</value>
+  </data>
+  <data name="StringRegistrationDate" xml:space="preserve">
+    <value>تاریخ ثبت</value>
+  </data>
+  <data name="StringRelease" xml:space="preserve">
+    <value>انتشار</value>
+  </data>
+  <data name="StringReleasedVersions" xml:space="preserve">
+    <value>نسخه های منتشر شده</value>
+  </data>
+  <data name="StringReleaseNoteType" xml:space="preserve">
+    <value>نوع یادداشت انتشار</value>
+  </data>
+  <data name="StringReleaseType" xml:space="preserve">
+    <value>نوع انتشار</value>
+  </data>
+  <data name="StringReload" xml:space="preserve">
+    <value>بازنشانی</value>
+  </data>
+  <data name="StringReports" xml:space="preserve">
+    <value>گزارشات</value>
+  </data>
+  <data name="StringRequired" xml:space="preserve">
+    <value>اجباری</value>
+  </data>
+  <data name="StringResources" xml:space="preserve">
+    <value>منابع</value>
+  </data>
+  <data name="StringRole" xml:space="preserve">
+    <value>نقش </value>
+  </data>
+  <data name="StringSave" xml:space="preserve">
+    <value>ذخیره</value>
+  </data>
+  <data name="StringScroll" xml:space="preserve">
+    <value>طومار</value>
+  </data>
+  <data name="StringSearch" xml:space="preserve">
+    <value>جستجو</value>
+  </data>
+  <data name="StringSelect" xml:space="preserve">
+    <value>انتخاب</value>
+  </data>
+  <data name="StringSelectAll" xml:space="preserve">
+    <value>انتخاب همه</value>
+  </data>
+  <data name="StringSend" xml:space="preserve">
+    <value>ارسال</value>
+  </data>
+  <data name="StringSettings" xml:space="preserve">
+    <value>تنظیمات</value>
+  </data>
+  <data name="StringSignin" xml:space="preserve">
+    <value>ورود</value>
+  </data>
+  <data name="StringSigninDescription" xml:space="preserve">
+    <value>با نام کاربری و گذرواژه وارد سیستم شوید</value>
+  </data>
+  <data name="StringSourceCode" xml:space="preserve">
+    <value>سورس کد</value>
+  </data>
+  <data name="StringStartofProject" xml:space="preserve">
+    <value>آغاز پروژه</value>
+  </data>
+  <data name="StringStatus" xml:space="preserve">
+    <value>وضعیت</value>
+  </data>
+  <data name="StringSummary" xml:space="preserve">
+    <value>خلاصه</value>
+  </data>
+  <data name="StringSupport" xml:space="preserve">
+    <value>پشتیبانی</value>
+  </data>
+  <data name="StringSwagger" xml:space="preserve">
+    <value>Swagger</value>
+  </data>
+  <data name="StringTest" xml:space="preserve">
+    <value>تست</value>
+  </data>
+  <data name="StringTicket" xml:space="preserve">
+    <value>در خواست پشتیبانی</value>
+  </data>
+  <data name="StringTitle" xml:space="preserve">
+    <value>عنوان</value>
+  </data>
+  <data name="StringToggleDarkMode" xml:space="preserve">
+    <value>تغییر حالت تاریک</value>
+  </data>
+  <data name="StringToggleRTL" xml:space="preserve">
+    <value>تغییر وضعیت راست به چپ/چپ به راست </value>
+  </data>
+  <data name="StringType" xml:space="preserve">
+    <value>نوع</value>
+  </data>
+  <data name="StringUnchanged" xml:space="preserve">
+    <value>بدون تغییر</value>
+  </data>
+  <data name="StringUploadFiles" xml:space="preserve">
+    <value>بارگذاری فایل</value>
+  </data>
+  <data name="StringUser" xml:space="preserve">
+    <value>کاربران</value>
+  </data>
+  <data name="StringUserManagement" xml:space="preserve">
+    <value>مدیریت کاربران</value>
+  </data>
+  <data name="StringUserName" xml:space="preserve">
+    <value>نام کاربری</value>
+  </data>
+  <data name="StringUserProfile" xml:space="preserve">
+    <value>مشخصات کاربر</value>
+  </data>
+  <data name="StringUsers" xml:space="preserve">
+    <value>کاربران</value>
+  </data>
+  <data name="StringVersion" xml:space="preserve">
+    <value>نسخه نرم افزار</value>
+  </data>
+  <data name="StringWelcome" xml:space="preserve">
+    <value>خوش آمدید</value>
+  </data>
+  <data name="ValidationAlternateUser" xml:space="preserve">
+    <value>کاربر جانشین نمیتواند با کاربر اقدام کننده یکسان باشد</value>
+  </data>
+  <data name="ValidationInvalidValue" xml:space="preserve">
+    <value>مقدار وارد شده برای فیلد {0} غیر معتبر است</value>
+  </data>
+  <data name="ValidationNotAllowedToSign" xml:space="preserve">
+    <value>دریافت کننده سند مجوز امضا ندارد</value>
+  </data>
+  <data name="ValidationNumberRange" xml:space="preserve">
+    <value>مقدار {0} باید بین {1} و {2} باشد</value>
+  </data>
+  <data name="ValidationPasswordConfirm" xml:space="preserve">
+    <value>رمزهای ورود مطابقت ندارند</value>
+  </data>
+  <data name="ValidationPositiveNumbers" xml:space="preserve">
+    <value>فقط عدد مثبت مجاز است</value>
+  </data>
+  <data name="ValidationReceivingSendingUserCannotBeTheSame" xml:space="preserve">
+    <value>کاربر دریافت کننده و ارسال کننده نمی تواند یکسان باشد</value>
+  </data>
+  <data name="ValidationRequired" xml:space="preserve">
+    <value>فیلد {0} الزامی است</value>
+  </data>
+  <data name="ValidationStringLength" xml:space="preserve">
+    <value>فیلد {0} باید حداکثر {1} و حداقل {2} کاراکتر باشد</value>
+  </data>
+  <data name="ValidationValueValidation" xml:space="preserve">
+    <value>مقدار  {0} باید {1} باشد</value>
+  </data>
+</root>

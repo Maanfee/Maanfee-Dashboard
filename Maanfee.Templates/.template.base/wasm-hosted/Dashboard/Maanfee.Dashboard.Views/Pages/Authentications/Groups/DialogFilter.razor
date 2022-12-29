@@ -1,0 +1,38 @@
+﻿
+<MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
+	<MudDialog>
+		<DialogContent>
+			<MudGrid>
+				<MudItem md="12">
+					<MudTextField @bind-Value="FilterViewModel.Title" Variant="Variant.Outlined"
+								  Adornment="Adornment.Start" AdornmentIcon="@Icons.Filled.Title" Clearable
+								  For="@(() => FilterViewModel.Title)"
+								  Label="@DashboardResource.StringTitle" />
+				</MudItem>
+			</MudGrid>
+		</DialogContent>
+		<DialogActions>
+			<MudButton Color="Color.Surface" OnClick="Search" Variant="Variant.Filled">@DashboardResource.StringSearch</MudButton>
+			<MudButton Color="Color.Primary" OnClick="Close" Variant="Variant.Filled">@DashboardResource.StringCancel</MudButton>
+		</DialogActions>
+	</MudDialog>
+</MudRTLProvider>
+
+@code {
+
+	[CascadingParameter]
+	public MudDialogInstance MudDialog { get; set; }
+
+	private void Close() => MudDialog.Close();
+
+	private async Task Search()
+	{
+		await Task.Delay(100);
+
+		MudDialog.Close(DialogResult.Ok(FilterViewModel));
+	}
+
+	[Parameter]
+	public FilterGroupViewModel FilterViewModel { get; set; } = new();
+
+}

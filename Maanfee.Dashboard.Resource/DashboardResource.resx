@@ -1,0 +1,573 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MessageCannotInsertDuplicate" xml:space="preserve">
+    <value>This item has been already inserted</value>
+  </data>
+  <data name="MessageChangeIsNotPossible" xml:space="preserve">
+    <value>Change is not possible</value>
+  </data>
+  <data name="MessageDeleteConstraint" xml:space="preserve">
+    <value>This data is used elsewhere and cannot be deleted</value>
+  </data>
+  <data name="MessageDeletedSuccessfully" xml:space="preserve">
+    <value>Deleted successfully</value>
+  </data>
+  <data name="MessageDocumentAttachment" xml:space="preserve">
+    <value>Attachment of documentation is mandatory.</value>
+  </data>
+  <data name="MessageFileSizeError" xml:space="preserve">
+    <value>File size is large.The file {0} could not be loaded</value>
+  </data>
+  <data name="MessageInvalidReferralCode" xml:space="preserve">
+    <value>Referral code is not valid</value>
+  </data>
+  <data name="MessageInvalidUsername" xml:space="preserve">
+    <value>Username is invalid,It can only contain letters or digits</value>
+  </data>
+  <data name="MessageItemAlreadyTaken" xml:space="preserve">
+    <value>This username is already taken</value>
+  </data>
+  <data name="MessageMaximumNumberOfFiles" xml:space="preserve">
+    <value>The maximum number of files accepted is 10, but {0} were supplied.you can repeat it again</value>
+  </data>
+  <data name="MessageNoMatchingRecordsFound" xml:space="preserve">
+    <value>No matching records found</value>
+  </data>
+  <data name="MessagePrimaryKeyConstraint" xml:space="preserve">
+    <value>Primary key limitation Please change the code</value>
+  </data>
+  <data name="MessageSavedSuccessfully" xml:space="preserve">
+    <value>Saved successfully</value>
+  </data>
+  <data name="MessageServiceCommunicationError" xml:space="preserve">
+    <value>Communication with the service is not possible</value>
+  </data>
+  <data name="MessageThisItemCouldNoBeASubsetOfItself" xml:space="preserve">
+    <value>This item could not be a subset of itself</value>
+  </data>
+  <data name="MessageUnableToSendRequest" xml:space="preserve">
+    <value>Unable to send request</value>
+  </data>
+  <data name="MessageUserIsNotExsist" xml:space="preserve">
+    <value>User is not exsist</value>
+  </data>
+  <data name="SignalRReceiveChatNotification" xml:space="preserve">
+    <value>A new message has been sent by {0}</value>
+  </data>
+  <data name="StringAbout" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="StringAcceptTerms" xml:space="preserve">
+    <value>I&amp;apos;ve read and accept Terms of Service.</value>
+  </data>
+  <data name="StringAccessDenied" xml:space="preserve">
+    <value>Access denied</value>
+  </data>
+  <data name="StringAccessDenied2" xml:space="preserve">
+    <value>Looks like you don have permission to access this resource</value>
+  </data>
+  <data name="StringAccessDenied3" xml:space="preserve">
+    <value>Reach out your system administrator to gain access</value>
+  </data>
+  <data name="StringAccount" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="StringAction" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="StringAdministrator" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
+  <data name="StringAlert" xml:space="preserve">
+    <value>Alert</value>
+  </data>
+  <data name="StringAlreadyAccount" xml:space="preserve">
+    <value>Already have an account?</value>
+  </data>
+  <data name="StringAreYouSureToDeleteThisItem" xml:space="preserve">
+    <value>Are you sure to delete this item?</value>
+  </data>
+  <data name="StringAuthentication" xml:space="preserve">
+    <value>Authentication</value>
+  </data>
+  <data name="StringAvatar" xml:space="preserve">
+    <value>Avatar</value>
+  </data>
+  <data name="StringBytes" xml:space="preserve">
+    <value>bytes</value>
+  </data>
+  <data name="StringCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="StringChat" xml:space="preserve">
+    <value>Chat</value>
+  </data>
+  <data name="StringChats" xml:space="preserve">
+    <value>گپ</value>
+  </data>
+  <data name="StringCode" xml:space="preserve">
+    <value>کد</value>
+  </data>
+  <data name="StringComment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="StringCommunications" xml:space="preserve">
+    <value>Communications</value>
+  </data>
+  <data name="StringCommunity" xml:space="preserve">
+    <value>Community</value>
+  </data>
+  <data name="StringConfirmation" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="StringConfirmNewPassword" xml:space="preserve">
+    <value>Confirm new password</value>
+  </data>
+  <data name="StringConfirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="StringCreate" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="StringDashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="StringDatabase" xml:space="preserve">
+    <value>Database</value>
+  </data>
+  <data name="StringDate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="StringDelete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="StringDense" xml:space="preserve">
+    <value>Dense</value>
+  </data>
+  <data name="StringDepartment" xml:space="preserve">
+    <value>Department</value>
+  </data>
+  <data name="StringDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="StringDetails" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="StringDiagram" xml:space="preserve">
+    <value>Diagram</value>
+  </data>
+  <data name="StringDocuments" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="StringDontAccount" xml:space="preserve">
+    <value>Don't have an account?</value>
+  </data>
+  <data name="StringdotNet" xml:space="preserve">
+    <value>.Net</value>
+  </data>
+  <data name="StringEdit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="StringError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="StringFatherName" xml:space="preserve">
+    <value>Father's Name</value>
+  </data>
+  <data name="StringFile" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="StringFirstName" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="StringFixedHeader" xml:space="preserve">
+    <value>Fixed header</value>
+  </data>
+  <data name="StringForgotPassword" xml:space="preserve">
+    <value>Forgot password?</value>
+  </data>
+  <data name="StringFramework" xml:space="preserve">
+    <value>Framework</value>
+  </data>
+  <data name="StringGender" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="StringGroup" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="StringHasChanged" xml:space="preserve">
+    <value>Has changed</value>
+  </data>
+  <data name="StringImage" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="StringIsActive" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="StringLastName" xml:space="preserve">
+    <value>Last name</value>
+  </data>
+  <data name="StringList" xml:space="preserve">
+    <value>List</value>
+  </data>
+  <data name="StringLoading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="StringLogout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="StringLogoutConfirmation" xml:space="preserve">
+    <value>Logout confirmation</value>
+  </data>
+  <data name="StringManagementPost" xml:space="preserve">
+    <value>Management post</value>
+  </data>
+  <data name="StringManagePermission" xml:space="preserve">
+    <value>Manage permission</value>
+  </data>
+  <data name="StringMaximumFileSize" xml:space="preserve">
+    <value>The maximum file size for uploading should be {0} KB</value>
+  </data>
+  <data name="StringMessageEnterYourMessage" xml:space="preserve">
+    <value>Enter your message...</value>
+  </data>
+  <data name="StringModuleName" xml:space="preserve">
+    <value>Module</value>
+  </data>
+  <data name="StringName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="StringNationalCode" xml:space="preserve">
+    <value>National/Passport code</value>
+  </data>
+  <data name="StringNewPassword" xml:space="preserve">
+    <value>New password</value>
+  </data>
+  <data name="StringNormalizedName" xml:space="preserve">
+    <value>Normalized name</value>
+  </data>
+  <data name="StringNotifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="StringNumberOfFiles" xml:space="preserve">
+    <value>File(s)</value>
+  </data>
+  <data name="StringOrganizationalChart" xml:space="preserve">
+    <value>Organizational chart</value>
+  </data>
+  <data name="StringPageNotExist" xml:space="preserve">
+    <value>Page not found.</value>
+  </data>
+  <data name="StringParent" xml:space="preserve">
+    <value>Parent</value>
+  </data>
+  <data name="StringPassword" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="StringPath" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="StringPermission" xml:space="preserve">
+    <value>Permission</value>
+  </data>
+  <data name="StringPersonalCode" xml:space="preserve">
+    <value>Personal code</value>
+  </data>
+  <data name="StringPersonalInformation" xml:space="preserve">
+    <value>Personal information</value>
+  </data>
+  <data name="StringPersonalPost" xml:space="preserve">
+    <value>Personal post</value>
+  </data>
+  <data name="StringPhoneNumber" xml:space="preserve">
+    <value>Phone number</value>
+  </data>
+  <data name="StringPrint" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="StringProcessing" xml:space="preserve">
+    <value>Processing</value>
+  </data>
+  <data name="StringQuickStartGuide" xml:space="preserve">
+    <value>Quick-Start guide</value>
+  </data>
+  <data name="StringReallyLogout" xml:space="preserve">
+    <value>Do you really want to Logout?</value>
+  </data>
+  <data name="StringRegister" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="StringRegisterHere" xml:space="preserve">
+    <value>Register here</value>
+  </data>
+  <data name="StringRegistrantName" xml:space="preserve">
+    <value>Registrant name</value>
+  </data>
+  <data name="StringRegistrationDate" xml:space="preserve">
+    <value>Registration date</value>
+  </data>
+  <data name="StringRelease" xml:space="preserve">
+    <value>Release</value>
+  </data>
+  <data name="StringReleasedVersions" xml:space="preserve">
+    <value>Released versions</value>
+  </data>
+  <data name="StringReleaseNoteType" xml:space="preserve">
+    <value>Release note type</value>
+  </data>
+  <data name="StringReleaseType" xml:space="preserve">
+    <value>Release type</value>
+  </data>
+  <data name="StringReload" xml:space="preserve">
+    <value>Reload</value>
+  </data>
+  <data name="StringReports" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="StringRequired" xml:space="preserve">
+    <value>Required</value>
+  </data>
+  <data name="StringResources" xml:space="preserve">
+    <value>Resources</value>
+  </data>
+  <data name="StringRole" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="StringSave" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="StringScroll" xml:space="preserve">
+    <value>Scroll</value>
+  </data>
+  <data name="StringSearch" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="StringSelect" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="StringSelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="StringSend" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="StringSettings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="StringSignin" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="StringSigninDescription" xml:space="preserve">
+    <value>Login with your credentials</value>
+  </data>
+  <data name="StringSourceCode" xml:space="preserve">
+    <value>Source code</value>
+  </data>
+  <data name="StringStartofProject" xml:space="preserve">
+    <value>Start of project</value>
+  </data>
+  <data name="StringStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="StringSummary" xml:space="preserve">
+    <value>Summary</value>
+  </data>
+  <data name="StringSupport" xml:space="preserve">
+    <value>Support</value>
+  </data>
+  <data name="StringSwagger" xml:space="preserve">
+    <value>Swagger</value>
+  </data>
+  <data name="StringTest" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="StringTicket" xml:space="preserve">
+    <value>Ticket</value>
+  </data>
+  <data name="StringTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="StringToggleDarkMode" xml:space="preserve">
+    <value>Toggle dark mode</value>
+  </data>
+  <data name="StringToggleRTL" xml:space="preserve">
+    <value>Toggle right-to-left/left-to-right</value>
+  </data>
+  <data name="StringType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="StringUnchanged" xml:space="preserve">
+    <value>Unchanged</value>
+  </data>
+  <data name="StringUploadFiles" xml:space="preserve">
+    <value>Upload files</value>
+  </data>
+  <data name="StringUser" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="StringUserManagement" xml:space="preserve">
+    <value>Users management</value>
+  </data>
+  <data name="StringUserName" xml:space="preserve">
+    <value>User name</value>
+  </data>
+  <data name="StringUserProfile" xml:space="preserve">
+    <value>User profile</value>
+  </data>
+  <data name="StringUsers" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="StringVersion" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="StringWelcome" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="ValidationAlternateUser" xml:space="preserve">
+    <value>The alternate user cannot be the same as the acting user</value>
+  </data>
+  <data name="ValidationInvalidValue" xml:space="preserve">
+    <value>The value entered for field {0} is invalid</value>
+  </data>
+  <data name="ValidationNotAllowedToSign" xml:space="preserve">
+    <value>The recipient of the document is not allowed to sign</value>
+  </data>
+  <data name="ValidationNumberRange" xml:space="preserve">
+    <value>Value for {0} must be between {1} and {2}.</value>
+  </data>
+  <data name="ValidationPasswordConfirm" xml:space="preserve">
+    <value>Passwords do not match!</value>
+  </data>
+  <data name="ValidationPositiveNumbers" xml:space="preserve">
+    <value>Only positive numbers are allowed</value>
+  </data>
+  <data name="ValidationReceivingSendingUserCannotBeTheSame" xml:space="preserve">
+    <value>The receiving and sending user cannot be the same</value>
+  </data>
+  <data name="ValidationRequired" xml:space="preserve">
+    <value>The {0} field is required.</value>
+  </data>
+  <data name="ValidationStringLength" xml:space="preserve">
+    <value>The {0} must be {1} at least {2} characters long.</value>
+  </data>
+  <data name="ValidationValueValidation" xml:space="preserve">
+    <value>The {0} value must be {1}</value>
+  </data>
+</root>

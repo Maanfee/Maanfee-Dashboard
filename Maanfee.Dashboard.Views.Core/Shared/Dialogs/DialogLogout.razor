@@ -1,0 +1,44 @@
+﻿@*@inherits SharedLayout*@
+
+<MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
+	<MudDialog>
+		<TitleContent>
+			<MudText Typo="Typo.h6">
+				<MudIcon Icon="@Icons.Material.Filled.Logout" Class="mr-3 mb-n1" />
+				@DashboardResource.StringLogoutConfirmation
+			</MudText>
+		</TitleContent>
+		<DialogContent>
+			<MudText>@ContentText</MudText>
+		</DialogContent>
+		<DialogActions>
+			<MudButton OnClick="Cancel">
+				@DashboardResource.StringCancel
+			</MudButton>
+			<MudButton Color="@SubmitButtonColor" Variant="Variant.Filled" OnClick="Submit">
+				@DashboardResource.StringLogout
+			</MudButton>
+		</DialogActions>
+	</MudDialog>
+</MudRTLProvider>
+
+@code {
+
+	[CascadingParameter]
+	MudDialogInstance MudDialog { get; set; }
+
+	[Parameter]
+	public string ContentText { get; set; }
+
+	[Parameter]
+	public Color SubmitButtonColor { get; set; }
+
+	async Task Submit()
+	{
+		await AuthenticationStateProvider.Logout();
+		Navigation.NavigateTo("/login");
+		MudDialog.Close(DialogResult.Ok(true));
+	}
+
+	void Cancel() => MudDialog.Cancel();
+}

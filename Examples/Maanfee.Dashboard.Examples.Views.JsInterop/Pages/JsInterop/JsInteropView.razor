@@ -1,0 +1,74 @@
+﻿@page "/JsInterop/JsInteropView"
+@implements IDisposable
+
+<MudGrid>
+	<MudItem md="12">
+		<MudText id="DIV" Typo="Typo.h6" Align="Align.Center" Color="Color.Surface">h6. Heading</MudText>
+	</MudItem>
+	<MudItem md="12">
+		@Result
+	</MudItem>
+	<MudItem md="12">
+		@Exception
+	</MudItem>
+	<MudItem md="4">
+		<MudButton id="MudButton" OnClick="ClickAsync" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Secondary">Secondary</MudButton>
+	</MudItem>
+	<MudItem md="4">
+		<MudText Align="Align.Center">
+			@MudText
+		</MudText>
+	</MudItem>
+</MudGrid>
+
+@code {
+
+	protected override async Task OnInitializedAsync()
+	{
+		await Task.Delay(1000);
+
+		//Result = await Document.SelectById("DIV").Text();
+	}
+
+	private string Result = "Result";
+	private string Exception = "AAAAAAAAAAAAA";
+	private string MudText = "MudText";
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		try
+		{
+			await Dom.QuerySelector("#DIV").TextAsync("KI")
+				.AddEventListenerAsync("click", async x =>
+			{
+				await Task.Delay(100);
+				Result = "EVENT";
+
+				await Dom.QuerySelector("#MudButton").OnClickAsync();
+
+				StateHasChanged();
+			})
+			;
+			//Result = await Dom.QuerySelector("#DIV").TextAsync();
+		}
+		catch (Exception ex)
+		{
+			Exception = ex.ToString();
+		}
+	}
+
+	public async void Dispose() => await Dom.DisposeAsync();
+
+	private async Task ClickAsync()
+	{
+		MudText += " Clicked";
+		await Task.Delay(100);
+	}
+
+}
+
+
+                https://github.com/kevinjpetersen/BlazorQuery
+                https://github.com/XiaoHeitu/XQuery
+                https://github.com/RemiBou/BrowserInterop
+                https://github.com/search?p=2&q=blazor+javascript&type=Repositories

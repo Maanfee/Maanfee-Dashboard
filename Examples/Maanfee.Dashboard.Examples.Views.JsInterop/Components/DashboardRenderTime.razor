@@ -1,0 +1,76 @@
+﻿@using System.Diagnostics;
+
+@if (IsDisplayAsChip)
+{
+	<MudChip Icon="@Icons.Material.Filled.Alarm" Color="Color.Error" Class="mt-1" Style="font-size:10px;">
+		@($"{StringMinute}:{StringSecond}:{StringMiliSecond}")
+	</MudChip>
+}
+else
+{
+	<div class="mt-1" style="font-size:10px; color:silver;">
+		Rendered in @RenderTimeMs ms
+	</div>
+}
+
+@code {
+
+	[Parameter] public bool IsDisplayAsChip { get; set; }
+	[CascadingParameter] public DashboardPage DashboardPage { get; set; }
+
+	private double RenderTimeMs;
+	private string StringMinute = "0";
+	private string StringSecond = "00";
+	private string StringMiliSecond = "000";
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+		if (DashboardPage != null)
+			DashboardPage.Rendered += OnDocsPageRendered;
+	}
+
+	private void OnDocsPageRendered(Stopwatch stopwatch)
+	{
+		RenderTimeMs = stopwatch.ElapsedMilliseconds;
+
+		if (stopwatch.ElapsedMilliseconds < 10)
+		{
+			StringMiliSecond = $"0{stopwatch.ElapsedMilliseconds}";
+		}
+		else if (stopwatch.ElapsedMilliseconds < 100)
+		{
+			StringMiliSecond = $"00{stopwatch.ElapsedMilliseconds}";
+		}
+		else
+		{
+			StringMiliSecond = stopwatch.ElapsedMilliseconds.ToString();
+		}
+
+		int Second = (int)(RenderTimeMs / 1000);
+
+		if (Second < 10)
+		{
+			StringSecond = $"0{Second}";
+		}
+		else
+		{
+			StringSecond = Second.ToString();
+		}
+
+		int Minute = (int)(RenderTimeMs / 60000);
+
+		if (Minute < 10)
+		{
+			StringMinute = $"0{Minute}";
+		}
+		else
+		{
+			StringMinute = Minute.ToString();
+		}
+
+		//Console.WriteLine($"### {NavMan.ToBaseRelativePath(NavMan.Uri)} rendered in {_renderMs}ms");
+		StateHasChanged();
+	}
+
+}

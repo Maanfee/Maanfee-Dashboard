@@ -1,0 +1,27 @@
+﻿
+<MudCard>
+    <MudCardHeader>
+        <MudText Color="Color.Error">@Title</MudText>
+    </MudCardHeader>
+    <MudDivider DividerType="DividerType.FullWidth" />
+    <MudCardContent> 
+        <MudGrid>
+            <MudItem xs="12" sm="6" md="6">
+                <MudField Disabled="true" Label="@DashboardResource.StringRole" Variant="Variant.Outlined">
+                    @Model.Name
+                </MudField>
+            </MudItem>
+            <MudItem xs="12" sm="6" md="6">
+                <MudField Disabled="true" Label="@DashboardResource.StringNormalizedName" Variant="Variant.Outlined">
+                    @Model.NormalizedName
+                </MudField>
+            </MudItem>
+        </MudGrid>
+    </MudCardContent>
+</MudCard>
+
+@code
+{
+    [Parameter] public string Title { get; set; }
+    [Parameter] public IdentityRole Model { get; set; } = new();
+}

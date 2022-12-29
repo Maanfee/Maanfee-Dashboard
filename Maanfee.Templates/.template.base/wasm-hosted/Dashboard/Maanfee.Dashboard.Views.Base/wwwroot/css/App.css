@@ -1,0 +1,45 @@
+﻿
+.mud-table {
+    width: 100%;
+}
+
+.column-1x {
+    width: 45px;
+}
+
+.column-2x {
+    width: 90px;
+}
+
+.column-3x {
+    width: 120px;
+}
+
+.column-4x {
+    width: 150px;
+}
+
+.column-5x {
+    width: 180px;
+}
+
+.column-6x {
+    width: 210px;
+}
+
+/* ***************************************** */
+
+.text-small-1x {
+    font-size: .71rem;
+}
+
+.text-small-2x {
+    font-size: .61rem;
+}
+
+/* ***************************************** */
+
+.ActionColor {
+    background-color: #fff8e9;
+    border-color: #ffcd65";
+}

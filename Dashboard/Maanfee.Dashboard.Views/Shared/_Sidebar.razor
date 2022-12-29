@@ -1,0 +1,126 @@
+﻿@*@inherits AdminLayout*@
+
+<ComponentsUserCard />
+<MudNavMenu>
+	<MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.Dashboard">
+		@DashboardResource.StringDashboard
+	</MudNavLink>
+
+	@if (AccountStateContainer.IdPersonalUserDepartments.Any() || AccountStateContainer.IdManagementUserDepartments.Any())
+	{
+		@*<Maanfee.Dashboard.Messaging.Views._Sidebar />
+	<Ashna.Attendance.Views._Sidebar />*@
+	}
+
+	@*<AuthorizeView Roles=@($"{SystemAccessDefaultValue.AccessDeveloper} {SystemAccessDefaultValue.AccessSupervisor} {SystemAccessDefaultValue.AccessAdmin}")>
+	<Authorized>*@
+
+	<MudListSubheader Class="mt-2 mb-n2">
+		@DashboardResource.StringCommunications
+	</MudListSubheader>
+	<MudNavGroup Title="@DashboardResource.StringCommunications" Icon="@Icons.Filled.Chat" ExpandIcon="@Icons.Material.Filled.ExpandMore">
+		<MudNavLink Href="/chat">
+			@DashboardResource.StringChat
+		</MudNavLink>
+	</MudNavGroup>
+
+	@if (_PermissionDepartments || _PermissionRoles || _PermissionUsers || _PermissionGroups)
+	{
+		<MudListSubheader Class="mt-2 mb-n2">
+			@DashboardResource.StringAdministrator
+		</MudListSubheader>
+		<MudNavGroup Title="@DashboardResource.StringUserManagement" Icon="@Icons.Material.Outlined.SupervisorAccount" ExpandIcon="@Icons.Material.Filled.ExpandMore">
+			@if (_PermissionRoles)
+			{
+				<MudNavLink Href="/Roles/IndexView">
+					@DashboardResource.StringRole
+				</MudNavLink>
+			}
+			@if (_PermissionDepartments)
+			{
+				<MudNavLink Href="/Departments/DepartmentView">
+					@DashboardResource.StringDepartment
+				</MudNavLink>
+			}
+			@if (_PermissionGroups)
+			{
+				<MudNavLink Href="/Groups/GroupView">
+					@DashboardResource.StringGroup
+				</MudNavLink>
+			}
+			@if (_PermissionUsers)
+			{
+				<MudNavLink Href="/Users/IndexView">
+					@DashboardResource.StringUser
+				</MudNavLink>
+			}
+		</MudNavGroup>
+	}
+
+	@if (_PermissionSettings)
+	{
+		<MudNavGroup Title="@DashboardResource.StringSettings" Icon="@Icons.Material.Filled.Handyman" ExpandIcon="@Icons.Material.Filled.ExpandMore">
+			@if (_PermissionSettings)
+			{
+				<MudNavLink Href="/Settings/SettingsView">
+					@DashboardResource.StringSettings
+				</MudNavLink>
+			}
+			@if (_PermissionSystemRelease)
+			{
+				<MudNavLink Href="/SystemReleases/IndexView">
+					@DashboardResource.StringRelease
+				</MudNavLink>
+			}
+		</MudNavGroup>
+	}
+
+	@if (_PermissionPublicSwagger)
+	{
+		<MudNavGroup Title="@DashboardResource.StringAbout" Icon="@Icons.Material.Filled.Feed" ExpandIcon="@Icons.Material.Filled.ExpandMore">
+			<MudNavLink Href="/About/VersionView">
+				@DashboardResource.StringVersion
+			</MudNavLink>
+
+			<MudNavLink Href="/swagger/index.html" Target="_blank">
+				@DashboardResource.StringSwagger
+			</MudNavLink>
+
+			@*   <MudNavLink Href="fetchdata">
+		تست
+		</MudNavLink>*@
+		</MudNavGroup>
+	}
+
+	<Maanfee.Dashboard.Examples.Views._Sidebar />
+	<Maanfee.Dashboard.Examples.Views.JsInterop._Sidebar />
+
+</MudNavMenu>
+
+@code {
+
+	[CascadingParameter]
+	private Task<AuthenticationState> PermissionAuthenticationState { get; set; }
+
+	private bool _PermissionSettings = false;
+	private bool _PermissionRoles = false;
+	private bool _PermissionDepartments = false;
+	private bool _PermissionGroups = false;
+	private bool _PermissionUsers = false;
+	private bool _PermissionPublicSwagger = false;
+	private bool _PermissionSystemRelease = false;
+
+	protected override async Task OnParametersSetAsync()
+	{
+		var PermissionCurrentUser = (await PermissionAuthenticationState).User;
+
+		_PermissionRoles = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.View)).Succeeded;
+		_PermissionDepartments = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Department.View)).Succeeded;
+		_PermissionGroups = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Group.View)).Succeeded;
+		_PermissionUsers = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.User.View)).Succeeded;
+		_PermissionSettings = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Setting.View)).Succeeded;
+		_PermissionPublicSwagger = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Swaggers.View)).Succeeded;
+		_PermissionSystemRelease = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.SystemRelease.View)).Succeeded;
+	}
+
+}

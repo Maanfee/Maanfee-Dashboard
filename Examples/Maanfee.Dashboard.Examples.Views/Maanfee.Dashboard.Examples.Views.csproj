@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<TieredPGO>true</TieredPGO>
+		<!--**********************************************-->
+		<DebugType>none</DebugType>
+		<RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+		<RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
+		<RunAnalyzers>false</RunAnalyzers>
+		<!--**********************************************-->
+		<NoWarn>0108</NoWarn>
+	</PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Dashboard\Maanfee.Dashboard.Views.Base\Maanfee.Dashboard.Views.Base.csproj" />
+  </ItemGroup>
+
+</Project>

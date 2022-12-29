@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<TieredPGO>true</TieredPGO>
+		<!--**********************************************-->
+		<DebugType>none</DebugType>
+		<RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+		<RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
+		<RunAnalyzers>false</RunAnalyzers>
+		<!--**********************************************-->
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Copyright>Copyright (c) 2021-2022 Maanfee</Copyright>
+		<Authors>Maanfee Team (MF)</Authors>
+		<Company>Maanfee</Company>
+		<Version>6.13.14</Version>
+		<PackageIcon>MaanfeeRed.png</PackageIcon>
+		<!--**********************************************-->
+	    <NoWarn>0108</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Update="MaanfeeRed.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.1" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Localization" Version="2.2.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
+		<PackageReference Include="System.Net.Http.Json" Version="7.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Maanfee.Dashboard.Domain\Maanfee.Dashboard.Domain.csproj" />
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,302 @@
+﻿
+.magazine-viewport {
+    position: absolute !important;
+    top: 0% !important;
+}
+
+.magazine {
+    position: absolute !important;
+    margin: auto;
+    left: 17% !important;
+    top: 3% !important;
+}
+
+.magazine-viewport .page {
+    background-color: white;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.magazine-viewport .zoomer .region {
+    display: none;
+}
+
+.magazine .region {
+    position: absolute;
+    overflow: hidden;
+    background: #0066FF;
+    opacity: 0.2;
+    border-radius: 10px;
+    cursor: pointer;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+    filter: alpha(opacity=20);
+}
+
+    .magazine .region:hover {
+        opacity: 0.5;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+        filter: alpha(opacity=50);
+    }
+
+    .magazine .region.zoom {
+        opacity: 0.01;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=1)";
+        filter: alpha(opacity=1);
+    }
+
+        .magazine .region.zoom:hover {
+            opacity: 0.2;
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+            filter: alpha(opacity=20);
+        }
+
+.magazine .page {
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+.magazine-viewport .page img {
+    -webkit-touch-callout: none;
+    user-select: none;
+    margin: 0;
+}
+
+.magazine .even .gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: -webkit-gradient(linear, left top, right top, color-stop(0.95, rgba(0,0,0,0)), color-stop(1, rgba(0,0,0,0.2)));
+    background-image: linear-gradient(left, rgba(0,0,0,0) 95%, rgba(0,0,0,0.2) 100%);
+}
+
+.magazine .odd .gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: -webkit-gradient(linear, right top, left top, color-stop(0.95, rgba(0,0,0,0)), color-stop(1, rgba(0,0,0,0.15)));
+    background-image: linear-gradient(right, rgba(0,0,0,0) 95%, rgba(0,0,0,0.15) 100%);
+}
+
+.magazine-viewport .zoom-in .even .gradient,
+.magazine-viewport .zoom-in .odd .gradient {
+    display: none;
+}
+
+.magazine-viewport .loader {
+    background-image: url(loader.gif);
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    top: 280px;
+    left: 219px;
+}
+
+.magazine-viewport .shadow {
+    transition: box-shadow 0.5s;
+    box-shadow: 0 0 20px #ccc;
+}
+
+/* ************* Buttons ************* */
+.magazine-viewport .next-button,
+.magazine-viewport .previous-button {
+    width: 22px;
+    height: 580px;
+    position: absolute;
+    top: 0;
+}
+
+.magazine-viewport .next-button {
+    right: -22px;
+    border-radius: 0 15px 15px 0;
+}
+
+.magazine-viewport .previous-button {
+    left: -22px;
+    border-radius: 15px 0 0 15px;
+}
+
+.magazine-viewport .previous-button-hover,
+.magazine-viewport .next-button-hover {
+    background-color: rgba(0,0,0, 0.2);
+}
+
+.magazine-viewport .previous-button-hover,
+.magazine-viewport .previous-button-down {
+    background-image: url(arrows.png);
+    background-position: -4px 284px;
+    background-repeat: no-repeat;
+}
+
+.magazine-viewport .previous-button-down,
+.magazine-viewport .next-button-down {
+    background-color: rgba(0,0,0, 0.4);
+}
+
+.magazine-viewport .next-button-hover,
+.magazine-viewport .next-button-down {
+    background-image: url(arrows.png);
+    background-position: -38px 284px;
+    background-repeat: no-repeat;
+}
+
+.magazine-viewport .zoom-in .next-button,
+.magazine-viewport .zoom-in .previous-button {
+    display: none;
+}
+
+.animated {
+    transition: margin-left 0.5s;
+}
+
+/**********************************************************/
+
+.exit-message {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    z-index: 10000;
+}
+
+    .exit-message > div {
+        width: 140px;
+        height: 30px;
+        margin: auto;
+        background: rgba(0,0,0,0.5);
+        text-align: center;
+        font: 12px arial;
+        line-height: 30px;
+        color: white;
+        border-radius: 10px;
+    }
+
+.zoom-icon {
+    position: absolute;
+    z-index: 1000;
+    width: 22px;
+    height: 22px;
+    top: 15px;
+    right: 80px;
+    background-image: url(zoom-icons.png);
+    background-size: 88px 22px;
+}
+
+.zoom-icon-in {
+    background-position: 0 0;
+    cursor: pointer;
+}
+
+    .zoom-icon-in.zoom-icon-in-hover {
+        background-position: -22px 0;
+        cursor: pointer;
+    }
+
+.zoom-icon-out {
+    background-position: -44px 0;
+}
+
+    .zoom-icon-out.zoom-icon-out-hover {
+        background-position: -66px 0;
+        cursor: pointer;
+    }
+
+/**********************************************************/
+
+.magazine .hard {
+    background: #ccc !important;
+    color: #333;
+    box-shadow: inset 0 0 5px #666;
+    font-weight: bold;
+}
+
+.magazine .hardBackCoverFirst {
+    background-image: url('BackCoverFirst.png');
+}
+
+.magazine .hardBackCoverLast {
+    background-image: url('BackCoverLast.png');
+}
+
+.magazine .hardCoverLast {
+    background-image: url('CoverLast.png');
+}
+
+.magazine .hardCoverFirst {
+    color: #333;
+    box-shadow: inset 0 0 5px #666;
+    font-weight: bold;
+    background-image: url('CoverFirst.png');
+}
+
+.magazine .odd {
+    background-image: linear-gradient(right, #FFF 95%, #C4C4C4 100%);
+    box-shadow: inset 0 0 5px #666;
+}
+
+.magazine .even {
+    background-image: linear-gradient(left, #fff 95%, #dadada 100%);
+    box-shadow: inset 0 0 5px #666;
+}
+
+/***********************************************************************/
+
+.magazine .page .page-title {
+    color: #555555;
+    width: 100%;
+    top: 25px;
+    position: absolute;
+    display: block;
+    text-align: center;
+    line-height: 35px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.magazine .page .book-content {
+    margin: 70px 40px !important;
+}
+
+.magazine .page .page-number {
+    color: #999;
+    width: 100%;
+    bottom: 25px;
+    position: absolute;
+    display: block;
+    text-align: center;
+    line-height: 30px;
+    font-size: 11px;
+}
+
+/* ************************* Table of Contents *********************** */
+
+.list li {
+    overflow: hidden;
+    width: 100%;
+}
+
+    .list li:after {
+        content: ". . . . . . . . . . . . . . . . . . . . "". . . . . . . . . . . . . . . . . . . . "". . . . . . . . . . . . . . . . . . . . "". . . . . . . . . . . . . . . . . . . . ";
+        text-indent: -1px;
+        display: block;
+        z-index: -1;
+        white-space: nowrap;
+        float: left;
+        width: 0;
+    }
+
+    .list li span {
+        display: inline-block;
+        background-color: #FFF;
+        padding-right: 5px;
+    }
+
+    .list li .number {
+        float: left;
+        padding-right: 5px;
+    }
+
+/***********************************************************************/

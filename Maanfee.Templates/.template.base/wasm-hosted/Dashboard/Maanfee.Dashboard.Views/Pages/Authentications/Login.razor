@@ -1,0 +1,62 @@
+﻿@page "/login"
+@layout MainLayout
+@attribute [AllowAnonymous]
+
+<EditForm OnValidSubmit="OnSubmit" Model="LoginViewModelSubmit">
+	<DataAnnotationsValidator />
+	<MudGrid>
+		<MudItem xs="12">
+			<MudGrid>
+				<MudItem xs="4">
+					<LanguageSelector />
+				</MudItem>
+				<MudItem xs="4">
+					<div class="d-flex justify-center">
+						@* <MudIcon Icon="@CustomIcons.BlazorHero" Color="Color.Primary" Size="Size.Large" ViewBox="0 0 500 500" Style="width: 100px; height: 100px;" /> *@
+						<MudIcon Icon="@Icons.Material.Filled.Fingerprint" Size="Size.Large"
+								 Color="Color.Error" Title="@DashboardResource.StringSignin" />
+					</div>
+				</MudItem>
+				<MudItem xs="4">
+
+				</MudItem>
+			</MudGrid>
+		</MudItem>
+		<MudItem xs="12">
+			<MudText Align="Align.Center" Typo="Typo.h4">
+				@DashboardResource.StringSignin
+			</MudText>
+		</MudItem>
+		<MudItem xs="12">
+			<MudText Align="Align.Center">@DashboardResource.StringSigninDescription</MudText>
+		</MudItem>
+		@* <MudItem xs="12">
+			<div class="d-flex justify-center">
+			<MudText>
+			@AppResource.StringDontAccount
+			<MudLink Href="/register">@AppResource.StringRegisterhere</MudLink>
+			</MudText>
+			</div>
+			</MudItem>*@
+		<MudItem xs="12">
+			<MudTextField T="string" Label="@DashboardResource.StringUserName" Variant="Variant.Outlined"
+						  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Person"
+						  @bind-Value="LoginViewModelSubmit.UserName" For="@(() => LoginViewModelSubmit.UserName)" />
+		</MudItem>
+		<MudItem xs="12">
+			<MudTextField Label="@DashboardResource.StringPassword" Variant="Variant.Outlined"
+						  @bind-Value="LoginViewModelSubmit.Password" For="@(() => LoginViewModelSubmit.Password)"
+						  InputType="@_passwordInput" Adornment="Adornment.End" AdornmentIcon="@_passwordInputIcon"
+						  OnAdornmentClick="TogglePasswordVisibility" />
+		</MudItem>
+		<MudItem xs="12" Class="d-flex justify-space-between align-center">
+			@* <MudLink Href="/recover">@AppResource.StringForgotPassword</MudLink> *@
+		</MudItem>
+		<MudItem xs="12" Class="d-flex justify-center">
+			<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" Style="width: 100%;">
+				@DashboardResource.StringSignin
+				<MudIcon Icon="@Icons.Material.Filled.Fingerprint" />
+			</MudButton>
+		</MudItem>
+	</MudGrid>
+</EditForm>

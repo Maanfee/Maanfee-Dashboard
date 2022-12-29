@@ -1,0 +1,67 @@
+﻿@implements IDisposable
+
+<style>
+	.mystyle1 {
+		width: 100%;
+		padding: 15px;
+		color: white;
+		font-size: 25px;
+		box-sizing: border-box;
+	}
+
+	.mystyle2 {
+		color: black;
+		background-color: coral;
+	}
+
+	.mystyle3 {
+		color: gray;
+		background-color: greenyellow;
+	}
+</style>
+
+<MudGrid>
+	<MudItem md="12">
+		<MudText class="intro" Typo="Typo.h6" Align="Align.Center" Color="Color.Surface">Welcome to My Homepage.</MudText>
+		<MudText Typo="Typo.h6" Align="Align.Center" Color="Color.Surface">I live in Duckburg.</MudText>
+		<MudText class="intro" Typo="Typo.h6" Align="Align.Center" Color="Color.Surface">My name is Dolly.</MudText>
+		<MudText Typo="Typo.h6" Align="Align.Center" Color="Color.Surface">I live in Duckburg.</MudText>
+	</MudItem>
+	<MudItem md="12">
+		@string.Join(", ", Result)
+	</MudItem>
+</MudGrid>
+
+@code {
+
+	private List<string> Result = new();
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			try
+			{
+				await Task.Delay(1000);
+
+				await Dom.QuerySelectorAll(".intro").AddClassAsync("mystyle1 mystyle2");
+
+				await Task.Delay(1000);
+
+				await Dom.QuerySelectorAll(".intro").AddClassAsync("mystyle3");
+
+				await Task.Delay(1000);
+
+				Result = await Dom.QuerySelectorAll(".intro").AddClassAsync();
+
+				StateHasChanged();
+			}
+			catch (Exception ex)
+			{
+				Snackbar.Add($"{DashboardResource.StringError} : {ex.ToString()}", Severity.Error);
+			}
+		}
+	}
+
+	public async void Dispose() => await Dom.DisposeAsync();
+}

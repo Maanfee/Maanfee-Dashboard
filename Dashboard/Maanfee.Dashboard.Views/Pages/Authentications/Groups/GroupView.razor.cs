@@ -1,0 +1,241 @@
+﻿using Maanfee.Dashboard.Core;
+using Maanfee.Dashboard.Domain.ViewModels;
+using Maanfee.Dashboard.Resources;
+using Maanfee.Dashboard.Views.Base.Services;
+using Maanfee.Dashboard.Views.Base;
+using Maanfee.Web.Core;
+using Microsoft.AspNetCore.Authorization;
+using MudBlazor;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
+using System;
+using FilterViewModel = Maanfee.Dashboard.Domain.ViewModels.FilterGroupViewModel;
+using TableViewModel = Maanfee.Dashboard.Domain.ViewModels.GetGroupViewModel;
+using System.Linq;
+using Maanfee.Dashboard.Domain.Entities;
+using static MudBlazor.CategoryTypes;
+using Maanfee.Dashboard.Views.Core.Shared.Dialogs;
+
+namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
+{
+    public partial class GroupView
+    {
+        private IEnumerable<TableViewModel> Data = new List<TableViewModel>();
+        private MudTable<TableViewModel> Table = new();
+        private TableStateViewModel<FilterViewModel> TableState = new();
+
+        protected override async Task OnInitializedAsync()
+        {
+            await base.OnInitializedAsync();
+
+            try
+            {
+                await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.Group.View, PermissionAuthenticationState,
+                    AuthorizationService, Navigation);
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+            }
+        }
+
+        private async Task<TableData<TableViewModel>> ServerData(TableState state)
+        {
+            try
+            {
+                state.Page++;
+
+                if (state.PageSize == 0)
+                {
+                    state.PageSize = 10;
+                }
+
+                TableState.state = state;
+                TableState.UserName = AccountStateContainer.UserName;
+                if (FilterViewModel != null)
+                {
+                    TableState.Filter = FilterViewModel;
+                }
+
+                var PostResult = await Http.PostAsJsonAsync($"api/Groups/PaginationIndex", TableState);
+                if (PostResult.IsSuccessStatusCode)
+                {
+                    var stringcallback = await PostResult.Content.ReadAsStringAsync();
+                    var JObjectData = Newtonsoft.Json.Linq.JObject.Parse(stringcallback);
+
+                    var List = JsonConvert.DeserializeObject<List<Group>>(JObjectData["data"]?["list"]?.ToString());
+                    int TotalItems = JsonConvert.DeserializeObject<int>(JObjectData["data"]?["totalPages"]?.ToString());
+
+                    Data = List.AsEnumerable().Select((data, index) => new TableViewModel
+                    {
+                        RowNum = ((state.Page - 1) * state.PageSize) + (index + 1),
+                        Id = data.Id,
+                        Title = data.Title,
+                    }).ToList();
+
+                    IsTableLoading = false;
+
+                    return new TableData<TableViewModel>()
+                    {
+                        TotalItems = TotalItems,
+                        Items = Data
+                    };
+                }
+                else
+                {
+                    Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
+                    IsTableLoading = false;
+                    return new TableData<TableViewModel>()
+                    {
+                        Items = Data,
+                        TotalItems = 0,
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+                IsTableLoading = false;
+                return new TableData<TableViewModel>()
+                {
+                    Items = Data,
+                    TotalItems = 0,
+                };
+            }
+        }
+
+        private async Task OnReloadData()
+        {
+            await Table.ReloadServerData();
+        }
+
+        #region - Search -
+
+        private FilterViewModel FilterViewModel = new();
+
+        private async Task OpenSearchDialog()
+        {
+            DialogParameters parameters = new DialogParameters();
+            parameters.Add("FilterViewModel", FilterViewModel);
+
+            var dialog = Dialog.Show<DialogFilter>(DashboardResource.StringSearch, parameters,
+                new DialogOptions()
+                {
+                    MaxWidth = MaxWidth.Small,
+                    Position = DialogPosition.Center,
+                    FullWidth = true,
+                });
+
+            var result = await dialog.Result;
+
+            if (!result.Cancelled)
+            {
+                if (result.Data != null)
+                {
+                    FilterViewModel = (FilterViewModel)result.Data;
+                    await Table.ReloadServerData();
+                }
+            }
+        }
+
+        #endregion
+
+        #region - Crudate -
+
+        private async Task OpenCrudateDialog(int Id)
+        {
+            DialogParameters parameters = new DialogParameters();
+            parameters.Add("Id", Id);
+
+            var dialog = Dialog.Show<DialogCrudate>(DashboardResource.StringCreate, parameters,
+                new DialogOptions()
+                {
+                    MaxWidth = MaxWidth.Medium,
+                    FullWidth = true,
+                    Position = DialogPosition.Center,
+                });
+
+            var result = await dialog.Result;
+
+            if (!result.Cancelled)
+            {
+                if (result.Data != null)
+                {
+                    //FilterProfileFileAidTypeYear = (FilterProfileFileAidTypeYear)result.Data;
+                    await Table.ReloadServerData();
+                }
+            }
+        }
+
+        #endregion
+
+        #region - Details -
+
+        private void OpenDetailsDialog(int Id)
+        {
+            DialogParameters parameters = new DialogParameters();
+            parameters.Add("Id", Id);
+
+            var dialog = Dialog.Show<DialogDetails>(string.Empty, parameters,
+                new DialogOptions()
+                {
+                    MaxWidth = MaxWidth.Medium,
+                    FullWidth = true,
+                    Position = DialogPosition.Center,
+                });
+        }
+
+        #endregion
+
+        #region - Delete -
+
+        private async Task OpenDeleteDialog(int Id)
+        {
+            DialogParameters parameters = new DialogParameters();
+
+            var dialog = Dialog.Show<DialogDelete>(DashboardResource.StringAlert, parameters,
+                new DialogOptions()
+                {
+                    MaxWidth = MaxWidth.ExtraSmall,
+                    FullWidth = true,
+                    Position = DialogPosition.Center,
+                });
+
+            var result = await dialog.Result;
+
+            if (!result.Cancelled)
+            {
+                try
+                {
+                    var DeleteResult = await Http.DeleteAsync($"api/Groups/Delete/{Id}");
+                    if (DeleteResult.IsSuccessStatusCode)
+                    {
+                        var JsonResult = await DeleteResult.Content.ReadFromJsonAsync<CallbackResult<Group>>();
+                        if (JsonResult.Data != null)
+                        {
+                            Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageDeletedSuccessfully, Severity.Success);
+                            await Table.ReloadServerData();
+                        }
+                        else
+                        {
+                            Snackbar.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
+                        }
+                    }
+                    else
+                    {
+                        Snackbar.Add(DeleteResult.Content.ReadAsStringAsync().Result, Severity.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+}

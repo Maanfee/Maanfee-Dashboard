@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<TieredPGO>true</TieredPGO>
+		<!--**********************************************-->
+		<DebugType>none</DebugType>
+		<RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+		<RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
+		<RunAnalyzers>false</RunAnalyzers>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Copyright>Copyright (c) 2022 Maanfee</Copyright>
+		<Company>Maanfee</Company>
+		<Authors>Maanfee Team (MF)</Authors>
+		<Version>2.1.0</Version>
+		<PackageIcon>MaanfeeLight.png</PackageIcon>
+		<!--**********************************************-->
+		<PackageType>Template</PackageType>
+		<Title>Maanfee Dashboard Templates</Title>
+		<!--**********************************************-->
+		<NoWarn>0108</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageTags>Blazor, MudBlazor, Templates, Layout, Components, UI</PackageTags>
+		<!--<Description>Blazor templates pre configured with MudBlazor.</Description>
+    <PackageProjectUrl>http://mudblazor.com/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/MudBlazor/Templates</RepositoryUrl>-->
+		<RepositoryType>git</RepositoryType>
+
+		<IncludeContentInPack>true</IncludeContentInPack>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+		<ContentTargetFolders>content</ContentTargetFolders>
+		<EnableNETAnalyzers>False</EnableNETAnalyzers>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Update="MaanfeeLight.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="**\.template.base\**\*" Exclude="**\bin\**;**\obj\**;**\.vs\**" />
+		<Content Include="**\.template.config\**\*" Exclude="**\bin\**;**\obj\**;**\.vs\**" />
+		<Compile Remove="**\*" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include=".template.base\wasm-hosted\" />
+	</ItemGroup>
+
+</Project>

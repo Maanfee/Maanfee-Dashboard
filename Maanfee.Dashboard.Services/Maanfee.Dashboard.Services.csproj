@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<TieredPGO>true</TieredPGO>
+		<!--**********************************************-->
+		<DebugType>none</DebugType>
+		<RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+		<RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
+		<RunAnalyzers>false</RunAnalyzers>
+		<!--**********************************************-->
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Copyright>Copyright (c) 2021-2022 Maanfee</Copyright>
+		<Authors>Maanfee Team (MF)</Authors>
+		<Company>Maanfee</Company>
+		<Version>6.13.14</Version>
+		<PackageIcon>MaanfeePurple.png</PackageIcon>
+		<!--**********************************************-->
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Update="MaanfeePurple.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.1" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Maanfee.Dashboard.Domain\Maanfee.Dashboard.Domain.csproj" />
+	</ItemGroup>
+
+</Project>

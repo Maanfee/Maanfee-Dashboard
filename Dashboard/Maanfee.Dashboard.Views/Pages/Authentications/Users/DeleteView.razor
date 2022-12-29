@@ -1,0 +1,22 @@
+﻿@page "/Users/DeleteView/{IdUser}"
+@inherits _BaseView
+
+<ComponentDashboardTitle Title="@DashboardResource.StringUser" Description="" />
+
+<DetailsComponent Title="@DashboardResource.StringAreYouSureToDeleteThisItem" Model="@ApplicationUser" StringAvatar="@StringAvatar" />
+
+<MudPaper Class="pa-4 my-1" Square="true">
+    <MudButton Disabled="@IsProcessing" OnClick="@((e) => OnDelete())" Variant="Variant.Filled" Color="Color.Error">
+        @if (IsProcessing)
+        {
+            <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="ms-n1" />
+            <MudText Class="ms-2">@DashboardResource.StringProcessing</MudText>
+        }
+        else
+        {
+            <MudIcon Icon="@Icons.Material.Filled.DeleteForever" Color="Color.Surface" Class="mx-1" />
+            <MudText>@DashboardResource.StringDelete</MudText>
+        }
+    </MudButton>
+    <MudButton Link="/Users/IndexView" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Filled.PlaylistAddCheck" IconColor="Color.Surface">@DashboardResource.StringList</MudButton>
+</MudPaper>

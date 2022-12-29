@@ -1,0 +1,75 @@
+﻿
+<MudChip Icon="@Icons.Material.Filled.Alarm" Color="Color.Error">
+    @($"{StringSecond}:{StringMiliSecond}")
+</MudChip>
+
+@code {
+    private static System.Timers.Timer aTimer;
+    private int Second = 0;
+    private int MiliSecond = 0;
+    private string StringSecond = "00";
+    private string StringMiliSecond = "00";
+    private bool IsRunning = false;
+
+    public void StartTimer()
+    {
+        if (!IsRunning)
+        {
+            aTimer = new System.Timers.Timer(16);
+            aTimer.Elapsed += CountDownTimer;
+            aTimer.Enabled = true;
+
+            IsRunning = true;
+        }
+    }
+
+    public void StopTimer()
+    {
+        if (IsRunning)
+        {
+            aTimer.Elapsed -= CountDownTimer;
+            aTimer.Enabled = false;
+
+            IsRunning = false;
+        }
+    }
+
+    public void ResetTimer()
+    {
+        Second = 0;
+        MiliSecond = 0;
+        StringSecond = "00";
+        StringMiliSecond = "00";
+        IsRunning = false;
+    }
+
+    private void CountDownTimer(Object source, System.Timers.ElapsedEventArgs e)
+    {
+        MiliSecond++;
+        if (MiliSecond == 60)
+        {
+            Second++;
+            MiliSecond = 0;
+        }
+
+        if (MiliSecond < 10)
+        {
+            StringMiliSecond = $"0{MiliSecond}";
+        }
+        else
+        {
+            StringMiliSecond = MiliSecond.ToString();
+        }
+
+        if (Second < 10)
+        {
+            StringSecond = $"0{Second}";
+        }
+        else
+        {
+            StringSecond = Second.ToString();
+        }
+
+        InvokeAsync(StateHasChanged);
+    }
+}

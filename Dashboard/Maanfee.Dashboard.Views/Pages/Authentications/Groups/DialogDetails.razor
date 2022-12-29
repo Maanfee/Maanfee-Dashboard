@@ -1,0 +1,55 @@
+﻿
+<MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
+    <MudDialog>
+        <DialogContent>
+            <MudGrid>
+                <MudItem md="12">
+                    <MudField Disabled="true" Label="@DashboardResource.StringTitle" Variant="Variant.Outlined"
+                              Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Title">
+                        @Details.Title
+                    </MudField>
+                </MudItem>
+            </MudGrid>
+        </DialogContent>
+        <DialogActions>
+            <MudButton Color="Color.Primary" OnClick="Close" Variant="Variant.Filled">@DashboardResource.StringCancel</MudButton>
+        </DialogActions>
+    </MudDialog>
+</MudRTLProvider>
+
+@code {
+
+    [CascadingParameter]
+    public MudDialogInstance MudDialog { get; set; }
+
+    private void Close() => MudDialog.Close();
+
+    // *****************************************************
+
+    private Group Details = new();
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var Callback = await Http.GetFromJsonAsync<CallbackResult<Group>>($"api/Groups/Details/{Id}");
+
+            if (Callback.Data != null)
+            {
+                Details = Callback.Data;
+            }
+            else
+            {
+                Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+        }
+    }
+
+}

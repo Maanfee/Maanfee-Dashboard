@@ -1,0 +1,12 @@
+﻿@page "/Roles/DetailsView/{IdRole}"
+@inherits _BaseView
+
+<ComponentDashboardTitle Title="@DashboardResource.StringRole" Description="" />
+
+<DetailsComponent Title="@DashboardResource.StringDetails" Model="@IdentityRole" />
+
+<MudPaper Class="pa-4 my-1" Square="true">
+    <MudButton Link="@($"/Roles/CrudateView/{@IdRole}")" Variant="Variant.Filled" Color="Color.Tertiary" StartIcon="@Icons.Material.Filled.AddTask" IconColor="Color.Surface">@DashboardResource.StringEdit</MudButton>
+    <MudButton Link="@($"/Roles/DeleteView/{@IdRole}")" Variant="Variant.Filled" Color="Color.Error" StartIcon="@Icons.Material.Filled.Delete" IconColor="Color.Surface">@DashboardResource.StringDelete</MudButton>
+    <MudButton Link="/Roles/IndexView" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Filled.PlaylistAddCheck" IconColor="Color.Surface">@DashboardResource.StringList</MudButton>
+</MudPaper>

@@ -1,0 +1,60 @@
+﻿@using System.Net.Http
+@using System.Net.Http.Json
+@using System.Text.Json.Serialization;
+@using System.Globalization
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.AspNetCore.Components.WebAssembly.Http
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.JSInterop
+@using Microsoft.Extensions.Localization
+@using Microsoft.AspNetCore.Identity
+
+@using Maanfee.Web.Core
+@using Maanfee.Web.Core.WebSockets
+
+@using Maanfee.Dashboard.Views
+@using Maanfee.Dashboard.Views.Shared
+@using Maanfee.Dashboard.Views.Core
+
+@using Maanfee.Dashboard.Core
+@using Maanfee.Dashboard.Resources
+@using Maanfee.Dashboard.Views.Base
+@using Maanfee.Dashboard.Views.Base.Pages
+@using Maanfee.Dashboard.Views.Base.Services
+@using Maanfee.Dashboard.Views.Base.Resources
+@using Maanfee.Dashboard.Views.Base.Extensions
+
+@using Maanfee.Dashboard.Views.Core.Shared
+@using Maanfee.Dashboard.Views.Core.Services
+@using Maanfee.Dashboard.Views.Core.Extensions
+@using Maanfee.Dashboard.Views.Core.Shared.Dialogs
+@using Maanfee.Dashboard.Views.Core.Shared.Components
+
+@using MudBlazor
+
+@inject NavigationManager Navigation
+@inject CustomStateProvider AuthenticationStateProvider
+@inject IJSRuntime JS
+@inject AccountStateContainer AccountStateContainer
+@inject HttpClient Http
+
+@inject IDialogService Dialog
+@inject ISnackbar Snackbar
+
+@inject LocalConfiguration LocalConfiguration
+
+@inject IAuthorizationService AuthorizationService
+
+@using Maanfee.Dashboard.Domain.Entities
+@using Maanfee.Dashboard.Domain.ViewModels
+
+@inject Maanfee.Web.Printing.IPrintingService PrintingService
+@using Maanfee.Web.JSInterop
+@inject Maanfee.Web.JSInterop.Dom Dom
+@inject Maanfee.Web.JSInterop.LocalStorage LocalStorage
+
+@inject Maanfee.Web.Core.FileDownloadService FileDownload

@@ -1,0 +1,117 @@
+﻿@page "/JsInterop/SelectorView"
+@using Maanfee.Dashboard.Examples.Views.JsInterop.Components
+
+<style>
+
+	.htmlElementName {
+		color: var(--mud-palette-primary);
+		font-weight: 600;
+	}
+
+	.htmlAttributeName {
+		color: #8323d8;
+	}
+
+	.html .enum {
+		color: #00c853;
+	}
+
+	/**************************************************/
+
+</style>
+
+<DashboardPage>
+	<DashboardPageHeader Title="QuerySelector()" SubTitle="HTML DOM Document QuerySelector()" />
+
+	<DashboardPageContent>
+		<DashboardPageSection Title="Examples">
+			<MudGrid>
+				<MudItem md="12">
+					<MudSimpleTable Dense="@true" Hover="@true" Bordered="@true" Striped="@true" Style="overflow-x: auto;">
+						<thead>
+							<tr>
+								<th>Selector</th>
+								<th>Example</th>
+								<th>Selects</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>#id</td>
+								<td>await Dom.QuerySelector("#GetElementById")</td>
+								<td>
+									The element with id="GetElementById"
+								</td>
+								<td>
+									<MudButton OnClick="@(()=>OpenCrudateDialog("SelectById", typeof(SelectById)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
+								</td>
+							</tr>
+							<tr>
+								<td>.class</td>
+								<td>await Dom.QuerySelectorAll(".class")</td>
+								<td>
+									All elements with class="intro"
+								</td>
+								<td>
+									<MudButton OnClick="@(()=>OpenCrudateDialog("SelectByClass", typeof(SelectByClass)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
+								</td>
+							</tr>
+							<tr>
+								<td>.class,.class</td>
+								<td>await Dom.QuerySelectorAll(".intro,.demo")</td>
+								<td>
+									All elements with the class "intro" or "demo"
+								</td>
+								<td>
+									<MudButton OnClick="@(()=>OpenCrudateDialog("SelectByMultipleClasses", typeof(SelectByMultipleClasses)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
+								</td>
+							</tr>
+							<tr>
+								<td>elements</td>
+								<td>await Dom.QuerySelectorAll(".intro, h4")</td>
+								<td>
+									All &lt;h4&gt; &lt;.intro&gt; elements
+								</td>
+								<td>
+									<MudButton OnClick="@(()=>OpenCrudateDialog("SelectByEelements", typeof(SelectByEelements)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
+								</td>
+							</tr>					
+							
+							@*<tr>
+								<td>:first</td>
+								<td>await Dom.QuerySelector(".intro:first")</td>
+								<td>
+									The first &lt;.intro&gt; element
+								</td>
+								<td>
+									<MudButton OnClick="@(()=>OpenCrudateDialog("SelectFirst", typeof(SelectFirst)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
+								</td>
+							</tr>*@
+
+						</tbody>
+					</MudSimpleTable>
+				</MudItem>
+			</MudGrid>
+		</DashboardPageSection>
+	</DashboardPageContent>
+</DashboardPage>
+
+@code {
+
+	private void OpenCrudateDialog(string CodeFileName, Type Type)
+	{
+		DialogParameters parameters = new DialogParameters();
+		parameters.Add("CodeFileName", CodeFileName);
+		parameters.Add("Type", Type);
+
+		var dialog = Dialog.Show<DialogTry>("Try", parameters,
+		new DialogOptions()
+			{
+				MaxWidth = MaxWidth.Medium,
+				FullWidth = true,
+				Position = DialogPosition.Center,
+			});
+
+	}
+}

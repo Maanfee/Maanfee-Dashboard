@@ -1,0 +1,21 @@
+﻿@*@inherits SharedLayout*@
+
+<MudDialog>
+    <DialogContent>
+        <MudText Color="Color.Error">@DashboardResource.StringAreYouSureToDeleteThisItem</MudText>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Primary" OnClick="Cancel" Variant="Variant.Filled">@DashboardResource.StringCancel</MudButton>
+        <MudButton Color="Color.Error" OnClick="Delete" Variant="Variant.Filled">@DashboardResource.StringDelete</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+
+    [CascadingParameter]
+    public MudDialogInstance MudDialog { get; set; }
+
+    private void Cancel() => MudDialog.Cancel();
+    private void Delete() => MudDialog.Close(DialogResult.Ok(true));
+
+}

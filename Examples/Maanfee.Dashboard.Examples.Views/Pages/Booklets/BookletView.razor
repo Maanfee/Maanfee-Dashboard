@@ -1,0 +1,21 @@
+﻿@page "/Booklets/BookletView"
+
+<MudItem>
+	<MudButton OnClick="()=>OpenBookletDialog()" Color="Color.Dark" Variant="Variant.Filled" StartIcon="@Icons.Filled.MenuBook">
+		Booklet
+	</MudButton>
+</MudItem>
+<BookletComponent />
+
+@code {
+
+	private void OpenBookletDialog()
+	{
+		Dialog.Show<BookletComponent>(string.Empty, new DialogOptions()
+			{
+				FullScreen = true,
+				CloseButton = false,
+				NoHeader = true
+			});
+	}
+}

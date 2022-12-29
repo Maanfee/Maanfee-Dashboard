@@ -1,0 +1,26 @@
+﻿[
+  {
+    "Name": "Automation",
+    "IsActive": true,
+    "LocalUri": "http://localhost:26001/api",
+    "GlobalUri": "http://94.183.157.20:26001/api",
+    "AutoRoute": true,
+    "HasJwt": true
+  },
+  {
+    "Name": "RollCall",
+    "IsActive": true,
+    "LocalUri": "http://localhost:4041/api",
+    "GlobalUri": "http://94.183.157.20:4041/api",
+    "AutoRoute": false,
+    "HasJwt": false
+  },
+  {
+    "Name": "Attendance",
+    "IsActive": true,
+    "LocalUri": "http://localhost:26002/api",
+    "GlobalUri": "http://94.183.157.20:26002/api",
+    "AutoRoute": true,
+    "HasJwt": false
+  }
+]

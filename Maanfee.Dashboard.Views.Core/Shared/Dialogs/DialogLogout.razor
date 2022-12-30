@@ -12,12 +12,10 @@
 			<MudText>@ContentText</MudText>
 		</DialogContent>
 		<DialogActions>
-			<MudButton OnClick="Cancel">
-				@DashboardResource.StringCancel
-			</MudButton>
-			<MudButton Color="@SubmitButtonColor" Variant="Variant.Filled" OnClick="Submit">
+			<MudButton OnClick="Submit" Color="@SubmitButtonColor" StartIcon="@Icons.Filled.Logout" IconColor="Color.Surface" Variant="Variant.Filled">
 				@DashboardResource.StringLogout
 			</MudButton>
+			<MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Filled.FreeCancellation" IconColor="Color.Surface">@DashboardResource.StringCancel</MudButton>
 		</DialogActions>
 	</MudDialog>
 </MudRTLProvider>
@@ -40,5 +38,5 @@
 		MudDialog.Close(DialogResult.Ok(true));
 	}
 
-	void Cancel() => MudDialog.Cancel();
+	private void Close() => MudDialog.Cancel();
 }

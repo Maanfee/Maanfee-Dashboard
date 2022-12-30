@@ -3,6 +3,7 @@ using Maanfee.Dashboard.Domain.Entities;
 using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Dashboard.Resources;
 using Maanfee.Dashboard.Views.Base;
+using Maanfee.Dashboard.Views.Core.Shared.Dialogs;
 using Maanfee.Web.Core;
 using MudBlazor;
 using System;
@@ -146,32 +147,20 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
             SubmitDepartmentViewModel.Parent = null;
         }
 
-        private async Task CreateAsync()
-        {
-            await GetDepartmentsAsync();
-            await GetParentsAsync(string.Empty);
-
-            SubmitDepartmentViewModel.Id = null;
-            SubmitDepartmentViewModel.Title = string.Empty;
-        }
-
         #region - Dialog -
 
-        private DialogOptions maxWidth = new DialogOptions() { MaxWidth = MaxWidth.ExtraSmall, FullWidth = true };
-        private DialogParameters parameters = new DialogParameters();
-
-        private async Task OpenDeleteDialog(DialogOptions options)
+        private async Task OpenDeleteDialog()
         {
-            if (SubmitDepartmentViewModel.Id == 0)
-            {
-                parameters.Add("Title", DashboardResource.StringPageNotExist);
-            }
-            else
-            {
-                parameters.Add("Title", SubmitDepartmentViewModel.Title);
-            }
+            DialogParameters parameters = new DialogParameters();
 
-            var dialog = Dialog.Show<DialogDelete>(DashboardResource.StringAlert, parameters, options);
+            var dialog = Dialog.Show<DialogDelete>(DashboardResource.StringAlert, parameters,
+                new DialogOptions()
+                {
+                    MaxWidth = MaxWidth.ExtraSmall,
+                    FullWidth = true,
+                    Position = DialogPosition.Center,
+                });
+
             var result = await dialog.Result;
 
             if (!result.Cancelled)
@@ -203,19 +192,6 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
                     Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
                 }
             }
-        }
-
-        private void OpenDepartmentPermissionDialog()
-        {
-            DialogParameters parameters = new DialogParameters();
-            parameters.Add("IdDepartment", SubmitDepartmentViewModel?.Id);
-
-            //Dialog.Show<DialogDepartmentPermit>(String.Empty, parameters, new DialogOptions()
-            //{
-            //    MaxWidth = MaxWidth.ExtraExtraLarge,
-            //    FullWidth = true,
-            //    Position = DialogPosition.TopCenter,
-            //});
         }
 
         #endregion

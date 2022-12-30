@@ -358,6 +358,15 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change password.
+        /// </summary>
+        public static string StringChangePassword {
+            get {
+                return ResourceManager.GetString("StringChangePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chat.
         /// </summary>
         public static string StringChat {
@@ -444,6 +453,15 @@ namespace Maanfee.Dashboard.Resources {
         public static string StringCreate {
             get {
                 return ResourceManager.GetString("StringCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current password.
+        /// </summary>
+        public static string StringCurrentPassword {
+            get {
+                return ResourceManager.GetString("StringCurrentPassword", resourceCulture);
             }
         }
         

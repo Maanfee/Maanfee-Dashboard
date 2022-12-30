@@ -4,10 +4,10 @@
 		<DialogContent>
 			<MudGrid>
 				<MudItem md="12">
-					<MudTextField @bind-Value="FilterViewModel.Title" Variant="Variant.Outlined"
+					<MudTextField @bind-Value="FilterViewModel.Role" Variant="Variant.Outlined"
 								  Adornment="Adornment.Start" AdornmentIcon="@Icons.Filled.Title" Clearable
-								  For="@(() => FilterViewModel.Title)"
-								  Label="@DashboardResource.StringTitle" />
+								  For="@(() => FilterViewModel.Role)"
+								  Label="@DashboardResource.StringRole" />
 				</MudItem>
 			</MudGrid>
 			<MudPaper Class="pa-3 my-2 ActionColor" Elevation="3" Outlined="true" Square="true">
@@ -37,6 +37,6 @@
 	}
 
 	[Parameter]
-	public FilterGroupViewModel FilterViewModel { get; set; } = new();
+	public FilterRoleViewModel FilterViewModel { get; set; } = new();
 
 }

@@ -579,7 +579,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         public async Task<IActionResult> ChangePassword(SubmitChangePasswordViewModel Model)
         {
             var user = await db_SQLServer.ApplicationUsers
-                .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name && x.Password == Model.Password);
+                .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name && x.Password == Model.CurrentPassword);
             if (user == null)
             {
                 return BadRequest(DashboardResource.MessageUserIsNotExsist);

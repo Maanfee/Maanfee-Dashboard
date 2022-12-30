@@ -1,4 +1,6 @@
-﻿@using System.Diagnostics;
+﻿@namespace Maanfee.Dashboard.Views.Core
+@using System.Diagnostics;
+@using Maanfee.Dashboard.Views.Core;
 
 @if (IsDisplayAsChip)
 {
@@ -16,7 +18,7 @@ else
 @code {
 
 	[Parameter] public bool IsDisplayAsChip { get; set; }
-	[CascadingParameter] public DashboardPage DashboardPage { get; set; }
+	[CascadingParameter] public MaanfeeDashboardPage MaanfeeDashboardPage { get; set; }
 
 	private double RenderTimeMs;
 	private string StringMinute = "0";
@@ -26,8 +28,8 @@ else
 	protected override void OnInitialized()
 	{
 		base.OnInitialized();
-		if (DashboardPage != null)
-			DashboardPage.Rendered += OnDocsPageRendered;
+		if (MaanfeeDashboardPage != null)
+			MaanfeeDashboardPage.Rendered += OnDocsPageRendered;
 	}
 
 	private void OnDocsPageRendered(Stopwatch stopwatch)

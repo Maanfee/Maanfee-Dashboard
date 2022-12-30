@@ -216,6 +216,9 @@
   <data name="StringCancel" xml:space="preserve">
     <value>لغو</value>
   </data>
+  <data name="StringChangePassword" xml:space="preserve">
+    <value>تغییر گذرواژه</value>
+  </data>
   <data name="StringChat" xml:space="preserve">
     <value>گپ</value>
   </data>
@@ -245,6 +248,9 @@
   </data>
   <data name="StringCreate" xml:space="preserve">
     <value>ایجاد</value>
+  </data>
+  <data name="StringCurrentPassword" xml:space="preserve">
+    <value>گذرواژه جاری</value>
   </data>
   <data name="StringDashboard" xml:space="preserve">
     <value>داشبورد</value>

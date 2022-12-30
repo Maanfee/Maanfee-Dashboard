@@ -1,0 +1,56 @@
+﻿@namespace Maanfee.Dashboard.Views.Core
+
+<PageTitle>@PageTitle</PageTitle>
+<HeadContent>
+    @*	<meta Name="keywords" Content="@GetKeywords()" />*@
+    <meta Property="og:title" Content="@GetTitle()" />
+    <meta Name="twitter:title" Content="@GetTitle()" />
+    @if (!string.IsNullOrEmpty(SubTitle))
+    {
+        <meta Name="description" Content="@(SubTitle)" />
+        <meta Property="og:description" Content="@SubTitle" />
+        <meta Name="twitter:description" Content="@SubTitle" />
+    }
+</HeadContent>
+
+@if (SpecialHeaderContent != null)
+{
+    <div class="my-16">
+        @SpecialHeaderContent
+        @if (IsDisplayRenderTime)
+        {
+            <MaanfeeDashboardRenderTime />
+        }
+    </div>
+}
+else if (!string.IsNullOrEmpty(Title) || !string.IsNullOrEmpty(SubTitle))
+{
+    <div class="mt-6 mb-5">
+        <MudText Typo="Typo.h6" Color="Color.Primary" Class="mb-2">@Title</MudText>
+        <MudText>@GetSubTitle() @Description</MudText>
+        @if (IsDisplayRenderTime)
+        {
+            <MaanfeeDashboardRenderTime />
+        }
+    </div>
+}
+
+@code {
+
+    [Parameter] public string PageTitle { get; set; }
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string SubTitle { get; set; }
+    [Parameter] public RenderFragment Description { get; set; }
+    [Parameter] public RenderFragment SpecialHeaderContent { get; set; }
+    [Parameter] public bool IsDisplayRenderTime { get; set; } = false;
+
+    private string GetTitle() => $"{Title}";
+
+    private string GetSubTitle()
+    {
+        if (string.IsNullOrEmpty(SubTitle))
+            return "";
+        return SubTitle.TrimEnd('.') + ".";
+    }
+
+}

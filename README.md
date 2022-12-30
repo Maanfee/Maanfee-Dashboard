@@ -7,7 +7,7 @@
     Maanfee Dashboard MudBlazor Template
   </h2>
   <p align="center">
-    Open sourced solution template for Blazor Web-Assembly  built with MudBlazor
+    Open source solution template for Blazor Web-Assembly  built with MudBlazor
   </p>
   <div>
       <a href="https://github.com/Maanfee/Maanfee-Dashboard/blob/main/LICENSE">

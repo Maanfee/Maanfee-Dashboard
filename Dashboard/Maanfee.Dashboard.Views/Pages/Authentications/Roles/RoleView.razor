@@ -1,27 +1,23 @@
-﻿@page "/Groups/GroupView"
+﻿@page "/Roles/RoleView"
 @inherits _BaseView
 
-@using TableViewModel = Maanfee.Dashboard.Domain.ViewModels.GetGroupViewModel
+@using TableViewModel = Maanfee.Dashboard.Domain.ViewModels.GetRoleViewModel
 
 <MaanfeeDashboardPage>
-    <MaanfeeDashboardPageHeader PageTitle="@DashboardResource.StringGroup" />
+    <MaanfeeDashboardPageHeader PageTitle="@DashboardResource.StringRole" />
 
     <MudCard>
-         <MudCardHeader>
-          <MudText Typo="Typo.button" Color="Color.Primary">
-                @DashboardResource.StringGroup
+        <MudCardHeader>
+            <MudText Typo="Typo.button" Color="Color.Primary">
+                @DashboardResource.StringRole
             </MudText>
         </MudCardHeader>
         <MudDivider DividerType="DividerType.FullWidth" />
         <MudCardContent>
             <MudToolBar>
                 <MudStack Row="true" Spacing="1" AlignItems="AlignItems.Start">
-                    <MudPaper>
-                        <MudButton OnClick="@(()=>OpenCrudateDialog(0))" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" IconColor="Color.Surface">@DashboardResource.StringCreate</MudButton>
-                    </MudPaper>
-                    <MudPaper>
-                        <MudButton OnClick="OnReloadData" Variant="Variant.Filled" Color="Color.Secondary" StartIcon="@Icons.Material.Filled.Refresh" IconColor="Color.Surface">@DashboardResource.StringReload</MudButton>
-                    </MudPaper>
+                    <MudButton Disabled="@(!_PermissionCreate)" OnClick="@(() => OpenCrudateDialog("0"))" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" IconColor="Color.Surface">@DashboardResource.StringCreate</MudButton>
+                    <MudButton OnClick="OnReloadData" Variant="Variant.Filled" Color="Color.Secondary" StartIcon="@Icons.Material.Filled.Refresh" IconColor="Color.Surface">@DashboardResource.StringReload</MudButton>
                 </MudStack>
                 <MudSpacer />
                 <MudButton OnClick="OpenSearchDialog" Variant="Variant.Filled" Color="Color.Tertiary" StartIcon="@Icons.Filled.ManageSearch" IconColor="Color.Surface">@DashboardResource.StringSearch</MudButton>
@@ -32,10 +28,14 @@
             <MudTable ServerData="@(new Func<TableState, Task<TableData<TableViewModel>>>(ServerData))" @ref="Table"
                       Dense="@_IsTableDense" Bordered="true" Striped="true" Hover="true" Virtualize="true" Loading="@IsTableLoading"
                       FixedHeader="@_IsTableFixedHeader" FixedFooter="true" Height="@(_IsTableScroll ? "318px" : "100%")">
+                @*<ToolBarContent>*@
+                @* *** Tabel Toolbar *** *@
+                @*</ToolBarContent>*@
                 <HeaderContent>
-                    <MudTh Class="column-1x"><MudText Align="Align.Center">#</MudText></MudTh>
-                    <MudTh><MudTableSortLabel SortLabel="Title" T="TableViewModel">@DashboardResource.StringTitle</MudTableSortLabel></MudTh>
-                    <MudTh Class="column-3x">
+                    <MudTh Class="column-1x">#</MudTh>
+                    <MudTh><MudTableSortLabel SortLabel="Name" T="TableViewModel">@DashboardResource.StringRole</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortLabel="NormalizedName" T="TableViewModel">@DashboardResource.StringNormalizedName</MudTableSortLabel></MudTh>
+                    <MudTh Class="column-4x">
                         <MudText Align="Align.Left">
                             <MudMenu Icon="@Icons.Material.Filled.MoreVert" Color="Color.Secondary">
                                 <MudMenuItem OnClick="@(() => _IsTableDense = _IsTableDense ? false : true)">
@@ -58,14 +58,14 @@
                     </MudTh>
                 </HeaderContent>
                 <RowTemplate>
-                    <MudTd><MudText Class="text-small-2x" Align="Align.Center">@context.RowNum</MudText></MudTd>
+                    <MudTd Class="mud-text-align-center">@context.RowNum</MudTd>
+                    <MudTd>@context.Name</MudTd>
+                    <MudTd>@context.NormalizedName</MudTd>
                     <MudTd>
-                        @context?.Title
-                    </MudTd>
-                    <MudTd>
+                        <MudIconButton Link="@($"/Roles/PermissionView/{@context.Id}/{@context.Name}")" Title="@DashboardResource.StringManagePermission" Icon="@Icons.Material.Filled.PermDataSetting" Color="Color.Secondary" Size="Size.Small"></MudIconButton>
                         <MudIconButton OnClick="()=>OpenDetailsDialog(context.Id)" Title="@DashboardResource.StringDetails" Icon="@Icons.Material.Filled.Details" Color="Color.Primary" Size="Size.Small"></MudIconButton>
-                        <MudIconButton OnClick="()=>OpenCrudateDialog(context.Id)" Title="@DashboardResource.StringEdit" Icon="@Icons.Material.Filled.Edit" Color="Color.Success" Size="Size.Small"></MudIconButton>
-                        <MudIconButton OnClick="()=>OpenDeleteDialog(context.Id)" Title="@DashboardResource.StringDelete" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"></MudIconButton>
+                        <MudIconButton Disabled="@(!_PermissionEdit)" OnClick="()=>OpenCrudateDialog(context.Id)" Title="@DashboardResource.StringEdit" Icon="@Icons.Material.Filled.Edit" Color="Color.Success" Size="Size.Small"></MudIconButton>
+                        <MudIconButton Disabled="@(!_PermissionDelete)" OnClick="()=>OpenDeleteDialog(context.Id)" Title="@DashboardResource.StringDelete" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"></MudIconButton>
                     </MudTd>
                 </RowTemplate>
                 <NoRecordsContent>
@@ -75,12 +75,11 @@
                     <MudText>@DashboardResource.StringLoading</MudText>
                 </LoadingContent>
                 <PagerContent>
-                    <MudTablePager PageSizeOptions="new int[]{10, 50, 100, 200, 500, 1000}" />
+                    <MudTablePager />
                 </PagerContent>
             </MudTable>
         </MudCardActions>
     </MudCard>
-
 
 </MaanfeeDashboardPage>
 

@@ -1,10 +1,12 @@
 ﻿using Maanfee.Dashboard.Core;
-using Maanfee.Dashboard.Domain.Entities;
 using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Dashboard.Resources;
 using Maanfee.Dashboard.Views.Base;
 using Maanfee.Dashboard.Views.Core.Shared.Dialogs;
+using Maanfee.Dashboard.Views.Pages.Authentications.Groups;
 using Maanfee.Web.Core;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using MudBlazor;
 using Newtonsoft.Json;
 using System;
@@ -12,16 +14,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using FilterViewModel = Maanfee.Dashboard.Domain.ViewModels.FilterGroupViewModel;
-using TableViewModel = Maanfee.Dashboard.Domain.ViewModels.GetGroupViewModel;
+using FilterViewModel = Maanfee.Dashboard.Domain.ViewModels.FilterRoleViewModel;
+using TableViewModel = Maanfee.Dashboard.Domain.ViewModels.GetRoleViewModel;
 
-namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
+namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 {
-    public partial class GroupView
+    public partial class RoleView
     {
         private IEnumerable<TableViewModel> Data = new List<TableViewModel>();
         private MudTable<TableViewModel> Table = new();
         private TableStateViewModel<FilterViewModel> TableState = new();
+
+        private bool _PermissionCreate = false;
+        private bool _PermissionEdit = false;
+        private bool _PermissionDelete = false;
 
         protected override async Task OnInitializedAsync()
         {
@@ -29,8 +35,14 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
 
             try
             {
-                await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.Group.View, PermissionAuthenticationState,
+                await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.Role.View, PermissionAuthenticationState,
                     AuthorizationService, Navigation);
+
+                var PermissionCurrentUser = (await PermissionAuthenticationState).User;
+                _PermissionCreate = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.Create)).Succeeded;
+                _PermissionEdit = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.Edit)).Succeeded;
+                _PermissionDelete = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.Delete)).Succeeded;
+
             }
             catch (Exception ex)
             {
@@ -56,20 +68,21 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
                     TableState.Filter = FilterViewModel;
                 }
 
-                var PostResult = await Http.PostAsJsonAsync($"api/Groups/PaginationIndex", TableState);
+                var PostResult = await Http.PostAsJsonAsync($"api/Roles/PaginationIndex", TableState);
                 if (PostResult.IsSuccessStatusCode)
                 {
                     var stringcallback = await PostResult.Content.ReadAsStringAsync();
                     var JObjectData = Newtonsoft.Json.Linq.JObject.Parse(stringcallback);
 
-                    var List = JsonConvert.DeserializeObject<List<Group>>(JObjectData["data"]?["list"]?.ToString());
+                    var List = JsonConvert.DeserializeObject<List<IdentityRole>>(JObjectData["data"]?["list"]?.ToString());
                     int TotalItems = JsonConvert.DeserializeObject<int>(JObjectData["data"]?["totalPages"]?.ToString());
 
                     Data = List.AsEnumerable().Select((data, index) => new TableViewModel
                     {
                         RowNum = ((state.Page - 1) * state.PageSize) + (index + 1),
                         Id = data.Id,
-                        Title = data.Title,
+                        Name = data.Name,
+                        NormalizedName = data.NormalizedName,
                     }).ToList();
 
                     IsTableLoading = false;
@@ -103,52 +116,53 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
             }
         }
 
-        private async Task OnReloadData()
+        private void OnReloadData()
         {
-            await Table.ReloadServerData();
+            Table.ReloadServerData();
         }
 
-        #region - Search -
+		#region - Search -
 
-        private FilterViewModel FilterViewModel = new();
+		private FilterViewModel FilterViewModel = new();
 
-        private async Task OpenSearchDialog()
-        {
-            DialogParameters parameters = new DialogParameters();
-            parameters.Add("FilterViewModel", FilterViewModel);
+		private async Task OpenSearchDialog()
+		{
+			DialogParameters parameters = new DialogParameters();
+			parameters.Add("FilterViewModel", FilterViewModel);
 
-            var dialog = Dialog.Show<DialogFilter>(DashboardResource.StringSearch, parameters,
-                new DialogOptions()
-                {
-                    MaxWidth = MaxWidth.Small,
-                    Position = DialogPosition.Center,
-                    FullWidth = true,
-                });
+			var dialog = Dialog.Show<DialogFilter>(DashboardResource.StringSearch, parameters,
+				new DialogOptions()
+				{
+					MaxWidth = MaxWidth.Small,
+					Position = DialogPosition.Center,
+					FullWidth = true,
+				});
 
-            var result = await dialog.Result;
+			var result = await dialog.Result;
 
-            if (!result.Cancelled)
-            {
-                if (result.Data != null)
-                {
-                    FilterViewModel = (FilterViewModel)result.Data;
-                    await Table.ReloadServerData();
-                }
-            }
-        }
+			if (!result.Cancelled)
+			{
+				if (result.Data != null)
+				{
+					FilterViewModel = (FilterViewModel)result.Data;
+					await Table.ReloadServerData();
+				}
+			}
+		}
 
-        #endregion
+		#endregion
 
-        #region - Crudate -
+		#region - Crudate -
 
-        private async Task OpenCrudateDialog(int Id)
+		private async Task OpenCrudateDialog<T>(T Id)
         {
             DialogParameters parameters = new DialogParameters();
             parameters.Add("Id", Id);
 
-            var dialog = Dialog.Show<DialogCrudate>(DashboardResource.StringCreate, parameters,
+            var dialog = Dialog.Show<DialogCrudate>(string.Empty, parameters,
                 new DialogOptions()
                 {
+                    NoHeader = true,
                     MaxWidth = MaxWidth.Medium,
                     FullWidth = true,
                     Position = DialogPosition.Center,
@@ -160,7 +174,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
             {
                 if (result.Data != null)
                 {
-                    //FilterProfileFileAidTypeYear = (FilterProfileFileAidTypeYear)result.Data;
+                    //FilterViewModel = (FilterViewModel)result.Data;
                     await Table.ReloadServerData();
                 }
             }
@@ -170,7 +184,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
 
         #region - Details -
 
-        private void OpenDetailsDialog(int Id)
+        private void OpenDetailsDialog<T>(T Id)
         {
             DialogParameters parameters = new DialogParameters();
             parameters.Add("Id", Id);
@@ -188,7 +202,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
 
         #region - Delete -
 
-        private async Task OpenDeleteDialog(int Id)
+        private async Task OpenDeleteDialog<T>(T Id)
         {
             DialogParameters parameters = new DialogParameters();
 
@@ -206,10 +220,10 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
             {
                 try
                 {
-                    var DeleteResult = await Http.DeleteAsync($"api/Groups/Delete/{Id}");
+                    var DeleteResult = await Http.DeleteAsync($"api/Roles/Delete/{Id}");
                     if (DeleteResult.IsSuccessStatusCode)
                     {
-                        var JsonResult = await DeleteResult.Content.ReadFromJsonAsync<CallbackResult<Group>>();
+                        var JsonResult = await DeleteResult.Content.ReadFromJsonAsync<CallbackResult<IdentityRole>>();
                         if (JsonResult.Data != null)
                         {
                             Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageDeletedSuccessfully, Severity.Success);
@@ -233,6 +247,5 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
         }
 
         #endregion
-
     }
 }

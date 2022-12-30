@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MudBlazor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,27 +25,62 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         {
         }
 
-        // Used : Roles->Index
-        [HttpGet("Index")]
-        // GET: api/Roles/Index
-        public async Task<CallbackResult<IEnumerable<GetRoleViewModel>>> Index()
+        // Used : Roles->PaginationIndex
+        [HttpPost("PaginationIndex")]
+        // GET: api/Roles/PaginationIndex
+        public async Task<CallbackResult<PaginatedList<IdentityRole>>> PaginationIndex(TableStateViewModel<FilterRoleViewModel> TableState)
         {
             try
             {
-                var list = await db_SQLServer.AspNetRoles
-                    .Select(x => new GetRoleViewModel
-                    {
-                        Id = x.Id,
-                        Name = x.Name,
-                        NormalizedName = x.NormalizedName,
-                    }).ToListAsync();
+                PaginatedList<IdentityRole> PaginatedList;
 
-                return new CallbackResult<IEnumerable<GetRoleViewModel>>(list, null);
+                IQueryable<IdentityRole> Data = db_SQLServer.AspNetRoles;
+
+                switch (TableState.state.SortLabel)
+                {
+                    case "Name":
+                        Data = Data.OrderByDirection(TableState.state.SortDirection, o => o.Name);
+                        break;
+                    case "NormalizedName":
+                        Data = Data.OrderByDirection(TableState.state.SortDirection, o => o.NormalizedName);
+                        break;
+                }
+
+                if (TableState.Filter != null)
+                {
+                    if (!string.IsNullOrEmpty(TableState.Filter.Role))
+                    {
+                        Data = Data.Where(p => p.Name.Contains(TableState.Filter.Role));
+                    }
+                    PaginatedList = await PaginatedList<IdentityRole>.CreateAsync(Data, TableState.state.Page, TableState.state.PageSize);
+                }
+                else
+                {
+                    PaginatedList = await PaginatedList<IdentityRole>.CreateAsync(Data, TableState.state.Page, TableState.state.PageSize);
+                }
+
+                return new CallbackResult<PaginatedList<IdentityRole>>(PaginatedList, null);
             }
             catch (Exception ex)
             {
-                return new CallbackResult<IEnumerable<GetRoleViewModel>>(null, new ExceptionError(ex.Message));
+                return new CallbackResult<PaginatedList<IdentityRole>>(null, new ExceptionError(ex.ToString()));
             }
+            //try
+            //{
+            //    var list = await db_SQLServer.AspNetRoles
+            //        .Select(x => new GetRoleViewModel
+            //        {
+            //            Id = x.Id,
+            //            Name = x.Name,
+            //            NormalizedName = x.NormalizedName,
+            //        }).ToListAsync();
+
+            //    return new CallbackResult<IEnumerable<GetRoleViewModel>>(list, null);
+            //}
+            //catch (Exception ex)
+            //{
+            //    return new CallbackResult<IEnumerable<GetRoleViewModel>>(null, new ExceptionError(ex.Message));
+            //}
         }
 
         // Used : Roles->Create

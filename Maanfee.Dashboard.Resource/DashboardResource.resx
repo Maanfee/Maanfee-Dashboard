@@ -216,6 +216,9 @@
   <data name="StringCancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="StringChangePassword" xml:space="preserve">
+    <value>Change password</value>
+  </data>
   <data name="StringChat" xml:space="preserve">
     <value>Chat</value>
   </data>
@@ -245,6 +248,9 @@
   </data>
   <data name="StringCreate" xml:space="preserve">
     <value>Create</value>
+  </data>
+  <data name="StringCurrentPassword" xml:space="preserve">
+    <value>Current password</value>
   </data>
   <data name="StringDashboard" xml:space="preserve">
     <value>Dashboard</value>

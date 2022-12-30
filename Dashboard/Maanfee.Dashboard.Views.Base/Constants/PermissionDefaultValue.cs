@@ -35,9 +35,6 @@ namespace Maanfee.Dashboard.Views.Base
 
             [Display(Name = nameof(DashboardResource.StringDelete))]
             public const string Delete = "Permission.Roles.Delete";
-
-            [Display(Name = nameof(DashboardResource.StringDetails))]
-            public const string Details = "Permission.Roles.Details";
         }
 
         [Display(Name = nameof(DashboardResource.StringGroup))]

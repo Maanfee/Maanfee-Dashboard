@@ -3,13 +3,11 @@ using Maanfee.Dashboard.Views.Core.Services;
 using Maanfee.Web.JSInterop;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.JSInterop;
 using MudBlazor;
 using System;
 using System.Net.Http;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace Maanfee.Dashboard.Views.Core.Pages
+namespace Maanfee.Dashboard.Views.Core
 {
     public class _BaseComponentView : ComponentBase, IDisposable
     {

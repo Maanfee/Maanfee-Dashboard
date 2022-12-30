@@ -11,10 +11,10 @@
     
       <br />  <br />
     <a href="https://github.com/Maanfee/Maanfee-Dashboard/blob/main/LICENSE">
-    <img src="~/SolutionItems/Contents/license.svg" />
+    <img src="https://github.com/Maanfee/Maanfee-Dashboard/blob/main/SolutionItems/Contents/license.svg" />
     </a>
     <a href="https://www.linkedin.com/in/mansour-farshidi-091a41185/">
-    <img src="~/SolutionItems/Contents/linkedin.svg" />
+    <img src="https://github.com/Maanfee/Maanfee-Dashboard/blob/main/SolutionItems/Contents/linkedin.svg" />
     </a>
   </p>
 </p>

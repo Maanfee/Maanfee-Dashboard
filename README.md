@@ -9,12 +9,14 @@
   <p align="center">
     Open sourced solution template for Blazor Web-Assembly  built with MudBlazor
   </p>
+  <div>
       <a href="https://github.com/Maanfee/Maanfee-Dashboard/blob/main/LICENSE">
     <img src="https://github.com/Maanfee/Maanfee-Dashboard/blob/main/SolutionItems/Contents/license.svg" />
     </a>
     <a href="https://www.linkedin.com/in/mansour-farshidi-091a41185/">
     <img src="https://github.com/Maanfee/Maanfee-Dashboard/blob/main/SolutionItems/Contents/linkedin.svg" />
     </a>
+ </div>
 </div>
 
 ## Screenshots 

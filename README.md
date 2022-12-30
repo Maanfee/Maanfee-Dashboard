@@ -1,11 +1,23 @@
 
-<h1>
+<p align="center">
   <picture>
     <img alt="Maanfee" src="SolutionItems/Contents/Logo.png">
   </picture>
-</h1>
-
-# Maanfee Dashboard for MudBlazor
+  <h2 align="center">
+    Maanfee Dashboard MudBlazor Template
+  </h2>
+  <p align="center">
+    Open sourced solution template for Blazor Web-Assembly  built with MudBlazor
+    
+      <br />  <br />
+    <a href="https://github.com/Maanfee/Maanfee-Dashboard/blob/main/LICENSE">
+    <img src="SolutionItems/Contents/license.svg" />
+    </a>
+    <a href="https://www.linkedin.com/in/mansour-farshidi-091a41185/">
+    <img src="SolutionItems/Contents/linkedin.svg" />
+    </a>
+  </p>
+</p>
 
 ## Screenshots 
 ![Screenshots](SolutionItems/Screenshots/Login.png)
@@ -27,6 +39,12 @@
 configure 'connection string' in appsettings.json. 
 - Run solution
 ![image](SolutionItems/Screenshots/VisualStudio.png)
+- Default login credentials
+    - Username : Admin
+    - Password : 123456
+    
+    > **Important**
+As the Maanfee dashboard is under development, please make sure you delete your existing database (SQL Server, SQLite). Also install the latest version of Maanfee dashboard.
 
 **Project History Releases**
 

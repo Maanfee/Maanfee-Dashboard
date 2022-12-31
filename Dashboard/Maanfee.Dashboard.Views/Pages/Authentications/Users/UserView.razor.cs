@@ -1,7 +1,8 @@
-﻿using Maanfee.Dashboard.Domain.ViewModels;
+﻿using Maanfee.Dashboard.Core;
+using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Dashboard.Resources;
 using Maanfee.Dashboard.Views.Base;
-using Maanfee.Dashboard.Views.Base.Services;
+using Maanfee.Dashboard.Views.Core.Shared.Dialogs;
 using Maanfee.Web.Core;
 using MudBlazor;
 using Newtonsoft.Json;
@@ -13,8 +14,8 @@ using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 {
-    public partial class IndexView
-    {
+    public partial class UserView
+	{
         private IEnumerable<GetUserViewModel> Data = new List<GetUserViewModel>();
         private MudTable<GetUserViewModel> Table = new();
         private TableStateViewModel<string> TableState = new();
@@ -70,7 +71,6 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
                     }).ToList();
 
                     IsTableLoading = false;
-                    IsLoaded = true;
 
                     return new TableData<GetUserViewModel>()
                     {
@@ -80,8 +80,6 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
                 }
                 else
                 {
-                    IsLoaded = true;
-
                     Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
                     IsTableLoading = false;
                     return new TableData<GetUserViewModel>()
@@ -94,7 +92,6 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
             catch (Exception ex)
             {
                 IsTableLoading = false;
-                IsLoaded = true;
 
                 Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
                 return new TableData<GetUserViewModel>()
@@ -111,10 +108,106 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
             Table.ReloadServerData();
         }
 
-        private async Task OnRefresh()
+        private async Task OnReloadData()
         {
             await Table.ReloadServerData();
         }
-      
-    }
+
+        #region - Crudate -
+
+        private async Task OpenCrudateDialog<T>(T Id)
+        {
+            DialogParameters parameters = new DialogParameters();
+            parameters.Add("Id", Id);
+
+            var dialog = Dialog.Show<DialogCrudate>(string.Empty, parameters,
+                new DialogOptions()
+                {
+                    NoHeader = true,
+                    MaxWidth = MaxWidth.ExtraExtraLarge,
+                    FullWidth = true,
+                    Position = DialogPosition.Center,
+                });
+
+            var result = await dialog.Result;
+
+            if (!result.Cancelled)
+            {
+                if (result.Data != null)
+                {
+                    //FilterViewModel = (FilterViewModel)result.Data;
+                    await Table.ReloadServerData();
+                }
+            }
+        }
+
+        #endregion
+
+        #region - Details -
+
+        private void OpenDetailsDialog<T>(T Id)
+		{
+			DialogParameters parameters = new DialogParameters();
+			parameters.Add("Id", Id);
+
+			var dialog = Dialog.Show<DialogDetails>(string.Empty, parameters,
+				new DialogOptions()
+				{
+					NoHeader = true,
+					MaxWidth = MaxWidth.ExtraExtraLarge,
+					FullWidth = true,
+					Position = DialogPosition.Center,
+				});
+		}
+
+		#endregion
+
+		#region - Delete -
+
+		private async Task OpenDeleteDialog<T>(T Id)
+		{
+			DialogParameters parameters = new DialogParameters();
+
+			var dialog = Dialog.Show<DialogDelete>(DashboardResource.StringAlert, parameters,
+				new DialogOptions()
+				{
+					MaxWidth = MaxWidth.ExtraSmall,
+					FullWidth = true,
+					Position = DialogPosition.Center,
+				});
+
+			var result = await dialog.Result;
+            if (!result.Cancelled)
+            {
+                try
+                {
+					var DeleteResult = await Http.DeleteAsync($"api/Authentications/Delete/{Id}");
+					if (DeleteResult.IsSuccessStatusCode)
+					{
+						var JsonResult = await DeleteResult.Content.ReadFromJsonAsync<CallbackResult<GetUserViewModel>>();
+						if (JsonResult.Data != null)
+						{
+							Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageDeletedSuccessfully, Severity.Success);
+							await Table.ReloadServerData();
+						}
+						else
+						{
+							Snackbar.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
+						}
+					}
+					else
+					{
+						Snackbar.Add(DeleteResult.Content.ReadAsStringAsync().Result, Severity.Error);
+					}
+				}
+				catch (Exception ex)
+				{
+					Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+				}
+			}
+		}
+
+		#endregion
+
+	}
 }

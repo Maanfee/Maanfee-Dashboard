@@ -4,48 +4,53 @@
 @page "/Prints/PrintView"
 @inherits _BaseView
 
-<MudGrid>
-    <MudItem md="12" xs="12">
-        <h3>Size:@PrintSetting.PageSize,landscape:@PrintSetting.IsLandscape</h3>
+<MaanfeeDashboardPage>
+    <MaanfeeDashboardPageHeader PageTitle="@DashboardResource.StringPrint" Title="@DashboardResource.StringPrint" />
 
-        @foreach (var item in typeof(PageSize).GetFields())
-        {
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@(_ => {PrintSetting.PageSize = item.GetValue(null)?.ToString();PrintSetting.IsLandscape = "false"; })">@item.Name</MudButton>
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@(_ => {PrintSetting.PageSize = item.GetValue(null)?.ToString();PrintSetting.IsLandscape = "true"; })">@item.Name Landscape</MudButton>
-        }
+    <MudGrid>
+        <MudItem md="12" xs="12">
+            <h3>Size:@PrintSetting.PageSize,landscape:@PrintSetting.IsLandscape</h3>
 
-        <h3>Padding:@PrintSetting.Padding</h3>
+            @foreach (var item in typeof(PageSize).GetFields())
+            {
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@(_ => {PrintSetting.PageSize = item.GetValue(null)?.ToString();PrintSetting.IsLandscape = "false"; })">@item.Name</MudButton>
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@(_ => {PrintSetting.PageSize = item.GetValue(null)?.ToString();PrintSetting.IsLandscape = "true"; })">@item.Name Landscape</MudButton>
+            }
 
-        @foreach (var item in typeof(Padding).GetFields())
-        {
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@(_ => PrintSetting.Padding = item.GetValue(null)?.ToString())">@item.Name</MudButton>
-        }
+            <h3>Padding:@PrintSetting.Padding</h3>
 
-        <h3>Multiples:@PrintSetting.Multiple</h3>
-        @foreach (var multiple in multiples)
-        {
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@( _ => PrintSetting.Multiple = multiple)">@multiple</MudButton>
-        }
+            @foreach (var item in typeof(Padding).GetFields())
+            {
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@(_ => PrintSetting.Padding = item.GetValue(null)?.ToString())">@item.Name</MudButton>
+            }
 
-        <h3>Auto Print:@PrintSetting.AutoPrint</h3>
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@( _ => PrintSetting.AutoPrint="Yes")">Yes</MudButton>
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@( _ => PrintSetting.AutoPrint="No")">No</MudButton>
+            <h3>Multiples:@PrintSetting.Multiple</h3>
+            @foreach (var multiple in multiples)
+            {
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@( _ => PrintSetting.Multiple = multiple)">@multiple</MudButton>
+            }
 
-        <br />
-        <br />
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@OnPrint">Print</MudButton>
+            <h3>Auto Print:@PrintSetting.AutoPrint</h3>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@( _ => PrintSetting.AutoPrint="Yes")">Yes</MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@( _ => PrintSetting.AutoPrint="No")">No</MudButton>
 
-    </MudItem>
-    <MudItem md="12" xs="12">
-        @*	@Http.BaseAddress.AbsoluteUri*@
-    </MudItem>
-    <MudItem md="12" xs="12">
-        @*@Http.BaseAddress.DnsSafeHost | @Http.BaseAddress.Host | @Http.BaseAddress.Port | @Http.BaseAddress.Scheme*@
-    </MudItem>
-    <MudItem md="12" xs="12">
+            <br />
+            <br />
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@OnPrint">Print</MudButton>
 
-    </MudItem>
-</MudGrid>
+        </MudItem>
+        <MudItem md="12" xs="12">
+            @*	@Http.BaseAddress.AbsoluteUri*@
+        </MudItem>
+        <MudItem md="12" xs="12">
+            @*@Http.BaseAddress.DnsSafeHost | @Http.BaseAddress.Host | @Http.BaseAddress.Port | @Http.BaseAddress.Scheme*@
+        </MudItem>
+        <MudItem md="12" xs="12">
+
+        </MudItem>
+    </MudGrid>
+
+</MaanfeeDashboardPage>
 
 @code {
 

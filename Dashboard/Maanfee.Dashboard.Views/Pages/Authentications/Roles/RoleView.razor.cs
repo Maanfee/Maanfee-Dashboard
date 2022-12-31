@@ -19,107 +19,107 @@ using TableViewModel = Maanfee.Dashboard.Domain.ViewModels.GetRoleViewModel;
 
 namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 {
-    public partial class RoleView
-    {
-        private IEnumerable<TableViewModel> Data = new List<TableViewModel>();
-        private MudTable<TableViewModel> Table = new();
-        private TableStateViewModel<FilterViewModel> TableState = new();
+	public partial class RoleView
+	{
+		private IEnumerable<TableViewModel> Data = new List<TableViewModel>();
+		private MudTable<TableViewModel> Table = new();
+		private TableStateViewModel<FilterViewModel> TableState = new();
 
-        private bool _PermissionCreate = false;
-        private bool _PermissionEdit = false;
-        private bool _PermissionDelete = false;
+		private bool _PermissionCreate = false;
+		private bool _PermissionEdit = false;
+		private bool _PermissionDelete = false;
 
-        protected override async Task OnInitializedAsync()
-        {
-            await base.OnInitializedAsync();
+		protected override async Task OnInitializedAsync()
+		{
+			await base.OnInitializedAsync();
 
-            try
-            {
-                await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.Role.View, PermissionAuthenticationState,
-                    AuthorizationService, Navigation);
+			try
+			{
+				await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.Role.View, PermissionAuthenticationState,
+					AuthorizationService, Navigation);
 
-                var PermissionCurrentUser = (await PermissionAuthenticationState).User;
-                _PermissionCreate = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.Create)).Succeeded;
-                _PermissionEdit = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.Edit)).Succeeded;
-                _PermissionDelete = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.Delete)).Succeeded;
+				var PermissionCurrentUser = (await PermissionAuthenticationState).User;
+				_PermissionCreate = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.Create)).Succeeded;
+				_PermissionEdit = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.Edit)).Succeeded;
+				_PermissionDelete = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.Delete)).Succeeded;
 
-            }
-            catch (Exception ex)
-            {
-                Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
-            }
-        }
+			}
+			catch (Exception ex)
+			{
+				Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+			}
+		}
 
-        private async Task<TableData<TableViewModel>> ServerData(TableState state)
-        {
-            try
-            {
-                state.Page++;
+		private async Task<TableData<TableViewModel>> ServerData(TableState state)
+		{
+			try
+			{
+				state.Page++;
 
-                if (state.PageSize == 0)
-                {
-                    state.PageSize = 10;
-                }
+				if (state.PageSize == 0)
+				{
+					state.PageSize = 10;
+				}
 
-                TableState.state = state;
-                TableState.UserName = AccountStateContainer.UserName;
-                if (FilterViewModel != null)
-                {
-                    TableState.Filter = FilterViewModel;
-                }
+				TableState.state = state;
+				TableState.UserName = AccountStateContainer.UserName;
+				if (FilterViewModel != null)
+				{
+					TableState.Filter = FilterViewModel;
+				}
 
-                var PostResult = await Http.PostAsJsonAsync($"api/Roles/PaginationIndex", TableState);
-                if (PostResult.IsSuccessStatusCode)
-                {
-                    var stringcallback = await PostResult.Content.ReadAsStringAsync();
-                    var JObjectData = Newtonsoft.Json.Linq.JObject.Parse(stringcallback);
+				var PostResult = await Http.PostAsJsonAsync($"api/Roles/PaginationIndex", TableState);
+				if (PostResult.IsSuccessStatusCode)
+				{
+					var stringcallback = await PostResult.Content.ReadAsStringAsync();
+					var JObjectData = Newtonsoft.Json.Linq.JObject.Parse(stringcallback);
 
-                    var List = JsonConvert.DeserializeObject<List<IdentityRole>>(JObjectData["data"]?["list"]?.ToString());
-                    int TotalItems = JsonConvert.DeserializeObject<int>(JObjectData["data"]?["totalPages"]?.ToString());
+					var List = JsonConvert.DeserializeObject<List<IdentityRole>>(JObjectData["data"]?["list"]?.ToString());
+					int TotalItems = JsonConvert.DeserializeObject<int>(JObjectData["data"]?["totalPages"]?.ToString());
 
-                    Data = List.AsEnumerable().Select((data, index) => new TableViewModel
-                    {
-                        RowNum = ((state.Page - 1) * state.PageSize) + (index + 1),
-                        Id = data.Id,
-                        Name = data.Name,
-                        NormalizedName = data.NormalizedName,
-                    }).ToList();
+					Data = List.AsEnumerable().Select((data, index) => new TableViewModel
+					{
+						RowNum = ((state.Page - 1) * state.PageSize) + (index + 1),
+						Id = data.Id,
+						Name = data.Name,
+						NormalizedName = data.NormalizedName,
+					}).ToList();
 
-                    IsTableLoading = false;
+					IsTableLoading = false;
 
-                    return new TableData<TableViewModel>()
-                    {
-                        TotalItems = TotalItems,
-                        Items = Data
-                    };
-                }
-                else
-                {
-                    Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
-                    IsTableLoading = false;
-                    return new TableData<TableViewModel>()
-                    {
-                        Items = Data,
-                        TotalItems = 0,
-                    };
-                }
-            }
-            catch (Exception ex)
-            {
-                Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
-                IsTableLoading = false;
-                return new TableData<TableViewModel>()
-                {
-                    Items = Data,
-                    TotalItems = 0,
-                };
-            }
-        }
+					return new TableData<TableViewModel>()
+					{
+						TotalItems = TotalItems,
+						Items = Data
+					};
+				}
+				else
+				{
+					Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
+					IsTableLoading = false;
+					return new TableData<TableViewModel>()
+					{
+						Items = Data,
+						TotalItems = 0,
+					};
+				}
+			}
+			catch (Exception ex)
+			{
+				Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+				IsTableLoading = false;
+				return new TableData<TableViewModel>()
+				{
+					Items = Data,
+					TotalItems = 0,
+				};
+			}
+		}
 
-        private void OnReloadData()
-        {
-            Table.ReloadServerData();
-        }
+		private void OnReloadData()
+		{
+			Table.ReloadServerData();
+		}
 
 		#region - Search -
 
@@ -155,97 +155,99 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 		#region - Crudate -
 
 		private async Task OpenCrudateDialog<T>(T Id)
-        {
-            DialogParameters parameters = new DialogParameters();
-            parameters.Add("Id", Id);
+		{
+			DialogParameters parameters = new DialogParameters();
+			parameters.Add("Id", Id);
 
-            var dialog = Dialog.Show<DialogCrudate>(string.Empty, parameters,
-                new DialogOptions()
-                {
-                    NoHeader = true,
-                    MaxWidth = MaxWidth.Medium,
-                    FullWidth = true,
-                    Position = DialogPosition.Center,
-                });
+			var dialog = Dialog.Show<DialogCrudate>(string.Empty, parameters,
+				new DialogOptions()
+				{
+					NoHeader = true,
+					MaxWidth = MaxWidth.Medium,
+					FullWidth = true,
+					Position = DialogPosition.Center,
+				});
 
-            var result = await dialog.Result;
+			var result = await dialog.Result;
 
-            if (!result.Cancelled)
-            {
-                if (result.Data != null)
-                {
-                    //FilterViewModel = (FilterViewModel)result.Data;
-                    await Table.ReloadServerData();
-                }
-            }
-        }
+			if (!result.Cancelled)
+			{
+				if (result.Data != null)
+				{
+					//FilterViewModel = (FilterViewModel)result.Data;
+					await Table.ReloadServerData();
+				}
+			}
+		}
 
-        #endregion
+		#endregion
 
-        #region - Details -
+		#region - Details -
 
-        private void OpenDetailsDialog<T>(T Id)
-        {
-            DialogParameters parameters = new DialogParameters();
-            parameters.Add("Id", Id);
+		private void OpenDetailsDialog<T>(T Id)
+		{
+			DialogParameters parameters = new DialogParameters();
+			parameters.Add("Id", Id);
 
-            var dialog = Dialog.Show<DialogDetails>(string.Empty, parameters,
-                new DialogOptions()
-                {
-                    MaxWidth = MaxWidth.Medium,
-                    FullWidth = true,
-                    Position = DialogPosition.Center,
-                });
-        }
+			var dialog = Dialog.Show<DialogDetails>(string.Empty, parameters,
+				new DialogOptions()
+				{
+					NoHeader = true,
+					MaxWidth = MaxWidth.Medium,
+					FullWidth = true,
+					Position = DialogPosition.Center,
+				});
+		}
 
-        #endregion
+		#endregion
 
-        #region - Delete -
+		#region - Delete -
 
-        private async Task OpenDeleteDialog<T>(T Id)
-        {
-            DialogParameters parameters = new DialogParameters();
+		private async Task OpenDeleteDialog<T>(T Id)
+		{
+			DialogParameters parameters = new DialogParameters();
 
-            var dialog = Dialog.Show<DialogDelete>(DashboardResource.StringAlert, parameters,
-                new DialogOptions()
-                {
-                    MaxWidth = MaxWidth.ExtraSmall,
-                    FullWidth = true,
-                    Position = DialogPosition.Center,
-                });
+			var dialog = Dialog.Show<DialogDelete>(DashboardResource.StringAlert, parameters,
+				new DialogOptions()
+				{
+					MaxWidth = MaxWidth.ExtraSmall,
+					FullWidth = true,
+					Position = DialogPosition.Center,
+				});
 
-            var result = await dialog.Result;
+			var result = await dialog.Result;
 
-            if (!result.Cancelled)
-            {
-                try
-                {
-                    var DeleteResult = await Http.DeleteAsync($"api/Roles/Delete/{Id}");
-                    if (DeleteResult.IsSuccessStatusCode)
-                    {
-                        var JsonResult = await DeleteResult.Content.ReadFromJsonAsync<CallbackResult<IdentityRole>>();
-                        if (JsonResult.Data != null)
-                        {
-                            Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageDeletedSuccessfully, Severity.Success);
-                            await Table.ReloadServerData();
-                        }
-                        else
-                        {
-                            Snackbar.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
-                        }
-                    }
-                    else
-                    {
-                        Snackbar.Add(DeleteResult.Content.ReadAsStringAsync().Result, Severity.Error);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
-                }
-            }
-        }
+			if (!result.Cancelled)
+			{
+				try
+				{
+					var DeleteResult = await Http.DeleteAsync($"api/Roles/Delete/{Id}");
+					if (DeleteResult.IsSuccessStatusCode)
+					{
+						var JsonResult = await DeleteResult.Content.ReadFromJsonAsync<CallbackResult<IdentityRole>>();
+						if (JsonResult.Data != null)
+						{
+							Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageDeletedSuccessfully, Severity.Success);
+							await Table.ReloadServerData();
+						}
+						else
+						{
+							Snackbar.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
+						}
+					}
+					else
+					{
+						Snackbar.Add(DeleteResult.Content.ReadAsStringAsync().Result, Severity.Error);
+					}
+				}
+				catch (Exception ex)
+				{
+					Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+				}
+			}
+		}
 
-        #endregion
-    }
+		#endregion
+	
+	}
 }

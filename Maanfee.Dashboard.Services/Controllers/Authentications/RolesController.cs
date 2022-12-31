@@ -216,5 +216,30 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
             }
         }
 
+        // ***********************************************
+
+        // Used : Roles->GetRole
+        [HttpGet("GetRole")]
+        // GET: api/Roles/GetRole
+        public async Task<CallbackResult<IEnumerable<GetRoleViewModel>>> GetRole()
+        {
+            try
+            {
+                var list = await db_SQLServer.AspNetRoles
+                    .Select(x => new GetRoleViewModel
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        NormalizedName = x.NormalizedName,
+                    }).ToListAsync();
+
+                return new CallbackResult<IEnumerable<GetRoleViewModel>>(list, null);
+            }
+            catch (Exception ex)
+            {
+                return new CallbackResult<IEnumerable<GetRoleViewModel>>(null, new ExceptionError(ex.Message));
+            }
+        }
+
     }
 } 

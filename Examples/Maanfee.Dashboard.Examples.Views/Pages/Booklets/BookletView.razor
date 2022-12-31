@@ -1,11 +1,16 @@
 ﻿@page "/Booklets/BookletView"
 
-<MudItem>
-	<MudButton OnClick="()=>OpenBookletDialog()" Color="Color.Dark" Variant="Variant.Filled" StartIcon="@Icons.Filled.MenuBook">
-		Booklet
-	</MudButton>
-</MudItem>
-<BookletComponent />
+<MaanfeeDashboardPage>
+	<MaanfeeDashboardPageHeader PageTitle="Booklet" Title="Booklet" />
+
+	<MudItem>
+		<MudButton OnClick="()=>OpenBookletDialog()" Color="Color.Dark" Variant="Variant.Filled" StartIcon="@Icons.Filled.MenuBook">
+			Booklet
+		</MudButton>
+	</MudItem>
+	<BookletComponent />
+
+</MaanfeeDashboardPage>
 
 @code {
 

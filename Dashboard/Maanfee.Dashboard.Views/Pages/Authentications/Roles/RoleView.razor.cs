@@ -42,7 +42,6 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 				_PermissionCreate = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.Create)).Succeeded;
 				_PermissionEdit = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.Edit)).Succeeded;
 				_PermissionDelete = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.Delete)).Succeeded;
-
 			}
 			catch (Exception ex)
 			{

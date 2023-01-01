@@ -4,37 +4,55 @@ using System.Linq;
 
 namespace Maanfee.Dashboard.Views.Core.Services
 {
-    public static class LanguageService
-    {
-        public static List<LanguageModel> GetSupportedLanguages()
-        {
-            return new List<LanguageModel>
-            {
-                new LanguageModel
-                {
-                    Code = "fa-IR",
-                    Country = "Iran",
-                    Language = "Persian",
-                    IsRTL = true,
-                },
-                new LanguageModel
-                {
-                    Code = "en-US",
-                    Country = "US",
-                    Language = "English",
-                    IsRTL = false,
-                },
-            };
-        }
+	public static class LanguageService
+	{
+		public enum SupportedCountry
+		{
+			Iran, US,
+		}
 
-        public static LanguageModel GetLanguage(string Country)
-        {
-            return GetSupportedLanguages().FirstOrDefault(x => x.Country == Country);
-        }
+		public static string GetCountryName(SupportedCountry supportedCountry)
+		{
+			switch (supportedCountry)
+			{
+				case SupportedCountry.Iran:
+					return "Iran";
+				case SupportedCountry.US:
+					return "US";
+				default:
+					return "US";
+			}
+		}
 
-        public static string ToDisplayString(LanguageModel LanguageModel)
-        {
-            return string.Format("{0} ({1})", LanguageModel.Language, LanguageModel.Country);
-        }
-    }
+		public static List<LanguageModel> GetSupportedLanguages()
+		{
+			return new List<LanguageModel>
+			{
+				new LanguageModel
+				{
+					Code = "fa-IR",
+					Country = "Iran",
+					Language = "Persian",
+					IsRTL = true,
+				},
+				new LanguageModel
+				{
+					Code = "en-US",
+					Country = "US",
+					Language = "English",
+					IsRTL = false,
+				},
+			};
+		}
+
+		public static LanguageModel GetLanguage(string Country)
+		{
+			return GetSupportedLanguages().FirstOrDefault(x => x.Country == Country);
+		}
+
+		public static string ToDisplayString(LanguageModel LanguageModel)
+		{
+			return string.Format("{0} ({1})", LanguageModel.Language, LanguageModel.Country);
+		}
+	}
 }

@@ -3,6 +3,7 @@ using Maanfee.Dashboard.Views;
 using Maanfee.Dashboard.Views.Base.Extensions;
 using Maanfee.Dashboard.Views.Booklet;
 using Maanfee.Dashboard.Views.Core.Extensions;
+using Maanfee.Dashboard.Views.Core.Services;
 using Maanfee.Web.Core;
 using Maanfee.Web.JSInterop;
 using Maanfee.Web.Printing;
@@ -44,7 +45,7 @@ builder.Services.AddFileDownload();
 var host = builder.Build();
 
 var Config = host.Services.GetRequiredService<LocalConfiguration>();
-await Config.InitConfigurationAsync();
-await Config.InitWasmCultureAsync(builder.Services);
+await Config.GetConfigurationAsync();
+await Config.InitWasmCultureAsync(builder.Services, LanguageService.SupportedCountry.US);
 
 await host.RunAsync();

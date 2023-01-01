@@ -4,6 +4,7 @@ using Maanfee.Dashboard.Resources;
 using Maanfee.Dashboard.Views.Base;
 using Maanfee.Dashboard.Views.Core.Shared.Dialogs;
 using Maanfee.Web.Core;
+using Microsoft.AspNetCore.Authorization;
 using MudBlazor;
 using Newtonsoft.Json;
 using System;
@@ -21,14 +22,23 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
         private TableStateViewModel<string> TableState = new();
         private string SearchString = string.Empty;
 
-        protected override async Task OnInitializedAsync()
+		private bool _PermissionCreate = false;
+		private bool _PermissionEdit = false;
+		private bool _PermissionDelete = false;
+
+		protected override async Task OnInitializedAsync()
         {
             try
             {
                 await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.User.View, PermissionAuthenticationState,
                     AuthorizationService, Navigation);
-            }
-            catch (Exception ex)
+
+				var PermissionCurrentUser = (await PermissionAuthenticationState).User;
+				_PermissionCreate = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.User.Create)).Succeeded;
+				_PermissionEdit = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.User.Edit)).Succeeded;
+				_PermissionDelete = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.User.Delete)).Succeeded;
+			}
+			catch (Exception ex)
             {
                 Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
             }

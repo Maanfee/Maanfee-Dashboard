@@ -2,7 +2,7 @@
 @inherits SharedLayout
 
 <MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
-	<MudThemeProvider Theme="CurrentTheme" />
+	<MudThemeProvider Theme="CurrentTheme" IsDarkMode="@SharedLayoutSettings.IsDarkMode" />
 	<MudContainer MaxWidth="MaxWidth.Small" Class="d-flex align-center" Style="height: 100vh;">
 		<MudPaper Elevation="25" Class="pa-8" Style="width: 500px;">
 			@Body

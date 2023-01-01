@@ -10,7 +10,7 @@
 }
 
 <MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL" Class="@IsVisible">
-	<MudThemeProvider Theme="CurrentTheme" />
+	<MudThemeProvider Theme="CurrentTheme" IsDarkMode="@SharedLayoutSettings.IsDarkMode" />
 	<AuthorizeView>
 		<NotAuthorized>
 			@*<MainLayout />*@

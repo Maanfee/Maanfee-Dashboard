@@ -17,20 +17,17 @@ namespace Maanfee.Dashboard.Views.Core.Shared
 
 #pragma warning restore CS0108
 
-        protected ConfigurationModel ConfigurationModel = new();
-
         protected LanguageModel LanguageModel = new();
 
         protected virtual MudTheme CurrentTheme { get; set; }
-        
+
         protected override async Task OnInitializedAsync()
         {
-            ConfigurationModel = await LocalStorage.GetAsync<ConfigurationModel>(StorageDefaultValue.ConfigurationStorage);
-            CurrentTheme = ConfigurationModel.IsDarkMode ? MaanfeeTheme.DarkTheme : MaanfeeTheme.DefaultTheme;
-
-            LanguageModel = await LocalStorage.GetAsync<LanguageModel>(StorageDefaultValue.CultureStorage);
+			LanguageModel = await LocalStorage.GetAsync<LanguageModel>(StorageDefaultValue.CultureStorage);
             SharedLayoutSettings.IsRTL = LanguageModel.IsRTL;
+
+            CurrentTheme = MaanfeeTheme.ThemeBuilder(SharedLayoutSettings.IsRTL, SharedLayoutSettings.IsDarkMode);
         }
 
-    }
+	}
 }

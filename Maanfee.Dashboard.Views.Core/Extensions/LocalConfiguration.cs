@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
+using static Maanfee.Dashboard.Views.Core.Services.LanguageService;
 
 namespace Maanfee.Dashboard.Views.Core.Extensions
 {
@@ -20,7 +21,7 @@ namespace Maanfee.Dashboard.Views.Core.Extensions
 
 		public LocalStorage LocalStorage;
 
-		private async Task<CultureInfo> CultureConfigurationAsync()
+		private async Task<CultureInfo> CultureConfigurationAsync(string DefaultLanguage)
 		{
 			CultureInfo Culture;
 
@@ -31,7 +32,7 @@ namespace Maanfee.Dashboard.Views.Core.Extensions
 			}
 			else
 			{
-				var DefaultLanguageModel = LanguageService.GetLanguage("US");
+				var DefaultLanguageModel = LanguageService.GetLanguage(DefaultLanguage);
 
 				Culture = new CultureInfo(DefaultLanguageModel.Code);
 				await LocalStorage.SetAsync<LanguageModel>(StorageDefaultValue.CultureStorage, DefaultLanguageModel);
@@ -40,28 +41,49 @@ namespace Maanfee.Dashboard.Views.Core.Extensions
 			return Culture;
 		}
 
-		public async Task InitConfigurationAsync()
+		#region - Configuration -
+
+		public async Task GetConfigurationAsync()
 		{
-			var ConfigurationModel = await LocalStorage.GetAsync<ConfigurationModel>(StorageDefaultValue.ConfigurationStorage);
+			var LayoutSettings = new LayoutSettings()
+			{
+				IsDarkMode = false,
+				IsRTL = false,
+			};
+			var ConfigurationModel = await LocalStorage.GetAsync<LayoutSettings>(StorageDefaultValue.ConfigurationStorage);
 			if (ConfigurationModel == null)
 			{
-				await LocalStorage.SetAsync<ConfigurationModel>(StorageDefaultValue.ConfigurationStorage, new ConfigurationModel
-				{
-					IsDarkMode = false,
-				});
+				await LocalStorage.SetAsync<LayoutSettings>(StorageDefaultValue.ConfigurationStorage, LayoutSettings);
+			}
+			else
+			{
+				SharedLayoutSettings.IsDarkMode = ConfigurationModel.IsDarkMode;
+				SharedLayoutSettings.IsRTL = ConfigurationModel.IsRTL;
 			}
 		}
 
-		// ***********************
+		public async Task SetConfigurationAsync()
+		{
+			var LayoutSettings = new LayoutSettings()
+			{
+				IsDarkMode = SharedLayoutSettings.IsDarkMode,
+				IsRTL = SharedLayoutSettings.IsRTL,
+			};
+			await LocalStorage.SetAsync<LayoutSettings>(StorageDefaultValue.ConfigurationStorage, LayoutSettings);
+		}
 
-		public async Task InitWasmCultureAsync(IServiceCollection Services)
+		#endregion
+
+		// *********************** 
+
+		public async Task InitWasmCultureAsync(IServiceCollection Services, SupportedCountry DefaultLanguage)
 		{
 			Services.AddLocalization(options =>
 			{
 				options.ResourcesPath = "Resources";
 			});
 
-			var Culture = await CultureConfigurationAsync();
+			var Culture = await CultureConfigurationAsync(LanguageService.GetCountryName(DefaultLanguage));
 
 			CultureInfo.DefaultThreadCurrentCulture = Culture;
 			CultureInfo.DefaultThreadCurrentUICulture = Culture;

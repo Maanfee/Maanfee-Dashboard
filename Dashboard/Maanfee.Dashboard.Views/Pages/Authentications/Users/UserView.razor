@@ -14,7 +14,7 @@
 		<MudCardContent>
 			<MudToolBar>
 				<div class="justify-center mud-text-align-center">
-					<MudButton OnClick="@(() => OpenCrudateDialog("0"))" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" IconColor="Color.Surface">@DashboardResource.StringCreate</MudButton>
+					<MudButton Disabled="@(!_PermissionCreate)" OnClick="@(() => OpenCrudateDialog("0"))" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" IconColor="Color.Surface">@DashboardResource.StringCreate</MudButton>
 					<MudButton OnClick="OnReloadData" Variant="Variant.Filled" Color="Color.Secondary" StartIcon="@Icons.Material.Filled.Refresh" IconColor="Color.Surface">@DashboardResource.StringReload</MudButton>
 				</div>
 				<MudSpacer />
@@ -72,8 +72,8 @@
 					<MudTd>@context?.UserDepartmentsManagementTitle</MudTd>
 					<MudTd>
 						<MudIconButton OnClick="()=>OpenDetailsDialog(context.Id)" Title="@DashboardResource.StringDetails" Icon="@Icons.Material.Filled.Details" Color="Color.Primary" Size="Size.Small"></MudIconButton>
-						<MudIconButton OnClick="()=>OpenCrudateDialog(context.Id)" Title="@DashboardResource.StringEdit" Icon="@Icons.Material.Filled.Edit" Color="Color.Success" Size="Size.Small"></MudIconButton>
-						<MudIconButton OnClick="()=>OpenDeleteDialog(context.Id)" Title="@DashboardResource.StringDelete" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"></MudIconButton>
+						<MudIconButton Disabled="@(!_PermissionEdit)" OnClick="()=>OpenCrudateDialog(context.Id)" Title="@DashboardResource.StringEdit" Icon="@Icons.Material.Filled.Edit" Color="Color.Success" Size="Size.Small"></MudIconButton>
+						<MudIconButton Disabled="@(!_PermissionDelete)" OnClick="()=>OpenDeleteDialog(context.Id)" Title="@DashboardResource.StringDelete" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"></MudIconButton>
 					</MudTd>
 				</RowTemplate>
 				<NoRecordsContent>

@@ -2,7 +2,7 @@ using Maanfee.Dashboard.Domain.DAL;
 using Maanfee.Dashboard.Server.Data;
 using Maanfee.Dashboard.Services;
 using Maanfee.Dashboard.Services.Extensions;
-using Maanfee.Dashboard.Views.Core.Extensions;
+using Maanfee.Dashboard.Views.Core.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -74,7 +74,7 @@ namespace Maanfee.Dashboard.Server
 
             #region - Internal Configuration -
 
-            LocalConfiguration.InitServerCultureAsync(app);
+            LocalConfigurationService.InitServerCultureAsync(app);
             app.AddConfigure(SQLServerContext, SQLiteContext);
 
             #endregion

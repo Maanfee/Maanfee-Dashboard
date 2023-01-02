@@ -3,111 +3,130 @@
 
 <style>
 
-	.mode-button {
-		border: 1px solid var(--mud-palette-table-lines);
-		height: 50px;
-	}
+    .maanfee-theme-box-xs {
+        appearance: none;
+        border-radius: 0.75rem;
+        border: 0;
+        height: 24px;
+        margin-bottom: 0.2rem;
+        margin-inline: 0.2rem;
+        width: 24px;
+    }
 
-	.oval {
-		width: 35px;
-		height: 15px;
-		border-radius: 50%;
-		transform: rotate(120deg);
-	}
-
-	.oval-selected {
-		transform: rotate(0deg);
-	}
-
-	.color-button {
-		height: 50px;
-		border: 1px solid var(--mud-palette-table-lines);
-	}
-
-	.color-button-selected {
-		border: 2px solid var(--mud-palette-primary);
-	}
+    .maanfee-themeColors.active:before, .maanfee-themeColors.active:before {
+        border-color: #fff;
+        border-style: solid;
+        border-width: 0 0 3px 3px;
+        content: "";
+        height: 0.45rem;
+        inset: 50% 0 0 50%;
+        position: absolute;
+        transform-origin: center center;
+        transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+        width: 0.7rem;
+    }
 
 </style>
 
+@*<style>
+
+    .mode-button {
+        border: 1px solid var(--mud-palette-table-lines);
+        height: 50px;
+    }
+
+    .oval {
+        width: 35px;
+        height: 15px;
+        border-radius: 50%;
+        transform: rotate(120deg);
+    }
+
+    .oval-selected {
+        transform: rotate(0deg);
+    }
+
+    .color-button {
+        height: 50px;
+        border: 1px solid var(--mud-palette-table-lines);
+    }
+
+    .color-button-selected {
+        border: 2px solid var(--mud-palette-primary);
+    }
+
+</style>*@
 
 <MudDrawer Anchor="@(SharedLayoutSettings.IsRTL ? Anchor.Left : Anchor.Right)"
-		   @bind-Open="ThemingDrawerOpen" Elevation="1" Variant="@DrawerVariant.Temporary" Width="260px">
+           @bind-Open="ThemingDrawerOpen" Elevation="1" Variant="@DrawerVariant.Temporary" Width="260px">
 
-	<MudDrawerHeader Class="align-center">
-		<MudText Typo="Typo.body1">
-			<b>@DashboardResource.StringTheme</b>
-		</MudText>
-		<MudSpacer />
-		<MudIconButton Color="Color.Default"
-					   Icon="@Icons.Material.Filled.Close"
-					   OnClick="@(() => ThemingDrawerOpenChanged.InvokeAsync(false))"
-					   Size="Size.Small" />
-	</MudDrawerHeader>
-	<MudDivider />
-	<div class="ma-6">
-		<MudText Typo="Typo.body2">
-			<b>@DashboardResource.StringColor</b>
-		</MudText>
-		<MudGrid Class="my-2" Spacing="3">
-			@foreach (var color in SupportedThemeColors)
-			{
-				<MudItem xs="4">
-					<MudButton FullWidth="true" OnClick="@(() => UpdateThemePrimaryColor(color))"
-						   Class="@(color == PrimaryColor ? "color-button color-button-selected" : "color-button")">
-						<ChildContent>
-							<div class="@(color == PrimaryColor ? "oval oval-selected" : "oval")" style="@($"background: {color};")">
-							</div>
-						</ChildContent>
-					</MudButton>
-				</MudItem>
-			}
-		</MudGrid>
-		<MudDivider />
-	</div>
+    <MudDrawerHeader Class="align-center">
+        <MudText Typo="Typo.body1">
+            <b>@DashboardResource.StringTheme</b>
+        </MudText>
+        <MudSpacer />
+        <MudIconButton Color="Color.Default"
+                       Icon="@Icons.Material.Filled.Close"
+                       OnClick="@(() => ThemingDrawerOpenChanged.InvokeAsync(false))"
+                       Size="Size.Small" />
+    </MudDrawerHeader>
+    <MudDivider />
+    <div class="ma-6">
+        <MudText Typo="Typo.body2">
+            <b>@DashboardResource.StringColor</b>
+        </MudText>
+        <MudGrid Class="my-2 mt-2">
+            @foreach (var color in SupportedThemeColors)
+            {
+                <button class="@(color == SharedLayoutSettings.ThemeColor ? "maanfee-theme-box-xs maanfee-themeColors active" : "maanfee-theme-box-xs")"
+                    style="@($"background: {color};")" onclick="@(() => UpdateThemePrimaryColor(color))"></button>
+            }
+        </MudGrid>
+        <MudDivider />
+    </div>
 
 </MudDrawer>
 
 <MudOverlay DarkBackground="false" Visible="ThemingDrawerOpen" VisibleChanged="ThemingDrawerOpenChanged"
-			OnClick="@(() => ThemingDrawerOpenChanged.InvokeAsync(false))" />
+            OnClick="@(() => ThemingDrawerOpenChanged.InvokeAsync(false))" />
 
 @code {
 
-	[EditorRequired][Parameter] public bool ThemingDrawerOpen { get; set; }
+    [EditorRequired][Parameter] public bool ThemingDrawerOpen { get; set; }
 
-	[EditorRequired][Parameter] public EventCallback<bool> ThemingDrawerOpenChanged { get; set; }
+    [EditorRequired][Parameter] public EventCallback<bool> ThemingDrawerOpenChanged { get; set; }
 
-	// **************************************
+    // **************************************
 
-	private static string PrimaryColor { get; set; } = "#594AE2";
+    private static string PrimaryColor = "#594AE2";
 
-	private readonly List<MudColor> SupportedThemeColors = new()
-	{
-		PrimaryColor,
-		Colors.Amber.Default,
-		Colors.Green.Default,
-		Colors.Brown.Default,
-		Colors.Orange.Default,
-		Colors.Red.Default,
-		Colors.Cyan.Default,
-		Colors.Grey.Default,
-		Colors.Indigo.Default,
-		Colors.LightBlue.Default,
-		Colors.LightGreen.Default,
-		Colors.Lime.Default,
-		Colors.Orange.Default,
-		Colors.Pink.Default,
-		Colors.Purple.Default,
-		Colors.Teal.Default,
-		Colors.Yellow.Default,
-	};
+    private readonly List<MudColor> SupportedThemeColors = new()
+    {
+        PrimaryColor,
+        Colors.Amber.Default,
+        Colors.Green.Default,
+        Colors.Brown.Default,
+        Colors.Orange.Default,
+        Colors.Red.Default,
+        Colors.Cyan.Default,
+        Colors.Grey.Default,
+        Colors.Indigo.Default,
+        Colors.LightBlue.Default,
+        Colors.LightGreen.Default,
+        Colors.Pink.Default,
+        Colors.Purple.Default,
+        Colors.Teal.Default,
+    };
 
-	private async Task UpdateThemePrimaryColor(MudColor color)
-	{
-		await UserPreferencesChanged.InvokeAsync(color);
-		StateHasChanged();
-	}
+    private async Task UpdateThemePrimaryColor(MudColor color)
+    {
+        PrimaryColor = color.Value;
+        await UserPreferencesChanged.InvokeAsync(color);
+        // *******************
+        SharedLayoutSettings.ThemeColor = color.Value;
+        await LocalConfiguration.SetConfigurationAsync();
+    }
 
-	[EditorRequired][Parameter] public EventCallback<MudColor> UserPreferencesChanged { get; set; }
+    [EditorRequired][Parameter] public EventCallback<MudColor> UserPreferencesChanged { get; set; }
 
 }

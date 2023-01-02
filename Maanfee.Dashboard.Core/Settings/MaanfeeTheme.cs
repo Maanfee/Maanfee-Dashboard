@@ -266,7 +266,7 @@ namespace Maanfee.Dashboard.Core
 					AppbarBackground = ThemeColor == null ? new Palette().Primary : ThemeColor,
 					//	Primary = "#1E88E5",
 					//	AppbarBackground = "#1E88E5",
-					//	Background = Colors.Grey.Lighten5,
+					Background = Colors.Grey.Lighten5,
 					//	DrawerBackground = "#FFF",
 					//	DrawerText = "rgba(0,0,0, 0.7)",
 					//	Success = "#007E33"

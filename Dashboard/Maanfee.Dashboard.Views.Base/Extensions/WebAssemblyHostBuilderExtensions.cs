@@ -1,5 +1,4 @@
 ﻿using Maanfee.Dashboard.Views.Base.Services;
-using Maanfee.Dashboard.Views.Core.Extensions;
 using Maanfee.Dashboard.Views.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -50,7 +49,7 @@ namespace Maanfee.Dashboard.Views.Base.Extensions
             #region - Services -
 
             builder.Services.AddSingleton<AccountStateContainer>();
-            builder.Services.AddScoped<LocalConfiguration>();
+            builder.Services.AddScoped<LocalConfigurationService>();
             builder.Services.AddScoped<PermissionService>();
 
             #endregion

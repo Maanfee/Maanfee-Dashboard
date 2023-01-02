@@ -1,5 +1,4 @@
 ﻿using Maanfee.Dashboard.Domain.ViewModels;
-using Maanfee.Dashboard.Views.Core.Extensions;
 using System;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -11,7 +10,7 @@ namespace Maanfee.Dashboard.Views.Core.Services
     {
         public AuthenticationService(HttpClient httpClient,
             JwtAuthenticationStateProvider _JwtAuthenticationStateProvider,
-            LocalConfiguration _LocalConfiguration)
+            LocalConfigurationService _LocalConfiguration)
         {
             Http = httpClient;
 
@@ -21,7 +20,7 @@ namespace Maanfee.Dashboard.Views.Core.Services
 
         private readonly HttpClient Http;
         private JwtAuthenticationStateProvider JwtAuthenticationStateProvider;
-        private LocalConfiguration LocalConfiguration;
+        private LocalConfigurationService LocalConfiguration;
 
         public async Task<CurrentUser> CurrentUserInfo()
         {

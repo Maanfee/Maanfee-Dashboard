@@ -1,5 +1,4 @@
-﻿using Maanfee.Dashboard.Views.Core.Extensions;
-using Maanfee.Dashboard.Views.Core.Services;
+﻿using Maanfee.Dashboard.Views.Core.Services;
 using Maanfee.Web.JSInterop;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -30,7 +29,7 @@ namespace Maanfee.Dashboard.Views.Core
 
         // JWT
         [Inject]
-        protected LocalConfiguration LocalConfiguration { get; set; }
+        protected LocalConfigurationService LocalConfiguration { get; set; }
 
         // JWT
         [Inject]

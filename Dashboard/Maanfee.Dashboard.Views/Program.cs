@@ -2,7 +2,6 @@ using Allegiance.Blazor.Highcharts.Services;
 using Maanfee.Dashboard.Views;
 using Maanfee.Dashboard.Views.Base.Extensions;
 using Maanfee.Dashboard.Views.Booklet;
-using Maanfee.Dashboard.Views.Core.Extensions;
 using Maanfee.Dashboard.Views.Core.Services;
 using Maanfee.Web.Core;
 using Maanfee.Web.JSInterop;
@@ -44,7 +43,7 @@ builder.Services.AddFileDownload();
 
 var host = builder.Build();
 
-var Config = host.Services.GetRequiredService<LocalConfiguration>();
+var Config = host.Services.GetRequiredService<LocalConfigurationService>();
 await Config.GetConfigurationAsync();
 await Config.InitWasmCultureAsync(builder.Services, LanguageService.SupportedCountry.US);
 

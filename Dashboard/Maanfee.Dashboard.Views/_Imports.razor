@@ -30,7 +30,6 @@
 @using Maanfee.Dashboard.Views.Core
 @using Maanfee.Dashboard.Views.Core.Shared
 @using Maanfee.Dashboard.Views.Core.Services
-@using Maanfee.Dashboard.Views.Core.Extensions
 @using Maanfee.Dashboard.Views.Core.Shared.Dialogs
 
 @using MudBlazor
@@ -44,7 +43,7 @@
 @inject IDialogService Dialog
 @inject ISnackbar Snackbar
 
-@inject LocalConfiguration LocalConfiguration
+@inject LocalConfigurationService LocalConfiguration
 
 @inject IAuthorizationService AuthorizationService
 

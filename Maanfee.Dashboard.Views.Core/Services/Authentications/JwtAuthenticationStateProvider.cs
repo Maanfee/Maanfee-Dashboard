@@ -1,6 +1,5 @@
 ﻿using Maanfee.Dashboard.Core;
 using Maanfee.Dashboard.Views.Core.DefaultValues;
-using Maanfee.Dashboard.Views.Core.Extensions;
 using Maanfee.Web.JSInterop;
 using Microsoft.AspNetCore.Components.Authorization;
 using OfficeOpenXml.FormulaParsing.LexicalAnalysis;

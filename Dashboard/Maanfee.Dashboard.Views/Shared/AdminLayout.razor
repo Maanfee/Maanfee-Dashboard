@@ -1,4 +1,5 @@
-﻿@inherits SharedLayout
+﻿@using MudBlazor.Utilities;
+@inherits SharedLayout
 
 @if (SharedLayoutSettings.IsRTL)
 {
@@ -60,6 +61,10 @@
 						@Body
 					</MudContainer>
 				</MudMainContent>
+				@*************************************@
+				<ThemesMenu UserPreferencesChanged="UpdateUserPreferences"
+							ThemingDrawerOpen="IshemingDrawerOpen" ThemingDrawerOpenChanged="ThemingDrawerOpenChangedHandler" />
+				<ThemesButton OnClick="@(() => IshemingDrawerOpen = true)" />
 				@*************************************@
 				@* <MudAppBar  DisableGutters="true" Bottom="true" Fixed="true" Color="Color.Primary" Elevation="1">
 

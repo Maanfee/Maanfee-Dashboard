@@ -1,4 +1,5 @@
 ﻿using MudBlazor;
+using MudBlazor.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -255,19 +256,21 @@ namespace Maanfee.Dashboard.Core
 		//	LayoutProperties = DefaultLayoutProperties
 		//};
 
-		public static MudTheme ThemeBuilder(bool IsRtl, bool IsDark)
+		public static MudTheme ThemeBuilder(bool IsRtl, bool IsDark, MudColor ThemeColor )
 		{
 			return new MudTheme()
 			{
-				//Palette = new Palette()
-				//{
-				//	Primary = "#1E88E5",
-				//	AppbarBackground = "#1E88E5",
-				//	Background = Colors.Grey.Lighten5,
-				//	DrawerBackground = "#FFF",
-				//	DrawerText = "rgba(0,0,0, 0.7)",
-				//	Success = "#007E33"
-				//},
+				Palette = new Palette()
+				{
+					Primary = ThemeColor == null ? new Palette().Primary : ThemeColor,
+					AppbarBackground = ThemeColor == null ? new Palette().Primary : ThemeColor,
+					//	Primary = "#1E88E5",
+					//	AppbarBackground = "#1E88E5",
+					//	Background = Colors.Grey.Lighten5,
+					//	DrawerBackground = "#FFF",
+					//	DrawerText = "rgba(0,0,0, 0.7)",
+					//	Success = "#007E33"
+				},
 				Typography = (IsRtl) ? RtlTypography : LtrTypography,
 				LayoutProperties = DefaultLayoutProperties
 			};

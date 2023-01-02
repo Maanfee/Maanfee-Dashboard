@@ -228,6 +228,9 @@
   <data name="StringCode" xml:space="preserve">
     <value>کد</value>
   </data>
+  <data name="StringColor" xml:space="preserve">
+    <value>رنگ</value>
+  </data>
   <data name="StringComment" xml:space="preserve">
     <value>اظهار نظر</value>
   </data>
@@ -503,6 +506,9 @@
   </data>
   <data name="StringTest" xml:space="preserve">
     <value>تست</value>
+  </data>
+  <data name="StringTheme" xml:space="preserve">
+    <value>تم</value>
   </data>
   <data name="StringTicket" xml:space="preserve">
     <value>در خواست پشتیبانی</value>

@@ -394,6 +394,15 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Color.
+        /// </summary>
+        public static string StringColor {
+            get {
+                return ResourceManager.GetString("StringColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comment.
         /// </summary>
         public static string StringComment {
@@ -1218,6 +1227,15 @@ namespace Maanfee.Dashboard.Resources {
         public static string StringTest {
             get {
                 return ResourceManager.GetString("StringTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme.
+        /// </summary>
+        public static string StringTheme {
+            get {
+                return ResourceManager.GetString("StringTheme", resourceCulture);
             }
         }
         

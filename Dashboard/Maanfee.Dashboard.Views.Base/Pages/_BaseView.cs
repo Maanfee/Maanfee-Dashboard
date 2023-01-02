@@ -1,22 +1,15 @@
-﻿using Maanfee.Dashboard.Domain.ViewModels;
-using Maanfee.Dashboard.Resources;
+﻿using Maanfee.Dashboard.Resources;
 using Maanfee.Dashboard.Views.Base.Services;
 using Maanfee.Dashboard.Views.Core;
-using Maanfee.Dashboard.Views.Core.DefaultValues;
-using Maanfee.Dashboard.Views.Core.Extensions;
 using Maanfee.Dashboard.Views.Core.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Reflection;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Views.Base.Pages

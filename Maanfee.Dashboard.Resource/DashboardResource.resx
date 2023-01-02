@@ -228,6 +228,9 @@
   <data name="StringCode" xml:space="preserve">
     <value>کد</value>
   </data>
+  <data name="StringColor" xml:space="preserve">
+    <value>Color</value>
+  </data>
   <data name="StringComment" xml:space="preserve">
     <value>Comment</value>
   </data>
@@ -503,6 +506,9 @@
   </data>
   <data name="StringTest" xml:space="preserve">
     <value>Test</value>
+  </data>
+  <data name="StringTheme" xml:space="preserve">
+    <value>Theme</value>
   </data>
   <data name="StringTicket" xml:space="preserve">
     <value>Ticket</value>

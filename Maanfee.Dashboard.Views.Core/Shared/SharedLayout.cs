@@ -26,7 +26,7 @@ namespace Maanfee.Dashboard.Views.Core.Shared
 			LanguageModel = await LocalStorage.GetAsync<LanguageModel>(StorageDefaultValue.CultureStorage);
             SharedLayoutSettings.IsRTL = LanguageModel.IsRTL;
 
-            CurrentTheme = MaanfeeTheme.ThemeBuilder(SharedLayoutSettings.IsRTL, SharedLayoutSettings.IsDarkMode);
+            CurrentTheme = MaanfeeTheme.ThemeBuilder(SharedLayoutSettings.IsRTL, SharedLayoutSettings.IsDarkMode, null);
         }
 
 	}

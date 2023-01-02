@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.SignalR.Client;
 using MudBlazor;
+using MudBlazor.Utilities;
 using System;
 using System.Linq;
 using System.Net.Http.Json;
@@ -136,6 +137,22 @@ namespace Maanfee.Dashboard.Views.Shared
 
 			await LocalStorage.SetAsync<LanguageModel>(StorageDefaultValue.CultureStorage, LanguageModel);
 		}
+
+		// ******************************************************
+
+		private bool IshemingDrawerOpen;
+
+		protected void ThemingDrawerOpenChangedHandler(bool state)
+		{
+			IshemingDrawerOpen = state;
+		}
+
+		private void UpdateUserPreferences(MudColor Color)
+		{
+			CurrentTheme = MaanfeeTheme.ThemeBuilder(SharedLayoutSettings.IsRTL, SharedLayoutSettings.IsDarkMode, Color);
+		}
+
+		// ******************************************************
 
 	}
 }

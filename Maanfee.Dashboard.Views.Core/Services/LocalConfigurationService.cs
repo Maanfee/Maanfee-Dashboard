@@ -4,6 +4,7 @@ using Maanfee.Web.JSInterop;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection;
+using MudBlazor;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
@@ -47,12 +48,16 @@ namespace Maanfee.Dashboard.Views.Core.Services
             {
                 IsDarkMode = false,
                 IsRTL = false,
-                ThemeColor = "#594AE2",
+                ThemeColor = new Palette().Primary.Value,
             };
             var ConfigurationModel = await LocalStorage.GetAsync<LayoutSettings>(StorageDefaultValue.ConfigurationStorage);
             if (ConfigurationModel == null)
             {
                 await LocalStorage.SetAsync<LayoutSettings>(StorageDefaultValue.ConfigurationStorage, LayoutSettings);
+               
+                SharedLayoutSettings.IsDarkMode = LayoutSettings.IsDarkMode;
+                SharedLayoutSettings.IsRTL = LayoutSettings.IsRTL;
+                SharedLayoutSettings.ThemeColor = new Palette().Primary.Value ;
             }
             else
             {

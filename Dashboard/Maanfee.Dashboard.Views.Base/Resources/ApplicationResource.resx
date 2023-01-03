@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="StringApplicationName" xml:space="preserve">
-    <value>Application Name</value>
+    <value>Maanfee Dashboard</value>
   </data>
   <data name="StringWelcomeMessage" xml:space="preserve">
     <value>Welcome to Automation</value>

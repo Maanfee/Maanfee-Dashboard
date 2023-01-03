@@ -61,7 +61,7 @@ namespace Maanfee.Dashboard.Views.Base.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Application Name.
+        ///   Looks up a localized string similar to Maanfee Dashboard.
         /// </summary>
         public static string StringApplicationName {
             get {

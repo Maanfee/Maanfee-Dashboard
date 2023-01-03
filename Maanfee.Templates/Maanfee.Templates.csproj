@@ -9,7 +9,7 @@
 		<RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
 		<RunAnalyzers>false</RunAnalyzers>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Copyright>Copyright (c) 2022 Maanfee</Copyright>
+		<Copyright>Copyright (c) 2023-2022 Maanfee</Copyright>
 		<Company>Maanfee</Company>
 		<Authors>Maanfee Team (MF)</Authors>
 		<Version>2.1.0</Version>

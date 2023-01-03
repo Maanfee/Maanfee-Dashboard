@@ -1,4 +1,5 @@
-﻿
+﻿using MudBlazor.Utilities;
+
 namespace Maanfee.Dashboard.Core
 {
     public static class SharedLayoutSettings

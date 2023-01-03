@@ -78,10 +78,12 @@
 	@if (_PermissionPublicSwagger)
 	{
 		<MudNavGroup Title="@DashboardResource.StringAbout" Icon="@Icons.Material.Filled.Feed" ExpandIcon="@Icons.Material.Filled.ExpandMore">
+			<MudNavLink Href="/ReleaseView">
+				@DashboardResource.StringRelease
+			</MudNavLink>
 			<MudNavLink Href="/About/VersionView">
 				@DashboardResource.StringVersion
 			</MudNavLink>
-
 			<MudNavLink Href="/swagger/index.html" Target="_blank">
 				@DashboardResource.StringSwagger
 			</MudNavLink>

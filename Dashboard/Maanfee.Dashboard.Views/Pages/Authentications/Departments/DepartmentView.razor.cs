@@ -163,7 +163,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
 
             var result = await dialog.Result;
 
-            if (!result.Cancelled)
+            if (!result.Canceled)
             {
                 try
                 {

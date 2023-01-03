@@ -10,15 +10,20 @@
 		<RunAnalyzers>false</RunAnalyzers>
 		<!--**********************************************-->
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Copyright>Copyright (c) 2023 Maanfee</Copyright>
+		<Copyright>Copyright (c) 2023-2022 Maanfee</Copyright>
 		<Authors>Maanfee Team (MF)</Authors>
 		<Company>Maanfee</Company>
-		<Version>5.26.20</Version>
+		<Version>5.31.32</Version>
 		<PackageIcon>MaanfeePink.png</PackageIcon>
+		<RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<!--**********************************************-->
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Include="..\LICENSE" Pack="true" Visible="false" PackagePath="" />
 		<None Update="MaanfeePink.png">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>

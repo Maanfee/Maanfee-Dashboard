@@ -5,15 +5,15 @@
 			<MudGrid>
 				<MudItem md="12">
 					<MudTextField @bind-Value="FilterViewModel.Role" Variant="Variant.Outlined"
-								  Adornment="Adornment.Start" AdornmentIcon="@Icons.Filled.Title" Clearable
+								  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Title" Clearable
 								  For="@(() => FilterViewModel.Role)"
 								  Label="@DashboardResource.StringRole" />
 				</MudItem>
 			</MudGrid>
 			<MudPaper Class="pa-3 my-2 ActionColor" Elevation="3" Outlined="true" Square="true">
 				<MudStack Spacing="1" Row="true">
-					<MudButton OnClick="Search" Variant="Variant.Filled" Color="Color.Tertiary" StartIcon="@Icons.Filled.ManageSearch" IconColor="Color.Surface">@DashboardResource.StringSearch</MudButton>
-					<MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Filled.FreeCancellation" IconColor="Color.Surface">@DashboardResource.StringCancel</MudButton>
+					<MudButton OnClick="Search" Variant="Variant.Filled" Color="Color.Tertiary" StartIcon="@Icons.Material.Filled.ManageSearch" IconColor="Color.Surface">@DashboardResource.StringSearch</MudButton>
+					<MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.FreeCancellation" IconColor="Color.Surface">@DashboardResource.StringCancel</MudButton>
 				</MudStack>
 			</MudPaper>
 		</DialogContent>

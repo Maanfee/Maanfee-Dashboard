@@ -11,7 +11,7 @@
 						<MudToolBar Dense="true">
 							<MudTextField T="string" ValueChanged="@(s=>OnSearchUsers(s))" Placeholder="@DashboardResource.StringSearch"
 										  Class="mx-2" Label="@DashboardResource.StringSearch" Margin="Margin.Dense" Clearable
-										  Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Filled.Search"
+										  Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search"
 										  AdornmentColor="Color.Secondary" />
 						</MudToolBar>
 						@*<div class="d-flex flex-column px-4" style="max-height:70vh;min-height:70vh; overflow:scroll;">*@
@@ -42,7 +42,7 @@
 						<MudToolBar Dense="true">
 							<MudTextField T="string" ValueChanged="@(s=>OnSearchChats(s))" Placeholder="@DashboardResource.StringSearch"
 										  Class="mx-2" Label="@DashboardResource.StringSearch" Margin="Margin.Dense" Clearable
-										  Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Filled.Search"
+										  Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search"
 										  AdornmentColor="Color.Secondary" />
 						</MudToolBar>
 					</MudText>
@@ -98,7 +98,7 @@
 		<MudPaper Elevation="25" Class="d-flex flex-row px-2 mx-4" Style="">
 			<MudTextField T="string" Placeholder="@($"{DashboardResource.StringMessageEnterYourMessage}")" DisableUnderLine="true"
 						  Class="mt-n2 mx-4" @bind-Value="CurrentMessage" For="@(()=> CurrentMessage)"
-						  Adornment="Adornment.Start" AdornmentIcon="@Icons.Filled.Message" AdornmentColor="Color.Warning"
+						  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Message" AdornmentColor="Color.Warning"
 						  OnKeyPress="CurrentMessageKeypress" Immediate="true" />
 			<MudButton OnClick="SubmitAsync" StartIcon="@Icons.Material.Outlined.Send" Color="Color.Secondary" ButtonType="ButtonType.Button">
 				@DashboardResource.StringSend

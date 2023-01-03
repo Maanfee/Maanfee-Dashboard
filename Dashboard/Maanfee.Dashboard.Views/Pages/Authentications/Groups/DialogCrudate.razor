@@ -22,7 +22,7 @@
 							<MudGrid>
 								<MudItem md="12">
 									<MudTextField @bind-Value="SubmitGroupViewModel.Title" Variant="Variant.Outlined"
-											  Adornment="Adornment.Start" AdornmentIcon="@Icons.Filled.Title" Clearable
+											  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Title" Clearable
 											  For="@(() => SubmitGroupViewModel.Title)"
 											  Label="@DashboardResource.StringTitle" />
 								</MudItem>
@@ -43,7 +43,7 @@
 									<MudText>@DashboardResource.StringSave</MudText>
 								}
 							</MudButton>
-							<MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Filled.FreeCancellation" IconColor="Color.Surface">@DashboardResource.StringCancel</MudButton>
+							<MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.FreeCancellation" IconColor="Color.Surface">@DashboardResource.StringCancel</MudButton>
 						</MudStack>
 					</MudPaper>
 				}

@@ -13,12 +13,17 @@
 		<Copyright>Copyright (c) 2021-2023 Maanfee</Copyright>
 		<Authors>Maanfee Team (MF)</Authors>
 		<Company>Maanfee</Company>
-		<Version>6.26.20</Version>
+		<Version>6.31.32</Version>
 		<PackageIcon>MaanfeeGreen.png</PackageIcon>
+		<RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<!--**********************************************-->
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Include="..\LICENSE" Pack="true" Visible="false" PackagePath="" />
 		<None Update="MaanfeeGreen.png">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
@@ -27,7 +32,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="7.0.1" />
-		<PackageReference Include="MudBlazor" Version="6.1.6" />
+		<PackageReference Include="MudBlazor" Version="6.1.7" />
 		<PackageReference Include="EPPlus" Version="6.1.1" />
 		<PackageReference Include="Allegiance.Blazor.Highcharts" Version="2.0.26" />
 	</ItemGroup>

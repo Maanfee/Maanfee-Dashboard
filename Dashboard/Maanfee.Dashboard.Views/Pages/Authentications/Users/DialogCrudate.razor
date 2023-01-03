@@ -30,32 +30,32 @@
 										</MudItem>
 										<MudItem md="3">
 											<MudTextField @bind-Value="SubmitUserViewModel.Password" Variant="Variant.Outlined"
-													  Adornment="Adornment.Start" AdornmentIcon="@Icons.Filled.Password"
+													  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Password"
 													  For="@(() => SubmitUserViewModel.Password)" Label="@DashboardResource.StringPassword" />
 										</MudItem>
 										<MudItem md="3">
 											<MudTextField @bind-Value="SubmitUserViewModel.PersonalCode" Variant="Variant.Outlined"
-													  Adornment="Adornment.Start" AdornmentIcon="@Icons.Filled.Bolt"
+													  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Bolt"
 													  For="@(() => SubmitUserViewModel.PersonalCode)" Label="@DashboardResource.StringPersonalCode" />
 										</MudItem>
 										<MudItem md="3">
 											<MudTextField @bind-Value="SubmitUserViewModel.FirstName" Variant="Variant.Outlined"
-													  Adornment="Adornment.Start" AdornmentIcon="@Icons.Filled.Fingerprint"
+													  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Fingerprint"
 													  For="@(() => SubmitUserViewModel.FirstName)" Label="@DashboardResource.StringFirstName" />
 										</MudItem>
 										<MudItem md="3">
 											<MudTextField @bind-Value="SubmitUserViewModel.LastName" Variant="Variant.Outlined"
-													  Adornment="Adornment.Start" AdornmentIcon="@Icons.Filled.Group"
+													  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Group"
 													  For="@(() => SubmitUserViewModel.LastName)" Label="@DashboardResource.StringLastName" />
 										</MudItem>
 										<MudItem md="3">
 											<MudTextField @bind-Value="SubmitUserViewModel.FatherName" Variant="Variant.Outlined"
-													  Adornment="Adornment.Start" AdornmentIcon="@Icons.Filled.AssignmentInd"
+													  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AssignmentInd"
 													  For="@(() => SubmitUserViewModel.FatherName)" Label="@DashboardResource.StringFatherName" />
 										</MudItem>
 										<MudItem md="3">
 											<MudTextField @bind-Value="SubmitUserViewModel.NationalCode" Variant="Variant.Outlined"
-													  Adornment="Adornment.Start" AdornmentIcon="@Icons.Filled.PersonalInjury"
+													  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.PersonalInjury"
 													  For="@(() => SubmitUserViewModel.NationalCode)" Label="@DashboardResource.StringNationalCode" />
 										</MudItem>
 										<MudItem md="3">
@@ -138,7 +138,7 @@
 													<MudButton HtmlTag="label"
 														   Variant="Variant.Filled"
 														   Color="Color.Primary"
-														   StartIcon="@Icons.Filled.CloudUpload"
+														   StartIcon="@Icons.Material.Filled.CloudUpload"
 														   for="fileInput">
 														@DashboardResource.StringUploadFiles
 													</MudButton>
@@ -169,7 +169,7 @@
 									<MudText>@DashboardResource.StringSave</MudText>
 								}
 							</MudButton>
-							<MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Filled.FreeCancellation" IconColor="Color.Surface">@DashboardResource.StringCancel</MudButton>
+							<MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.FreeCancellation" IconColor="Color.Surface">@DashboardResource.StringCancel</MudButton>
 						</MudStack>
 					</MudPaper>
 				}

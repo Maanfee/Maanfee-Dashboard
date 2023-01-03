@@ -3,11 +3,12 @@ using Maanfee.Dashboard.Views.Core.DefaultValues;
 using Maanfee.Web.JSInterop;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using MudBlazor.Utilities;
 using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Views.Core.Shared
 {
-    public class SharedLayout : LayoutComponentBase 
+    public class SharedLayout : LayoutComponentBase
     {
 #pragma warning disable CS0108
 
@@ -22,11 +23,10 @@ namespace Maanfee.Dashboard.Views.Core.Shared
 
         protected override async Task OnInitializedAsync()
         {
-			LanguageModel = await LocalStorage.GetAsync<LanguageModel>(StorageDefaultValue.CultureStorage);
+            LanguageModel = await LocalStorage.GetAsync<LanguageModel>(StorageDefaultValue.CultureStorage);
             SharedLayoutSettings.IsRTL = LanguageModel.IsRTL;
 
-            CurrentTheme = MaanfeeTheme.ThemeBuilder(SharedLayoutSettings.IsRTL, SharedLayoutSettings.IsDarkMode, SharedLayoutSettings.ThemeColor);
+            CurrentTheme = MaanfeeTheme.ThemeBuilder(SharedLayoutSettings.IsRTL, SharedLayoutSettings.IsDarkMode, (MudColor)SharedLayoutSettings.ThemeColor);
         }
-
-	}
+    }
 }

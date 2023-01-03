@@ -141,7 +141,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 
             var result = await dialog.Result;
 
-            if (!result.Cancelled)
+            if (!result.Canceled)
             {
                 if (result.Data != null)
                 {
@@ -187,7 +187,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 				});
 
 			var result = await dialog.Result;
-            if (!result.Cancelled)
+            if (!result.Canceled)
             {
                 try
                 {

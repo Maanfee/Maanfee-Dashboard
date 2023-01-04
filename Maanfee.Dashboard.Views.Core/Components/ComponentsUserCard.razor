@@ -1,32 +1,32 @@
 ﻿@namespace Maanfee.Dashboard.Views.Core
 
 <MudCard Elevation="0" Square="true" Class="@Class">
-    <MudCardHeader>
-        <CardHeaderAvatar>
-            <MudAvatar Image="@AccountStateContainer.Avatar" Style="height:50px; width:50px;"> </MudAvatar>
-        </CardHeaderAvatar>
-        <CardHeaderContent>
-            <MudText Typo="Typo.body2">@AccountStateContainer.Name</MudText>
-            <MudText Typo="Typo.caption">@AccountStateContainer.PersonalCode</MudText>
-        </CardHeaderContent>
-    </MudCardHeader>
+	<MudCardHeader>
+		<CardHeaderAvatar>
+			<MudAvatar Image="@AccountStateContainer.Avatar" Style="height:50px; width:50px;"> </MudAvatar>
+		</CardHeaderAvatar>
+		<CardHeaderContent>
+			<MudText Typo="Typo.body2">@AccountStateContainer.Name</MudText>
+			<MudText Typo="Typo.caption">@AccountStateContainer.PersonalCode</MudText>
+		</CardHeaderContent>
+	</MudCardHeader>
 </MudCard>
-   
-@code{
 
-    [Parameter]
-    public string Class { get; set; }
+@code {
 
-    protected override void OnInitialized()
-    {
-        AccountStateContainer.OnChange += StateHasChanged;
-    }
+	[Parameter]
+	public string Class { get; set; }
 
-    private void ChangePropertyValue()
-    {
-        StateHasChanged();
-    }
+	protected override void OnInitialized()
+	{
+		AccountStateContainer.OnChange += StateHasChanged;
+	}
 
-    // ******************************************************
+	private void ChangePropertyValue()
+	{
+		StateHasChanged();
+	}
+
+	// ******************************************************
 
 }

@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Maanfee.Web.JSInterop
 {
@@ -17,7 +18,7 @@ namespace Maanfee.Web.JSInterop
 
 		public Dom(IJSRuntime JsRuntime)
 		{
-			this.Element = new DomElement();
+			//this.Element = new DomElement();
 			moduleTask = new(() => JsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Maanfee.Web.JSInterop/JsInterop.js").AsTask());
 		}
 
@@ -35,14 +36,13 @@ namespace Maanfee.Web.JSInterop
 
 		#endregion
 
-		// ***************************************************
 		// /_content/Maanfee.Web.JSInterop/JsInterop.js
 
 		#region - Selectors -
 
-		public DomElement Element { get; private set; }
+		//public DomElement Element { get; private set; }
 
-		public List<DomElement> Elements { get; private set; }
+		//public List<DomElement> Elements { get; private set; }
 
 		private string CurrentSelector { get; set; }
 
@@ -58,26 +58,31 @@ namespace Maanfee.Web.JSInterop
 		//    //    //    //Elements = JsonSerializer.Deserialize<List<BlazorQueryDOMElement>>(data)
 		//    //    //};
 
-		//    this.CurrentSelector = selector;
-		//    this.Elements = JsonSerializer.Deserialize<List<DomElement>>(data);
-
 		public async Task<Dom> QuerySelector(string Selector)
 		{
 			var Module = await moduleTask.Value;
-			var data = await Module.InvokeAsync<string>("QuerySelector", Selector);
+
+			//if (!string.IsNullOrEmpty(Selector))
+			//{
+			//	var data = await Module.InvokeAsync<string>("QuerySelector", Selector);
+			//}
 
 			this.CurrentSelector = Selector;
-			this.Element = JsonSerializer.Deserialize<DomElement>(data);
+			//this.Element = JsonSerializer.Deserialize<DomElement>(data);
 			return this;
 		}
 
 		public async Task<Dom> QuerySelectorAll(string Selector)
 		{
 			var Module = await moduleTask.Value;
-			var data = await Module.InvokeAsync<string>("QuerySelectorAll", Selector);
+
+			//if (!string.IsNullOrEmpty(Selector))
+			//{
+			//	var data = await Module.InvokeAsync<string>("QuerySelectorAll", Selector);
+			//}
 
 			this.CurrentSelector = Selector;
-			this.Elements = JsonSerializer.Deserialize<List<DomElement>>(data);
+			//this.Elements = JsonSerializer.Deserialize<List<DomElement>>(data);
 
 			return this;
 		}
@@ -88,7 +93,7 @@ namespace Maanfee.Web.JSInterop
 			var data = await Module.InvokeAsync<string>("QuerySelectorAll", selector);
 
 			this.CurrentSelector = selector;
-			this.Elements = JsonSerializer.Deserialize<List<DomElement>>(data);
+			//this.Elements = JsonSerializer.Deserialize<List<DomElement>>(data);
 
 			return this;
 		}
@@ -101,16 +106,25 @@ namespace Maanfee.Web.JSInterop
 		{
 			var Module = await moduleTask.Value;
 
-			await Module.InvokeAsync<Task>("Text", CurrentSelector, Text);
+			if(!string.IsNullOrEmpty(Text))
+			{
+				await Module.InvokeAsync<Task>("Text", CurrentSelector, Text);
+			}
+
 			return this;
 		}
 
 		public async Task<List<string>> TextAsync()
 		{
 			var Module = await moduleTask.Value;
+
 			var data = await Module.InvokeAsync<string>("Text", CurrentSelector, string.Empty);
 
-			return JsonSerializer.Deserialize<List<string>>(data);
+			if (!string.IsNullOrEmpty(data))
+			{
+				return JsonSerializer.Deserialize<List<string>>(data);
+			}
+			return new List<string>();
 		}
 
 		#endregion
@@ -121,7 +135,11 @@ namespace Maanfee.Web.JSInterop
 		{
 			var Module = await moduleTask.Value;
 
-			await Module.InvokeAsync<Task>("Css", CurrentSelector, Property, Value);
+			if (!string.IsNullOrEmpty(Property) || !string.IsNullOrEmpty(Value))
+			{
+				await Module.InvokeAsync<Task>("Css", CurrentSelector, Property, Value);
+			}
+
 			return this;
 		}
 
@@ -130,7 +148,11 @@ namespace Maanfee.Web.JSInterop
 			var Module = await moduleTask.Value;
 			var data = await Module.InvokeAsync<string>("Css", CurrentSelector, Property, string.Empty);
 
-			return JsonSerializer.Deserialize<List<string>>(data);
+			if (!string.IsNullOrEmpty(data))
+			{
+				return JsonSerializer.Deserialize<List<string>>(data);
+			}
+			return new List<string>();
 		}
 
 		#endregion
@@ -141,7 +163,11 @@ namespace Maanfee.Web.JSInterop
 		{
 			var Module = await moduleTask.Value;
 
-			await Module.InvokeAsync<Task>("AddClass", CurrentSelector, Class.Trim());
+			if (!string.IsNullOrEmpty(Class))
+			{
+				await Module.InvokeAsync<Task>("AddClass", CurrentSelector, Class.Trim());
+			}
+
 			return this;
 		}
 
@@ -150,7 +176,11 @@ namespace Maanfee.Web.JSInterop
 			var Module = await moduleTask.Value;
 			var data = await Module.InvokeAsync<string>("AddClass", CurrentSelector, string.Empty);
 
-			return JsonSerializer.Deserialize<List<string>>(data);
+			if (!string.IsNullOrEmpty(data))
+			{
+				return JsonSerializer.Deserialize<List<string>>(data);
+			}
+			return new List<string>();
 		}
 
 		#endregion
@@ -161,7 +191,11 @@ namespace Maanfee.Web.JSInterop
 		{
 			var Module = await moduleTask.Value;
 
-			await Module.InvokeAsync<Task>("RemoveClass", CurrentSelector, Class.Trim());
+			if (!string.IsNullOrEmpty(Class))
+			{
+				await Module.InvokeAsync<Task>("RemoveClass", CurrentSelector, Class.Trim());
+			}
+
 			return this;
 		}
 

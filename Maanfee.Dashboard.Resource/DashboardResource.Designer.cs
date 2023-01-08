@@ -286,6 +286,15 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add features.
+        /// </summary>
+        public static string StringAddFeatures {
+            get {
+                return ResourceManager.GetString("StringAddFeatures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Administrator.
         /// </summary>
         public static string StringAdministrator {
@@ -1015,6 +1024,15 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Released on.
+        /// </summary>
+        public static string StringReleasedOn {
+            get {
+                return ResourceManager.GetString("StringReleasedOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Released versions.
         /// </summary>
         public static string StringReleasedVersions {
@@ -1362,6 +1380,15 @@ namespace Maanfee.Dashboard.Resources {
         public static string StringWelcome {
             get {
                 return ResourceManager.GetString("StringWelcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What&apos;s Changed.
+        /// </summary>
+        public static string StringWhatsChanged {
+            get {
+                return ResourceManager.GetString("StringWhatsChanged", resourceCulture);
             }
         }
         

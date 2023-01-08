@@ -1,0 +1,189 @@
+﻿@inherits _BaseView
+
+<MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
+	<EditForm OnValidSubmit="OnSubmit" Model="SubmitReleaseViewModel">
+		<DataAnnotationsValidator />
+		<MudDialog>
+			<DialogContent>
+				@if (!IsLoaded)
+				{
+					<Overlay />
+				}
+				else
+				{
+					<MudCard Class="mt-2">
+						<MudCardHeader>
+							<MudText Typo="Typo.button" Color="Color.Primary">
+								@DashboardResource.StringRelease
+							</MudText>
+						</MudCardHeader>
+						<MudDivider DividerType="DividerType.FullWidth" />
+						<MudCardContent>
+							<MudGrid>
+								<MudItem md="4">
+									<MudTextField @bind-Value="SubmitReleaseViewModel.Version" Variant="Variant.Outlined"
+											  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.FilterDrama" Clearable
+											  For="@(() => SubmitReleaseViewModel.Version)"
+											  Label="@DashboardResource.StringVersion" />
+								</MudItem>
+								<MudItem md="4">
+									<MudDatePicker Label="@DashboardResource.StringDate" Rounded="true" Elevation="12"
+											   @bind-Date="SubmitReleaseViewModel.ReleaseDate" Variant="Variant.Outlined" 
+											   For="@(() => SubmitReleaseViewModel.ReleaseDate)"
+											   Culture="@GetCalendarCulture(CultureInfo.DefaultThreadCurrentUICulture.Name)"
+											   Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.CalendarToday"
+											   PickerVariant="PickerVariant.Dialog" TitleDateFormat="dddd, dd MMMM" />
+								</MudItem>
+								<MudItem md="4" Class="my-3">
+									<MudCheckBox @bind-Checked="SubmitReleaseViewModel.IsActive" Label="@DashboardResource.StringIsActive"
+											 Color="Color.Primary"></MudCheckBox>
+								</MudItem>
+								<MudItem md="12" xs="12">
+									<ComponentFeatures @ref="ComponentFeatures" SysReleaseFeatureViewModels="SysReleaseFeatureViewModels" />
+								</MudItem> 
+							</MudGrid>
+						</MudCardContent>
+					</MudCard>
+					<MudPaper Class="pa-3 my-2 ActionColor" Elevation="3" Outlined="true" Square="true">
+						<MudStack Spacing="1" Row="true">
+							<MudButton Disabled="@IsProcessing" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Tertiary">
+								@if (IsProcessing)
+								{
+									<MudProgressCircular Size="Size.Small" Indeterminate="true" Class="ms-n1" />
+									<MudText Class="ms-2">@DashboardResource.StringProcessing</MudText>
+								}
+								else
+								{
+									<MudIcon Icon="@Icons.Material.Filled.Save" Color="Color.Surface" Class="mx-1" />
+									<MudText>@DashboardResource.StringSave</MudText>
+								}
+							</MudButton>
+							<MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.FreeCancellation" IconColor="Color.Surface">@DashboardResource.StringCancel</MudButton>
+						</MudStack>
+					</MudPaper>
+				}
+			</DialogContent>
+		</MudDialog>
+	</EditForm>
+</MudRTLProvider>
+
+@code {
+
+	[CascadingParameter]
+	public MudDialogInstance MudDialog { get; set; }
+
+	private void Close() => MudDialog.Close();
+
+	// *****************************************************
+
+	private ComponentFeatures ComponentFeatures { get; set; } = new();
+
+	private List<SysReleaseFeatureViewModel> SysReleaseFeatureViewModels = new();
+
+	// *****************************************************
+
+	[Parameter]
+	public string Id { get; set; }
+
+	private SubmitReleaseViewModel SubmitReleaseViewModel = new();
+
+	protected override async Task OnInitializedAsync()
+	{
+		IsLoaded = false;
+
+		try
+		{
+			if (!string.IsNullOrEmpty(Id) && Id != "0")
+			{
+				var Callback = await Http.GetFromJsonAsync<CallbackResult<SysRelease>>($"api/SysReleases/Details/{Id}");
+
+				if (Callback.Data != null)
+				{
+					SubmitReleaseViewModel = new SubmitReleaseViewModel
+						{
+							Id = Callback.Data.Id,
+							IsActive = Callback.Data.IsActive,
+							ReleaseDate = Callback.Data.ReleaseDate,
+							Version = Callback.Data.Version,
+						};
+
+					SysReleaseFeatureViewModels = Callback.Data.SysReleaseFeatures.Select(x => new SysReleaseFeatureViewModel
+						{
+							Id = x.Id,
+							Comment = x.Comment,
+							IdSysReleaseType = x.IdSysReleaseType,
+							SysReleaseTypeTitle = x.SysReleaseType.Title,
+						}).ToList();
+				}
+				else
+				{
+					Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+				}
+			}
+		}
+		catch (Exception ex)
+		{
+			Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+		}
+
+		IsLoaded = true;
+	}
+
+	private async Task OnSubmit()
+	{
+		if (IsProcessing)
+			return;
+		IsProcessing = true;
+
+		try
+		{
+			SubmitReleaseViewModel.SysReleaseFeatureViewModels = ComponentFeatures.SysReleaseFeatureViewModels;
+
+			if (Id == "0")
+			{
+				var PostResult = await Http.PostAsJsonAsync($"api/SysReleases/Create", SubmitReleaseViewModel.TrimString());
+				if (PostResult.IsSuccessStatusCode)
+				{
+					var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<SubmitReleaseViewModel>>();
+					if (JsonResult.Data != null)
+					{
+						Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
+						MudDialog.Close(DialogResult.Ok(SubmitReleaseViewModel));
+					}
+					else
+					{
+						Snackbar.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
+					}
+				}
+				else
+				{
+					Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
+				}
+			}
+			else
+			{
+				var PutResult = await Http.PutAsJsonAsync($"api/SysReleases/Edit", SubmitReleaseViewModel.TrimString());
+				if (PutResult.IsSuccessStatusCode)
+				{
+					var JsonResult = await PutResult.Content.ReadFromJsonAsync<CallbackResult<SubmitReleaseViewModel>>();
+					if (JsonResult.Data != null)
+					{
+						Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
+						MudDialog.Close(DialogResult.Ok(SubmitReleaseViewModel));
+					}
+					else
+					{
+						Snackbar.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
+					}
+				}
+			}
+		}
+		catch (Exception ex)
+		{
+			Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+		}
+
+		IsProcessing = false;
+	}
+
+}

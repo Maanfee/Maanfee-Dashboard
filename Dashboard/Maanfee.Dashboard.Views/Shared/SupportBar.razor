@@ -23,7 +23,7 @@
 	{
 		var PermissionCurrentUser = (await PermissionAuthenticationState).User;
 
-		_CanPublicSwagger = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Swaggers.View)).Succeeded;
+		_CanPublicSwagger = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Setting.Swagger)).Succeeded;
 	}
 
 }

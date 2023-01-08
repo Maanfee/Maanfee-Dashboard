@@ -17,7 +17,7 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SettingsConfig
 
             try
             {
-                await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.Setting.View, PermissionAuthenticationState,
+                await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.Setting.SettingsView, PermissionAuthenticationState,
                      AuthorizationService, Navigation);
             }
             catch (Exception ex)

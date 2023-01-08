@@ -123,14 +123,14 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         // Usage :   var Investment = await Http.PutAsJsonAsync("api/Roles/Edit", item.TrimString());
         //[HttpPut("{id}")]
         // PUT: api/Groups/Edit/Model
-        public async Task<CallbackResult<Group>> Edit(SubmitGroupViewModel Model)
+        public async Task<CallbackResult<SubmitGroupViewModel>> Edit(SubmitGroupViewModel Model)
         {
             try
             {
                 var Details = await db_SQLServer.Groups.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Model.Id);
                 if (Details == null)
                 {
-                    return new CallbackResult<Group>(null, new ExceptionError(DashboardResource.MessageChangeIsNotPossible));
+                    return new CallbackResult<SubmitGroupViewModel>(null, new ExceptionError(DashboardResource.MessageChangeIsNotPossible));
                 }
 
                 Details.Title = Model.Title;
@@ -139,17 +139,17 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 db_SQLServer.Groups.Update(Details);
                 await db_SQLServer.SaveChangesAsync();
 
-                return new CallbackResult<Group>(Details, null, DashboardResource.MessageSavedSuccessfully);
+                return new CallbackResult<SubmitGroupViewModel>(Model, null, DashboardResource.MessageSavedSuccessfully);
             }
             catch (DbUpdateException ex)
             {
                 if (ex.ToString().Contains("Cannot insert duplicate key row in object"))
                 {
-                    return new CallbackResult<Group>(null, new DuplicateError(DashboardResource.MessageCannotInsertDuplicate));
+                    return new CallbackResult<SubmitGroupViewModel>(null, new DuplicateError(DashboardResource.MessageCannotInsertDuplicate));
                 }
                 else
                 {
-                    return new CallbackResult<Group>(null, new ExceptionError(ex.Message));
+                    return new CallbackResult<SubmitGroupViewModel>(null, new ExceptionError(ex.Message));
                 }
             }
         }

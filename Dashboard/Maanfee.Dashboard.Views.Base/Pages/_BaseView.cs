@@ -7,93 +7,54 @@ using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Net.Http.Json;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Views.Base.Pages
 {
-    public class _BaseView : _BaseComponentView
-    {
-        // *****************************************
+	public class _BaseView : _BaseComponentView
+	{
+		// *****************************************
 
-        [CascadingParameter]
-        protected Task<AuthenticationState> PermissionAuthenticationState { get; set; }
+		[CascadingParameter]
+		protected Task<AuthenticationState> PermissionAuthenticationState { get; set; }
 
-        //protected ClaimsPrincipal PermissionCurrentUser;
+		//protected ClaimsPrincipal PermissionCurrentUser;
 
-        //protected bool ViewPermissions = false;
+		//protected bool ViewPermissions = false;
 
-        [Inject]
-        protected PermissionService PermissionService { get; set; }
+		[Inject]
+		protected PermissionService PermissionService { get; set; }
 
-        // *****************************************
+		// *****************************************
 
-        protected async Task FormValidationCallback(string Message)
-        {
-            if (!string.IsNullOrEmpty(Message))
-            {
-                Snackbar.Add(Message, Severity.Warning);
-            }
+		protected async Task FormValidationCallback(string Message)
+		{
+			if (!string.IsNullOrEmpty(Message))
+			{
+				Snackbar.Add(Message, Severity.Warning);
+			}
 
-            IsProcessing = false;
+			IsProcessing = false;
 
-            await Task.CompletedTask;
-        }
+			await Task.CompletedTask;
+		}
 
-        // *****************************************
+		// *****************************************
 
-        protected CultureInfo GetPersianCulture()
-        {
-            var culture = new CultureInfo("fa-IR");
-            DateTimeFormatInfo formatInfo = culture.DateTimeFormat;
-            formatInfo.AbbreviatedDayNames = new[] { "ی", "د", "س", "چ", "پ", "ج", "ش" };
-            formatInfo.DayNames = new[] { "یکشنبه", "دوشنبه", "سه شنبه", "چهار شنبه", "پنجشنبه", "جمعه", "شنبه" };
-            var monthNames = new[]
-            {
-                "فروردین", "اردیبهشت", "خرداد",
-                "تیر", "مرداد", "شهریور",
-                "مهر", "آبان", "آذر",
-                "دی", "بهمن", "اسفند",
-                "",
-            };
-            formatInfo.AbbreviatedMonthNames = monthNames;
-            formatInfo.MonthNames =
-                    formatInfo.MonthGenitiveNames = formatInfo.AbbreviatedMonthGenitiveNames = monthNames;
-            formatInfo.AMDesignator = "ق.ظ";
-            formatInfo.PMDesignator = "ب.ظ";
-            formatInfo.ShortDatePattern = "yyyy/MM/dd";
-            formatInfo.LongDatePattern = "dddd, dd MMMM,yyyy";
-            formatInfo.FirstDayOfWeek = DayOfWeek.Saturday;
-            Calendar cal = new PersianCalendar();
-            FieldInfo fieldInfo = culture.GetType().GetField("calendar", BindingFlags.NonPublic | BindingFlags.Instance);
-            if (fieldInfo != null)
-                fieldInfo.SetValue(culture, cal);
-            FieldInfo info = formatInfo.GetType().GetField("calendar", BindingFlags.NonPublic | BindingFlags.Instance);
-            if (info != null)
-                info.SetValue(formatInfo, cal);
-            culture.NumberFormat.NumberDecimalSeparator = "/";
-            culture.NumberFormat.DigitSubstitution = DigitShapes.NativeNational;
-            culture.NumberFormat.NumberNegativePattern = 0;
-            return culture;
-        }
-
-        // *****************************************
-
-        protected override async Task OnInitializedAsync()
-        {
-            try
-            {
-                var ModuleList = await Http.GetFromJsonAsync<List<ModuleViewModel>>("config.json");
-                //ModuleService.Automation = ModuleList.FirstOrDefault(x => x.Name == ModuleDefaultValue.Automation);
-                //ModuleService.RollCall = ModuleList.FirstOrDefault(x => x.Name == ModuleDefaultValue.RollCall);
-                //ModuleService.Attendance = ModuleList.FirstOrDefault(x => x.Name == ModuleDefaultValue.Attendance);
-            }
-            catch (Exception ex)
-            {
-                Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
-            }
+		protected override async Task OnInitializedAsync()
+		{
+			try
+			{
+				var ModuleList = await Http.GetFromJsonAsync<List<ModuleViewModel>>("config.json");
+				//ModuleService.Automation = ModuleList.FirstOrDefault(x => x.Name == ModuleDefaultValue.Automation);
+				//ModuleService.RollCall = ModuleList.FirstOrDefault(x => x.Name == ModuleDefaultValue.RollCall);
+				//ModuleService.Attendance = ModuleList.FirstOrDefault(x => x.Name == ModuleDefaultValue.Attendance);
+			}
+			catch (Exception ex)
+			{
+				Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+			}
 
 			//var Model = new JwtLoginViewModel
 			//{

@@ -15,20 +15,20 @@ namespace Maanfee.Dashboard.Server
 
         private static void AddOrUpdateSettings(_BaseContext_SQLite context)
         {
-            if (!context.SystemReleaseNoteTypes.Any())
+            if (!context.SysReleaseTypes.Any())
             {
-                var SystemReleaseNoteType = new List<SystemReleaseNoteType>
+                var SystemReleaseNoteType = new List<SysReleaseType>
                 {
-                    new SystemReleaseNoteType
+                    new SysReleaseType
                     {
-                        Title = "امکانات (Features)",
+                        Title = "Features",
                     },
-                    new SystemReleaseNoteType
+                    new SysReleaseType
                     {
-                        Title = "رفع اشکال (Bug Fixes)",
+                        Title = "Bug Fixes",
                     },
                 };
-                SystemReleaseNoteType.ForEach(s => context.SystemReleaseNoteTypes.Add(s));
+                SystemReleaseNoteType.ForEach(s => context.SysReleaseTypes.Add(s));
 
                 context.SaveChanges();
             }

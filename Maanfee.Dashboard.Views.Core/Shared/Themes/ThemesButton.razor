@@ -1,12 +1,27 @@
 ﻿@namespace Maanfee.Dashboard.Views.Core
+@*px-3 py-2 rounded-br-xl rounded-l-xl*@
 
-<div class="px-4 py-2 theme-button"
-	 @onclick="OnClick">
-	<MudTooltip Arrow="true"
-				Placement="Placement.Left"
-				Text="@DashboardResource.StringTheme">
-		<MudIcon Icon="@Icons.Material.Filled.Brush"
-				 Style="color: white" />
+<style>
+	.mud-theme-manager-button-spin {
+		animation-duration: 5000ms;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
+		animation: Pendulum 3.5s ease-in-out infinite;
+	}
+
+	@@keyframes Pendulum {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-90deg);
+  }
+}
+</style>
+
+<div class="theme-button px-3 py-2 theme-button" @onclick="OnClick">
+	<MudTooltip Arrow="true" Placement="Placement.Left" Text="@DashboardResource.StringTheme">
+		<MudIcon Icon="@Icons.Material.Filled.Brush" Style="color: white" Class="mud-theme-manager-button-spin" />
 	</MudTooltip>
 </div>
 

@@ -192,6 +192,9 @@
   <data name="StringAction" xml:space="preserve">
     <value>عمل</value>
   </data>
+  <data name="StringAddFeatures" xml:space="preserve">
+    <value>اضافه کردن ویژگی ها</value>
+  </data>
   <data name="StringAdministrator" xml:space="preserve">
     <value>مدیر سیستم</value>
   </data>
@@ -435,6 +438,9 @@
   <data name="StringRelease" xml:space="preserve">
     <value>انتشار</value>
   </data>
+  <data name="StringReleasedOn" xml:space="preserve">
+    <value>تاریخ انتشار</value>
+  </data>
   <data name="StringReleasedVersions" xml:space="preserve">
     <value>نسخه های منتشر شده</value>
   </data>
@@ -551,6 +557,9 @@
   </data>
   <data name="StringWelcome" xml:space="preserve">
     <value>خوش آمدید</value>
+  </data>
+  <data name="StringWhatsChanged" xml:space="preserve">
+    <value>تغییرات اعمال شده</value>
   </data>
   <data name="ValidationAlternateUser" xml:space="preserve">
     <value>کاربر جانشین نمیتواند با کاربر اقدام کننده یکسان باشد</value>

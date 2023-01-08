@@ -192,6 +192,9 @@
   <data name="StringAction" xml:space="preserve">
     <value>Action</value>
   </data>
+  <data name="StringAddFeatures" xml:space="preserve">
+    <value>Add features</value>
+  </data>
   <data name="StringAdministrator" xml:space="preserve">
     <value>Administrator</value>
   </data>
@@ -435,6 +438,9 @@
   <data name="StringRelease" xml:space="preserve">
     <value>Release</value>
   </data>
+  <data name="StringReleasedOn" xml:space="preserve">
+    <value>Released on</value>
+  </data>
   <data name="StringReleasedVersions" xml:space="preserve">
     <value>Released versions</value>
   </data>
@@ -551,6 +557,9 @@
   </data>
   <data name="StringWelcome" xml:space="preserve">
     <value>Welcome</value>
+  </data>
+  <data name="StringWhatsChanged" xml:space="preserve">
+    <value>What's Changed</value>
   </data>
   <data name="ValidationAlternateUser" xml:space="preserve">
     <value>The alternate user cannot be the same as the acting user</value>

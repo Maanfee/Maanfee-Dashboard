@@ -8,22 +8,23 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications
 {
     public partial class Login
     {
-        private bool _passwordVisibility;
+        private bool PasswordVisibility;
         private InputType _passwordInput = InputType.Password;
         private string _passwordInputIcon = Icons.Material.Filled.VisibilityOff;
         private LoginViewModel LoginViewModelSubmit = new();
+        private bool IsProcessing = false;
 
         private void TogglePasswordVisibility()
         {
-            if (_passwordVisibility)
+            if (PasswordVisibility)
             {
-                _passwordVisibility = false;
+                PasswordVisibility = false;
                 _passwordInputIcon = Icons.Material.Filled.VisibilityOff;
                 _passwordInput = InputType.Password;
             }
             else
             {
-                _passwordVisibility = true;
+                PasswordVisibility = true;
                 _passwordInputIcon = Icons.Material.Filled.Visibility;
                 _passwordInput = InputType.Text;
             }
@@ -31,6 +32,10 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications
       
         private async Task OnSubmit()
         {
+            if (IsProcessing)
+                return;
+            IsProcessing = true;
+
             try
             {
                 await AuthenticationStateProvider.Login(LoginViewModelSubmit.TrimString());
@@ -40,7 +45,9 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications
             {
                 Snackbar.Add(ex.Message, Severity.Error);
             }
+
+            IsProcessing = false;
         }
-      
+
     }
 }

@@ -13,11 +13,9 @@
       <a href="https://github.com/Maanfee/Maanfee-Dashboard/blob/main/LICENSE">
     <img src="SolutionItems/Contents/license.svg" />
     </a>
-    <!--- 
-        <a href="https://www.linkedin.com/in/mansour-farshidi-091a41185/">
-    <img src="https://github.com/Maanfee/Maanfee-Dashboard/blob/main/SolutionItems/Contents/linkedin.svg" />
+    <a href="https://www.linkedin.com/in/mansour-farshidi-091a41185/">
+    <img src="main/SolutionItems/Contents/linkedin.svg" />
     </a>    
-    --->
  </div>
 </div>
 

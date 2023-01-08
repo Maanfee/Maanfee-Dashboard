@@ -1,0 +1,113 @@
+﻿@page "/Releases/ReleaseView"
+@using System.Text.RegularExpressions;
+@inherits _BaseView
+
+<style>
+
+	.release-sticky-info {
+		position: sticky;
+		top: 128px;
+	}
+
+	.release-body {
+		white-space: pre-line;
+		font-size: var(--mud-typography-body1-size);
+		font-family: var(--mud-typography-body1-family);
+		font-weight: var(--mud-typography-body1-weight);
+		line-height: var(--mud-typography-body1-lineheight);
+		letter-spacing: var(--mud-typography-body1-letterspacing);
+		text-transform: var(--mud-typography-body1-text-transform);
+	}
+
+		.release-body a {
+			color: var(--mud-palette-primary);
+			line-height: normal;
+			font-weight: 500;
+		}
+
+			.release-body a:hover {
+				cursor: pointer;
+				text-decoration: underline;
+			}
+
+		.release-body h5 {
+			margin-bottom: -12px;
+		}
+
+</style>
+
+<MaanfeeDashboardPage>
+	<MaanfeeDashboardPageHeader PageTitle="@DashboardResource.StringRelease" Title="@DashboardResource.StringRelease" />
+
+	@if (!IsLoaded)
+	{
+		<PublicOverlay />
+	}
+	else
+	{
+		<MudGrid>
+			@foreach (var Releases in SysReleases)
+			{
+				<MudItem xs="12" md="4">
+					<div class="release-sticky-info">
+						<MudText Typo="Typo.h5" Inline="true">@DashboardResource.StringVersion</MudText>
+						<MudText Typo="Typo.h5" Inline="true" Color="Color.Primary"><b>@Releases.Version</b></MudText>
+						<MudText Color="Color.Secondary" Typo="Typo.subtitle2">
+							@DashboardResource.StringReleasedOn <strong>@Releases.ReleaseDate.ToDateString()</strong>
+						</MudText>
+					</div>
+				</MudItem>
+				<MudItem xs="12" md="8">
+					<div class="release-body">
+						<MudText Typo="Typo.h5">
+							@DashboardResource.StringWhatsChanged
+						</MudText>
+						<MudDivider DividerType="DividerType.FullWidth" />
+						@foreach (var itemGroup in Releases.SysReleaseFeatures)
+						{
+							<MudStack Row="true" Spacing="2">
+								<MudText Typo="Typo.button">
+									@itemGroup.SysReleaseType.Title
+								</MudText>
+								<MudText Typo="Typo.caption" Color="Color.Primary">
+									@itemGroup.Comment
+								</MudText>
+							</MudStack>
+						}
+					</div>
+				</MudItem>
+			}
+		</MudGrid>
+	}
+
+	<MudScrollToTop TopOffset="100" Style="z-index:2000;">
+		<MudFab Icon="@Icons.Material.Filled.KeyboardArrowUp" Color="Color.Primary" />
+	</MudScrollToTop>
+
+</MaanfeeDashboardPage>
+
+@code {
+
+	private List<SysRelease> SysReleases = new();
+
+	protected override async Task OnInitializedAsync()
+	{
+		IsLoaded = false;
+
+		var Callback = await Http.GetFromJsonAsync<CallbackResult<List<SysRelease>>>($"api/SysReleases/GetAllReleases");
+
+		if (Callback.Data != null)
+		{
+			SysReleases = Callback.Data;
+		}
+		else
+		{
+			Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+			IsLoaded = true;
+		}
+		StateHasChanged();
+
+		IsLoaded = true;
+	}
+
+}

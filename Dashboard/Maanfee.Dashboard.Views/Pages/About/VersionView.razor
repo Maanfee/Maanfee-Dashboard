@@ -1,134 +1,136 @@
 ﻿@page "/About/VersionView"
 @inherits _BaseView
 
-<ComponentDashboardTitle Title="@DashboardResource.StringAbout" Description="" />
+<MaanfeeDashboardPage>
+    <MaanfeeDashboardPageHeader PageTitle="@DashboardResource.StringAbout" Title="@DashboardResource.StringRelease" />
 
-<MudGrid>
-    <MudItem md="12" xs="12">
-        <MudContainer>
-            <MudText Typo="Typo.h4" GutterBottom="true">
-                @DashboardResource.StringReleasedVersions
-            </MudText>
-            <MudSimpleTable Elevation="0" Dense="true" Style="overflow-x: auto;">
-                <thead>
-                    <tr>
-                        <th>@DashboardResource.StringVersion</th>
-                        <th>@DashboardResource.StringReleaseType</th>
-                        <th>@DashboardResource.StringFramework</th>
-                        <th>@DashboardResource.StringDatabase</th>
-                        <th>@DashboardResource.StringDate</th>
-                    </tr>
-                </thead>
-                <tbody class="mb-16">
-                    <tr>
-                        <td>@DashboardResource.StringVersion 1.0.0</td>
-                        <td>
-                            <MudChip Color="Color.Success" Size="Size.Small" Label="true" Style="width:60px;">
-                                Release
-                            </MudChip>
-                        </td>
-                        <td>
-                            <MudChip Style="background-color: #5027d5; color: #ffffff; width:100px;" Size="Size.Small" Label="true">
-                                @DashboardResource.StringdotNet 6.0.2
-                            </MudChip>
-                        </td>
-                        <td>
-                            <MudChip Color="Color.Error" Size="Size.Small" Label="true">
-                                @DashboardResource.StringHasChanged
-                            </MudChip>
-                        </td>
-                        <td><MudLink Typo="Typo.body2">1400/12/03</MudLink></td>
-                    </tr>
-                    <tr>
-                        <td>@DashboardResource.StringVersion 0.69.85</td>
-                        <td><MudChip Color="Color.Warning" Size="Size.Small" Label="true" Style="width:60px;">Pre</MudChip></td>
-                        <td>
-                            <MudChip Style="background-color: #5027d5; color: #ffffff; width:100px;" Size="Size.Small" Label="true">
-                                @DashboardResource.StringdotNet 6.0.1
-                            </MudChip>
-                        </td>
-                        <td>
-                            <MudChip Color="Color.Error" Size="Size.Small" Label="true">
-                                @DashboardResource.StringHasChanged
-                            </MudChip>
-                        </td>
-                        <td><MudLink Typo="Typo.body2">1400/09/29</MudLink></td>
-                    </tr>
-                    <tr>
-                        <td>@DashboardResource.StringVersion 0.53.25</td>
-                        <td><MudChip Color="Color.Warning" Size="Size.Small" Label="true" Style="width:60px;">Pre</MudChip></td>
-                        <td>
-                            <MudChip Style="background-color: #5027d5; color: #ffffff; width:100px;" Size="Size.Small" Label="true">
-                                @DashboardResource.StringdotNet 6.0
-                            </MudChip>
-                        </td>
-                        <td>
-                            <MudChip Color="Color.Success" Size="Size.Small" Label="true">
-                                @DashboardResource.StringUnchanged
-                            </MudChip>
-                        </td>
-                        <td><MudLink Typo="Typo.body2">1400/09/22</MudLink></td>
-                    </tr>
-                    <tr>
-                        <td>@DashboardResource.StringVersion 0.27.23</td>
-                        <td><MudChip Color="Color.Warning" Size="Size.Small" Label="true" Style="width:60px;">Pre</MudChip></td>
-                        <td>
-                            <MudChip Style="background-color: #5027d5; color: #ffffff; width:100px;" Size="Size.Small" Label="true">
-                                @DashboardResource.StringdotNet 6.0
-                            </MudChip>
-                        </td>
-                        <td>
-                            <MudChip Color="Color.Success" Size="Size.Small" Label="true">
-                                @DashboardResource.StringUnchanged
-                            </MudChip>
-                        </td>
-                        <td><MudLink Typo="Typo.body2">1400/09/15</MudLink></td>
-                    </tr>
-                    <tr>
-                        <td>@DashboardResource.StringVersion 0.0.0</td>
-                        <td><MudChip Color="Color.Warning" Size="Size.Small" Label="true" Style="width:60px;">Pre</MudChip></td>
-                        <td>
-                            <MudChip Style="background-color: #5027d5; color: #ffffff; width:100px;" Size="Size.Small" Label="true">
-                                @DashboardResource.StringdotNet 6.0
-                            </MudChip>
-                        </td>
-                        <td>
-                            <MudChip Color="Color.Error" Size="Size.Small" Label="true">
-                                @DashboardResource.StringHasChanged
-                            </MudChip>
-                        </td>
-                        <td><MudLink Typo="Typo.body2">1400/09/01</MudLink></td>
-                    </tr>
-                </tbody>
-            </MudSimpleTable>
-        </MudContainer>
-    </MudItem>
-    <MudItem md="12" xs="12">
-        <MudContainer>
-            <MudTimeline>
-                <MudTimelineItem TimelineAlign="TimelineAlign.Start" Color="Color.Success">
-                    <MudText Typo="Typo.button">@DashboardResource.StringVersion 1.0.0</MudText>
-                    <MudText Typo="Typo.body2" Class="mud-text-secondary">1400/12/03</MudText>
-                </MudTimelineItem>
-                <MudTimelineItem TimelineAlign="TimelineAlign.End" Color="Color.Info">
-                    @*                    <MudText Typo="Typo.button">@AppResource.StringVersion 0.69.85</MudText>*@
-                    <MudText Typo="Typo.body2">@DashboardResource.StringVersion 0.69.85</MudText>
-                    <MudText Typo="Typo.body2" Class="mud-text-secondary">1400/09/29</MudText>
-                </MudTimelineItem>
-                <MudTimelineItem TimelineAlign="TimelineAlign.End">
-                    <MudText Typo="Typo.body2" Class="mud-text-secondary">@DashboardResource.StringVersion 0.53.25</MudText>
-                    <MudText Typo="Typo.body2" Class="mud-text-secondary">1400/09/22</MudText>
-                </MudTimelineItem>
-                <MudTimelineItem TimelineAlign="TimelineAlign.End">
-                    <MudText Typo="Typo.body2" Class="mud-text-secondary">@DashboardResource.StringVersion 0.27.23</MudText>
-                    <MudText Typo="Typo.body2" Class="mud-text-secondary">1400/09/15</MudText>
-                </MudTimelineItem>
-                <MudTimelineItem Color="Color.Error">
-                    <MudText Typo="Typo.body2" Color="Color.Error">@DashboardResource.StringStartofProject</MudText>
-                    <MudText Typo="Typo.body2" Color="Color.Error">1400/09/01</MudText>
-                </MudTimelineItem>
-            </MudTimeline>
-        </MudContainer>
-    </MudItem>
-</MudGrid>
+    <MudGrid>
+        <MudItem md="12" xs="12">
+            <MudContainer>
+                <MudText Typo="Typo.h4" GutterBottom="true">
+                    @DashboardResource.StringReleasedVersions
+                </MudText>
+                <MudSimpleTable Elevation="0" Dense="true" Style="overflow-x: auto;">
+                    <thead>
+                        <tr>
+                            <th>@DashboardResource.StringVersion</th>
+                            <th>@DashboardResource.StringReleaseType</th>
+                            <th>@DashboardResource.StringFramework</th>
+                            <th>@DashboardResource.StringDatabase</th>
+                            <th>@DashboardResource.StringDate</th>
+                        </tr>
+                    </thead>
+                    <tbody class="mb-16">
+                        <tr>
+                            <td>@DashboardResource.StringVersion 1.0.0</td>
+                            <td>
+                                <MudChip Color="Color.Success" Size="Size.Small" Label="true" Style="width:60px;">
+                                    Release
+                                </MudChip>
+                            </td>
+                            <td>
+                                <MudChip Style="background-color: #5027d5; color: #ffffff; width:100px;" Size="Size.Small" Label="true">
+                                    @DashboardResource.StringdotNet 6.0.2
+                                </MudChip>
+                            </td>
+                            <td>
+                                <MudChip Color="Color.Error" Size="Size.Small" Label="true">
+                                    @DashboardResource.StringHasChanged
+                                </MudChip>
+                            </td>
+                            <td><MudLink Typo="Typo.body2">1400/12/03</MudLink></td>
+                        </tr>
+                        <tr>
+                            <td>@DashboardResource.StringVersion 0.69.85</td>
+                            <td><MudChip Color="Color.Warning" Size="Size.Small" Label="true" Style="width:60px;">Pre</MudChip></td>
+                            <td>
+                                <MudChip Style="background-color: #5027d5; color: #ffffff; width:100px;" Size="Size.Small" Label="true">
+                                    @DashboardResource.StringdotNet 6.0.1
+                                </MudChip>
+                            </td>
+                            <td>
+                                <MudChip Color="Color.Error" Size="Size.Small" Label="true">
+                                    @DashboardResource.StringHasChanged
+                                </MudChip>
+                            </td>
+                            <td><MudLink Typo="Typo.body2">1400/09/29</MudLink></td>
+                        </tr>
+                        <tr>
+                            <td>@DashboardResource.StringVersion 0.53.25</td>
+                            <td><MudChip Color="Color.Warning" Size="Size.Small" Label="true" Style="width:60px;">Pre</MudChip></td>
+                            <td>
+                                <MudChip Style="background-color: #5027d5; color: #ffffff; width:100px;" Size="Size.Small" Label="true">
+                                    @DashboardResource.StringdotNet 6.0
+                                </MudChip>
+                            </td>
+                            <td>
+                                <MudChip Color="Color.Success" Size="Size.Small" Label="true">
+                                    @DashboardResource.StringUnchanged
+                                </MudChip>
+                            </td>
+                            <td><MudLink Typo="Typo.body2">1400/09/22</MudLink></td>
+                        </tr>
+                        <tr>
+                            <td>@DashboardResource.StringVersion 0.27.23</td>
+                            <td><MudChip Color="Color.Warning" Size="Size.Small" Label="true" Style="width:60px;">Pre</MudChip></td>
+                            <td>
+                                <MudChip Style="background-color: #5027d5; color: #ffffff; width:100px;" Size="Size.Small" Label="true">
+                                    @DashboardResource.StringdotNet 6.0
+                                </MudChip>
+                            </td>
+                            <td>
+                                <MudChip Color="Color.Success" Size="Size.Small" Label="true">
+                                    @DashboardResource.StringUnchanged
+                                </MudChip>
+                            </td>
+                            <td><MudLink Typo="Typo.body2">1400/09/15</MudLink></td>
+                        </tr>
+                        <tr>
+                            <td>@DashboardResource.StringVersion 0.0.0</td>
+                            <td><MudChip Color="Color.Warning" Size="Size.Small" Label="true" Style="width:60px;">Pre</MudChip></td>
+                            <td>
+                                <MudChip Style="background-color: #5027d5; color: #ffffff; width:100px;" Size="Size.Small" Label="true">
+                                    @DashboardResource.StringdotNet 6.0
+                                </MudChip>
+                            </td>
+                            <td>
+                                <MudChip Color="Color.Error" Size="Size.Small" Label="true">
+                                    @DashboardResource.StringHasChanged
+                                </MudChip>
+                            </td>
+                            <td><MudLink Typo="Typo.body2">1400/09/01</MudLink></td>
+                        </tr>
+                    </tbody>
+                </MudSimpleTable>
+            </MudContainer>
+        </MudItem>
+        <MudItem md="12" xs="12">
+            <MudContainer>
+                <MudTimeline>
+                    <MudTimelineItem TimelineAlign="TimelineAlign.Start" Color="Color.Success">
+                        <MudText Typo="Typo.button">@DashboardResource.StringVersion 1.0.0</MudText>
+                        <MudText Typo="Typo.body2" Class="mud-text-secondary">1400/12/03</MudText>
+                    </MudTimelineItem>
+                    <MudTimelineItem TimelineAlign="TimelineAlign.End" Color="Color.Info">
+                        @*                    <MudText Typo="Typo.button">@AppResource.StringVersion 0.69.85</MudText>*@
+                        <MudText Typo="Typo.body2">@DashboardResource.StringVersion 0.69.85</MudText>
+                        <MudText Typo="Typo.body2" Class="mud-text-secondary">1400/09/29</MudText>
+                    </MudTimelineItem>
+                    <MudTimelineItem TimelineAlign="TimelineAlign.End">
+                        <MudText Typo="Typo.body2" Class="mud-text-secondary">@DashboardResource.StringVersion 0.53.25</MudText>
+                        <MudText Typo="Typo.body2" Class="mud-text-secondary">1400/09/22</MudText>
+                    </MudTimelineItem>
+                    <MudTimelineItem TimelineAlign="TimelineAlign.End">
+                        <MudText Typo="Typo.body2" Class="mud-text-secondary">@DashboardResource.StringVersion 0.27.23</MudText>
+                        <MudText Typo="Typo.body2" Class="mud-text-secondary">1400/09/15</MudText>
+                    </MudTimelineItem>
+                    <MudTimelineItem Color="Color.Error">
+                        <MudText Typo="Typo.body2" Color="Color.Error">@DashboardResource.StringStartofProject</MudText>
+                        <MudText Typo="Typo.body2" Color="Color.Error">1400/09/01</MudText>
+                    </MudTimelineItem>
+                </MudTimeline>
+            </MudContainer>
+        </MudItem>
+    </MudGrid>
 
+</MaanfeeDashboardPage>

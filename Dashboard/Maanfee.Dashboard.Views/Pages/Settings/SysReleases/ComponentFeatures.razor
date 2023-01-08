@@ -1,0 +1,119 @@
+﻿
+<EditForm OnValidSubmit="OnSubmit" Model="SubmitSysReleaseFeatureViewModel">
+	<DataAnnotationsValidator />
+	<MudGrid>
+		<MudItem md="3">
+			<MudSelect T="DropDownReleaseTypeViewModel" Label="@DashboardResource.StringReleaseType" Variant="Variant.Outlined"
+					   Clearable="true" @bind-Value="SubmitSysReleaseFeatureViewModel.ReleaseType"
+					   For="@(() => SubmitSysReleaseFeatureViewModel.ReleaseType)">
+				@foreach (var item in ReleaseTypes)
+				{
+					<MudSelectItem Value="@item">@item.Title</MudSelectItem>
+				}
+			</MudSelect>
+		</MudItem>
+		<MudItem md="7">
+			<MudTextField @bind-Value="SubmitSysReleaseFeatureViewModel.Comment" Variant="Variant.Outlined"
+						  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.FilterDrama" Clearable
+						  For="@(() => SubmitSysReleaseFeatureViewModel.Comment)"
+						  Label="@DashboardResource.StringComment" />
+		</MudItem>
+		<MudItem md="2" Class="my-4">
+			<MudButton Variant="Variant.Filled" Color="Color.Primary" ButtonType="ButtonType.Submit"
+					   StartIcon="@Icons.Material.Filled.InsertComment" IconColor="Color.Surface">
+				@DashboardResource.StringAddFeatures
+			</MudButton>
+		</MudItem>
+	</MudGrid>
+</EditForm>
+<MudGrid>
+	<MudItem md="12" Class="my-4">
+		<MudTable Items="@SysReleaseFeatureViewModels" FixedHeader="true" FixedFooter="@true" Height="170px" Dense="true"
+						Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
+			<HeaderContent>
+				<MudTh>@DashboardResource.StringComment</MudTh>
+				<MudTh>@DashboardResource.StringTitle</MudTh>
+				<MudTh Class="column-1x"></MudTh>
+			</HeaderContent>
+			<RowTemplate>
+				<MudTd DataLabel="Comment">@context.Comment</MudTd>
+				<MudTd DataLabel="SysReleaseTypeTitle">@context.SysReleaseTypeTitle</MudTd>
+				<MudTd>
+					<MudIconButton Title="@DashboardResource.StringDelete" OnClick="@((e) => DeleteDialog(context.Id))"
+								   Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small" />
+				</MudTd>
+			</RowTemplate>
+		</MudTable>
+	</MudItem>
+</MudGrid>
+
+@code {
+
+	[Parameter]
+	public List<SysReleaseFeatureViewModel> SysReleaseFeatureViewModels { get; set; } = new();
+
+	public SubmitSysReleaseFeatureViewModel SubmitSysReleaseFeatureViewModel = new();
+
+	protected override async Task OnInitializedAsync()
+	{
+		await GetSysReleaseTypesAsync();
+	}
+
+	#region - Combo & Dropdown -
+
+	private List<DropDownReleaseTypeViewModel> ReleaseTypes = new();
+
+	private async Task GetSysReleaseTypesAsync()
+	{
+		var Callback = await Http.GetFromJsonAsync<CallbackResult<List<SysReleaseType>>>($"api/SysReleases/GetSysReleaseTypes");
+		if (Callback.Data != null)
+		{
+			ReleaseTypes = Callback.Data.Select(x => new DropDownReleaseTypeViewModel
+				{
+					Id = x.Id,
+					Title = x.Title,
+				}).ToList();
+		}
+		else
+		{
+			Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+		}
+	}
+
+	#endregion
+
+	private void OnSubmit()
+	{
+		SysReleaseFeatureViewModels.Add(new SysReleaseFeatureViewModel
+			{
+				Id = Guid.NewGuid().ToString(),
+				Comment = SubmitSysReleaseFeatureViewModel.Comment,
+				IdSysReleaseType = SubmitSysReleaseFeatureViewModel.ReleaseType.Id,
+				SysReleaseTypeTitle = SubmitSysReleaseFeatureViewModel.ReleaseType.Title,
+			});
+
+		SubmitSysReleaseFeatureViewModel.Comment = string.Empty;
+		SubmitSysReleaseFeatureViewModel.ReleaseType = null;
+	}
+
+	private async Task DeleteDialog(string Id)
+	{
+		DialogParameters parameters = new DialogParameters();
+
+		var dialog = Dialog.Show<DialogDelete>(DashboardResource.StringAlert, parameters,
+			new DialogOptions()
+				{
+					MaxWidth = MaxWidth.ExtraSmall,
+					FullWidth = true,
+					Position = DialogPosition.Center,
+				});
+
+		var result = await dialog.Result;
+
+		if (!result.Canceled)
+		{
+			SysReleaseFeatureViewModels.Remove(SysReleaseFeatureViewModels.FirstOrDefault(x => x.Id == Id));
+		}
+	}
+
+}

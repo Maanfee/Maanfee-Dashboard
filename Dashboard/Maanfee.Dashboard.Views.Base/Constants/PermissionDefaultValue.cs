@@ -78,32 +78,14 @@ namespace Maanfee.Dashboard.Views.Base
 		[Description("Settings Permissions")]
 		public static class Setting
 		{
-			[Display(Name = nameof(DashboardResource.StringList))]
-			public const string View = "Permission.Settings.View";
-		}
+			[Display(Name = nameof(DashboardResource.StringSettings))]
+			public const string SettingsView = "Permission.Settings.View";
 
-		#endregion
+            [Display(Name = nameof(DashboardResource.StringRelease))]
+            public const string ReleaseManagementView = "Permission.Settings.ReleaseManagementView";
 
-		#region - System Release - 
-
-		[Display(Name = nameof(DashboardResource.StringRelease))]
-        [Description("System Release")]
-        public static class SystemRelease
-        {
-            [Display(Name = nameof(DashboardResource.StringList))]
-            public const string View = "Permission.SystemRelease.View";
-
-            [Display(Name = nameof(DashboardResource.StringCreate))]
-            public const string Create = "Permission.SystemRelease.Create";
-
-            [Display(Name = nameof(DashboardResource.StringEdit))]
-            public const string Edit = "Permission.SystemRelease.Edit";
-
-            [Display(Name = nameof(DashboardResource.StringDelete))]
-            public const string Delete = "Permission.SystemRelease.Delete";
-
-            [Display(Name = nameof(DashboardResource.StringDetails))]
-            public const string Details = "Permission.SystemRelease.Details";
+            [Display(Name = nameof(DashboardResource.StringSwagger))]
+            public const string Swagger = "Permission.Settings.SwaggersView";
         }
 
 		#endregion
@@ -144,12 +126,5 @@ namespace Maanfee.Dashboard.Views.Base
 		//    public const string View = "Permission.Reports.View";
 		//}
 
-		[Display(Name = nameof(DashboardResource.StringSwagger))]
-        [Description("Swagger")]
-        public static class Swaggers
-        {
-            [Display(Name = nameof(DashboardResource.StringList))]
-            public const string View = "Permission.Swaggers.View";
-        }
     }
 }

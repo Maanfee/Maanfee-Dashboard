@@ -9,11 +9,11 @@ namespace Maanfee.Dashboard.Domain.DAL
         {
         }
 
-        public virtual DbSet<SystemRelease> SystemReleases { get; set; }
+        public virtual DbSet<SysRelease> SysReleases { get; set; }
 
-        public virtual DbSet<SystemReleaseNote> SystemReleaseNotes { get; set; }
+        public virtual DbSet<SysReleaseFeature> SysReleaseFeatures { get; set; }
 
-        public virtual DbSet<SystemReleaseNoteType> SystemReleaseNoteTypes { get; set; }
+        public virtual DbSet<SysReleaseType> SysReleaseTypes { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -21,9 +21,9 @@ namespace Maanfee.Dashboard.Domain.DAL
 
             #region - System Releases -
 
-            modelBuilder.Entity<SystemRelease>(e =>
+            modelBuilder.Entity<SysRelease>(e =>
             {
-                e.ToTable("SystemRelease");
+                e.ToTable("SysRelease");
                 e.HasIndex(p => new { p.Version }).IsUnique(true);
             });
 
@@ -31,9 +31,9 @@ namespace Maanfee.Dashboard.Domain.DAL
 
             #region - System ReleaseNote Types -
 
-            modelBuilder.Entity<SystemReleaseNoteType>(e =>
+            modelBuilder.Entity<SysReleaseType>(e =>
             {
-                e.ToTable("SystemReleaseNoteType");
+                e.ToTable("SysReleaseType");
                 e.HasIndex(p => new { p.Title }).IsUnique(true);
             });
 
@@ -41,10 +41,10 @@ namespace Maanfee.Dashboard.Domain.DAL
 
             #region - System Release Note -
 
-            modelBuilder.Entity<SystemReleaseNote>(e =>
+            modelBuilder.Entity<SysReleaseFeature>(e =>
             {
-                e.ToTable("SystemReleaseNote");
-                e.HasIndex(p => new { p.Comment, p.IdSystemRelease }).IsUnique(true);
+                e.ToTable("SysReleaseFeature");
+                e.HasIndex(p => new { p.Comment, p.IdSysRelease }).IsUnique(true);
             });
 
             #endregion

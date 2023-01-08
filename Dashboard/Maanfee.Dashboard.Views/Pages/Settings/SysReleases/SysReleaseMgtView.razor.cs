@@ -12,12 +12,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using FilterViewModel = Maanfee.Dashboard.Domain.ViewModels.FilterGroupViewModel;
-using TableViewModel = Maanfee.Dashboard.Domain.ViewModels.GetGroupViewModel;
+using FilterViewModel = Maanfee.Dashboard.Domain.ViewModels.FilterReleaseViewModel;
+using TableViewModel = Maanfee.Dashboard.Domain.ViewModels.GetReleaseViewModel;
 
-namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
+namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
 {
-	public partial class GroupView
+	public partial class SysReleaseMgtView
 	{
 		private IEnumerable<TableViewModel> Data = new List<TableViewModel>();
 		private MudTable<TableViewModel> Table = new();
@@ -29,7 +29,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
 
 			try
 			{
-				await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.Group.View, PermissionAuthenticationState,
+				await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.Setting.ReleaseManagementView, PermissionAuthenticationState,
 					AuthorizationService, Navigation);
 			}
 			catch (Exception ex)
@@ -56,20 +56,21 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
 					TableState.Filter = FilterViewModel;
 				}
 
-				var PostResult = await Http.PostAsJsonAsync($"api/Groups/PaginationIndex", TableState);
+				var PostResult = await Http.PostAsJsonAsync($"api/SysReleases/PaginationIndex", TableState);
 				if (PostResult.IsSuccessStatusCode)
 				{
 					var stringcallback = await PostResult.Content.ReadAsStringAsync();
 					var JObjectData = Newtonsoft.Json.Linq.JObject.Parse(stringcallback);
 
-					var List = JsonConvert.DeserializeObject<List<Group>>(JObjectData["data"]?["list"]?.ToString());
+					var List = JsonConvert.DeserializeObject<List<SysRelease>>(JObjectData["data"]?["list"]?.ToString());
 					int TotalItems = JsonConvert.DeserializeObject<int>(JObjectData["data"]?["totalPages"]?.ToString());
 
 					Data = List.AsEnumerable().Select((data, index) => new TableViewModel
 					{
 						RowNum = ((state.Page - 1) * state.PageSize) + (index + 1),
 						Id = data.Id,
-						Title = data.Title,
+						Version = data.Version,
+						ReleaseDate = data.ReleaseDate,
 					}).ToList();
 
 					IsTableLoading = false;
@@ -150,7 +151,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
 				new DialogOptions()
 				{
 					NoHeader = true,
-					MaxWidth = MaxWidth.Medium,
+					MaxWidth = MaxWidth.ExtraExtraLarge,
 					FullWidth = true,
 					Position = DialogPosition.Center,
 				});
@@ -208,10 +209,10 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
 			{
 				try
 				{
-					var DeleteResult = await Http.DeleteAsync($"api/Groups/Delete/{Id}");
+					var DeleteResult = await Http.DeleteAsync($"api/SysReleases/Delete/{Id}");
 					if (DeleteResult.IsSuccessStatusCode)
 					{
-						var JsonResult = await DeleteResult.Content.ReadFromJsonAsync<CallbackResult<Group>>();
+						var JsonResult = await DeleteResult.Content.ReadFromJsonAsync<CallbackResult<SysRelease>>();
 						if (JsonResult.Data != null)
 						{
 							Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageDeletedSuccessfully, Severity.Success);
@@ -235,6 +236,5 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
 		}
 
 		#endregion
-
 	}
 }

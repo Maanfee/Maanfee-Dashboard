@@ -56,9 +56,22 @@
                 @* <MudLink Href="/recover">@AppResource.StringForgotPassword</MudLink> *@
             </MudItem>
             <MudItem xs="12" Class="d-flex justify-center">
-                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" Style="width: 100%;">
+             @*   <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" Style="width: 100%;">
                     @DashboardResource.StringSignin
                     <MudIcon Icon="@Icons.Material.Filled.Fingerprint" />
+                </MudButton>*@
+                <MudButton Disabled="@IsProcessing" ButtonType="ButtonType.Submit" Variant="Variant.Filled" 
+                        FullWidth="true" Color="Color.Primary">
+                    @if (IsProcessing)
+                    {
+                        <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="ms-n1" />
+                        <MudText Class="ms-2">@DashboardResource.StringProcessing</MudText>
+                    }
+                    else
+                    {
+                        @DashboardResource.StringSignin
+                        <MudIcon Icon="@Icons.Material.Filled.Fingerprint" />
+                    }
                 </MudButton>
             </MudItem>
         </MudGrid>

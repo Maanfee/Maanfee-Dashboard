@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Maanfee.Dashboard.Views.Base
 {
-    public static class PermissionDefaultValue
+	public static class PermissionDefaultValue
     {
         //public static KeyValuePair<string, string> View =
         //   new KeyValuePair<string, string>("Permission.Settings.View", AppResource.StringList);

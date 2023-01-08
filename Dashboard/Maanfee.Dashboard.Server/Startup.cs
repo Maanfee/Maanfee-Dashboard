@@ -75,7 +75,7 @@ namespace Maanfee.Dashboard.Server
             #region - Internal Configuration -
 
             LocalConfigurationService.InitServerCultureAsync(app);
-            app.AddConfigure(SQLServerContext, SQLiteContext);
+            app.AddConfigure(env, SQLServerContext, SQLiteContext);
 
             #endregion
 

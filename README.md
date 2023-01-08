@@ -14,7 +14,7 @@
     <img src="SolutionItems/Contents/license.svg" />
     </a>
     <a href="https://www.linkedin.com/in/mansour-farshidi-091a41185/">
-    <img src="main/SolutionItems/Contents/linkedin.svg" />
+    <img src="SolutionItems/Contents/linkedin.svg" />
     </a>    
  </div>
 </div>

@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Maanfee.Web.JSInterop
 {
-    public static class DomHelpers
+	public static class DomHelpers
     {
 		#region - Text -
 

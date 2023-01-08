@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Maanfee.Web.Core
+﻿namespace Maanfee.Web.Core
 {
     public enum ErrorCode
     {

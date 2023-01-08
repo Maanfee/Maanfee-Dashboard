@@ -1,5 +1,4 @@
-﻿using Maanfee.Dashboard.Views.Base.Services;
-using Maanfee.Dashboard.Views.Core.Services;
+﻿using Maanfee.Dashboard.Views.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;

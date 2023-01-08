@@ -1,5 +1,4 @@
-﻿using Maanfee.Dashboard.Domain.ViewModels;
-using Maanfee.Web.Core;
+﻿using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;

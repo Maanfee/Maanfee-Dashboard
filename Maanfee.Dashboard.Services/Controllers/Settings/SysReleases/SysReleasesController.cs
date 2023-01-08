@@ -4,14 +4,12 @@ using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Dashboard.Resources;
 using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Services.Controllers.Settings.SysReleases
@@ -19,7 +17,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Settings.SysReleases
 	[Route("api/[controller]")]
 	[ApiController]
 	[Authorize]
-	//[ApiExplorerSettings(IgnoreApi = true)]
+	[ApiExplorerSettings(IgnoreApi = true)]
 	public class SysReleasesController : ControllerBase
 	{
 		public SysReleasesController(_BaseContext_SQLite context, CommonService commonService)

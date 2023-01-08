@@ -1,7 +1,6 @@
 ﻿using Maanfee.Dashboard.Domain.Entities;
 using Maanfee.Dashboard.Resources;
 using Microsoft.AspNetCore.Identity;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Maanfee.Dashboard.Domain.ViewModels

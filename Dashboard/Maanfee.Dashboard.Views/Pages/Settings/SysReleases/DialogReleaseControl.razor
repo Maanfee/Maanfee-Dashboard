@@ -12,7 +12,7 @@
 				<MudCard Class="mt-2">
 					<MudCardHeader>
 						<MudText Typo="Typo.button" Color="Color.Primary">
-							@DashboardResource.StringRelease
+							@DashboardResource.StringNewVersionReleased
 						</MudText>
 					</MudCardHeader>
 					<MudDivider DividerType="DividerType.FullWidth" />
@@ -20,10 +20,10 @@
 						<MudGrid>
 							<MudItem md="4">
 								<MudField Disabled="true" Label="@DashboardResource.StringVersion" Variant="Variant.Outlined">
-									@Model.Version
+									@SysRelease.Version
 								</MudField>
 							</MudItem>
-							<MudItem md="4">
+							@*<MudItem md="4">
 								<MudField Disabled="true" Label="@DashboardResource.StringDate" Variant="Variant.Outlined">
 									@Model.ReleaseDate.ToDateString()
 								</MudField>
@@ -44,7 +44,7 @@
 										<MudTd DataLabel="SysReleaseTypeTitle">@context.SysReleaseType.Title</MudTd>
 									</RowTemplate>
 								</MudTable>
-							</MudItem>
+							</MudItem>*@
 						</MudGrid>
 					</MudCardContent>
 				</MudCard>
@@ -68,33 +68,36 @@
 	// *****************************************************
 
 	[Parameter]
-	public string Id { get; set; }
-
-	private SysRelease Model = new();
+	public SysRelease SysRelease { get; set; }
 
 	protected override async Task OnInitializedAsync()
 	{
 		IsLoaded = false;
-		
-		try
-		{
-			//var Callback = await Http.GetFromJsonAsync<CallbackResult<SysRelease>>($"api/SysReleases/Details/{Id}");
 
-			//if (Callback.Data != null)
-			//{
-			//	Model = Callback.Data;
-			//}
-			//else
-			//{
-			//	Snackbar.Add(Callback.Error.ToString(), Severity.Error);
-			//}
-		}
-		catch (Exception ex)
-		{
-			Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
-		}
+		//try
+		//{
+		//	var Callback = await Http.GetFromJsonAsync<CallbackResult<SysRelease>>($"api/SysReleases/Details/{Id}");
+
+		//	if (Callback.Data != null)
+		//	{
+		//		Model = Callback.Data;
+		//	}
+		//	else
+		//	{
+		//		Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+		//	}
+		//}
+		//catch (Exception ex)
+		//{
+		//	Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+		//}
 
 		IsLoaded = true;
 	}
 
-} 
+	public async Task GetLatestReleaseAsync()
+	{
+
+	}
+
+}

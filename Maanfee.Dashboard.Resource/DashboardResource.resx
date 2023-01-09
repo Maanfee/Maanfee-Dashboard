@@ -372,6 +372,9 @@
   <data name="StringNewPassword" xml:space="preserve">
     <value>New password</value>
   </data>
+  <data name="StringNewVersionReleased" xml:space="preserve">
+    <value>New Version Release</value>
+  </data>
   <data name="StringNormalizedName" xml:space="preserve">
     <value>Normalized name</value>
   </data>

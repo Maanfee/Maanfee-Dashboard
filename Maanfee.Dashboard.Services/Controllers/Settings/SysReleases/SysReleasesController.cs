@@ -59,14 +59,14 @@ namespace Maanfee.Dashboard.Services.Controllers.Settings.SysReleases
 					if (!string.IsNullOrEmpty(TableState.Filter.Version))
 					{
 						Data = Data.Where(p => p.Version == TableState.Filter.Version);
-					}                   
-                    //if (TableState.Filter.BazdashtDateFrom.HasValue && TableState.Filter.BazdashtDateTo.HasValue)
-                    //{
-                    //    Data = Data.Where(p => p.BazdashtDate.Value.Date >= TableState.Filter.BazdashtDateFrom.Value.Date
-                    //     && p.BazdashtDate.Value.Date <= TableState.Filter.BazdashtDateTo.Value.Date);
-                    //}
+					}
+					//if (TableState.Filter.BazdashtDateFrom.HasValue && TableState.Filter.BazdashtDateTo.HasValue)
+					//{
+					//    Data = Data.Where(p => p.BazdashtDate.Value.Date >= TableState.Filter.BazdashtDateFrom.Value.Date
+					//     && p.BazdashtDate.Value.Date <= TableState.Filter.BazdashtDateTo.Value.Date);
+					//}
 
-                    PaginatedList = await PaginatedList<SysRelease>.CreateAsync(Data, TableState.state.Page, TableState.state.PageSize);
+					PaginatedList = await PaginatedList<SysRelease>.CreateAsync(Data, TableState.state.Page, TableState.state.PageSize);
 				}
 				else
 				{
@@ -318,6 +318,23 @@ namespace Maanfee.Dashboard.Services.Controllers.Settings.SysReleases
 			}
 		}
 
+		[HttpGet("GetLatestRelease")]
+		// GET: api/SysReleases/GetLatestRelease
+		public async Task<CallbackResult<SysRelease>> GetLatestRelease()
+		{
+			try
+			{
+				var Model = await db_SQLite.SysReleases.AsNoTracking()
+					.OrderByDescending(x => x.ReleaseDate)
+					.FirstOrDefaultAsync(x => x.IsActive);
+
+				return new CallbackResult<SysRelease>(Model, null);
+			}
+			catch (Exception ex)
+			{
+				return new CallbackResult<SysRelease>(null, new ExceptionError(ex.ToString()));
+			}
+		}
 
 	}
 }

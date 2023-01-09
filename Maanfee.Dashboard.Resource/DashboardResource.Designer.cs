@@ -826,6 +826,15 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Version Release.
+        /// </summary>
+        public static string StringNewVersionReleased {
+            get {
+                return ResourceManager.GetString("StringNewVersionReleased", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Normalized name.
         /// </summary>
         public static string StringNormalizedName {

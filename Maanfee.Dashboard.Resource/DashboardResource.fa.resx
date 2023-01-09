@@ -372,6 +372,9 @@
   <data name="StringNewPassword" xml:space="preserve">
     <value>گذرواژه جدید</value>
   </data>
+  <data name="StringNewVersionReleased" xml:space="preserve">
+    <value>نسخه جدید منتشر شد</value>
+  </data>
   <data name="StringNormalizedName" xml:space="preserve">
     <value>نام عادی</value>
   </data>

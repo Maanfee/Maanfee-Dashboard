@@ -79,6 +79,15 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The current version is {0} and the new version is {1}..
+        /// </summary>
+        public static string MessageCompareReleases {
+            get {
+                return ResourceManager.GetString("MessageCompareReleases", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This data is used elsewhere and cannot be deleted.
         /// </summary>
         public static string MessageDeleteConstraint {

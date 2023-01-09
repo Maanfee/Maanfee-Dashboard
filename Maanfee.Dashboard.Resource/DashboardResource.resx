@@ -123,6 +123,9 @@
   <data name="MessageChangeIsNotPossible" xml:space="preserve">
     <value>Change is not possible</value>
   </data>
+  <data name="MessageCompareReleases" xml:space="preserve">
+    <value>The current version is {0} and the new version is {1}.</value>
+  </data>
   <data name="MessageDeleteConstraint" xml:space="preserve">
     <value>This data is used elsewhere and cannot be deleted</value>
   </data>

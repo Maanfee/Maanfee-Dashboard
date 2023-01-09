@@ -123,6 +123,9 @@
   <data name="MessageChangeIsNotPossible" xml:space="preserve">
     <value>تغییر امکان پذیر نمی باشد</value>
   </data>
+  <data name="MessageCompareReleases" xml:space="preserve">
+    <value>نسخه فعلی {0} و نسخه جدید {1} می باشد</value>
+  </data>
   <data name="MessageDeleteConstraint" xml:space="preserve">
     <value>این داده در جای دیگری استفاده شده و نمی توان آن را حذف کرد</value>
   </data>

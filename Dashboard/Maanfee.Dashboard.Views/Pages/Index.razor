@@ -191,10 +191,10 @@
 
 			if (Callback.Data != null)
 			{
-				//if (string.Compare(Callback.Data.Version, SharedLayoutSettings.CurrentVersion) > 0)
+				if (string.Compare(Callback.Data.Version, SharedLayoutSettings.CurrentVersion) > 0)
 				{
-					//SharedLayoutSettings.CurrentVersion = Callback.Data.Version;
-					//await LocalConfiguration.SetConfigurationAsync();
+					SharedLayoutSettings.CurrentVersion = Callback.Data.Version;
+					await LocalConfiguration.SetConfigurationAsync();
 
 					DialogParameters parameters = new DialogParameters();
 					parameters.Add("SysRelease", Callback.Data);
@@ -213,8 +213,6 @@
 			{
 				Snackbar.Add(Callback.Error.ToString(), Severity.Error);
 			}
-
-
 		}
 		catch (Exception ex)
 		{

@@ -1,101 +1,94 @@
 ﻿@inherits _BaseView
 
 <MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
-	<MudDialog>
-		<DialogContent>
-			@if (!IsLoaded)
-			{
-				<Overlay />
-			}
-			else
-			{
-				<MudCard Class="mt-2">
-					<MudCardHeader>
-						<MudText Typo="Typo.button" Color="Color.Primary">
-							@DashboardResource.StringNewVersionReleased
-						</MudText>
-					</MudCardHeader>
-					<MudDivider DividerType="DividerType.FullWidth" />
-					<MudCardContent>
-						<MudGrid>
-							<MudItem md="12">
-								<MudAlert Severity="Severity.Warning" Elevation="2">
-									<MudText Typo="Typo.h6">
-										@DashboardResource.MessageNewRelease
-										<small>
-											The current version is @SharedLayoutSettings.CurrentVersion and the new version is @SysRelease.Version
-										</small>
-									</MudText>
-								</MudAlert>
-							</MudItem>
-							<MudItem md="12">
-								@DashboardResource.StringReleaseTime @SysRelease.ReleaseDate.ToDateString()
-							</MudItem>
-							<MudItem md="6">
-								<MudLink OnClick="@(() => StateHasChanged())" Href="/Releases/ReleaseView">
-									@DashboardResource.MessageToSeeChanges
-								</MudLink>
-							</MudItem>
-							<MudItem md="6">
-								<MudSwitch @bind-Checked="@Basic_Switch2" Label="@DashboardResource.MessageDontShow" LabelPosition="LabelPosition.Start" Color="Color.Success" />
-
-								@code {
-		public bool Basic_Switch2 { get; set; } = true;
-							}
-						</MudItem>
-					</MudGrid>
-				</MudCardContent>
-			</MudCard>
-				<MudPaper Class="pa-3 my-2 ActionColor" Elevation="3" Outlined="true" Square="true">
-					<MudStack Spacing="1" Row="true">
-						<MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.FreeCancellation" IconColor="Color.Surface">@DashboardResource.StringCancel</MudButton>
-					</MudStack>
-				</MudPaper>
-			}
-		</DialogContent>
-	</MudDialog>
+    <MudDialog>
+        <DialogContent>
+            @if (!IsLoaded)
+            {
+                <Overlay />
+            }
+            else
+            {
+                <MudCard Class="mt-2">
+                    <MudCardHeader>
+                        <MudText Typo="Typo.button" Color="Color.Primary">
+                            @DashboardResource.StringNewVersionReleased
+                        </MudText>
+                    </MudCardHeader>
+                    <MudDivider DividerType="DividerType.FullWidth" />
+                    <MudCardContent>
+                        <MudGrid>
+                            <MudItem md="12">
+                                <MudAlert Severity="Severity.Warning" Elevation="2">
+                                    <MudText Typo="Typo.h6">
+                                        @DashboardResource.MessageNewRelease
+                                        <small>
+                                            @string.Format(DashboardResource.MessageCompareReleases, @SharedLayoutSettings.CurrentVersion,@SysRelease.Version)
+                                        </small>
+                                    </MudText>
+                                </MudAlert>
+                            </MudItem>
+                            <MudItem md="12">
+                                @DashboardResource.StringReleaseTime @SysRelease.ReleaseDate.ToDateString()
+                            </MudItem>
+                            <MudItem md="6">
+                                <MudLink OnClick="@(() => StateHasChanged())" Href="/Releases/ReleaseView">
+                                    @DashboardResource.MessageToSeeChanges
+                                </MudLink>
+                            </MudItem>
+                        </MudGrid>
+                    </MudCardContent>
+                </MudCard>
+                <MudPaper Class="pa-3 my-2 ActionColor" Elevation="3" Outlined="true" Square="true">
+                    <MudStack Spacing="1" Row="true">
+                        <MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.FreeCancellation" IconColor="Color.Surface">@DashboardResource.StringCancel</MudButton>
+                    </MudStack>
+                </MudPaper>
+            }
+        </DialogContent>
+    </MudDialog>
 </MudRTLProvider>
 
 @code {
 
-	[CascadingParameter]
-	public MudDialogInstance MudDialog { get; set; }
+    [CascadingParameter]
+    public MudDialogInstance MudDialog { get; set; }
 
-	private void Close() => MudDialog.Close();
+    private void Close() => MudDialog.Close();
 
-	// *****************************************************
+    // *****************************************************
 
-	[Parameter]
-	public SysRelease SysRelease { get; set; }
+    [Parameter]
+    public SysRelease SysRelease { get; set; }
 
-	protected override async Task OnInitializedAsync()
-	{
-		IsLoaded = false;
+    protected override async Task OnInitializedAsync()
+    {
+        IsLoaded = false;
 
-		//try
-		//{
-		//	var Callback = await Http.GetFromJsonAsync<CallbackResult<SysRelease>>($"api/SysReleases/Details/{Id}");
+        //try
+        //{
+        //	var Callback = await Http.GetFromJsonAsync<CallbackResult<SysRelease>>($"api/SysReleases/Details/{Id}");
 
-		//	if (Callback.Data != null)
-		//	{
-		//		Model = Callback.Data;
-		//	}
-		//	else
-		//	{
-		//		Snackbar.Add(Callback.Error.ToString(), Severity.Error);
-		//	}
-		//}
-		//catch (Exception ex)
-		//{
-		//	Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
-		//}
+        //	if (Callback.Data != null)
+        //	{
+        //		Model = Callback.Data;
+        //	}
+        //	else
+        //	{
+        //		Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+        //	}
+        //}
+        //catch (Exception ex)
+        //{
+        //	Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+        //}
 
-		IsLoaded = true;
-	}
+        IsLoaded = true;
+    }
 
-	public async Task GetLatestReleaseAsync()
-	{
+    public async Task GetLatestReleaseAsync()
+    {
 
-	}
+    }
 
 }

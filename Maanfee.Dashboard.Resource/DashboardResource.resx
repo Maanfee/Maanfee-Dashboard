@@ -132,6 +132,9 @@
   <data name="MessageDocumentAttachment" xml:space="preserve">
     <value>Attachment of documentation is mandatory.</value>
   </data>
+  <data name="MessageDontShow" xml:space="preserve">
+    <value>Do not show this message again</value>
+  </data>
   <data name="MessageFileSizeError" xml:space="preserve">
     <value>File size is large.The file {0} could not be loaded</value>
   </data>
@@ -147,6 +150,9 @@
   <data name="MessageMaximumNumberOfFiles" xml:space="preserve">
     <value>The maximum number of files accepted is 10, but {0} were supplied.you can repeat it again</value>
   </data>
+  <data name="MessageNewRelease" xml:space="preserve">
+    <value>A new and improved version is now available</value>
+  </data>
   <data name="MessageNoMatchingRecordsFound" xml:space="preserve">
     <value>No matching records found</value>
   </data>
@@ -161,6 +167,9 @@
   </data>
   <data name="MessageThisItemCouldNoBeASubsetOfItself" xml:space="preserve">
     <value>This item could not be a subset of itself</value>
+  </data>
+  <data name="MessageToSeeChanges" xml:space="preserve">
+    <value>To see the changes please click here.</value>
   </data>
   <data name="MessageUnableToSendRequest" xml:space="preserve">
     <value>Unable to send request</value>
@@ -449,6 +458,9 @@
   </data>
   <data name="StringReleaseNoteType" xml:space="preserve">
     <value>Release note type</value>
+  </data>
+  <data name="StringReleaseTime" xml:space="preserve">
+    <value>Release Time:</value>
   </data>
   <data name="StringReleaseType" xml:space="preserve">
     <value>Release type</value>

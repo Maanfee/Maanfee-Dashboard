@@ -75,19 +75,19 @@
 	protected override async Task OnInitializedAsync()
 	{
 		IsLoaded = false;
-		
+
 		try
 		{
-			//var Callback = await Http.GetFromJsonAsync<CallbackResult<SysRelease>>($"api/SysReleases/Details/{Id}");
+			var Callback = await Http.GetFromJsonAsync<CallbackResult<SysRelease>>($"api/SysReleases/Details/{Id}");
 
-			//if (Callback.Data != null)
-			//{
-			//	Model = Callback.Data;
-			//}
-			//else
-			//{
-			//	Snackbar.Add(Callback.Error.ToString(), Severity.Error);
-			//}
+			if (Callback.Data != null)
+			{
+				Model = Callback.Data;
+			}
+			else
+			{
+				Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+			}
 		}
 		catch (Exception ex)
 		{

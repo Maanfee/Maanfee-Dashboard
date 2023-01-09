@@ -132,6 +132,9 @@
   <data name="MessageDocumentAttachment" xml:space="preserve">
     <value>پیوست مستندات اجباری است</value>
   </data>
+  <data name="MessageDontShow" xml:space="preserve">
+    <value>این پیام دیگر نشان داده نشود</value>
+  </data>
   <data name="MessageFileSizeError" xml:space="preserve">
     <value>حجم فایل زیاد است. فایل {0} بارگذاری نشد</value>
   </data>
@@ -147,6 +150,9 @@
   <data name="MessageMaximumNumberOfFiles" xml:space="preserve">
     <value>حداکثر تعداد فایل های قابل پذیرفته 10 می باشد، اما {0} فایل ارائه شده است. می توانید دوباره آن را تکرار کنید.</value>
   </data>
+  <data name="MessageNewRelease" xml:space="preserve">
+    <value>نسخه جدید و بهبود یافته اکنون در دسترس است</value>
+  </data>
   <data name="MessageNoMatchingRecordsFound" xml:space="preserve">
     <value>هیچ رکورد منطبقی یافت نشد</value>
   </data>
@@ -161,6 +167,9 @@
   </data>
   <data name="MessageThisItemCouldNoBeASubsetOfItself" xml:space="preserve">
     <value>این مورد نمی تواند زیرمجموعه ای از خودش باشد</value>
+  </data>
+  <data name="MessageToSeeChanges" xml:space="preserve">
+    <value>برای مشاهده تغییرات لطفا اینجا را کلیک کنید</value>
   </data>
   <data name="MessageUnableToSendRequest" xml:space="preserve">
     <value>امکان ارسال درخواست وجود ندارد</value>
@@ -449,6 +458,9 @@
   </data>
   <data name="StringReleaseNoteType" xml:space="preserve">
     <value>نوع یادداشت انتشار</value>
+  </data>
+  <data name="StringReleaseTime" xml:space="preserve">
+    <value>زمان انتشار:</value>
   </data>
   <data name="StringReleaseType" xml:space="preserve">
     <value>نوع انتشار</value>

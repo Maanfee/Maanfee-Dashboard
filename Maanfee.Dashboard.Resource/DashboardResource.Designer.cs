@@ -106,6 +106,15 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do not show this message again.
+        /// </summary>
+        public static string MessageDontShow {
+            get {
+                return ResourceManager.GetString("MessageDontShow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File size is large.The file {0} could not be loaded.
         /// </summary>
         public static string MessageFileSizeError {
@@ -151,6 +160,15 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A new and improved version is now available.
+        /// </summary>
+        public static string MessageNewRelease {
+            get {
+                return ResourceManager.GetString("MessageNewRelease", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No matching records found.
         /// </summary>
         public static string MessageNoMatchingRecordsFound {
@@ -192,6 +210,15 @@ namespace Maanfee.Dashboard.Resources {
         public static string MessageThisItemCouldNoBeASubsetOfItself {
             get {
                 return ResourceManager.GetString("MessageThisItemCouldNoBeASubsetOfItself", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To see the changes please click here..
+        /// </summary>
+        public static string MessageToSeeChanges {
+            get {
+                return ResourceManager.GetString("MessageToSeeChanges", resourceCulture);
             }
         }
         
@@ -1056,6 +1083,15 @@ namespace Maanfee.Dashboard.Resources {
         public static string StringReleaseNoteType {
             get {
                 return ResourceManager.GetString("StringReleaseNoteType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Release Time:.
+        /// </summary>
+        public static string StringReleaseTime {
+            get {
+                return ResourceManager.GetString("StringReleaseTime", resourceCulture);
             }
         }
         

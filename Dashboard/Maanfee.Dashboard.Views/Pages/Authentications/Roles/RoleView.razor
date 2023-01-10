@@ -28,7 +28,7 @@
                       Dense="@_IsTableDense" Bordered="true" Striped="true" Hover="true" Virtualize="true" Loading="@IsTableLoading"
                       FixedHeader="@_IsTableFixedHeader" FixedFooter="true" Height="@(_IsTableScroll ? "318px" : "100%")">
                 @*<ToolBarContent>*@
-                @* *** Tabel Toolbar *** *@
+                @* *** Tabel Toolbar *** *@ 
                 @*</ToolBarContent>*@
                 <HeaderContent>
                     <MudTh Class="column-1x">#</MudTh>
@@ -61,7 +61,7 @@
                     <MudTd>@context.Name</MudTd>
                     <MudTd>@context.NormalizedName</MudTd>
                     <MudTd>
-                        <MudIconButton Link="@($"/Roles/PermissionView/{@context.Id}/{@context.Name}")" Title="@DashboardResource.StringManagePermission" Icon="@Icons.Material.Filled.PermDataSetting" Color="Color.Secondary" Size="Size.Small"></MudIconButton>
+                        <MudIconButton Disabled="@(!_PermissionPermission)" Link="@($"/Roles/PermissionView/{@context.Id}/{@context.Name}")" Title="@DashboardResource.StringManagePermission" Icon="@Icons.Material.Filled.PermDataSetting" Color="Color.Secondary" Size="Size.Small"></MudIconButton>
                         <MudIconButton OnClick="()=>OpenDetailsDialog(context.Id)" Title="@DashboardResource.StringDetails" Icon="@Icons.Material.Filled.Details" Color="Color.Primary" Size="Size.Small"></MudIconButton>
                         <MudIconButton Disabled="@(!_PermissionEdit)" OnClick="()=>OpenCrudateDialog(context.Id)" Title="@DashboardResource.StringEdit" Icon="@Icons.Material.Filled.Edit" Color="Color.Success" Size="Size.Small"></MudIconButton>
                         <MudIconButton Disabled="@(!_PermissionDelete)" OnClick="()=>OpenDeleteDialog(context.Id)" Title="@DashboardResource.StringDelete" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"></MudIconButton>

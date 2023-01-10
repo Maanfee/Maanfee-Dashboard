@@ -1,6 +1,4 @@
-﻿@*@inherits SharedLayout*@
-
-<MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
+﻿<MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
 	<MudDialog>
 		<TitleContent>
 			<MudText Typo="Typo.h6">
@@ -9,7 +7,7 @@
 		</TitleContent>
 		<DialogContent>
 			<MudText>
-				با توجه به اینکه سمت برای کاربر تعریف نشده استفاده از برخی از قسمت های سیستم امکان پذیر نمی باشد
+				@DashboardResource.MessageRoleIsNotDefined
 			</MudText>
 		</DialogContent>
 		<DialogActions>

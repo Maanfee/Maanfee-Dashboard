@@ -162,6 +162,9 @@
   <data name="MessagePrimaryKeyConstraint" xml:space="preserve">
     <value>محدودیت کلید اولیه لطفا کد را تغییر دهید</value>
   </data>
+  <data name="MessageRoleIsNotDefined" xml:space="preserve">
+    <value>با توجه به اینکه نقش برای کاربر تعریف نشده است، امکان استفاده از برخی از قسمت های سیستم وجود ندارد</value>
+  </data>
   <data name="MessageSavedSuccessfully" xml:space="preserve">
     <value>ثبت با موفقیت انجام شد</value>
   </data>

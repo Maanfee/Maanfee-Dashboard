@@ -28,6 +28,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 		private bool _PermissionCreate = false;
 		private bool _PermissionEdit = false;
 		private bool _PermissionDelete = false;
+		private bool _PermissionPermission = false;
 
 		protected override async Task OnInitializedAsync()
 		{
@@ -42,6 +43,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 				_PermissionCreate = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.Create)).Succeeded;
 				_PermissionEdit = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.Edit)).Succeeded;
 				_PermissionDelete = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.Delete)).Succeeded;
+				_PermissionPermission = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.Permission)).Succeeded;
 			}
 			catch (Exception ex)
 			{

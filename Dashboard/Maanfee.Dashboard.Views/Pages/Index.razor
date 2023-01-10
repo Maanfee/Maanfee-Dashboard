@@ -193,9 +193,6 @@
 			{
 				if (string.Compare(Callback.Data.Version, SharedLayoutSettings.CurrentVersion) > 0)
 				{
-					SharedLayoutSettings.CurrentVersion = Callback.Data.Version;
-					await LocalConfiguration.SetConfigurationAsync();
-
 					DialogParameters parameters = new DialogParameters();
 					parameters.Add("SysRelease", Callback.Data);
 
@@ -207,6 +204,9 @@
 								FullWidth = true,
 								Position = DialogPosition.Center,
 							});
+
+					SharedLayoutSettings.CurrentVersion = Callback.Data.Version;
+					await LocalConfiguration.SetConfigurationAsync();
 				}
 			}
 			else

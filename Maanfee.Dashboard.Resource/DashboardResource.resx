@@ -162,6 +162,9 @@
   <data name="MessagePrimaryKeyConstraint" xml:space="preserve">
     <value>Primary key limitation Please change the code</value>
   </data>
+  <data name="MessageRoleIsNotDefined" xml:space="preserve">
+    <value>Considering that the role is not defined for the user, it is not possible to use some parts of the system.</value>
+  </data>
   <data name="MessageSavedSuccessfully" xml:space="preserve">
     <value>Saved successfully</value>
   </data>

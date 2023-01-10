@@ -12,7 +12,12 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications
     {
         public SubmitChangePasswordViewModel SubmitChangePasswordViewModel = new();
 
-        private async Task OnSubmit()
+		protected override Task OnInitializedAsync()
+		{
+			return base.OnInitializedAsync();
+		}
+
+		private async Task OnSubmit()
         {
             if (IsProcessing)
                 return;

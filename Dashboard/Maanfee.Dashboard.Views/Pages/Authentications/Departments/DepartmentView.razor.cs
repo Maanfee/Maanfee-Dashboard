@@ -28,8 +28,10 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
         private bool CanDelete = false;
 
         protected override async Task OnInitializedAsync()
-        {
-            IsLoaded = false;
+		{
+			await base.OnInitializedAsync();
+
+			IsLoaded = false;
 
             try
             {

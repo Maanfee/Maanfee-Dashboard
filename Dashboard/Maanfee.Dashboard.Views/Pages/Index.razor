@@ -184,7 +184,9 @@
 @code {
 
 	protected override async Task OnInitializedAsync()
-	{
+	{		
+		await base.OnInitializedAsync();
+
 		try
 		{
 			var Callback = await Http.GetFromJsonAsync<CallbackResult<SysRelease>>($"api/SysReleases/GetLatestRelease");

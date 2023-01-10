@@ -27,9 +27,11 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 		private bool _PermissionDelete = false;
 
 		protected override async Task OnInitializedAsync()
-        {
-            try
-            {
+		{
+			await base.OnInitializedAsync();
+
+			try
+			{
                 await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.User.View, PermissionAuthenticationState,
                     AuthorizationService, Navigation);
 

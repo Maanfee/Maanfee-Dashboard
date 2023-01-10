@@ -71,6 +71,7 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
 						Id = data.Id,
 						Version = data.Version,
 						ReleaseDate = data.ReleaseDate,
+						IsActive = data.IsActive
 					}).ToList();
 
 					IsTableLoading = false;

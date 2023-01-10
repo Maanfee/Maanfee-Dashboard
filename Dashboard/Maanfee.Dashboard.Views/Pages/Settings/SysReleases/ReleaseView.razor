@@ -63,7 +63,7 @@
 							@DashboardResource.StringWhatsChanged
 						</MudText>
 						<MudDivider DividerType="DividerType.FullWidth" />
-						@foreach (var itemGroup in Releases.SysReleaseFeatures)
+						@foreach (var itemGroup in Releases.SysReleaseFeatures.OrderBy(x => x.SysReleaseType.Title))
 						{
 							<MudStack Row="true" Spacing="2">
 								<MudText Typo="Typo.button">

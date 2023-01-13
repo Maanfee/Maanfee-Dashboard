@@ -2,9 +2,6 @@
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -31,7 +28,7 @@ namespace Maanfee.Web.JSInterop
             }
         }
 
-        #endregion
+        #endregion 
 
         public async Task ClearAsync()
         {

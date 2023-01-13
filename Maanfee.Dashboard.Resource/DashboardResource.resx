@@ -546,6 +546,9 @@
   <data name="StringToggleDarkMode" xml:space="preserve">
     <value>Toggle dark mode</value>
   </data>
+  <data name="StringToggleFullscreen" xml:space="preserve">
+    <value>Toggle to fullscreen-exit fullscreen</value>
+  </data>
   <data name="StringToggleRTL" xml:space="preserve">
     <value>Toggle right-to-left/left-to-right</value>
   </data>

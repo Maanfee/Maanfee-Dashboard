@@ -28,6 +28,7 @@
 	  <None Remove="Pages\JsInterop\_003LocalStorage\Examples\KeysMethodCode.html" />
 	  <None Remove="Pages\JsInterop\_003LocalStorage\Examples\LengthMethodCode.html" />
 	  <None Remove="Pages\JsInterop\_003LocalStorage\Examples\RemoveMethodCode.html" />
+	  <None Remove="Pages\JsInterop\_004Fullscreen\Examples\FullscreenMethodCode.html" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -53,6 +54,7 @@
 	  <EmbeddedResource Include="Pages\JsInterop\_003LocalStorage\Examples\LengthMethodCode.html" />
 	  <EmbeddedResource Include="Pages\JsInterop\_003LocalStorage\Examples\KeyMethodCode.html" />
 	  <EmbeddedResource Include="Pages\JsInterop\_003LocalStorage\Examples\KeysMethodCode.html" />
+	  <EmbeddedResource Include="Pages\JsInterop\_004Fullscreen\Examples\FullscreenMethodCode.html" />
 	</ItemGroup>
 
 </Project>

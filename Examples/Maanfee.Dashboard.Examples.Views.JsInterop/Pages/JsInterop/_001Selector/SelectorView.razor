@@ -44,7 +44,7 @@
 									The element with id="GetElementById"
 								</td>
 								<td>
-									<MudButton OnClick="@(()=>OpenCrudateDialog("SelectById", typeof(SelectById)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
+									<MudButton OnClick="@(()=>OpenExampleDialog("SelectById", typeof(SelectById)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
 								</td>
 							</tr>
 							<tr>
@@ -54,7 +54,7 @@
 									All elements with class="intro"
 								</td>
 								<td>
-									<MudButton OnClick="@(()=>OpenCrudateDialog("SelectByClass", typeof(SelectByClass)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
+									<MudButton OnClick="@(()=>OpenExampleDialog("SelectByClass", typeof(SelectByClass)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
 								</td>
 							</tr>
 							<tr>
@@ -64,7 +64,7 @@
 									All elements with the class "intro" or "demo"
 								</td>
 								<td>
-									<MudButton OnClick="@(()=>OpenCrudateDialog("SelectByMultipleClasses", typeof(SelectByMultipleClasses)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
+									<MudButton OnClick="@(()=>OpenExampleDialog("SelectByMultipleClasses", typeof(SelectByMultipleClasses)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
 								</td>
 							</tr>
 							<tr>
@@ -74,7 +74,7 @@
 									All &lt;h4&gt; &lt;.intro&gt; elements
 								</td>
 								<td>
-									<MudButton OnClick="@(()=>OpenCrudateDialog("SelectByEelements", typeof(SelectByEelements)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
+									<MudButton OnClick="@(()=>OpenExampleDialog("SelectByEelements", typeof(SelectByEelements)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
 								</td>
 							</tr>					
 							
@@ -99,7 +99,7 @@
 
 @code {
 
-	private void OpenCrudateDialog(string CodeFileName, Type Type)
+	private void OpenExampleDialog(string CodeFileName, Type Type)
 	{
 		DialogParameters parameters = new DialogParameters();
 		parameters.Add("CodeFileName", CodeFileName);

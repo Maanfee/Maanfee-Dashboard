@@ -1348,6 +1348,15 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toggle to fullscreen-exit fullscreen.
+        /// </summary>
+        public static string StringToggleFullscreen {
+            get {
+                return ResourceManager.GetString("StringToggleFullscreen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toggle right-to-left/left-to-right.
         /// </summary>
         public static string StringToggleRTL {

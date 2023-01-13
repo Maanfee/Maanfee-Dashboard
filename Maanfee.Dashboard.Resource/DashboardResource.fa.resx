@@ -546,6 +546,9 @@
   <data name="StringToggleDarkMode" xml:space="preserve">
     <value>تغییر حالت تاریک</value>
   </data>
+  <data name="StringToggleFullscreen" xml:space="preserve">
+    <value>تغییر وضعیت به تمام صفحه</value>
+  </data>
   <data name="StringToggleRTL" xml:space="preserve">
     <value>تغییر وضعیت راست به چپ/چپ به راست </value>
   </data>

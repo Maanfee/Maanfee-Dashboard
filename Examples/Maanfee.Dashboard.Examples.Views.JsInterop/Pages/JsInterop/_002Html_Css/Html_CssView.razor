@@ -33,7 +33,7 @@
 									</MudText>
 								</td>
 								<td>
-									<MudButton OnClick="@(()=>OpenCrudateDialog("AddClassMethod", typeof(AddClassMethod)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
+									<MudButton OnClick="@(()=>OpenExampleDialog("AddClassMethod", typeof(AddClassMethod)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
 								</td>
 							</tr>
 							@*After*@
@@ -51,7 +51,7 @@
 									</MudText>
 								</td>
 								<td>
-									<MudButton OnClick="@(()=>OpenCrudateDialog("AfterMethod", typeof(AfterMethod)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
+									<MudButton OnClick="@(()=>OpenExampleDialog("AfterMethod", typeof(AfterMethod)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
 								</td>
 							</tr>
 							@*Css*@
@@ -68,7 +68,7 @@
 									</MudText>
 								</td>
 								<td>
-									<MudButton OnClick="@(()=>OpenCrudateDialog("CssMethod", typeof(CssMethod)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
+									<MudButton OnClick="@(()=>OpenExampleDialog("CssMethod", typeof(CssMethod)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
 								</td>
 							</tr>
 							@*HasClass*@
@@ -85,7 +85,7 @@
 									</MudText>
 								</td>
 								<td>
-									<MudButton OnClick="@(()=>OpenCrudateDialog("HasClassMethod", typeof(HasClassMethod)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
+									<MudButton OnClick="@(()=>OpenExampleDialog("HasClassMethod", typeof(HasClassMethod)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
 								</td>
 							</tr>
 							@*RemoveClass*@
@@ -102,12 +102,9 @@
 									</MudText>
 								</td>
 								<td>
-									<MudButton OnClick="@(()=>OpenCrudateDialog("RemoveClassMethod", typeof(RemoveClassMethod)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
+									<MudButton OnClick="@(()=>OpenExampleDialog("RemoveClassMethod", typeof(RemoveClassMethod)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
 								</td>
 							</tr>
-
-
-
 						</tbody>
 					</MudSimpleTable>
 				</MudItem>
@@ -118,7 +115,7 @@
 
 @code {
 
-	private void OpenCrudateDialog(string CodeFileName, Type Type)
+	private void OpenExampleDialog(string CodeFileName, Type Type)
 	{
 		DialogParameters parameters = new DialogParameters();
 		parameters.Add("CodeFileName", CodeFileName);

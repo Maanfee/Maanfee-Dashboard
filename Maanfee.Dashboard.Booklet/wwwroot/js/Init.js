@@ -1,9 +1,9 @@
 ﻿
-function Alert() {
+//function Alert() {
 
-    alert("KOOOOOOOOOOOOO");
+//    alert("KOOOOOOOOOOOOO");
 
-}
+//}
 
 function InitBooklet() {
 

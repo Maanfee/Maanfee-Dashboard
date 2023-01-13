@@ -104,9 +104,9 @@ namespace Maanfee.Dashboard.Views.Shared
 			DrawerOpen = !DrawerOpen;
 		}
 
-		// ******************************************************
+        // ******************************************************
 
-		public async Task ToggleDarkMode()
+        private async Task ToggleDarkMode()
 		{
 			if (SharedLayoutSettings.IsDarkMode)
 			{
@@ -120,9 +120,9 @@ namespace Maanfee.Dashboard.Views.Shared
 			await LocalConfiguration.SetConfigurationAsync();
 		}
 
-		// ******************************************************
+        // ******************************************************
 
-		public async Task ToggleDirection()
+        private async Task ToggleDirection()
 		{
 			if (LanguageModel.IsRTL)
 			{
@@ -136,6 +136,18 @@ namespace Maanfee.Dashboard.Views.Shared
 			SharedLayoutSettings.IsRTL = LanguageModel.IsRTL;
 
 			await LocalStorage.SetAsync<LanguageModel>(StorageDefaultValue.CultureStorage, LanguageModel);
+		}
+
+		private async Task ToggleFullscrren(bool Toggled)
+		{
+			if (Toggled)
+			{
+				await Fullscreen.ToggleFullscreenAsync();
+			}
+			else
+			{
+				await Fullscreen.CloseFullscreenAsync();
+			}
 		}
 
 		// ******************************************************

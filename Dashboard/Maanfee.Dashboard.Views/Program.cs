@@ -1,4 +1,5 @@
-using Allegiance.Blazor.Highcharts.Services;
+using Allegiance.Blazor.Highcharts.Core.Services;
+using Allegiance.Blazor.Highcharts.Core.Services.Interfaces;
 using Maanfee.Dashboard.Views;
 using Maanfee.Dashboard.Views.Base.Extensions;
 using Maanfee.Dashboard.Views.Booklet;

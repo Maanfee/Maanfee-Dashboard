@@ -1168,6 +1168,15 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Run in fullscreen mode at startup.
+        /// </summary>
+        public static string StringRunFullscreenMode {
+            get {
+                return ResourceManager.GetString("StringRunFullscreenMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string StringSave {

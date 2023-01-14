@@ -14,12 +14,12 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications
         private LoginViewModel LoginViewModelSubmit = new();
         private bool IsProcessing = false;
 
-		protected override Task OnInitializedAsync()
+		protected override async Task OnInitializedAsync()
 		{
-			return base.OnInitializedAsync();
-		}
+            await base.OnInitializedAsync();
+        }
 
-		private void TogglePasswordVisibility()
+        private void TogglePasswordVisibility()
         {
             if (PasswordVisibility)
             {

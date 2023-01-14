@@ -486,6 +486,9 @@
   <data name="StringRole" xml:space="preserve">
     <value>Roles</value>
   </data>
+  <data name="StringRunFullscreenMode" xml:space="preserve">
+    <value>Run in fullscreen mode at startup</value>
+  </data>
   <data name="StringSave" xml:space="preserve">
     <value>Save</value>
   </data>

@@ -486,6 +486,9 @@
   <data name="StringRole" xml:space="preserve">
     <value>نقش </value>
   </data>
+  <data name="StringRunFullscreenMode" xml:space="preserve">
+    <value>در هنگام راه اندازی در حالت تمام صفحه اجرا شود</value>
+  </data>
   <data name="StringSave" xml:space="preserve">
     <value>ذخیره</value>
   </data>

@@ -46,5 +46,13 @@ namespace Maanfee.Web.JSInterop
             var Module = await moduleTask.Value;
             await Module.InvokeVoidAsync("ToggleFullscreen");
         }
-    }
+
+		public async Task<bool> IsFullscreenAsync()
+		{
+			var Module = await moduleTask.Value;
+			var data = await Module.InvokeAsync<bool>("IsFullscreen");
+
+			return data;
+		}
+	}
 }

@@ -72,6 +72,24 @@
                                     <MudButton OnClick="@(()=> Fullscreen.ToggleFullscreenAsync())" StartIcon="@Icons.Material.Filled.Fullscreen" Variant="Variant.Filled" Size="Size.Small" Color="Color.Primary">FullScreen</MudButton>
                                 </td>
                             </tr>
+                            @*IsFullscreenAsync*@
+                            <tr>
+                                <td style="color: #8323d8;">IsFullscreenAsync()</td>
+                                <td>
+                                    <MudText Typo="Typo.caption" Color="Color.Success">
+                                        await Fullscreen.IsFullscreenAsync()
+
+                                    </MudText>
+                                </td>
+                                <td>
+                                    <MudText Typo="Typo.caption" Color="Color.Info">
+                                        Is page in fullscreen mode ?
+                                    </MudText>
+                                </td>
+                                <td>
+                                    <MudButton OnClick="@(()=>OpenExampleDialog("IsFullscreenMethod", typeof(IsFullscreenMethod)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
+                                </td>
+                            </tr>
                         </tbody>
                     </MudSimpleTable>
                 </MudItem>

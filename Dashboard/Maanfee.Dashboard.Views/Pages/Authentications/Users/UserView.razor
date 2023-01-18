@@ -27,7 +27,7 @@
 		<MudCardActions>
 			<MudTable ServerData="@(new Func<TableState, Task<TableData<GetUserViewModel>>>(ServerData))" @ref="Table"
 					  Dense="@_IsTableDense" Bordered="true" Striped="true" Hover="true" Virtualize="true" Loading="@IsTableLoading"
-					  Style="width:100%" FixedHeader="@_IsTableFixedHeader" FixedFooter="true" Height="@(_IsTableScroll ? "330px" : "100%")">
+					  Style="width:100%" FixedHeader="@_IsTableFixedHeader" FixedFooter="true" Height="@(_IsTableScroll ? "320px" : "100%")">
 				<HeaderContent>
 					<MudTh Class="column-1x">#</MudTh>
 					<MudTh Class="column-1x"></MudTh>

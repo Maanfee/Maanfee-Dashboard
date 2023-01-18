@@ -57,6 +57,14 @@ window.AppFullscreen = {
                 document.msExitFullscreen();
             }
         }
+    },
+    IsFullscreen() {
+        if (document.fullscreenElement) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
 
@@ -72,3 +80,6 @@ export function ToggleFullscreen() {
     return AppFullscreen.ToggleFullscreen();
 }
 
+export function IsFullscreen() {
+    return AppFullscreen.IsFullscreen();
+}

@@ -28,7 +28,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
             , RoleManager<IdentityRole> rolesManager
             , _BaseContext_SQLServer context
             , CommonService commonService, HttpClient http
-			, ILogger<AuthenticationsController> logger)
+			/*, ILogger<AuthenticationsController> logger*/)
         {
             this.UserManager = userManager;
             this.SignInManager = signInManager;
@@ -38,7 +38,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
             this.CommonService = commonService;
             this.Http = http;
 
-			Logger = logger;
+			//Logger = logger;
 		}
 
         private readonly UserManager<ApplicationUser> UserManager;
@@ -47,7 +47,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         private readonly RoleManager<IdentityRole> RolesManager;
         private readonly HttpClient Http;
         private readonly CommonService CommonService;
-		private readonly ILogger<AuthenticationsController> Logger;
+		//private readonly ILogger<AuthenticationsController> Logger;
 
 		[HttpPost]
         public async Task<IActionResult> Login(LoginViewModel request)
@@ -80,7 +80,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
 			await SignInManager.SignInWithClaimsAsync(user, request.RememberMe, CustomClaims);
 			//await SignInManager.PasswordSignInAsync(user, request.Password, request.RememberMe, lockoutOnFailure: false);
 
-			Logger.LogInformation($"{user.UserName} | {user.Name} login successfully.");
+			//Logger.LogInformation($"{user.UserName} | {user.Name} login successfully.");
 
 			return Ok();
         }

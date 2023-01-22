@@ -1,176 +1,199 @@
 ﻿/*
- * JavaScript Library v0.0.2
+ * JavaScript Library v0.0.3
  *
  *
  *
- * Date: 
+ * Date: 01-11-01
  */
 
-export function QuerySelector(Selector) {
+window.AppJsInterop = {
+    QuerySelector: (Selector) => {
 
-    const Node = document.querySelector(Selector);
+        const Node = document.querySelector(Selector);
 
-    var Obj = {
-        TagName: Node.tagName,
-        Selector: Selector,
-        ClassName: Node.className,
-        Id: Node.id,
-        Name: Node.getAttribute("name"),
-        Value: Node.value,
-        Href: Node.href,
-        Text: Node.innerHTML
-    };
-
-    //alert(Node.tagName);
-
-    return JSON.stringify(Obj);
-}
-
-export function QuerySelectorAll(Selector) {
-
-    const NodeList = document.querySelectorAll(Selector);
-
-    let Objs = new Array();
-
-    NodeList.forEach(function (elem) {
         var Obj = {
             TagName: Node.tagName,
             Selector: Selector,
-            ClassName: elem.className,
-            Id: elem.id,
-            Name: elem.getAttribute("name"),
-            Value: elem.value,
-            Href: elem.href,
-            Text: elem.innerHTML
+            ClassName: Node.className,
+            Id: Node.id,
+            Name: Node.getAttribute("name"),
+            Value: Node.value,
+            Href: Node.href,
+            Text: Node.innerHTML
         };
-        Objs.push(Obj);
-    });
 
-    //alert(Obj.Text);
+        //alert(Node.tagName);
 
-    //Objs.forEach(function (elem) {
-    //    alert(elem.Text);
-    //});
+        return JSON.stringify(Obj);
+    },
+    QuerySelectorAll: (Selector) => {
 
-    return JSON.stringify(Objs);
+        const NodeList = document.querySelectorAll(Selector);
 
-    //    //if (!NodeList)
-    //    //    throw "element not found";
+        let Objs = new Array();
 
-    //    //alert(JSON.stringify(NodeList[0]));
-    //    //alert(NodeList[0].innerHTML);
+        NodeList.forEach(function (elem) {
+            var Obj = {
+                TagName: Node.tagName,
+                Selector: Selector,
+                ClassName: elem.className,
+                Id: elem.id,
+                Name: elem.getAttribute("name"),
+                Value: elem.value,
+                Href: elem.href,
+                Text: elem.innerHTML
+            };
+            Objs.push(Obj);
+        });
 
-    //    return Array.from(NodeList);
+        //alert(Obj.Text);
+
+        //Objs.forEach(function (elem) {
+        //    alert(elem.Text);
+        //});
+
+        return JSON.stringify(Objs);
+
+        //    //if (!NodeList)
+        //    //    throw "element not found";
+
+        //    //alert(JSON.stringify(NodeList[0]));
+        //    //alert(NodeList[0].innerHTML);
+
+        //    return Array.from(NodeList);
+    },
+    // *********************** HTML/CSS ***********************
+    Text: (Selector, Text) => {
+        var Elements = document.querySelectorAll(Selector);
+
+        let Texts = new Array();
+
+        Elements.forEach(item => {
+            if (Text && Text !== "") {
+                item.innerHTML = Text;
+            }
+            else {
+                Texts.push(item.innerHTML);
+            }
+        });
+
+        if (Texts.length > 0) {
+            return JSON.stringify(Texts);
+        }
+
+        return;
+    },
+    Css: (Selector, Property, Value) => {
+        var Elements = document.querySelectorAll(Selector);
+
+        //alert(Elements.length);
+
+        let Texts = new Array();
+
+        Elements.forEach(item => {
+            if (Property && Property !== "" && Value && Value !== "") {
+                item.style.setProperty(Property, Value);
+            }
+            else if (Property && Property !== "") {
+                //Texts.push(item.innerHTML);
+                Texts.push(getComputedStyle(item).getPropertyValue(Property));
+            }
+            else {
+                return;
+            }
+        });
+
+        if (Texts.length > 0) {
+            return JSON.stringify(Texts);
+        }
+
+        return;
+    },
+    AddClass: (Selector, ClassName) => {
+        var Elements = document.querySelectorAll(Selector);
+
+        // Class List
+        let ClassesArray = ClassName.split(" ");
+        //  alert(ClassesArray[0]);
+
+        // For get classes names
+        let Classes = new Array();
+
+        Elements.forEach(item => {
+            if (ClassName && ClassName !== "") {
+                ClassesArray.forEach(itemclass => {
+                    item.classList.add(itemclass);
+                });
+                //item.classList.add(Class);
+            }
+            else {
+                Classes.push(item.classList.toString());
+            }
+        });
+
+        if (Classes.length > 0) {
+            return JSON.stringify(Classes);
+        }
+
+        return;
+    },
+    RemoveClass: (Selector, ClassName) => {
+        var Elements = document.querySelectorAll(Selector);
+
+        Elements.forEach(item => {
+            if (ClassName && ClassName !== "") {
+                item.classList.remove(ClassName);
+            }
+        });
+
+        return;
+    },
+    HasClass: (Selector, ClassName) => {
+        var Elements = document.querySelectorAll(Selector);
+
+        var Result = false;
+
+        Elements.forEach(item => {
+            if (ClassName && ClassName !== "") {
+                if (item.classList.contains(ClassName)) {
+                    Result = true;
+                }
+            }
+        });
+
+        return Result;
+    },
+}
+
+export function QuerySelector(Selector) {
+    return AppJsInterop.QuerySelector(Selector);
+}
+
+export function QuerySelectorAll(Selector) {
+    return AppJsInterop.QuerySelectorAll(Selector);
 }
 
 // *********************** HTML/CSS ***********************
 
 export function Text(Selector, Text) {
-    var Elements = document.querySelectorAll(Selector);
-
-    let Texts = new Array();
-
-    Elements.forEach(item => {
-        if (Text && Text !== "") {
-            item.innerHTML = Text;
-        }
-        else {
-            Texts.push(item.innerHTML);
-        }
-    });
-
-    if (Texts.length > 0) {
-        return JSON.stringify(Texts);
-    }
-
-    return;
+    return AppJsInterop.Text(Selector, Text);
 }
 
 export function Css(Selector, Property, Value) {
-    var Elements = document.querySelectorAll(Selector);
-
-    //alert(Elements.length);
-
-    let Texts = new Array();
-
-    Elements.forEach(item => {
-        if (Property && Property !== "" && Value && Value !== "") {
-            item.style.setProperty(Property, Value);
-        }
-        else if (Property && Property !== "") {
-            //Texts.push(item.innerHTML);
-            Texts.push(getComputedStyle(item).getPropertyValue(Property));
-        }
-        else {
-            return;
-        }
-    });
-
-    if (Texts.length > 0) {
-        return JSON.stringify(Texts);
-    }
-
-    return;
+    return AppJsInterop.Css(Selector, Property, Value);
 }
 
 export function AddClass(Selector, ClassName) {
-    var Elements = document.querySelectorAll(Selector);
-
-    // Class List
-    let ClassesArray = ClassName.split(" ");
-  //  alert(ClassesArray[0]);
-
-    // For get classes names
-    let Classes = new Array();
-
-    Elements.forEach(item => {
-        if (ClassName && ClassName !== "") {
-            ClassesArray.forEach(itemclass => {
-                item.classList.add(itemclass);
-            });
-            //item.classList.add(Class);
-        }
-        else {
-            Classes.push(item.classList.toString());
-        }
-    });
-
-    if (Classes.length > 0) {
-        return JSON.stringify(Classes);
-    }
-
-    return;
+    return AppJsInterop.AddClass(Selector, ClassName);
 }
 
 export function RemoveClass(Selector, ClassName) {
-    var Elements = document.querySelectorAll(Selector);
-
-    Elements.forEach(item => {
-        if (ClassName && ClassName !== "") {
-            item.classList.remove(ClassName);
-        }
-    });
-
-    return;
+    return AppJsInterop.RemoveClass(Selector, ClassName);
 }
 
 export function HasClass(Selector, ClassName) {
-    var Elements = document.querySelectorAll(Selector);
-
-    var Result = false;
-
-    Elements.forEach(item => {
-        if (ClassName && ClassName !== "") {
-            if (item.classList.contains(ClassName)) {
-                Result = true;
-            }
-        }
-    });
-
-    return Result;
+    return AppJsInterop.HasClass(Selector, ClassName);
 }
-
-
 
 // ******************************************************
 

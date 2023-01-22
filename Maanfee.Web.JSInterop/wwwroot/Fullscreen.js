@@ -3,7 +3,7 @@
  *
  *
  *
- * Date: 1401-10-22
+ * Date: 01-10-22
  */
 
 window.AppFullscreen = {

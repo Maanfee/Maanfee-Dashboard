@@ -1,4 +1,5 @@
-﻿using Maanfee.Dashboard.Views.Core.Services;
+﻿using Maanfee.Dashboard.Core;
+using Maanfee.Dashboard.Views.Core.Services;
 using Maanfee.Web.JSInterop;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -7,6 +8,7 @@ using System;
 using System.Globalization;
 using System.Net.Http;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Views.Core
 {
@@ -44,11 +46,17 @@ namespace Maanfee.Dashboard.Views.Core
         [Inject]
         protected IDialogService Dialog { get; set; }
 
+		[Inject]
+		protected Fullscreen Fullscreen { get; set; }
+
+		[Inject]
+		protected TableConfigurationService TableConfiguration { get; set; }
+
 #pragma warning restore CS0108
 
-        // *****************************************
+		// *****************************************
 
-        protected bool IsProcessing = false;
+		protected bool IsProcessing = false;
 
         protected bool IsLoaded = false;
 
@@ -56,29 +64,53 @@ namespace Maanfee.Dashboard.Views.Core
 
         // *****************************************
 
-        protected override void OnInitialized()
+        protected override void OnInitialized() 
         {
             AccountStateContainer.OnChange += StateHasChanged;
-        }
+			Fullscreen.OnFullscreenChange += OnFullscreenChange;
+		}
 
-        public void Dispose()
+		public void Dispose()
         {
             AccountStateContainer.OnChange -= StateHasChanged;
-        }
+			Fullscreen.OnFullscreenChange -= OnFullscreenChange;
+		}
 
-        // *****************************************
+		// *****************************************
 
-        #region - MudTable Config -
+		#region - MudTable Config -
 
-        protected bool _IsTableDense = true;
-        protected bool _IsTableFixedHeader = true;
-        protected bool _IsTableScroll = true;
+		protected bool _IsTableDense { get; set; } = true;
 
-        #endregion
+        protected bool _IsTableFixedHeader { get; set; } = true;
+        
+		protected bool _IsTableScroll { get; set; } = true;
+		
+		protected static string TableHeight { get; set; } = "320px";
 
-        #region - Snackbar Config -
+		private async void OnFullscreenChange()
+		{
+			await Task.Delay(500);
 
-        [Inject]
+			TableHeight = TableConfiguration.SetHeight(SharedLayoutSettings.IsRTL, await Fullscreen.IsFullscreenAsync(), _IsTableScroll);
+
+			StateHasChanged();
+		}
+
+		protected async void OnScrollChanged()
+		{
+			_IsTableScroll = _IsTableScroll ? false : true;
+
+			TableHeight = TableConfiguration.SetHeight(SharedLayoutSettings.IsRTL, await Fullscreen.IsFullscreenAsync(), _IsTableScroll);
+
+			StateHasChanged();
+		}
+
+		#endregion
+
+		#region - Snackbar Config -
+
+		[Inject]
         protected ISnackbar Snackbar { get; set; }
 
         #endregion

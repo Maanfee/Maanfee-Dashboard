@@ -6,46 +6,73 @@ using System.Threading.Tasks;
 
 namespace Maanfee.Web.JSInterop
 {
-    public partial class Fullscreen : ComponentBase, IAsyncDisposable
-    {
-        #region - JsRuntime -
+	public partial class Fullscreen : ComponentBase, IAsyncDisposable
+	{
+		#region - JsRuntime -
 
-        public Fullscreen(IJSRuntime JsRuntime)
-        {
-            moduleTask = new(() => JsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Maanfee.Web.JSInterop/Fullscreen.js").AsTask());
-        }
+		public Fullscreen(IJSRuntime JsRuntime)
+		{
+			moduleTask = new(() => JsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Maanfee.Web.JSInterop/Fullscreen.js").AsTask());
+		}
 
-        private readonly Lazy<Task<IJSObjectReference>> moduleTask;
+		private readonly Lazy<Task<IJSObjectReference>> moduleTask;
 
-        public async ValueTask DisposeAsync()
-        {
-            if (moduleTask.IsValueCreated)
-            {
-                //    var Module = await moduleTask.Value;
-                //        await Module.DisposeAsync();
-                await Task.Delay(100);
-            }
-        }
+		public async ValueTask DisposeAsync()
+		{
+			if (moduleTask.IsValueCreated)
+			{
+				//    var Module = await moduleTask.Value;
+				//        await Module.DisposeAsync();
+				await Task.Delay(100);
+			}
+		}
 
-        #endregion
+		#endregion
 
-        public async Task OpenFullscreenAsync(string Id)
-        {
-            var Module = await moduleTask.Value;
-            await Module.InvokeVoidAsync("OpenFullscreen", Id);
-        }
+		public async Task OpenFullscreenAsync(string Id)
+		{
+			var Module = await moduleTask.Value;
+			await Module.InvokeVoidAsync("OpenFullscreen", Id);
 
-        public async Task CloseFullscreenAsync()
-        {
-            var Module = await moduleTask.Value;
-            await Module.InvokeVoidAsync("CloseFullscreen");
-        }
+			NotifyStateChanged();
+		}
 
-        public async Task ToggleFullscreenAsync()
-        {
-            var Module = await moduleTask.Value;
-            await Module.InvokeVoidAsync("ToggleFullscreen");
-        }
+		public async Task CloseFullscreenAsync()
+		{
+			var Module = await moduleTask.Value;
+			await Module.InvokeVoidAsync("CloseFullscreen");
+
+			NotifyStateChanged();
+		}
+
+		public async Task ToggleFullscreenAsync()
+		{
+			var Module = await moduleTask.Value;
+			await Module.InvokeVoidAsync("ToggleFullscreen");
+
+			NotifyStateChanged();
+		}
+
+		private bool _IsFullscreen = false;
+		public bool IsFullscreen
+		{
+			get
+			{
+				Task.Run(async () => { _IsFullscreen = await IsFullscreenAsync(); });
+				return _IsFullscreen;
+			}
+			set
+			{
+				_IsFullscreen = value;
+				NotifyStateChanged();
+
+				//Task.Run(async () => 
+				//            { 
+				//_IsFullscreen = IsFullscreenAsync().Result;
+				//NotifyStateChanged();
+				//});
+			}
+		}
 
 		public async Task<bool> IsFullscreenAsync()
 		{
@@ -54,5 +81,9 @@ namespace Maanfee.Web.JSInterop
 
 			return data;
 		}
+
+		public event Action OnFullscreenChange;
+
+		private void NotifyStateChanged() => OnFullscreenChange?.Invoke();
 	}
 }

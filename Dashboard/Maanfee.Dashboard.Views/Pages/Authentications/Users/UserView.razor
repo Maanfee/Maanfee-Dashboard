@@ -27,7 +27,8 @@
 		<MudCardActions>
 			<MudTable ServerData="@(new Func<TableState, Task<TableData<GetUserViewModel>>>(ServerData))" @ref="Table"
 					  Dense="@_IsTableDense" Bordered="true" Striped="true" Hover="true" Virtualize="true" Loading="@IsTableLoading"
-					  Style="width:100%" FixedHeader="@_IsTableFixedHeader" FixedFooter="true" Height="@(_IsTableScroll ? "320px" : "100%")">
+					  Style="width:100%" FixedHeader="@_IsTableFixedHeader" FixedFooter="true"
+					  Height="@TableHeight">
 				<HeaderContent>
 					<MudTh Class="column-1x">#</MudTh>
 					<MudTh Class="column-1x"></MudTh>
@@ -50,7 +51,7 @@
 										@DashboardResource.StringFixedHeader
 									</MudSwitch>
 								</MudMenuItem>
-								<MudMenuItem OnClick="@(() => _IsTableScroll = _IsTableScroll ? false : true)">
+								<MudMenuItem OnClick="@(() => OnScrollChanged())">
 									<MudSwitch @bind-Checked="@_IsTableScroll" Color="Color.Tertiary">
 										@DashboardResource.StringScroll
 									</MudSwitch>

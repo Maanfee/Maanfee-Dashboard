@@ -65,30 +65,9 @@
     {
         IsLoaded = false;
 
-        //try
-        //{
-        //	var Callback = await Http.GetFromJsonAsync<CallbackResult<SysRelease>>($"api/SysReleases/Details/{Id}");
-
-        //	if (Callback.Data != null)
-        //	{
-        //		Model = Callback.Data;
-        //	}
-        //	else
-        //	{
-        //		Snackbar.Add(Callback.Error.ToString(), Severity.Error);
-        //	}
-        //}
-        //catch (Exception ex)
-        //{
-        //	Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
-        //}
+        await Task.Delay(50);
 
         IsLoaded = true;
-    }
-
-    public async Task GetLatestReleaseAsync()
-    {
-
     }
 
 }

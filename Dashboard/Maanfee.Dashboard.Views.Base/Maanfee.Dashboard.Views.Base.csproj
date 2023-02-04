@@ -24,7 +24,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Maanfee.Dashboard.Views.Core\Maanfee.Dashboard.Views.Core.csproj" />
+	  <ProjectReference Include="..\..\DashboardAPI\Maanfee.Dashboard.Views.Core\Maanfee.Dashboard.Views.Core.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
@@ -10,33 +10,28 @@
 		<RunAnalyzers>false</RunAnalyzers>
 		<!--**********************************************-->
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Copyright>Copyright (c) 2021-2023 Maanfee</Copyright>
+		<Copyright>Copyright (c) 2023-2022 Maanfee</Copyright>
 		<Authors>Maanfee Team (MF)</Authors>
 		<Company>Maanfee</Company>
-		<Version>6.67.64</Version>
-		<PackageIcon>MaanfeePurple.png</PackageIcon>
+		<Version>6.67.65</Version>
+		<PackageIcon>MaanfeeCyan.png</PackageIcon>
 		<RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-		<!--**********************************************-->
+	<!--**********************************************-->
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="..\LICENSE" Pack="true" Visible="false" PackagePath="" />
-		<None Update="MaanfeePurple.png">
+		<None Include="..\..\LICENSE" Pack="true" Visible="false" PackagePath="" />
+		<None Update="MaanfeeCyan.png">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.2" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\Maanfee.Dashboard.Domain\Maanfee.Dashboard.Domain.csproj" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.2" />
 	</ItemGroup>
 
 </Project>

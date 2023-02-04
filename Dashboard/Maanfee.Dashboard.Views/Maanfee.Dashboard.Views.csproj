@@ -28,8 +28,8 @@
 		<ProjectReference Include="..\..\Examples\Maanfee.Dashboard.Examples.Views.JsInterop\Maanfee.Dashboard.Examples.Views.JsInterop.csproj" />
 		<ProjectReference Include="..\..\Examples\Maanfee.Dashboard.Examples.Views\Maanfee.Dashboard.Examples.Views.csproj" />
 		
-		<ProjectReference Include="..\..\Maanfee.Dashboard.Domain\Maanfee.Dashboard.Domain.csproj" />
-		<ProjectReference Include="..\..\Maanfee.Dashboard.Resource\Maanfee.Dashboard.Resources.csproj" />
+		<ProjectReference Include="..\..\DashboardAPI\Maanfee.Dashboard.Domain\Maanfee.Dashboard.Domain.csproj" />
+		<ProjectReference Include="..\..\DashboardAPI\Maanfee.Dashboard.Resources\Maanfee.Dashboard.Resources.csproj" />
 		<ProjectReference Include="..\Maanfee.Dashboard.Views.Base\Maanfee.Dashboard.Views.Base.csproj" />
 	</ItemGroup>
 

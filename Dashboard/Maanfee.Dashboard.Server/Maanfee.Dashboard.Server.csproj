@@ -23,7 +23,7 @@
 	</ItemGroup>-->
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Maanfee.Dashboard.Services\Maanfee.Dashboard.Services.csproj" />
+	  <ProjectReference Include="..\..\DashboardAPI\Maanfee.Dashboard.Services\Maanfee.Dashboard.Services.csproj" />
 	  <ProjectReference Include="..\Maanfee.Dashboard.Views\Maanfee.Dashboard.Views.csproj" />
 	</ItemGroup>
 

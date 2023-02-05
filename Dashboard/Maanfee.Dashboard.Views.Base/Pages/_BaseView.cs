@@ -1,4 +1,5 @@
-﻿using Maanfee.Dashboard.Resources;
+﻿using Maanfee.Dashboard.Domain.ViewModels;
+using Maanfee.Dashboard.Resources;
 using Maanfee.Dashboard.Views.Base.Services;
 using Maanfee.Dashboard.Views.Core;
 using Maanfee.Dashboard.Views.Core.Services;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;
 using System;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
@@ -56,49 +58,50 @@ namespace Maanfee.Dashboard.Views.Base.Pages
 				Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
 			}
 
-			//var Model = new JwtLoginViewModel
-			//{
-			//	UserName = "Maanfee", // loginRequest.UserName,
-			//	Password = "Maanfee", // loginRequest.Password,
-			//};
+			var Model = new JwtLoginViewModel
+			{
+				UserName = "Maanfee", // loginRequest.UserName,
+				Password = "Maanfee", // loginRequest.Password,
+			};
 
-			#region - Automation -
+			#region - Log Server -
 
-			//try
-			//{
-			//	if (ModuleService.Automation.IsActive)
-			//	{
-			//		var JwtTokenStorage = ModuleService.Automation.Name;
+			try
+			{
+				if (ModuleService.LogServer.IsActive)
+				{
+					var JwtTokenStorage = ModuleService.LogServer.Name;
 
-			//		var PostJwt = await Http.PostAsJsonAsync($"{ModuleService.Automation.ToExactUri(Http)}/accounts/login", Model);
-			//		if (PostJwt.IsSuccessStatusCode)
-			//		{
-			//			var JsonResult = await PostJwt.Content.ReadFromJsonAsync<JwtAuthenticationViewModel>();
-			//			if (JsonResult != null)
-			//			{
-			//				await LocalStorage.SetAsync(JwtTokenStorage, JsonResult.Token);
-			//				((JwtAuthenticationStateProvider)JwtAuthenticationStateProvider).JwtTokenStorage = JwtTokenStorage;
-			//				((JwtAuthenticationStateProvider)JwtAuthenticationStateProvider).NotifyUserAuthentication(Model.UserName);
-			//				Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", JsonResult.Token);
+					//var PostJwt = await Http.PostAsJsonAsync($"{ModuleService.LogServer.ToExactUri(Http)}/accounts/login", Model);
+					var PostJwt = await Http.PostAsJsonAsync($"http://localhost:4030/gateway/accounts/login", Model);
+					if (PostJwt.IsSuccessStatusCode)
+					{
+						var JsonResult = await PostJwt.Content.ReadFromJsonAsync<JwtAuthenticationViewModel>();
+						if (JsonResult != null)
+						{
+							await LocalStorage.SetAsync(JwtTokenStorage, JsonResult.Token);
+							((JwtAuthenticationStateProvider)JwtAuthenticationStateProvider).JwtTokenStorage = JwtTokenStorage;
+							((JwtAuthenticationStateProvider)JwtAuthenticationStateProvider).NotifyUserAuthentication(Model.UserName);
+							Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", JsonResult.Token);
 
-			//				ModuleService.Automation.CanNavigation = true;
-			//			}
-			//			else
-			//			{
-			//				Snackbar.Add(JsonResult.ErrorMessage, Severity.Error);
-			//			}
-			//		}
-			//		else
-			//		{
-			//			Snackbar.Add(PostJwt.Content.ReadAsStringAsync().Result, Severity.Error);
-			//		}
-			//	}
-			//}
-			//catch
-			//{
-			//	ModuleService.Automation.CanNavigation = false;
-			//	Snackbar.Add($"{DashboardResource.StringError} : {DashboardResource.MessageServiceCommunicationError}", Severity.Error);
-			//}
+							ModuleService.LogServer.CanNavigation = true;
+						}
+						else
+						{
+							Snackbar.Add(JsonResult.ErrorMessage, Severity.Error);
+						}
+					}
+					else
+					{
+						Snackbar.Add(PostJwt.Content.ReadAsStringAsync().Result, Severity.Error);
+					}
+				}
+			}
+			catch
+			{
+				ModuleService.LogServer.CanNavigation = false;
+				Snackbar.Add($"{DashboardResource.StringError} : {DashboardResource.MessageServiceCommunicationError}", Severity.Error);
+			}
 
 			#endregion
 		}

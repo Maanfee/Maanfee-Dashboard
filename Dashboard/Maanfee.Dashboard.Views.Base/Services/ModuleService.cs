@@ -4,18 +4,12 @@ namespace Maanfee.Dashboard.Views.Base.Services
 {
     public static class ModuleService
     {
-        public static ModuleViewModel Automation { get; set; } = new();
-
-        public static ModuleViewModel RollCall { get; set; } = new();
-
-        public static ModuleViewModel Attendance { get; set; } = new();
+        public static ModuleViewModel LogServer { get; set; } = new();
     }
 
     public class ModuleDefaultValue
     {
-        public static string Automation = "Automation";
-        public static string RollCall = "RollCall";
-        public static string Attendance = "Attendance";
+        public static string LogServer = "LogServer";
     }
 
     public class ModuleViewModel

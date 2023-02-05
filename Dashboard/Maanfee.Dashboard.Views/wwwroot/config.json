@@ -1,10 +1,10 @@
 ﻿[
-  {
-    "Name": "Automation",
-    "IsActive": true,
-    "LocalUri": "http://localhost:22001/api",
-    "GlobalUri": "http://10.10.10.22:22001/api",
-    "AutoRoute": true,
-    "HasJwt": true
-  }
+    {
+        "Name": "LogServer",
+        "IsActive": true,
+        "LocalUri": "http://localhost:22002/api",
+        "GlobalUri": "http://10.10.10.22:22002/api",
+        "AutoRoute": true,
+        "HasJwt": true
+    }
 ]

@@ -4,40 +4,28 @@
   },
   "Routes": [
     {
-      "DownstreamPathTemplate": "/WeatherForecast",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 22002
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/WeatherForecast",
-      "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
+        "DownstreamPathTemplate": "/Accounts/Login",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+                "Host": "localhost",
+                "Port": 22002
+            }
+        ],
+        "UpstreamPathTemplate": "/gateway/Accounts/Login",
+        "UpstreamHttpMethod": [ "POST" ]
     },
     {
-      "DownstreamPathTemplate": "/api/product/{id}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 44337
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/product/{id}",
-      "UpstreamHttpMethod": [ "GET", "DELETE" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/customer",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 44373
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/customer",
-      "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
+        "DownstreamPathTemplate": "/Test/ConnectionTest",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+                "Host": "localhost",
+                "Port": 22002
+            }
+        ],
+        "UpstreamPathTemplate": "/gateway/Test/ConnectionTest",
+        "UpstreamHttpMethod": [ "GET" ]
     },
     {
       "DownstreamPathTemplate": "/api/customer/{id}",

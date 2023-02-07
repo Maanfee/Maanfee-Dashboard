@@ -10,7 +10,7 @@ namespace LoggingPlatform.Extensions
         {
             Services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Maanfee Dashboard Profile Service", Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Maanfee Dashboard Logging Service", Version = "v1" });
                 options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
                 {
                     Name = "Authorization",

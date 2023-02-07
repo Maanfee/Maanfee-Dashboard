@@ -1,4 +1,5 @@
 ﻿using Maanfee.Dashboard.Views.Core.Services;
+using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -51,6 +52,7 @@ namespace Maanfee.Dashboard.Views.Base.Extensions
             builder.Services.AddScoped<LocalConfigurationService>();
             builder.Services.AddScoped<PermissionService>();
             builder.Services.AddScoped<TableConfigurationService>();
+			builder.Services.AddScoped<ApiGatewayClient>();
 
 			#endregion
 

@@ -3,14 +3,22 @@ using Maanfee.Dashboard.Resources;
 using Maanfee.Dashboard.Views.Base.Services;
 using Maanfee.Dashboard.Views.Core;
 using Maanfee.Dashboard.Views.Core.Services;
+using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MudBlazor;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Maanfee.Dashboard.Views.Base.Pages
 {
@@ -49,9 +57,7 @@ namespace Maanfee.Dashboard.Views.Base.Pages
 			try
 			{
 				var ModuleList = await Http.GetFromJsonAsync<List<ModuleViewModel>>("config.json");
-				//ModuleService.Automation = ModuleList.FirstOrDefault(x => x.Name == ModuleDefaultValue.Automation);
-				//ModuleService.RollCall = ModuleList.FirstOrDefault(x => x.Name == ModuleDefaultValue.RollCall);
-				//ModuleService.Attendance = ModuleList.FirstOrDefault(x => x.Name == ModuleDefaultValue.Attendance);
+				ModuleService.LogServer = ModuleList.FirstOrDefault(x => x.Name == ModuleDefaultValue.LogServer);
 			}
 			catch (Exception ex)
 			{
@@ -72,35 +78,39 @@ namespace Maanfee.Dashboard.Views.Base.Pages
 				{
 					var JwtTokenStorage = ModuleService.LogServer.Name;
 
-					//var PostJwt = await Http.PostAsJsonAsync($"{ModuleService.LogServer.ToExactUri(Http)}/accounts/login", Model);
-					var PostJwt = await Http.PostAsJsonAsync($"http://localhost:4030/gateway/accounts/login", Model);
-					if (PostJwt.IsSuccessStatusCode)
-					{
-						var JsonResult = await PostJwt.Content.ReadFromJsonAsync<JwtAuthenticationViewModel>();
-						if (JsonResult != null)
-						{
-							await LocalStorage.SetAsync(JwtTokenStorage, JsonResult.Token);
-							((JwtAuthenticationStateProvider)JwtAuthenticationStateProvider).JwtTokenStorage = JwtTokenStorage;
-							((JwtAuthenticationStateProvider)JwtAuthenticationStateProvider).NotifyUserAuthentication(Model.UserName);
-							Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", JsonResult.Token);
+					var ApiResult = await ApiGatewayClient.PostAsync<JwtLoginViewModel, JwtAuthenticationViewModel>("http://localhost:4030/gateway/Accounts/Login", Model);
+					Snackbar.Add(ApiResult.Data.Token, Severity.Error);
 
-							ModuleService.LogServer.CanNavigation = true;
-						}
-						else
-						{
-							Snackbar.Add(JsonResult.ErrorMessage, Severity.Error);
-						}
+					if (ApiResult.Data != null)
+					{
+						await LocalStorage.SetAsync(JwtTokenStorage, ApiResult.Data.Token);
+						((JwtAuthenticationStateProvider)JwtAuthenticationStateProvider).JwtTokenStorage = JwtTokenStorage;
+						((JwtAuthenticationStateProvider)JwtAuthenticationStateProvider).NotifyUserAuthentication(Model.UserName);
+						Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", ApiResult.Data.Token);
+
+						ModuleService.LogServer.CanNavigation = true;
 					}
 					else
 					{
-						Snackbar.Add(PostJwt.Content.ReadAsStringAsync().Result, Severity.Error);
+						Snackbar.Add($"{DashboardResource.StringError} : " + ApiResult.Error.Message, Severity.Error);
 					}
+
+					//var Callback = await Http.GetStringAsync($"http://localhost:4030/Gateway/Test/ConnectionTest");
+					//if (!string.IsNullOrEmpty(Callback))
+					//{
+					//	Snackbar.Add(Callback, Severity.Info);
+					//}
+					//else
+					//{
+					//	Snackbar.Add("KOOOOOOOOOOOOO", Severity.Error);
+					//}
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
 				ModuleService.LogServer.CanNavigation = false;
-				Snackbar.Add($"{DashboardResource.StringError} : {DashboardResource.MessageServiceCommunicationError}", Severity.Error);
+				//Snackbar.Add($"{DashboardResource.StringError} : {DashboardResource.MessageServiceCommunicationError}", Severity.Error);
+				Snackbar.Add($"{ex.InnerException}", Severity.Error);
 			}
 
 			#endregion

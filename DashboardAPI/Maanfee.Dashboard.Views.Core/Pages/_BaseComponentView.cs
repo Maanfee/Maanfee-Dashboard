@@ -1,5 +1,6 @@
 ﻿using Maanfee.Dashboard.Core;
 using Maanfee.Dashboard.Views.Core.Services;
+using Maanfee.Web.Core;
 using Maanfee.Web.JSInterop;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -19,7 +20,10 @@ namespace Maanfee.Dashboard.Views.Core
         [Inject]
         protected HttpClient Http { get; set; }
 
-        [Inject]
+		[Inject]
+		protected ApiGatewayClient ApiGatewayClient { get; set; }		
+
+		[Inject]
         protected NavigationManager Navigation { get; set; }
 
         //[Inject]

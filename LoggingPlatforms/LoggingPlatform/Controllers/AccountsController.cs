@@ -47,6 +47,12 @@ namespace LoggingPlatform.Controllers
             });
         }
 
+		[HttpGet("GetStatus")]
+		public string GetStatus()
+		{
+			return "Authorized";
+		}
 
-    }
+
+	}
 }

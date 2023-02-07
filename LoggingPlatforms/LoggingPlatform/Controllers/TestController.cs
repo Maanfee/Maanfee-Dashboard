@@ -18,40 +18,19 @@ namespace LoggingPlatform.Controllers
 
         private readonly ILogger<TestController> _logger;
 
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         [Authorize]
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet("GetStatus")]
+        public string GetStatus()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return "Authorized";
         }
 
         [HttpGet("ConnectionTest")]
-        public IActionResult ConnectionTest()
+        public string ConnectionTest()
         {
-            return Ok("ارتباط با سرور با موفقیت انجام شد");
-        }
+			return "The connection is established.";
+		}
 
-    }
+	}
 
-    public class WeatherForecast
-    {
-        public DateTime Date { get; set; }
-
-        public int TemperatureC { get; set; }
-
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-
-        public string Summary { get; set; }
-    }
 }

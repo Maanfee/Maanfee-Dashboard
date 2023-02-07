@@ -1,8 +1,5 @@
 using LoggingPlatform.Extensions;
-using Maanfee.Dashboard.Domain.DAL;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
@@ -11,7 +8,6 @@ using System.Net.Http;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddSingleton<JwtHelpers>();
 builder.Services.AddJwtTokenServices(builder.Configuration);
 builder.Services.AddSwaggerServices(builder.Configuration);
@@ -49,7 +45,7 @@ app.UseCors(builder =>
 	builder.AllowAnyHeader();
 	builder.AllowAnyMethod();
 	builder.AllowAnyOrigin();
-});
+}); 
 app.UseRouting();
 
 app.UseAuthentication();

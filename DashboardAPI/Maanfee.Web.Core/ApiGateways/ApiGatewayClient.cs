@@ -2,8 +2,12 @@
 using System;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json.Serialization.Metadata;
+using System.Threading;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Maanfee.Web.Core
 {
@@ -16,7 +20,41 @@ namespace Maanfee.Web.Core
 
 		private readonly HttpClient Http;
 
-		public async Task<CallbackResult<TResponse>> PostAsync<TData, TResponse>(string Url, TData data)
+		#region - Usage -
+
+		//var PostResult = await ApiGatewayClient.PostAsJsonAsync<JwtLoginViewModel>("http://localhost:4030/gateway/...", Model);
+		//if (PostResult.IsSuccessStatusCode)
+		//{
+		//	var JsonResult = await PostResult.Content.ReadFromJsonAsync<JwtAuthenticationViewModel>();
+		//	if (JsonResult != null)
+		//	{
+		//		Snackbar.Add(JsonResult.Token, Severity.Error);
+		//	}
+		//	else
+		//	{
+		//		Snackbar.Add(JsonResult.ErrorMessage, Severity.Error);
+		//	}
+		//}
+		//else
+		//{
+		//	Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
+		//}
+
+		#endregion
+
+		public async Task<HttpResponseMessage> PostAsJsonAsync<T>(string Url, T value)
+		{
+			var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
+			return await Http.PostAsync(Url, stringContent);
+		}
+
+		#region - Usage -
+
+		//var ApiResult = await ApiGatewayClient.PostAsJsonAsync<JwtLoginViewModel, JwtAuthenticationViewModel>("http://localhost:4030/gateway/...", Model);
+
+		#endregion
+
+		public async Task<CallbackResult<TResponse>> PostAsJsonAsync<TData, TResponse>(string Url, TData data)
 		{
 			try
 			{
@@ -44,6 +82,24 @@ namespace Maanfee.Web.Core
 				return new CallbackResult<TResponse>(default, new ExceptionError(ex.Message));
 			}
 		}
+
+		#region - Usage -
+
+
+		#endregion
+
+		public async Task<T> GetFromJsonAsync<T>(string Url)
+		{
+			return JsonConvert.DeserializeObject<T>(await Http.GetStringAsync(Url));
+		}
+
+		#region - Usage -
+
+
+
+		#endregion
+
+		// ************************************************
 
 		private static string UrlCombine(string baseUrl, params string[] segments)
 				=> string.Join("/", new[] { baseUrl.TrimEnd('/') }.Concat(segments.Select(s => s.Trim('/'))));

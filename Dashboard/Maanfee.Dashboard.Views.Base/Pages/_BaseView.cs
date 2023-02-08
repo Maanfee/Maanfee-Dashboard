@@ -6,19 +6,13 @@ using Maanfee.Dashboard.Views.Core.Services;
 using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MudBlazor;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Text;
 using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Maanfee.Dashboard.Views.Base.Pages
 {
@@ -78,8 +72,7 @@ namespace Maanfee.Dashboard.Views.Base.Pages
 				{
 					var JwtTokenStorage = ModuleService.LogServer.Name;
 
-					var ApiResult = await ApiGatewayClient.PostAsync<JwtLoginViewModel, JwtAuthenticationViewModel>("http://localhost:4030/gateway/Accounts/Login", Model);
-					Snackbar.Add(ApiResult.Data.Token, Severity.Error);
+					var ApiResult = await ApiGatewayClient.PostAsJsonAsync<JwtLoginViewModel, JwtAuthenticationViewModel>("http://localhost:4030/gateway/Accounts/Login", Model);
 
 					if (ApiResult.Data != null)
 					{
@@ -104,13 +97,13 @@ namespace Maanfee.Dashboard.Views.Base.Pages
 					//{
 					//	Snackbar.Add("KOOOOOOOOOOOOO", Severity.Error);
 					//}
+					//Snackbar.Add(ApiResult.Data.Token, Severity.Error);
 				}
 			}
 			catch (Exception ex)
 			{
 				ModuleService.LogServer.CanNavigation = false;
-				//Snackbar.Add($"{DashboardResource.StringError} : {DashboardResource.MessageServiceCommunicationError}", Severity.Error);
-				Snackbar.Add($"{ex.InnerException}", Severity.Error);
+				Snackbar.Add($"{DashboardResource.StringError} : {DashboardResource.MessageServiceCommunicationError} - {ex.InnerException.Message}", Severity.Error);
 			}
 
 			#endregion

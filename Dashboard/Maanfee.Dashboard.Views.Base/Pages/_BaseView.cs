@@ -1,4 +1,5 @@
-﻿using Maanfee.Dashboard.Domain.ViewModels;
+﻿using Maanfee.Dashboard.Core;
+using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Dashboard.Resources;
 using Maanfee.Dashboard.Views.Base.Services;
 using Maanfee.Dashboard.Views.Core;
@@ -72,7 +73,7 @@ namespace Maanfee.Dashboard.Views.Base.Pages
 				{
 					var JwtTokenStorage = ModuleService.LogServer.Name;
 
-					var ApiResult = await ApiGatewayClient.PostAsJsonAsync<JwtLoginViewModel, JwtAuthenticationViewModel>("http://localhost:4030/gateway/Accounts/Login", Model);
+					var ApiResult = await ApiGatewayClient.PostAsJsonAsync<JwtLoginViewModel, JwtAuthenticationViewModel>("http://localhost:4030/gateway/Accounts/Login", Model.TrimString());
 
 					if (ApiResult.Data != null)
 					{

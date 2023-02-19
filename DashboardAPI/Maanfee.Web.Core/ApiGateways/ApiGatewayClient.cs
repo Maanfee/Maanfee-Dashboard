@@ -20,9 +20,9 @@ namespace Maanfee.Web.Core
 
 		private readonly HttpClient Http;
 
-		#region - Usage -
+		#region - PostAsJsonAsync Usage -
 
-		//var PostResult = await ApiGatewayClient.PostAsJsonAsync<JwtLoginViewModel>("http://localhost:4030/gateway/...", Model);
+		//var PostResult = await ApiGatewayClient.PostAsJsonAsync<JwtLoginViewModel>("http://localhost:4030/gateway/...", Model.TrimString());
 		//if (PostResult.IsSuccessStatusCode)
 		//{
 		//	var JsonResult = await PostResult.Content.ReadFromJsonAsync<JwtAuthenticationViewModel>();
@@ -48,9 +48,9 @@ namespace Maanfee.Web.Core
 			return await Http.PostAsync(Url, stringContent);
 		}
 
-		#region - Usage -
+		#region - PostAsJsonAsync Usage -
 
-		//var ApiResult = await ApiGatewayClient.PostAsJsonAsync<JwtLoginViewModel, JwtAuthenticationViewModel>("http://localhost:4030/gateway/...", Model);
+		//var ApiResult = await ApiGatewayClient.PostAsJsonAsync<JwtLoginViewModel, JwtAuthenticationViewModel>("http://localhost:4030/gateway/...", Model.TrimString());
 
 		#endregion
 
@@ -83,8 +83,43 @@ namespace Maanfee.Web.Core
 			}
 		}
 
-		#region - Usage -
+		#region - PutAsJsonAsync Usage -
 
+		//var PustResult = await ApiGatewayClient.PutAsJsonAsync<JwtLoginViewModel>("http://localhost:4030/gateway/...", Model.TrimString());
+		//if (PutResult.IsSuccessStatusCode)
+		//{
+		//    var JsonResult = await PutResult.Content.ReadFromJsonAsync<CallbackResult<SubmitRoleViewModel>>();
+		//    if (JsonResult.Data != null)
+		//    {
+		//        Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
+		//        MudDialog.Close(DialogResult.Ok(SubmitRoleViewModel));
+		//    }
+		//    else
+		//    {
+		//        Snackbar.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
+		//    }
+		//}
+
+		#endregion
+
+		public async Task<HttpResponseMessage> PutAsJsonAsync<T>(string Url, T value)
+		{
+			var stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
+			return await Http.PutAsync(Url, stringContent);
+		}
+
+		#region - GetFromJsonAsync Usage -
+
+		//var Callback = await Http.GetFromJsonAsync<CallbackResult<Group>>($"api/Groups/Details/{Id}");
+
+		//if (Callback.Data != null)
+		//{
+		//	Details = Callback.Data;
+		//}
+		//else
+		//{
+		//	Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+		//}
 
 		#endregion
 

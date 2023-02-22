@@ -1,6 +1,6 @@
 ﻿namespace Maanfee.Web.Core
 {
-	public interface IApiGatewayClient
-	{
-	}
+	//public interface IApiGatewayClient
+	//{
+	//}
 }

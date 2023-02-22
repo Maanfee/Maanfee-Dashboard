@@ -3,18 +3,7 @@
         "BaseUrl": "http://localhost:4030"
     },
     "Routes": [
-        {
-            "DownstreamPathTemplate": "/api/Accounts/GetStatus",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 22002
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/Accounts/GetStatus",
-            "UpstreamHttpMethod": [ "GET" ]
-        },
+        // **************** Login ****************
         {
             "DownstreamPathTemplate": "/api/Accounts/Login",
             "DownstreamScheme": "http",
@@ -26,6 +15,18 @@
             ],
             "UpstreamPathTemplate": "/gateway/Accounts/Login",
             "UpstreamHttpMethod": [ "POST" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/Accounts/GetStatus",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 22002
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/Accounts/GetStatus",
+            "UpstreamHttpMethod": [ "GET" ]
         },
         {
             "DownstreamPathTemplate": "/Test/ConnectionTest",

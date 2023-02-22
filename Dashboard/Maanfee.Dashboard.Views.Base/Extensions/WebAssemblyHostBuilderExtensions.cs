@@ -52,7 +52,6 @@ namespace Maanfee.Dashboard.Views.Base.Extensions
             builder.Services.AddScoped<LocalConfigurationService>();
             builder.Services.AddScoped<PermissionService>();
             builder.Services.AddScoped<TableConfigurationService>();
-			builder.Services.AddScoped<ApiGatewayClient>();
 
 			#endregion
 

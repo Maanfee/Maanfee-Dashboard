@@ -73,32 +73,31 @@ namespace Maanfee.Dashboard.Views.Base.Pages
 				{
 					var JwtTokenStorage = ModuleService.LogServer.Name;
 
-					var ApiResult = await ApiGatewayClient.PostAsJsonAsync<JwtLoginViewModel, JwtAuthenticationViewModel>("http://localhost:4030/gateway/Accounts/Login", Model.TrimString());
-
-					if (ApiResult.Data != null)
+					var PostResult = await Http.PostAsJsonAsync($"http://localhost:4030/gateway/Accounts/Login", Model.TrimString());
+					if (PostResult.IsSuccessStatusCode)
 					{
-						await LocalStorage.SetAsync(JwtTokenStorage, ApiResult.Data.Token);
-						((JwtAuthenticationStateProvider)JwtAuthenticationStateProvider).JwtTokenStorage = JwtTokenStorage;
-						((JwtAuthenticationStateProvider)JwtAuthenticationStateProvider).NotifyUserAuthentication(Model.UserName);
-						Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", ApiResult.Data.Token);
+						var JsonResult = await PostResult.Content.ReadFromJsonAsync<JwtAuthenticationViewModel>();
+						if (JsonResult != null)
+						{
+							await LocalStorage.SetAsync(JwtTokenStorage, JsonResult.Token);
+							((JwtAuthenticationStateProvider)JwtAuthenticationStateProvider).JwtTokenStorage = JwtTokenStorage;
+							((JwtAuthenticationStateProvider)JwtAuthenticationStateProvider).NotifyUserAuthentication(Model.UserName);
+							Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", JsonResult.Token);
 
-						ModuleService.LogServer.CanNavigation = true;
+							ModuleService.LogServer.CanNavigation = true;
+
+							Snackbar.Add(JsonResult.Token, Severity.Error);
+						}
+						else
+						{
+							Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
+						}
 					}
 					else
 					{
-						Snackbar.Add($"{DashboardResource.StringError} : " + ApiResult.Error.Message, Severity.Error);
+						Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
 					}
 
-					//var Callback = await Http.GetStringAsync($"http://localhost:4030/Gateway/Test/ConnectionTest");
-					//if (!string.IsNullOrEmpty(Callback))
-					//{
-					//	Snackbar.Add(Callback, Severity.Info);
-					//}
-					//else
-					//{
-					//	Snackbar.Add("KOOOOOOOOOOOOO", Severity.Error);
-					//}
-					//Snackbar.Add(ApiResult.Data.Token, Severity.Error);
 				}
 			}
 			catch (Exception ex)

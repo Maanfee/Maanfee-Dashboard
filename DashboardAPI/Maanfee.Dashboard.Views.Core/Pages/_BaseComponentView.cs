@@ -21,9 +21,6 @@ namespace Maanfee.Dashboard.Views.Core
         protected HttpClient Http { get; set; }
 
 		[Inject]
-		protected ApiGatewayClient ApiGatewayClient { get; set; }		
-
-		[Inject]
         protected NavigationManager Navigation { get; set; }
 
         //[Inject]

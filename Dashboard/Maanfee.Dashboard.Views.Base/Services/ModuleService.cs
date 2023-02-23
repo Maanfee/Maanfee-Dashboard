@@ -44,4 +44,15 @@ namespace Maanfee.Dashboard.Views.Base.Services
 
         public bool HasJwt { get; set; }
     }
+
+	public static class GatewayApi
+	{
+		public static string ToUri
+		{
+			get
+			{
+				return "http://localhost:4030/gateway";
+			}
+		}
+	}
 }

@@ -73,7 +73,7 @@ namespace Maanfee.Dashboard.Views.Base.Pages
 				{
 					var JwtTokenStorage = ModuleService.LogServer.Name;
 
-					var PostResult = await Http.PostAsJsonAsync($"http://localhost:4030/gateway/Accounts/Login", Model.TrimString());
+					var PostResult = await Http.PostAsJsonAsync($"{GatewayApi.ToUri}/Accounts/Login", Model.TrimString());
 					if (PostResult.IsSuccessStatusCode)
 					{
 						var JsonResult = await PostResult.Content.ReadFromJsonAsync<JwtAuthenticationViewModel>();

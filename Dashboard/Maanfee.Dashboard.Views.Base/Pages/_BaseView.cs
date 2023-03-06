@@ -86,7 +86,7 @@ namespace Maanfee.Dashboard.Views.Base.Pages
 
 							ModuleService.LogServer.CanNavigation = true;
 
-							Snackbar.Add(JsonResult.Token, Severity.Error);
+							//Snackbar.Add(JsonResult.Token, Severity.Error);
 						}
 						else
 						{

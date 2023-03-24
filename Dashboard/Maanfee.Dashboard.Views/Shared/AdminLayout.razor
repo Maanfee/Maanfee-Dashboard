@@ -45,9 +45,11 @@
                         </MudTooltip>
                     </MudHidden>
                     @* ********************************* *@
-                    <MudMenu Direction=" SharedLayoutSettings.IsRTL ? Direction.Right : Direction.Left" OffsetX="true" Dense="true" Class="mt-1 ml-4">
+                    <MudMenu AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.BottomRight" Dense="true" Class="mt-1 ml-4">
                         <ActivatorContent>
-                            <MudAvatar Image="@AccountStateContainer.Avatar" Style="height:50px; width:50px;"> </MudAvatar>
+                            <MudAvatar Style="height:50px; width:50px;">
+                                <MudImage Src="@AccountStateContainer.Avatar"></MudImage>
+                            </MudAvatar>
                         </ActivatorContent>
                         <ChildContent>
                             <ComponentsUserCard Class="mt-n2" />

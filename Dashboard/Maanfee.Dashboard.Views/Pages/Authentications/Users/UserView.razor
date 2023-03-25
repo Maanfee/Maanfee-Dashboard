@@ -63,7 +63,9 @@
 				<RowTemplate>
 					<MudTd Class="mud-text-align-center">@context.RowNum</MudTd>
 					<MudTd>
-						<MudAvatar Image="@("data:image/png;base64," + Convert.ToBase64String(context.Avatar))" Size="Size.Medium" />
+						<MudAvatar Size="Size.Medium">
+							<MudImage Src="@("data:image/png;base64," + Convert.ToBase64String(context.Avatar))" />
+						</MudAvatar>
 					</MudTd>
 					<MudTd>@context.Name</MudTd>
 					<MudTd>@context.UserName</MudTd>

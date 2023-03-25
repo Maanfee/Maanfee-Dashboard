@@ -85,13 +85,13 @@
 										</MudItem>
 										<MudItem md="6">
 											<MudSelect Label="@DashboardResource.StringPersonalPost" Variant="Variant.Outlined"
-												   Clearable MultiSelection="true" SelectAll="true"
+																   Clearable MultiSelection="true" SelectAll="true"
 												   SelectAllText="@DashboardResource.StringSelectAll"
 												   MultiSelectionTextFunc="@(new Func<List<string>, string>(GetDepartmentMultiSelectionText))"
 												   @bind-SelectedValues="SubmitUserViewModel.DepartmentPersonalValues"
 												   @bind-Value="SubmitUserViewModel.IdDepartment"
 												   For="@(() => SubmitUserViewModel.IdDepartment)">
-												@foreach (var item in Departments)
+											@foreach (var item in Departments)
 												{
 													<MudSelectItem Value="@item?.Id">@item?.Title</MudSelectItem>
 												}
@@ -99,13 +99,13 @@
 										</MudItem>
 										<MudItem md="6">
 											<MudSelect Label="@DashboardResource.StringManagementPost" Variant="Variant.Outlined"
-												   Clearable MultiSelection="true" SelectAll="true"
+																   Clearable MultiSelection="true" SelectAll="true"
 												   SelectAllText="@DashboardResource.StringSelectAll"
 												   MultiSelectionTextFunc="@(new Func<List<string>, string>(GetDepartmentMultiSelectionText))"
 												   @bind-SelectedValues="SubmitUserViewModel.DepartmentManagementValues"
 												   @bind-Value="SubmitUserViewModel.IdDepartment"
 												   For="@(() => SubmitUserViewModel.IdDepartment)">
-												@foreach (var item in Departments)
+											@foreach (var item in Departments)
 												{
 													<MudSelectItem Value="@item?.Id">@item?.Title</MudSelectItem>
 												}
@@ -113,13 +113,13 @@
 										</MudItem>
 										<MudItem md="6">
 											<MudSelect Label="@DashboardResource.StringGroup" Variant="Variant.Outlined"
-												   Clearable MultiSelection="true" SelectAll="true"
+																   Clearable MultiSelection="true" SelectAll="true"
 												   SelectAllText="@DashboardResource.StringSelectAll"
 												   MultiSelectionTextFunc="@(new Func<List<string>, string>(GetGroupMultiSelectionText))"
 												   @bind-SelectedValues="SubmitUserViewModel.GroupValues"
 												   @bind-Value="SubmitUserViewModel.IdGroup"
 												   For="@(() => SubmitUserViewModel.IdGroup)">
-												@foreach (var item in Groups)
+											@foreach (var item in Groups)
 												{
 													<MudSelectItem Value="@item?.Id">@item?.Title</MudSelectItem>
 												}
@@ -132,14 +132,15 @@
 										<MudGrid Justify="Justify.Center">
 											<MudItem md="4" xs="12"></MudItem>
 											<MudItem md="4" xs="12" Class="mud-text-align-center my-auto">
-												<MudAvatar Image="@("data:image/png;base64," + Avatar)" Size="Size.Large" Class="ma-5" />
+												<MudAvatar Size="Size.Large" Class="ma-5">
+													<MudImage Src="@("data:image/png;base64," + Avatar)" />
+												</MudAvatar>
 												<div>
 													<InputFile id="fileInput" OnChange="OnInputFileChange" hidden accept=".jpg, .jpeg, .png" />
 													<MudButton HtmlTag="label"
 														   Variant="Variant.Filled"
 														   Color="Color.Primary"
-														   StartIcon="@Icons.Material.Filled.CloudUpload"
-														   for="fileInput">
+														   StartIcon="@Icons.Material.Filled.CloudUpload" for="fileInput">
 														@DashboardResource.StringUploadFiles
 													</MudButton>
 													<MudButton Color="Color.Error" OnClick="Delete" Variant="Variant.Filled">

@@ -1,29 +1,30 @@
 ﻿@inherits _BaseView
 
 <MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
-    <MudDialog>
-        <DialogContent>
-            @if (!IsLoaded)
-            {
-                <Overlay />
-            }
-            else
-            {
+	<MudDialog>
+		<DialogContent>
+			@if (!IsLoaded)
+			{
+				<Overlay />
+			}
+			else
+			{
 				<MudCard Class="mt-2">
 					<MudCardHeader>
-                        <MudText Typo="Typo.button" Color="Color.Primary">
-                            @DashboardResource.StringUser
-                        </MudText>
-                    </MudCardHeader>
-                    <MudDivider DividerType="DividerType.FullWidth" />
-                    <MudCardContent>
+						<MudText Typo="Typo.button" Color="Color.Primary">
+							@DashboardResource.StringUser
+						</MudText>
+					</MudCardHeader>
+					<MudDivider DividerType="DividerType.FullWidth" />
+					<MudCardContent>
 						<MudGrid>
 							<MudItem xs="12" sm="4" md="3">
 								<MudCard Elevation="25">
 									<MudCardContent>
 										<div class="d-flex justify-center mb-4">
-											<MudAvatar Image="@StringAvatar"
-												   Class="ma-2" Style="height:150px; width:150px;" />
+											<MudAvatar Class="ma-2" Style="height:150px; width:150px;">
+												<MudImage Src="@StringAvatar" />
+											</MudAvatar>
 										</div>
 										<MudText Typo="Typo.h6" Align="Align.Center">@Model?.UserName</MudText>
 										<MudText Typo="Typo.h6" Align="Align.Center" Color="Color.Primary">
@@ -101,29 +102,29 @@
 								</MudCard>
 							</MudItem>
 						</MudGrid>
-                    </MudCardContent>
-                </MudCard>
-                <MudPaper Class="pa-3 my-2 ActionColor" Elevation="3" Outlined="true" Square="true">
-                    <MudStack Spacing="1" Row="true">
+					</MudCardContent>
+				</MudCard>
+				<MudPaper Class="pa-3 my-2 ActionColor" Elevation="3" Outlined="true" Square="true">
+					<MudStack Spacing="1" Row="true">
 						<MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.FreeCancellation" IconColor="Color.Surface">@DashboardResource.StringCancel</MudButton>
-                    </MudStack>
-                </MudPaper>
-            }
-        </DialogContent>
-    </MudDialog>
+					</MudStack>
+				</MudPaper>
+			}
+		</DialogContent>
+	</MudDialog>
 </MudRTLProvider>
 
 @code {
 
-    [CascadingParameter]
-    public MudDialogInstance MudDialog { get; set; }
+	[CascadingParameter]
+	public MudDialogInstance MudDialog { get; set; }
 
-    private void Close() => MudDialog.Close();
+	private void Close() => MudDialog.Close();
 
-    // *****************************************************
+	// *****************************************************
 
-    [Parameter]
-    public string Id { get; set; }
+	[Parameter]
+	public string Id { get; set; }
 
 	private GetUserViewModel Model = new();
 
@@ -132,7 +133,7 @@
 	protected override async Task OnInitializedAsync()
 	{
 		IsLoaded = false;
-	
+
 		try
 		{
 			var Callback = await Http.GetFromJsonAsync<CallbackResult<GetUserViewModel>>($"api/Users/GetUserById/{Id}");
@@ -152,7 +153,7 @@
 		{
 			Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
 		}
-	
+
 		IsLoaded = true;
 	}
 

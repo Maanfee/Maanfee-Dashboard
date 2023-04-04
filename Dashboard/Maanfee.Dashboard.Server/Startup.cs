@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using System.IO;
 
 namespace Maanfee.Dashboard.Server
 {
@@ -59,6 +61,11 @@ namespace Maanfee.Dashboard.Server
 
             app.UseBlazorFrameworkFiles();  //
             app.UseStaticFiles();//
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "D:\\_UploadedDocuments")),
+                RequestPath = "/StaticFiles"
+            });
 
             // *************************** Swagger ***************************
             app.UseSwagger();

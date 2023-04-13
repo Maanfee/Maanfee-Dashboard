@@ -1,4 +1,6 @@
-﻿namespace Maanfee.Dashboard.Domain.ViewModels
+﻿using System.Collections.Generic;
+
+namespace Maanfee.Dashboard.Domain.ViewModels
 {
     public class DocumentTypeViewModel
     {

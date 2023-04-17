@@ -223,7 +223,7 @@
 
 	protected override async Task OnInitializedAsync()
 	{
-		IsLoaded = true;
+		IsLoaded = false;
 
 		try
 		{
@@ -287,6 +287,8 @@
 		{
 			Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
 		}
+
+		IsLoaded = true;
 	}
 
 	private async Task OnSubmit()

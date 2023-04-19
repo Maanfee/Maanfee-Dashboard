@@ -271,7 +271,7 @@ namespace Maanfee.Dashboard.Domain.DAL
             #region - User Department -
 
             modelBuilder.Entity<UserDepartment>().ToTable("UserDepartment")
-                .HasIndex(p => new { p.IdApplicationUser, p.IdDepartment, p.IsPersonal })
+                .HasIndex(p => new { p.IdApplicationUser, p.IdDepartment })
                 .IsUnique(true);
 
             #endregion

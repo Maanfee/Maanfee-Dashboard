@@ -163,14 +163,6 @@ namespace Maanfee.Dashboard.Server
                             Id =  Guid.NewGuid().ToString(),
                             IdDepartment = 3,
                             IdApplicationUser = "71b24f9d-9f5f-4311-a9ab-23c6d0e4e382",
-                            IsPersonal = true,
-                        },
-                        new UserDepartment
-                        {
-                            Id =  Guid.NewGuid().ToString(),
-                            IdDepartment = 3,
-                            IdApplicationUser = "71b24f9d-9f5f-4311-a9ab-23c6d0e4e382",
-                            IsPersonal = false,
                         },
                     };
                 UserDepartment.ForEach(s => context.UserDepartments.Add(s));

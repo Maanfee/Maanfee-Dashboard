@@ -799,15 +799,6 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Management post.
-        /// </summary>
-        public static string StringManagementPost {
-            get {
-                return ResourceManager.GetString("StringManagementPost", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Manage permission.
         /// </summary>
         public static string StringManagePermission {
@@ -979,20 +970,20 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Personal post.
-        /// </summary>
-        public static string StringPersonalPost {
-            get {
-                return ResourceManager.GetString("StringPersonalPost", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Phone number.
         /// </summary>
         public static string StringPhoneNumber {
             get {
                 return ResourceManager.GetString("StringPhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Post.
+        /// </summary>
+        public static string StringPost {
+            get {
+                return ResourceManager.GetString("StringPost", resourceCulture);
             }
         }
         

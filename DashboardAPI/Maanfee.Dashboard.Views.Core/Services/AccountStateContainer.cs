@@ -60,24 +60,13 @@ namespace Maanfee.Dashboard.Views.Core.Services
             }
         }
 
-        private List<int> idPersonalUserDepartments = new();
-        public List<int> IdPersonalUserDepartments
+        private List<int> idUserDepartments = new();
+        public List<int> IdUserDepartments
         {
-            get => idPersonalUserDepartments;
+            get => idUserDepartments;
             set
             {
-                idPersonalUserDepartments = value;
-                NotifyStateChanged();
-            }
-        }
-
-        private List<int> idManagementUserDepartments = new();
-        public List<int> IdManagementUserDepartments
-        {
-            get => idManagementUserDepartments;
-            set
-            {
-                idManagementUserDepartments = value;
+                idUserDepartments = value;
                 NotifyStateChanged();
             }
         }

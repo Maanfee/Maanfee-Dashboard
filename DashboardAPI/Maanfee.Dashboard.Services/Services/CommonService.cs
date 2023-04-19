@@ -42,8 +42,7 @@ namespace Maanfee.Dashboard.Services
                     PersonalCode = x.PersonalCode,
                     RoleName = db_SQLServer.AspNetRoles.FirstOrDefault(a => a.Id == (db_SQLServer.AspNetUserRoles.FirstOrDefault(z => z.UserId == x.Id)).RoleId).Name ?? "-",
                     Avatar = x.Avatar,
-                    UserDepartmentsPersonalTitle = string.Join(" , ", x.UserDepartments.Where(x => x.IsPersonal).Select(x => x.Department.Title)),
-                    UserDepartmentsManagementTitle = string.Join(" , ", x.UserDepartments.Where(x => !x.IsPersonal).Select(x => x.Department.Title)),
+                    UserDepartmentsTitle = string.Join(" , ", x.UserDepartments.Select(x => x.Department.Title)),
                 });
 
             return list;

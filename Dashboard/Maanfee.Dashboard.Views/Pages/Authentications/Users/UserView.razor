@@ -36,8 +36,7 @@
 					<MudTh><MudTableSortLabel SortLabel="UserName" T="GetUserViewModel">@DashboardResource.StringUserName</MudTableSortLabel></MudTh>
 					<MudTh><MudTableSortLabel SortLabel="PersonalCode" T="GetUserViewModel">@DashboardResource.StringPersonalCode</MudTableSortLabel></MudTh>
 					<MudTh><MudTableSortLabel SortLabel="RoleName" T="GetUserViewModel">@DashboardResource.StringRole</MudTableSortLabel></MudTh>
-					<MudTh>@DashboardResource.StringPersonalPost</MudTh>
-					<MudTh>@DashboardResource.StringManagementPost</MudTh>
+					<MudTh>@DashboardResource.StringPost</MudTh>
 					<MudTh Class="column-3x">
 						<MudText Align="Align.Left">
 							<MudMenu Icon="@Icons.Material.Filled.MoreVert" Color="Color.Secondary">
@@ -71,8 +70,7 @@
 					<MudTd>@context.UserName</MudTd>
 					<MudTd>@context.PersonalCode</MudTd>
 					<MudTd>@context.RoleName</MudTd>
-					<MudTd>@context?.UserDepartmentsPersonalTitle</MudTd>
-					<MudTd>@context?.UserDepartmentsManagementTitle</MudTd>
+					<MudTd>@context?.UserDepartmentsTitle</MudTd>
 					<MudTd>
 						<MudIconButton OnClick="()=>OpenDetailsDialog(context.Id)" Title="@DashboardResource.StringDetails" Icon="@Icons.Material.Filled.Details" Color="Color.Primary" Size="Size.Small"></MudIconButton>
 						<MudIconButton Disabled="@(!_PermissionEdit)" OnClick="()=>OpenCrudateDialog(context.Id)" Title="@DashboardResource.StringEdit" Icon="@Icons.Material.Filled.Edit" Color="Color.Success" Size="Size.Small"></MudIconButton>

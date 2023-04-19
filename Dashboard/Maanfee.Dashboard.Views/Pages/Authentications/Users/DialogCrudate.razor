@@ -84,25 +84,14 @@
 											</MudSelect>
 										</MudItem>
 										<MudItem md="6">
-											<MudSelect Label="@DashboardResource.StringPersonalPost" Variant="Variant.Outlined"
-																   Clearable MultiSelection="true" SelectAll="true"
-												   SelectAllText="@DashboardResource.StringSelectAll"
-												   MultiSelectionTextFunc="@(new Func<List<string>, string>(GetDepartmentMultiSelectionText))"
-												   @bind-SelectedValues="SubmitUserViewModel.DepartmentPersonalValues"
-												   @bind-Value="SubmitUserViewModel.IdDepartment"
-												   For="@(() => SubmitUserViewModel.IdDepartment)">
-											@foreach (var item in Departments)
-												{
-													<MudSelectItem Value="@item?.Id">@item?.Title</MudSelectItem>
-												}
-											</MudSelect>
+
 										</MudItem>
 										<MudItem md="6">
-											<MudSelect Label="@DashboardResource.StringManagementPost" Variant="Variant.Outlined"
-																   Clearable MultiSelection="true" SelectAll="true"
+											<MudSelect Label="@DashboardResource.StringPost" Variant="Variant.Outlined"
+												   Clearable MultiSelection="true" SelectAll="true"
 												   SelectAllText="@DashboardResource.StringSelectAll"
 												   MultiSelectionTextFunc="@(new Func<List<string>, string>(GetDepartmentMultiSelectionText))"
-												   @bind-SelectedValues="SubmitUserViewModel.DepartmentManagementValues"
+												   @bind-SelectedValues="SubmitUserViewModel.DepartmentValues"
 												   @bind-Value="SubmitUserViewModel.IdDepartment"
 												   For="@(() => SubmitUserViewModel.IdDepartment)">
 											@foreach (var item in Departments)
@@ -113,7 +102,7 @@
 										</MudItem>
 										<MudItem md="6">
 											<MudSelect Label="@DashboardResource.StringGroup" Variant="Variant.Outlined"
-																   Clearable MultiSelection="true" SelectAll="true"
+												   Clearable MultiSelection="true" SelectAll="true"
 												   SelectAllText="@DashboardResource.StringSelectAll"
 												   MultiSelectionTextFunc="@(new Func<List<string>, string>(GetGroupMultiSelectionText))"
 												   @bind-SelectedValues="SubmitUserViewModel.GroupValues"
@@ -270,8 +259,7 @@
 
 					Avatar = Convert.ToBase64String(SubmitUserViewModel.Avatar);
 
-					await GetUserDepartmentsPersonalAsync(true);
-					await GetUserDepartmentsManagementAsync(false);
+					await GetUserDepartmentsAsync(true);
 					await GetUserGroupsAsync();
 
 					StateHasChanged();
@@ -419,25 +407,12 @@
 		return Parents;
 	}
 
-	private async Task GetUserDepartmentsPersonalAsync(bool IsPersonal)
+	private async Task GetUserDepartmentsAsync(bool IsPersonal)
 	{
-		var Callback = await Http.GetFromJsonAsync<CallbackResult<List<int?>>>($"api/Departments/GetIdUserDepartments?IdUser={SubmitUserViewModel.Id}&IsPersonal={IsPersonal}");
+		var Callback = await Http.GetFromJsonAsync<CallbackResult<List<int?>>>($"api/Departments/GetIdUserDepartments?IdUser={SubmitUserViewModel.Id}");
 		if (Callback.Data != null)
 		{
-			SubmitUserViewModel.DepartmentPersonalValues = Callback.Data;
-		}
-		else
-		{
-			Snackbar.Add(Callback.Error.ToString(), Severity.Error);
-		}
-	}
-
-	private async Task GetUserDepartmentsManagementAsync(bool IsPersonal)
-	{
-		var Callback = await Http.GetFromJsonAsync<CallbackResult<List<int?>>>($"api/Departments/GetIdUserDepartments?IdUser={SubmitUserViewModel.Id}&IsPersonal={IsPersonal}");
-		if (Callback.Data != null)
-		{
-			SubmitUserViewModel.DepartmentManagementValues = Callback.Data;
+			SubmitUserViewModel.DepartmentValues = Callback.Data;
 		}
 		else
 		{

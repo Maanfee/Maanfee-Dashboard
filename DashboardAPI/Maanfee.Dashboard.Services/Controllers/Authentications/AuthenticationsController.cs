@@ -233,25 +233,13 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
 
                 #region - User Department -
 
-                foreach (var item in Model.DepartmentPersonalValues)
+                foreach (var item in Model.DepartmentValues)
                 {
                     db_SQLServer.Add(new UserDepartment
                     {
                         Id = Guid.NewGuid().ToString(),
                         IdApplicationUser = user.Id,
                         IdDepartment = item.Value,
-                        IsPersonal = true,
-                    });
-                }
-
-                foreach (var item in Model.DepartmentManagementValues)
-                {
-                    db_SQLServer.Add(new UserDepartment
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        IdApplicationUser = user.Id,
-                        IdDepartment = item.Value,
-                        IsPersonal = false,
                     });
                 }
 
@@ -384,16 +372,15 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
 
                 #region - User Department -
 
-                if (Model.DepartmentPersonalValues.Any())
+                if (Model.DepartmentValues.Any())
                 {
                     var StoredUserDepartments = await db_SQLServer.UserDepartments
-                        .Where(x => x.IdApplicationUser == user.Id && x.IsPersonal)
+                        .Where(x => x.IdApplicationUser == user.Id)
                         .ToListAsync();
-                    var AvailableUserDepartments = Model.DepartmentPersonalValues.Select(x => new UserDepartment
+                    var AvailableUserDepartments = Model.DepartmentValues.Select(x => new UserDepartment
                     {
                         Id = Guid.NewGuid().ToString(),
                         IdApplicationUser = user.Id,
-                        IsPersonal = true,
                         IdDepartment = x.Value,
                     });
 
@@ -402,28 +389,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 }
                 else
                 {
-                    db_SQLServer.RemoveRange(await db_SQLServer.UserDepartments.Where(x => x.IdApplicationUser == user.Id && x.IsPersonal).ToListAsync());
-                }
-
-                if (Model.DepartmentManagementValues.Any())
-                {
-                    var StoredUserDepartments = await db_SQLServer.UserDepartments
-                        .Where(x => x.IdApplicationUser == user.Id && !x.IsPersonal)
-                        .ToListAsync();
-                    var AvailableUserDepartments = Model.DepartmentManagementValues.Select(x => new UserDepartment
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        IdApplicationUser = user.Id,
-                        IsPersonal = false,
-                        IdDepartment = x.Value,
-                    });
-
-                    db_SQLServer.RemoveRange(StoredUserDepartments.Except(AvailableUserDepartments));
-                    db_SQLServer.AddRange(AvailableUserDepartments.Except(StoredUserDepartments));
-                }
-                else
-                {
-                    db_SQLServer.RemoveRange(await db_SQLServer.UserDepartments.Where(x => x.IdApplicationUser == user.Id && !x.IsPersonal).ToListAsync());
+                    db_SQLServer.RemoveRange(await db_SQLServer.UserDepartments.Where(x => x.IdApplicationUser == user.Id).ToListAsync());
                 }
 
                 #endregion

@@ -45,8 +45,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
 						Name = x.Name,
 						Avatar = x.Avatar,
 						FatherName = x.FatherName,
-						UserDepartmentsPersonalTitle = string.Join(" , ", x.UserDepartments.Where(x => x.IsPersonal).Select(x => x.Department.Title)),
-						UserDepartmentsManagementTitle = string.Join(" , ", x.UserDepartments.Where(x => !x.IsPersonal).Select(x => x.Department.Title)),
+						UserDepartmentsTitle = string.Join(" , ", x.UserDepartments.Select(x => x.Department.Title)),
 						Gender = x.Gender,
 						Role = db_SQLServer.AspNetRoles.FirstOrDefault(a => a.Id == (db_SQLServer.AspNetUserRoles.FirstOrDefault(z => z.UserId == x.Id)).RoleId),
 						NationalCode = x.NationalCode,
@@ -99,13 +98,9 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
 		{
 			try
 			{
-				//var Users = await db_SQLServer.ApplicationUsers
-				//    .Include(x => x.UserDepartments)
-				//    .Where(x => x.UserDepartments.Where(w => w.IdDepartment == IdDepartment).Any())
-				//    .ToListAsync();
 				var Users = await db_SQLServer.UserDepartments
 					.Include(x => x.ApplicationUser)
-					.Where(x => x.IdDepartment == IdDepartment && x.IsPersonal)
+					.Where(x => x.IdDepartment == IdDepartment)
 					.Select(x => x.ApplicationUser)
 					.ToListAsync();
 
@@ -260,7 +255,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
 						.Include(x => x.Department)
 						.Include(x => x.Department).ThenInclude(x => x.Department1)
 						.Include(x => x.Department).ThenInclude(x => x.Department2)
-						.Where(x => x.IdDepartment == IdDepartment && x.IsPersonal)
+						.Where(x => x.IdDepartment == IdDepartment)
 						.FirstOrDefaultAsync();
 
 				var AvailableDepartment = new List<DropDownDepartmentViewModel>();

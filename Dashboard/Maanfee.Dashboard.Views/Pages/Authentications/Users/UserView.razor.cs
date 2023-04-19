@@ -79,8 +79,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 						RoleName = data.RoleName,
 						PersonalCode = data.PersonalCode,
 						Avatar = data.Avatar,
-						UserDepartmentsPersonalTitle = data.UserDepartmentsPersonalTitle,
-						UserDepartmentsManagementTitle = data.UserDepartmentsManagementTitle,
+						UserDepartmentsTitle = data.UserDepartmentsTitle,
 					}).ToList();
 
 					IsTableLoading = false;

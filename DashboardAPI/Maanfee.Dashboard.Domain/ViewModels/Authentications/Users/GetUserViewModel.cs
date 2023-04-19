@@ -32,11 +32,8 @@ namespace Maanfee.Dashboard.Domain.ViewModels
         [Display(Name = nameof(DashboardResource.StringRole), ResourceType = typeof(DashboardResource))]
         public IdentityRole Role { get; set; }
 
-        [Display(Name = nameof(DashboardResource.StringPersonalPost), ResourceType = typeof(DashboardResource))]
-        public virtual string UserDepartmentsPersonalTitle { get; set; }
-
-        [Display(Name = nameof(DashboardResource.StringManagementPost), ResourceType = typeof(DashboardResource))]
-        public virtual string UserDepartmentsManagementTitle { get; set; }
+        [Display(Name = nameof(DashboardResource.StringPost), ResourceType = typeof(DashboardResource))]
+        public virtual string UserDepartmentsTitle { get; set; }
 
         [Display(Name = nameof(DashboardResource.StringGroup), ResourceType = typeof(DashboardResource))]
         public virtual string UserGroupTitle { get; set; }

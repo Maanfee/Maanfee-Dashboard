@@ -363,9 +363,6 @@
   <data name="StringLogoutConfirmation" xml:space="preserve">
     <value>تایید خروج</value>
   </data>
-  <data name="StringManagementPost" xml:space="preserve">
-    <value>پست مدیریتی</value>
-  </data>
   <data name="StringManagePermission" xml:space="preserve">
     <value>مدیریت مجوزها</value>
   </data>
@@ -423,11 +420,11 @@
   <data name="StringPersonalInformation" xml:space="preserve">
     <value>اطلاعات فردی</value>
   </data>
-  <data name="StringPersonalPost" xml:space="preserve">
-    <value>پست شخصی</value>
-  </data>
   <data name="StringPhoneNumber" xml:space="preserve">
     <value>شماره تلفن</value>
+  </data>
+  <data name="StringPost" xml:space="preserve">
+    <value>پست</value>
   </data>
   <data name="StringPrint" xml:space="preserve">
     <value>چاپ</value>

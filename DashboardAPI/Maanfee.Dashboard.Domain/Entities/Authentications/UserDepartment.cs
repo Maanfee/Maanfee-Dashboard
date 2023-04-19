@@ -29,7 +29,7 @@ namespace Maanfee.Dashboard.Domain
 
         // ******************************************************************
 
-        public bool IsPersonal { get; set; }
+        //public bool IsPersonal { get; set; }
 
     }
 }

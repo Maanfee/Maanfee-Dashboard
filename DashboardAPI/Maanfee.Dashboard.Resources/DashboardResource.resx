@@ -363,9 +363,6 @@
   <data name="StringLogoutConfirmation" xml:space="preserve">
     <value>Logout confirmation</value>
   </data>
-  <data name="StringManagementPost" xml:space="preserve">
-    <value>Management post</value>
-  </data>
   <data name="StringManagePermission" xml:space="preserve">
     <value>Manage permission</value>
   </data>
@@ -423,11 +420,11 @@
   <data name="StringPersonalInformation" xml:space="preserve">
     <value>Personal information</value>
   </data>
-  <data name="StringPersonalPost" xml:space="preserve">
-    <value>Personal post</value>
-  </data>
   <data name="StringPhoneNumber" xml:space="preserve">
     <value>Phone number</value>
+  </data>
+  <data name="StringPost" xml:space="preserve">
+    <value>Post</value>
   </data>
   <data name="StringPrint" xml:space="preserve">
     <value>Print</value>

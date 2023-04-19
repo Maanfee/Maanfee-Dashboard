@@ -48,7 +48,7 @@ namespace Maanfee.Dashboard.Views.Core.Services
 			{
 				IsDarkMode = false,
 				IsRTL = false,
-				ThemeColor = new Palette().Primary.Value,
+				ThemeColor = new PaletteLight().Primary.Value,
 				CurrentVersion = string.Empty,
 				IsFullscreenMode = false,
 			};
@@ -59,7 +59,7 @@ namespace Maanfee.Dashboard.Views.Core.Services
 
 				SharedLayoutSettings.IsDarkMode = LayoutSettings.IsDarkMode;
 				SharedLayoutSettings.IsRTL = LayoutSettings.IsRTL;
-				SharedLayoutSettings.ThemeColor = new Palette().Primary.Value;
+				SharedLayoutSettings.ThemeColor = new PaletteLight().Primary.Value;
 				SharedLayoutSettings.CurrentVersion = LayoutSettings.CurrentVersion;
 				SharedLayoutSettings.IsFullscreenMode = LayoutSettings.IsFullscreenMode;
 			}

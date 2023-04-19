@@ -107,12 +107,12 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         // Used : Users->Crudate
         [HttpGet("GetIdUserDepartments")]
         // GET: api/Departments/GetIdUserDepartments?IdUser=&IsPersonal=
-        public async Task<CallbackResult<IEnumerable<int>>> GetIdUserDepartments(string IdUser, bool IsPersonal)
+        public async Task<CallbackResult<IEnumerable<int>>> GetIdUserDepartments(string IdUser)
         {
             try
             {
                 var IdDepartments = await db_SQLServer.UserDepartments
-                    .Where(x => x.IdApplicationUser == IdUser && x.IsPersonal == IsPersonal)
+                    .Where(x => x.IdApplicationUser == IdUser)
                     .Select(x => x.IdDepartment)
                     .ToListAsync();
 
@@ -128,14 +128,14 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
 
         // Used : Dropdownlist
         [HttpGet("GetUserDepartments")]
-        // GET: api/Departments/GetUserDepartments?IdUser=&IsPersonal=
-        public async Task<CallbackResult<IEnumerable<UserDepartment>>> GetUserDepartments(string IdUser, bool IsPersonal)
+        // GET: api/Departments/GetUserDepartments?IdUser=
+        public async Task<CallbackResult<IEnumerable<UserDepartment>>> GetUserDepartments(string IdUser)
         {
             try
             {
                 var IdDepartments = await db_SQLServer.UserDepartments
                     .Include(x => x.Department)
-                    .Where(x => x.IdApplicationUser == IdUser && x.IsPersonal == IsPersonal)
+                    .Where(x => x.IdApplicationUser == IdUser)
                     .ToListAsync();
 
                 return new CallbackResult<IEnumerable<UserDepartment>>(IdDepartments, null);

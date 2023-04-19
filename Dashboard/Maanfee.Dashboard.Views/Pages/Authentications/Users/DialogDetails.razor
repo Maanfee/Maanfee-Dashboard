@@ -80,15 +80,9 @@
 											</MudItem>
 
 											<MudItem xs="12" md="4">
-												<MudField Disabled="true" Label="@DashboardResource.StringPersonalPost" Variant="Variant.Outlined"
+												<MudField Disabled="true" Label="@DashboardResource.StringPost" Variant="Variant.Outlined"
 													  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AccountTree">
-													@Model?.UserDepartmentsPersonalTitle
-												</MudField>
-											</MudItem>
-											<MudItem xs="12" md="4">
-												<MudField Disabled="true" Label="@DashboardResource.StringManagementPost" Variant="Variant.Outlined"
-													  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AccountTree">
-													@Model?.UserDepartmentsManagementTitle
+													@Model?.UserDepartmentsTitle
 												</MudField>
 											</MudItem>
 											<MudItem xs="12" md="4">
@@ -96,6 +90,9 @@
 													  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Title">
 													@Model?.UserGroupTitle
 												</MudField>
+											</MudItem>
+											<MudItem xs="12" md="4">
+
 											</MudItem>
 										</MudGrid>
 									</MudCardContent>

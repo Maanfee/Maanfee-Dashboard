@@ -9,6 +9,8 @@ namespace Maanfee.Web.JSInterop
             services.AddScoped<Dom>();
 			services.AddScoped<LocalStorage>();
             services.AddScoped<Fullscreen>();
+            services.AddScoped<Screen>();
+
             return services;
         }
     } 

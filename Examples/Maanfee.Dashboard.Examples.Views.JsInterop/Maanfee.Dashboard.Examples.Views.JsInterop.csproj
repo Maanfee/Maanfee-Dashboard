@@ -30,6 +30,12 @@
 	  <None Remove="Pages\JsInterop\_003LocalStorage\Examples\RemoveMethodCode.html" />
 	  <None Remove="Pages\JsInterop\_004Fullscreen\Examples\FullscreenMethodCode.html" />
 	  <None Remove="Pages\JsInterop\_004Fullscreen\Examples\IsFullscreenMethodCode.html" />
+	  <None Remove="Pages\JsInterop\_005WindowScreen\Examples\AvailableHeightCode.html" />
+	  <None Remove="Pages\JsInterop\_005WindowScreen\Examples\AvailableWidthCode.html" />
+	  <None Remove="Pages\JsInterop\_005WindowScreen\Examples\ColorDepthCode.html" />
+	  <None Remove="Pages\JsInterop\_005WindowScreen\Examples\HeightMethodCode.html" />
+	  <None Remove="Pages\JsInterop\_005WindowScreen\Examples\ScreenPixelCode.html" />
+	  <None Remove="Pages\JsInterop\_005WindowScreen\Examples\WidthMethodCode.html" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -57,6 +63,12 @@
 	  <EmbeddedResource Include="Pages\JsInterop\_003LocalStorage\Examples\KeysMethodCode.html" />
 	  <EmbeddedResource Include="Pages\JsInterop\_004Fullscreen\Examples\IsFullscreenMethodCode.html" />
 	  <EmbeddedResource Include="Pages\JsInterop\_004Fullscreen\Examples\FullscreenMethodCode.html" />
+	  <EmbeddedResource Include="Pages\JsInterop\_005WindowScreen\Examples\ColorDepthCode.html" />
+	  <EmbeddedResource Include="Pages\JsInterop\_005WindowScreen\Examples\AvailableHeightCode.html" />
+	  <EmbeddedResource Include="Pages\JsInterop\_005WindowScreen\Examples\AvailableWidthCode.html" />
+	  <EmbeddedResource Include="Pages\JsInterop\_005WindowScreen\Examples\HeightMethodCode.html" />
+	  <EmbeddedResource Include="Pages\JsInterop\_005WindowScreen\Examples\ScreenPixelCode.html" />
+	  <EmbeddedResource Include="Pages\JsInterop\_005WindowScreen\Examples\WidthMethodCode.html" />
 	</ItemGroup>
 
 </Project>

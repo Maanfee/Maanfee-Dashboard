@@ -1,0 +1,161 @@
+﻿@page "/JsInterop/WindowScreen"
+@using Maanfee.Dashboard.Examples.Views.JsInterop.Components
+@using Maanfee.Dashboard.Examples.Views.JsInterop.Pages.JsInterop._004Fullscreen.Codes;
+@using Maanfee.Dashboard.Examples.Views.JsInterop.Pages.JsInterop._005WindowScreen.Codes;
+
+<MaanfeeDashboardPage>
+    <MaanfeeDashboardPageHeader PageTitle="Window Screen API" Title="Window Screen API  - Maanfee Dashboard" SubTitle="The window.screen object contains information about the user's screen." />
+
+    <DashboardPageContent>
+        <DashboardPageSection Title="Examples">
+            <MudGrid>
+                <MudItem md="12">
+                    <MudSimpleTable Dense="@true" Hover="@true" Bordered="@true" Striped="@true" Style="overflow-x: auto;">
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>Example</th>
+                                <th>Selects</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @*Width*@
+                            <tr>
+                                <td style="color: #8323d8;">Width()</td>
+                                <td>
+                                    <MudText Typo="Typo.caption" Color="Color.Success">
+                                        await Screen.WidthAsync()
+                                    </MudText>
+                                </td>
+                                <td>
+                                    <MudText Typo="Typo.caption" Color="Color.Info">
+                                        The Screen.Width property returns the width of the visitor's screen in pixels.
+                                    </MudText>
+                                </td>
+                                <td>
+                                    <MudButton OnClick="@(()=>OpenExampleDialog("WidthMethod", typeof(WidthMethod)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
+                                </td>
+                            </tr>
+                            @*Height*@
+                            <tr>
+                                <td style="color: #8323d8;">Height()</td>
+                                <td>
+                                    <MudText Typo="Typo.caption" Color="Color.Success">
+                                        await Screen.HeightAsync()
+                                    </MudText>
+                                </td>
+                                <td>
+                                    <MudText Typo="Typo.caption" Color="Color.Info">
+                                        The Screen.Height property returns the height of the visitor's screen in pixels.
+                                    </MudText>
+                                </td>
+                                <td>
+                                    <MudButton OnClick="@(()=>OpenExampleDialog("HeightMethod", typeof(HeightMethod)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
+                                </td>
+                            </tr>
+                            @*AvailableWidth*@
+                            <tr>
+                                <td style="color: #8323d8;">AvailableWidth()</td>
+                                <td>
+                                    <MudText Typo="Typo.caption" Color="Color.Success">
+                                        await Screen.AvailableWidthAsync()
+                                    </MudText>
+                                </td>
+                                <td>
+                                    <MudText Typo="Typo.caption" Color="Color.Info">
+                                        The screen.availWidth property returns the width of the visitor's screen, in pixels, minus interface features like the Windows Taskbar.
+                                    </MudText>
+                                </td>
+                                <td>
+                                    <MudButton OnClick="@(()=>OpenExampleDialog("AvailableWidth", typeof(AvailableWidth)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
+                                </td>
+                            </tr>
+                            @*AvailableHeight*@
+                            <tr>
+                                <td style="color: #8323d8;">AvailableHeight()</td>
+                                <td>
+                                    <MudText Typo="Typo.caption" Color="Color.Success">
+                                        await Screen.AvailableHeightAsync()
+                                    </MudText>
+                                </td>
+                                <td>
+                                    <MudText Typo="Typo.caption" Color="Color.Info">
+                                        The screen.availHeight property returns the height of the visitor's screen, in pixels, minus interface features like the Windows Taskbar.
+                                    </MudText>
+                                </td>
+                                <td>
+                                    <MudButton OnClick="@(()=>OpenExampleDialog("AvailableHeight", typeof(AvailableHeight)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
+                                </td>
+                            </tr>
+                            @*ColorDepth*@
+                            <tr>
+                                <td style="color: #8323d8;">ColorDepth()</td>
+                                <td>
+                                    <MudText Typo="Typo.caption" Color="Color.Success">
+                                        await Screen.ColorDepthAsync()
+                                    </MudText>
+                                </td>
+                                <td>
+                                    <MudText Typo="Typo.caption" Color="Color.Info">
+                                        <p>The property returns the number of bits used to display one color.</p>
+                                        <p>All modern computers use 24 bit or 32 bit hardware for color resolution:</p>
+                                        <ul>
+                                            <li>24 bits =&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 16,777,216 different &quot;True Colors&quot;</li>
+                                            <li>32 bits = 4,294,967,296 different &quot;Deep Colors&quot;</li>
+                                        </ul>
+                                        <p>Older computers used 16 bits: 65,536 different &quot;High Colors&quot; resolution.</p>
+                                        <p>Very old computers, and old cell phones used 8 bits: 256 different &quot;VGA colors&quot;.</p>
+                                    </MudText>
+                                </td>
+                                <td>
+                                    <MudButton OnClick="@(()=>OpenExampleDialog("ColorDepth", typeof(ColorDepth)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
+                                </td>
+                            </tr>
+                            @*ScreenPixel*@
+                            <tr>
+                                <td style="color: #8323d8;">ScreenPixel()</td>
+                                <td>
+                                    <MudText Typo="Typo.caption" Color="Color.Success">
+                                        await Screen.ScreenPixelAsync()
+                                    </MudText>
+                                </td>
+                                <td>
+                                    <MudText Typo="Typo.caption" Color="Color.Info">
+                                        The screen.pixelDepth property returns the pixel depth of the screen.
+                                    </MudText>
+                                </td>
+                                <td>
+                                    <MudButton OnClick="@(()=>OpenExampleDialog("ScreenPixel", typeof(ScreenPixel)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
+                                </td>
+                            </tr>
+
+
+
+
+                        </tbody>
+                    </MudSimpleTable>
+                </MudItem>
+            </MudGrid>
+        </DashboardPageSection>
+    </DashboardPageContent>
+</MaanfeeDashboardPage>
+
+@code {
+
+    private void OpenExampleDialog(string CodeFileName, Type Type)
+    {
+        DialogParameters parameters = new DialogParameters();
+        parameters.Add("CodeFileName", CodeFileName);
+        parameters.Add("Type", Type);
+
+        var dialog = Dialog.Show<DialogTry>("Try", parameters,
+        new DialogOptions()
+            {
+                MaxWidth = MaxWidth.Large,
+                FullWidth = true,
+                Position = DialogPosition.Center,
+            });
+
+    }
+}

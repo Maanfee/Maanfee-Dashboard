@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Maanfee.Web.JSInterop
 {
-    public partial class LocalStorage : ComponentBase, IAsyncDisposable
+	public partial class LocalStorage : ComponentBase, IAsyncDisposable
     {
         #region - JsRuntime -
 

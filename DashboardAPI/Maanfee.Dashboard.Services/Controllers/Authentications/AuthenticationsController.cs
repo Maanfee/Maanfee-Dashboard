@@ -333,7 +333,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 }
                 else
                 {
-                    return new CallbackResult<ApplicationUser>(null, new ExceptionError(ex.Message));
+                    return new CallbackResult<ApplicationUser>(null, new ExceptionError(ex.InnerException.ToString()));
                 }
             }
         }
@@ -501,9 +501,9 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 }
                 else
                 {
-                    return new CallbackResult<ApplicationUser>(null, new ExceptionError(ex.Message));
-                }
-            }
+					return new CallbackResult<ApplicationUser>(null, new ExceptionError(ex.InnerException.ToString()));
+				}
+			}
         }
 
         [Authorize]

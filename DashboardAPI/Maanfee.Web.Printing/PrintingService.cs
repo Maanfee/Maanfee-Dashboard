@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Maanfee.Web.Printing
 {
-    public class PrintingService : IPrintingService, IAsyncDisposable
+    public partial class PrintingService : IPrintingService, IAsyncDisposable
     {
         public PrintingService(IJSRuntime jsRuntime)
         {
@@ -15,7 +15,7 @@ namespace Maanfee.Web.Printing
 
         //private IJSObjectReference Module;
         //private readonly IJSRuntime JsRuntime;
-
+ 
         //public PrintingService(IJSRuntime jsRuntime)
         //{
         //    this.JsRuntime = jsRuntime;

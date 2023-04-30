@@ -1,0 +1,57 @@
+﻿@using Microsoft.JSInterop;
+@inject IJSRuntime JsRuntime
+@implements IAsyncDisposable
+
+<div id="printable-content-@(Id)" class="py-3" style="display:@(HidePrintableContent ? "none" : "show")">
+	@ChildContent
+	@Error
+</div>
+
+@code {
+
+	[Parameter]
+	public RenderFragment ChildContent { get; set; }
+
+	[Parameter]
+	public string PageName { get; set; } = "Print";
+
+	[Parameter]
+	public bool HidePrintableContent { get; set; }
+
+	public Guid Id { get; set; } = new Guid();
+
+	// *******************************************
+
+	private string Error = "";
+
+	private IJSInProcessObjectReference Module;
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			Module = await JsRuntime.InvokeAsync<IJSInProcessObjectReference>("import", "./_content/Maanfee.Web.Printing/JsInterop.js");
+		}
+	}
+
+	async ValueTask IAsyncDisposable.DisposeAsync()
+	{
+		if (Module is not null)
+		{
+			await Module.DisposeAsync();
+		}
+	}
+
+	public async Task PrintAsync()
+	{
+		try
+		{
+			await Module.InvokeVoidAsync("PrintComponent", Id, PageName);
+		}
+		catch (Exception ex)
+		{
+			Error += ex.Message;
+		}
+	}
+
+}

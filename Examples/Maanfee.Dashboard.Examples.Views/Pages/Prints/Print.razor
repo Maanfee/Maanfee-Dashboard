@@ -35,16 +35,16 @@
 @code{
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-         await PrintingService.Print();
+         await PrintingService.PrintAsync();
     }
 
     protected override void OnParametersSet()
     {
-        PrintingService.AddClass();
+        PrintingService.AddClassAsync();
     }
 
     void IDisposable.Dispose()
     {
-        PrintingService.RemoveClass();
+        PrintingService.RemoveClassAsync();
     }
 }

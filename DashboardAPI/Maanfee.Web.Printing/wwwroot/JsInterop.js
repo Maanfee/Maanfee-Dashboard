@@ -21,10 +21,13 @@ export function removeClass(size, islandscape) {
     return true;
 }
 
-export function printwindow() {
+export function printwindow(IsBackward) {
     setTimeout(function () {
         window.print();
-        window.history.back(-1);
+        if (IsBackward) {
+            window.history.back(-1)
+        };
+        window.close();
     }, 200);
     return true;
 }

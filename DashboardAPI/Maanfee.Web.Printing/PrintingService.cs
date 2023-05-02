@@ -42,22 +42,22 @@ namespace Maanfee.Web.Printing
 
         // *******************************************
 
-        public async Task Print()
+        public async Task PrintAsync(bool IsBackward = true)
         {
             if (PrintSetting.AutoPrint == "Yes")
             {
                 var Module = await moduleTask.Value;
-                await Module.InvokeAsync<bool>("printwindow", null);
+                await Module.InvokeAsync<bool>("printwindow", IsBackward);
             }
         }
 
-        public async Task AddClass()
+        public async Task AddClassAsync()
         {
             var Module = await moduleTask.Value;
             await Module.InvokeAsync<bool>("addClass", new[] { PrintSetting.PageSize, PrintSetting.IsLandscape });
         }
 
-        public async Task RemoveClass()
+        public async Task RemoveClassAsync()
         {
             var Module = await moduleTask.Value;
             await Module.InvokeAsync<bool>("removeClass", new[] { PrintSetting.PageSize, PrintSetting.IsLandscape });

@@ -4,10 +4,10 @@ namespace Maanfee.Web.Printing
 {
     public interface IPrintingService
     {
-        Task Print();
+        Task PrintAsync(bool IsBackward = true);
 
-        Task AddClass();
+        Task AddClassAsync();
 
-        Task RemoveClass();
+        Task RemoveClassAsync();
     }
 }

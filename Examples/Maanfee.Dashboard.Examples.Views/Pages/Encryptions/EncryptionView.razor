@@ -1,0 +1,57 @@
+﻿@page "/EncryptionView"
+@inherits _ModulePage
+
+<MaanfeeDashboardPage>
+	<MaanfeeDashboardPageHeader PageTitle="@DashboardResource.StringEncryption" Title="@DashboardResource.StringEncryption" />
+
+	<MudGrid>
+		<MudItem md="6">
+			<MudTextField @bind-Value="TextValue" Label="Text" Variant="Variant.Outlined"></MudTextField>
+		</MudItem>
+		<MudItem md="3" Class="my-3">
+			<MudButton OnClick="Encryption" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.EnhancedEncryption" Color="Color.Error">Hash Data</MudButton>
+		</MudItem>
+		<MudItem md="3" Class="my-3">
+			<MudButton OnClick="Decryption" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.NoEncryption" Color="Color.Success">Dehash Data</MudButton>
+		</MudItem>
+		<MudItem md="6" xs="6">
+			<MudTextField T="string" Label="Encrypt" Variant="Variant.Outlined" Text="@EncryptedText" Lines="5" />
+		</MudItem>
+		<MudItem md="6" xs="6">
+			<MudTextField T="string" Label="Decrypt" Variant="Variant.Outlined" Text="@DecryptText" Lines="5" />
+		</MudItem>
+	</MudGrid>
+
+</MaanfeeDashboardPage>
+
+@code {
+
+	private string TextValue { get; set; } = "Encryption Text";
+	private string EncryptedText = string.Empty;
+	private string DecryptText = string.Empty;
+
+	private void Encryption()
+	{
+		try
+		{
+			EncryptedText = TextValue.HashData();
+		}
+		catch(Exception ex)
+		{
+			Snackbar.Add(ex.Message, Severity.Error);
+		}
+	}
+
+	private void Decryption()
+	{
+		try
+		{
+			DecryptText = EncryptedText.DehashData();
+		}
+		catch (Exception ex)
+		{
+			Snackbar.Add(ex.Message, Severity.Error);
+		}
+	}
+
+}

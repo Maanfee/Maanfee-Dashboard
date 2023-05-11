@@ -44,6 +44,8 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
                 CanDelete = await PermissionService.IsAuthorizeAsync(PermissionDefaultValue.Department.Delete, PermissionAuthenticationState,
                       AuthorizationService, Navigation);
 
+                SelectedValue = null;
+
                 await ResetAsync();
 
             }
@@ -96,12 +98,11 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
             {
                 Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
             }
+
             IsProcessing = false;
         }
 
         #region - Combo & Dropdown -
-
-        private HashSet<Department> Departments = new();
 
         private List<DropDownDepartmentViewModel> Parents = new();
 
@@ -124,22 +125,24 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
             return Parents;
         }
 
-        private async Task GetDepartmentsAsync()
-        {
-            var Callback = await Http.GetFromJsonAsync<CallbackResult<HashSet<Department>>>($"api/Departments/Index");
-            if (Callback.Data != null)
-            {
-                Departments = Callback.Data;
-            }
-            else
-            {
-                Snackbar.Add(Callback.Error.ToString(), Severity.Error);
-            }
-        }
+		#endregion
 
-        #endregion
+		private HashSet<Department> Departments = new();
 
-        private async Task ResetAsync()
+		private async Task GetDepartmentsAsync()
+		{
+			var Callback = await Http.GetFromJsonAsync<CallbackResult<HashSet<Department>>>($"api/Departments/Index");
+			if (Callback.Data != null)
+			{
+				Departments = Callback.Data;
+			}
+			else
+			{
+				Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+			}
+		}
+
+		private async Task ResetAsync()
         {
             await GetDepartmentsAsync();
             await GetParentsAsync(string.Empty);
@@ -149,9 +152,9 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
             SubmitDepartmentViewModel.Parent = null;
         }
 
-        #region - Dialog -
+		#region - Delete Dialog -
 
-        private async Task OpenDeleteDialog()
+		private async Task OpenDeleteDialog()
         {
             DialogParameters parameters = new DialogParameters();
 

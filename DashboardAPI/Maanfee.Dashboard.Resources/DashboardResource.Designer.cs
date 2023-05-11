@@ -646,6 +646,15 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Encryption.
+        /// </summary>
+        public static string StringEncryption {
+            get {
+                return ResourceManager.GetString("StringEncryption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string StringError {

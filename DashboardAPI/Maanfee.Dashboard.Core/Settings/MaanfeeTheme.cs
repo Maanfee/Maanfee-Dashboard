@@ -255,10 +255,10 @@ namespace Maanfee.Dashboard.Core
 		{
 			return new MudTheme()
 			{
-				Palette = new Palette()
+				Palette = new PaletteLight()
 				{
-					Primary = ThemeColor == null ? new Palette().Primary : ThemeColor,
-					AppbarBackground = ThemeColor == null ? new Palette().Primary : ThemeColor,
+					Primary = ThemeColor == null ? new PaletteLight().Primary : ThemeColor,
+					AppbarBackground = ThemeColor == null ? new PaletteLight().Primary : ThemeColor,
 					//	Primary = "#1E88E5",
 					//	AppbarBackground = "#1E88E5",
 					Background = "#EEEEED"/*Colors.Grey.Lighten5*/,

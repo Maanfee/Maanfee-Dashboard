@@ -312,6 +312,9 @@
   <data name="StringEdit" xml:space="preserve">
     <value>ویرایش</value>
   </data>
+  <data name="StringEncryption" xml:space="preserve">
+    <value>رمزگذاری</value>
+  </data>
   <data name="StringError" xml:space="preserve">
     <value>خطا</value>
   </data>

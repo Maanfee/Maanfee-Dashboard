@@ -14,10 +14,10 @@ builder.Services.AddSwaggerServices(builder.Configuration);
 
 builder.Services.AddScoped<HttpClient>();
 
-// Fixed Self referencing loop detected with type
-builder.Services.AddControllers().AddNewtonsoftJson(options =>
-	options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-);
+// Fixed Self referencing loop detected with type and CaseInsensitive
+builder.Services.AddControllers()
+	.AddNewtonsoftJson(options => { options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; })
+	.AddJsonOptions(options => { options.JsonSerializerOptions.PropertyNameCaseInsensitive = false; });
 
 var app = builder.Build();
 

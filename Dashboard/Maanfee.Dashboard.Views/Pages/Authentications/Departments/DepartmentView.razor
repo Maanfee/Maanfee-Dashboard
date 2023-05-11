@@ -92,7 +92,7 @@
                             </MudCardHeader>
                             <MudCardContent>
                                 @*@bind-SelectedValues="SelectedValues" @bind-ActivatedValue="ActivatedValue" *@
-                                <MudTreeView Items="Departments" CanHover="true" Color="Color.Tertiary" @bind-SelectedValue="SelectedValue">
+                                <MudTreeView Items="Departments" Hover="true" Color="Color.Tertiary" @bind-SelectedValue="SelectedValue">
                                     <ItemTemplate>
                                         <MudTreeViewItem Items="@context.Department1" Expanded="true"
                                                      Value="@context" Text="@context.Title" EndTextTypo="@Typo.caption" />

@@ -312,6 +312,9 @@
   <data name="StringEdit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="StringEncryption" xml:space="preserve">
+    <value>Encryption</value>
+  </data>
   <data name="StringError" xml:space="preserve">
     <value>Error</value>
   </data>

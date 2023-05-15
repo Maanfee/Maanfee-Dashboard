@@ -1,8 +1,8 @@
 ﻿using Maanfee.Dashboard.Core;
 using Maanfee.Dashboard.Views.Core.DefaultValues;
 using Maanfee.Web.JSInterop;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Localization;
+//using Microsoft.AspNetCore.Builder;
+//using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using MudBlazor;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Views.Core.Services
 {
-	public class LocalConfigurationService
+    public class LocalConfigurationService
 	{
 		public LocalConfigurationService(LocalStorage localStorage)
 		{
@@ -105,31 +105,31 @@ namespace Maanfee.Dashboard.Views.Core.Services
 			CultureInfo.CurrentUICulture = Culture;
 		}
 
-		public static void InitServerCultureAsync(IApplicationBuilder app)
-		{
-			//using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-			//{
-			//    var LocalConfiguration = scope.ServiceProvider.GetService<LocalConfiguration>();
-			//    if (LocalConfiguration != null)
-			//    {
-			//    }
-			//}
+		//public static void InitServerCultureAsync(IApplicationBuilder app)
+		//{
+		//	//using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+		//	//{
+		//	//    var LocalConfiguration = scope.ServiceProvider.GetService<LocalConfiguration>();
+		//	//    if (LocalConfiguration != null)
+		//	//    {
+		//	//    }
+		//	//}
 
-			var Culture = new CultureInfo("fa-IR");
-			//var Culture = new CultureInfo("en-US");
+		//	var Culture = new CultureInfo("fa-IR");
+		//	//var Culture = new CultureInfo("en-US");
 
-			app.UseRequestLocalization(new RequestLocalizationOptions
-			{
-				DefaultRequestCulture = new RequestCulture(Culture),
-				SupportedCultures = new List<CultureInfo> { Culture, },
-				SupportedUICultures = new List<CultureInfo> { Culture, },
-				RequestCultureProviders = new List<IRequestCultureProvider>
-				{
-					new QueryStringRequestCultureProvider(),
-					new CookieRequestCultureProvider()
-				},
-			});
-		}
+		//	app.UseRequestLocalization(new RequestLocalizationOptions
+		//	{
+		//		DefaultRequestCulture = new RequestCulture(Culture),
+		//		SupportedCultures = new List<CultureInfo> { Culture, },
+		//		SupportedUICultures = new List<CultureInfo> { Culture, },
+		//		RequestCultureProviders = new List<IRequestCultureProvider>
+		//		{
+		//			new QueryStringRequestCultureProvider(),
+		//			new CookieRequestCultureProvider()
+		//		},
+		//	});
+		//}
 
 	}
 }

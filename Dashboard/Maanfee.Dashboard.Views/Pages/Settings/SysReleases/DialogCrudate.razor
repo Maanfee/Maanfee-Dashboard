@@ -141,7 +141,7 @@
 
 			if (Id == "0")
 			{
-				var PostResult = await Http.PostAsJsonAsync($"api/SysReleases/Create", SubmitReleaseViewModel.TrimString());
+				var PostResult = await Http.PostAsJsonAsync($"api/SysReleases/Create", SubmitReleaseViewModel.TrimStringAndCheckPersianSpecialLetter());
 				if (PostResult.IsSuccessStatusCode)
 				{
 					var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<SubmitReleaseViewModel>>();
@@ -162,7 +162,7 @@
 			}
 			else
 			{
-				var PutResult = await Http.PutAsJsonAsync($"api/SysReleases/Edit", SubmitReleaseViewModel.TrimString());
+				var PutResult = await Http.PutAsJsonAsync($"api/SysReleases/Edit", SubmitReleaseViewModel.TrimStringAndCheckPersianSpecialLetter());
 				if (PutResult.IsSuccessStatusCode)
 				{
 					var JsonResult = await PutResult.Content.ReadFromJsonAsync<CallbackResult<SubmitReleaseViewModel>>();

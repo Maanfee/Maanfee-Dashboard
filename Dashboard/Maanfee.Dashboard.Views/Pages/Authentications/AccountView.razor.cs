@@ -25,7 +25,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications
 
             try
             {
-                var PostResult = await Http.PostAsJsonAsync("api/Authentications/ChangePassword", SubmitChangePasswordViewModel.TrimString());
+                var PostResult = await Http.PostAsJsonAsync("api/Authentications/ChangePassword", SubmitChangePasswordViewModel.TrimStringAndCheckPersianSpecialLetter());
                 if (PostResult.IsSuccessStatusCode)
                 {
                     Snackbar.Add(DashboardResource.MessageSavedSuccessfully, Severity.Success);

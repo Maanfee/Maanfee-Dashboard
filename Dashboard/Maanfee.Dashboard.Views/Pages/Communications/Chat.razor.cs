@@ -235,7 +235,7 @@ namespace Maanfee.Dashboard.Views.Pages.Communications
 					await HubConnection.SendAsync("SendMessageAsync", ChatHistory, CurrentUserName);
 
 					// ********************************************
-					var PostResult = await Http.PostAsJsonAsync($"api/Chats/Create", ChatHistory.TrimString());
+					var PostResult = await Http.PostAsJsonAsync($"api/Chats/Create", ChatHistory.TrimStringAndCheckPersianSpecialLetter());
 					if (PostResult.IsSuccessStatusCode)
 					{
 						var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<ChatMessage>>();

@@ -65,7 +65,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
 
             try
             {
-                var PostResult = await Http.PostAsJsonAsync("api/Departments/CreateOrUpdate", SubmitDepartmentViewModel.TrimString());
+                var PostResult = await Http.PostAsJsonAsync("api/Departments/CreateOrUpdate", SubmitDepartmentViewModel.TrimStringAndCheckPersianSpecialLetter());
                 if (PostResult.IsSuccessStatusCode)
                 {
                     var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<Department>>();

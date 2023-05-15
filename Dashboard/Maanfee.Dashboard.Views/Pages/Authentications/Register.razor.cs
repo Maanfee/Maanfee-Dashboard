@@ -36,7 +36,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications
             {
                 try
                 {
-                    await AuthenticationStateProvider.Register(RegisterViewModelSubmit.TrimString());
+                    await AuthenticationStateProvider.Register(RegisterViewModelSubmit.TrimStringAndCheckPersianSpecialLetter());
                     Navigation.NavigateTo("");
                 }
                 catch (Exception ex)

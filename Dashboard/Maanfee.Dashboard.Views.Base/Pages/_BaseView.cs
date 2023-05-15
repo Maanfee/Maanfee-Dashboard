@@ -4,7 +4,6 @@ using Maanfee.Dashboard.Resources;
 using Maanfee.Dashboard.Views.Base.Services;
 using Maanfee.Dashboard.Views.Core;
 using Maanfee.Dashboard.Views.Core.Services;
-using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;
@@ -73,7 +72,7 @@ namespace Maanfee.Dashboard.Views.Base.Pages
 				{
 					var JwtTokenStorage = ModuleService.LogServer.Name;
 
-					var PostResult = await Http.PostAsJsonAsync($"{GatewayApi.ToUri}/Accounts/Login", Model.TrimString());
+					var PostResult = await Http.PostAsJsonAsync($"{GatewayApi.ToUri}/Accounts/Login", Model.TrimStringAndCheckPersianSpecialLetter());
 					if (PostResult.IsSuccessStatusCode)
 					{
 						var JsonResult = await PostResult.Content.ReadFromJsonAsync<JwtAuthenticationViewModel>();

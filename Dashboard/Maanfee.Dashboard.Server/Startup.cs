@@ -81,7 +81,14 @@ namespace Maanfee.Dashboard.Server
 
             #region - Internal Configuration -
 
-            LocalConfigurationService.InitServerCultureAsync(app);
+            //LocalConfigurationService.InitServerCultureAsync(app);
+            app.UseRequestLocalization(options =>
+            {
+                var supportedCultures = new[] { "en-US", "fa-IR" };
+                options.SetDefaultCulture(supportedCultures[1])
+                    .AddSupportedCultures(supportedCultures)
+                    .AddSupportedUICultures(supportedCultures);
+            });
             app.AddConfigure(env, SQLServerContext, SQLiteContext);
 
             #endregion

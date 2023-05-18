@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Ocelot.Values;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,10 +14,16 @@ builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange
 builder.Services.AddOcelot(builder.Configuration);
 // **************************************************
 
-// Fixed Self referencing loop detected with type
-builder.Services.AddControllers().AddNewtonsoftJson(options =>
-	options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-);
+// Fixed Self referencing loop detected with type and CaseInsensitive
+builder.Services.AddControllers()
+	.AddNewtonsoftJson(options =>
+	{
+		options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+	})
+	.AddJsonOptions(options =>
+	{
+		options.JsonSerializerOptions.PropertyNameCaseInsensitive = false;
+	});
 
 var app = builder.Build();
 

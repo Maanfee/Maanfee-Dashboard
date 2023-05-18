@@ -13,16 +13,18 @@
 		<Copyright>Copyright (c) 2023-2022 Maanfee</Copyright>
 		<Authors>Maanfee Team (MF)</Authors>
 		<Company>Maanfee</Company>
-		<Version>5.120.114</Version>
+		<Version>5.122.120</Version>
 		<PackageIcon>MaanfeePink.png</PackageIcon>
 		<RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<ApplicationIcon>MaanfeePink.ico</ApplicationIcon>
 		<!--**********************************************-->
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Content Include="MaanfeePink.ico" />
 		<None Include="..\..\LICENSE" Pack="true" Visible="false" PackagePath="" />
 		<None Update="MaanfeePink.png">
 			<Pack>True</Pack>
@@ -33,5 +35,5 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.5" />
 	</ItemGroup>
-	
+
 </Project>

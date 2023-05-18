@@ -58,7 +58,13 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 					state.PageSize = 10;
 				}
 
-				TableState.state = state;
+				TableState.state = new TableState
+				{
+					Page = state.Page,
+					PageSize = state.PageSize,
+					SortDirection = state.SortDirection,
+					SortLabel = state.SortLabel,
+				};
 				TableState.Filter = SearchString;
 
 				var PostResult = await Http.PostAsJsonAsync($"api/Users/PaginationIndex", TableState);

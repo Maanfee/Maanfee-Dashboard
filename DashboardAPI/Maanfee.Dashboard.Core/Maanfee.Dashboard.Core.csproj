@@ -13,16 +13,22 @@
 		<Copyright>Copyright (c) 2021-2023 Maanfee</Copyright>
 		<Authors>Maanfee Team (MF)</Authors>
 		<Company>Maanfee</Company>
-		<Version>6.120.114</Version>
+		<Version>6.122.120</Version>
 		<PackageIcon>MaanfeeGreen.png</PackageIcon>
 		<RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<ApplicationIcon>MaanfeeGreen.ico</ApplicationIcon>
 		<!--**********************************************-->
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+	</PropertyGroup>
+
 	<ItemGroup>
+		<Content Include="MaanfeeGreen.ico" />
 		<None Include="..\..\LICENSE" Pack="true" Visible="false" PackagePath="" />
 		<None Update="MaanfeeGreen.png">
 			<Pack>True</Pack>
@@ -32,8 +38,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="7.0.5" />
-		<PackageReference Include="MudBlazor" Version="6.2.3" />
-		<PackageReference Include="EPPlus" Version="6.2.3" />
+		<PackageReference Include="MudBlazor" Version="6.2.5" />
+		<PackageReference Include="EPPlus" Version="6.2.4" />
 		<PackageReference Include="Allegiance.Blazor.Highcharts" Version="7.0.1" />
 	</ItemGroup>
 

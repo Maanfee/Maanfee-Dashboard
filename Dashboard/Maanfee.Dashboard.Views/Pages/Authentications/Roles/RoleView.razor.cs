@@ -3,12 +3,10 @@ using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Dashboard.Resources;
 using Maanfee.Dashboard.Views.Base;
 using Maanfee.Dashboard.Views.Core.Shared.Dialogs;
-using Maanfee.Dashboard.Views.Pages.Authentications.Groups;
 using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using MudBlazor;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,7 +60,13 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 					state.PageSize = 10;
 				}
 
-				TableState.state = state;
+				TableState.state = new TableState
+				{
+					Page = state.Page,
+					PageSize = state.PageSize,
+					SortDirection = state.SortDirection,
+					SortLabel = state.SortLabel,
+				};
 				TableState.UserName = AccountStateContainer.UserName;
 				if (FilterViewModel != null)
 				{
@@ -72,13 +76,9 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 				var PostResult = await Http.PostAsJsonAsync($"api/Roles/PaginationIndex", TableState);
 				if (PostResult.IsSuccessStatusCode)
 				{
-					var stringcallback = await PostResult.Content.ReadAsStringAsync();
-					var JObjectData = Newtonsoft.Json.Linq.JObject.Parse(stringcallback);
+					var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<PaginatedListViewModel<IdentityRole>>>();
 
-					var List = JsonConvert.DeserializeObject<List<IdentityRole>>(JObjectData["data"]?["list"]?.ToString());
-					int TotalItems = JsonConvert.DeserializeObject<int>(JObjectData["data"]?["totalPages"]?.ToString());
-
-					Data = List.AsEnumerable().Select((data, index) => new TableViewModel
+					Data = JsonResult.Data.List.AsEnumerable().Select((data, index) => new TableViewModel
 					{
 						RowNum = ((state.Page - 1) * state.PageSize) + (index + 1),
 						Id = data.Id,
@@ -90,7 +90,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 
 					return new TableData<TableViewModel>()
 					{
-						TotalItems = TotalItems,
+						TotalItems = JsonResult.Data.TotalPages,
 						Items = Data
 					};
 				}

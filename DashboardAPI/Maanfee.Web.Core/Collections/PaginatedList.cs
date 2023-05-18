@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Maanfee.Web.Core
 {
-    public class PaginatedList<T> //: List<T>
+	public class PaginatedList<T> //: List<T>
     {
         public PaginatedList(List<T> items, int count = 0, int pageIndex = 1, int pageSize = 10)
         {
@@ -54,4 +54,11 @@ namespace Maanfee.Web.Core
             return new PaginatedList<T>(items, count, pageIndex, pageSize);
         }
     }
+
+    public class PaginatedListViewModel<T>
+    {
+		public List<T> List { get; set; } = new List<T>();
+
+		public int TotalPages { get; set; }
+	}
 }

@@ -87,6 +87,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 					}).ToList();
 
 					IsTableLoading = false;
+					TableState.Dispose();
 
 					return new TableData<TableViewModel>()
 					{
@@ -98,6 +99,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 				{
 					Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
 					IsTableLoading = false;
+					TableState.Dispose();
 					return new TableData<TableViewModel>()
 					{
 						Items = Data,
@@ -109,6 +111,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 			{
 				Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
 				IsTableLoading = false;
+				TableState.Dispose();
 				return new TableData<TableViewModel>()
 				{
 					Items = Data,
@@ -128,10 +131,10 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 
 		private async Task OpenSearchDialog()
 		{
-			DialogParameters parameters = new DialogParameters();
-			parameters.Add("FilterViewModel", FilterViewModel);
+			DialogParameters DialogParameters = new DialogParameters();
+			DialogParameters.Add("FilterViewModel", FilterViewModel);
 
-			var dialog = Dialog.Show<DialogFilter>(DashboardResource.StringSearch, parameters,
+			var dialog = Dialog.Show<DialogFilter>(DashboardResource.StringSearch, DialogParameters,
 				new DialogOptions()
 				{
 					MaxWidth = MaxWidth.Small,
@@ -157,10 +160,10 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 
 		private async Task OpenCrudateDialog<T>(T Id)
 		{
-			DialogParameters parameters = new DialogParameters();
-			parameters.Add("Id", Id);
+			DialogParameters DialogParameters = new DialogParameters();
+			DialogParameters.Add("Id", Id);
 
-			var dialog = Dialog.Show<DialogCrudate>(string.Empty, parameters,
+			var dialog = Dialog.Show<DialogCrudate>(string.Empty, DialogParameters,
 				new DialogOptions()
 				{
 					NoHeader = true,
@@ -187,10 +190,10 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 
 		private void OpenDetailsDialog<T>(T Id)
 		{
-			DialogParameters parameters = new DialogParameters();
-			parameters.Add("Id", Id);
+			DialogParameters DialogParameters = new DialogParameters();
+			DialogParameters.Add("Id", Id);
 
-			var dialog = Dialog.Show<DialogDetails>(string.Empty, parameters,
+			var dialog = Dialog.Show<DialogDetails>(string.Empty, DialogParameters,
 				new DialogOptions()
 				{
 					NoHeader = true,
@@ -206,9 +209,9 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 
 		private async Task OpenDeleteDialog<T>(T Id)
 		{
-			DialogParameters parameters = new DialogParameters();
+			DialogParameters DialogParameters = new DialogParameters();
 
-			var dialog = Dialog.Show<DialogDelete>(DashboardResource.StringAlert, parameters,
+			var dialog = Dialog.Show<DialogDelete>(DashboardResource.StringAlert, DialogParameters,
 				new DialogOptions()
 				{
 					MaxWidth = MaxWidth.ExtraSmall,

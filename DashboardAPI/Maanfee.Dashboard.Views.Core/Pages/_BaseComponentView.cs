@@ -86,8 +86,8 @@ namespace Maanfee.Dashboard.Views.Core
         protected bool _IsTableFixedHeader { get; set; } = true;
         
 		protected bool _IsTableScroll { get; set; } = true;
-		
-		protected static string TableHeight { get; set; } = "320px";
+
+		public static string TableHeight { get; set; } = TableConfigurationService.InitTableHeight;
 
 		private async void OnFullscreenChange()
 		{

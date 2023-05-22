@@ -11,19 +11,17 @@
 			</MudText>
 		</MudCardHeader>
 		<MudDivider DividerType="DividerType.FullWidth" />
-		<MudCardContent>
-			<MudToolBar>
-				<div class="justify-center mud-text-align-center">
-					<MudButton Disabled="@(!_PermissionCreate)" OnClick="@(() => OpenCrudateDialog("0"))" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" IconColor="Color.Surface">@DashboardResource.StringCreate</MudButton>
-					<MudButton OnClick="OnReloadData" Variant="Variant.Filled" Color="Color.Secondary" StartIcon="@Icons.Material.Filled.Refresh" IconColor="Color.Surface">@DashboardResource.StringReload</MudButton>
-				</div>
-				<MudSpacer />
-				<MudTextField T="string" ValueChanged="@(s=>OnSearch(s))" Placeholder="@DashboardResource.StringSearch" Adornment="Adornment.Start"
-							  AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0">
-				</MudTextField>
-			</MudToolBar>
-			<MudDivider DividerType="DividerType.FullWidth" />
-		</MudCardContent>
+		<MudToolBar>
+			<div class="justify-center mud-text-align-center">
+				<MudButton Disabled="@(!_PermissionCreate)" OnClick="@(() => OpenCrudateDialog("0"))" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" IconColor="Color.Surface">@DashboardResource.StringCreate</MudButton>
+				<MudButton OnClick="OnReloadData" Variant="Variant.Filled" Color="Color.Secondary" StartIcon="@Icons.Material.Filled.Refresh" IconColor="Color.Surface">@DashboardResource.StringReload</MudButton>
+			</div>
+			<MudSpacer />
+			<MudTextField T="string" ValueChanged="@(s=>OnSearch(s))" Placeholder="@DashboardResource.StringSearch" Adornment="Adornment.Start"
+						  AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0">
+			</MudTextField>
+		</MudToolBar>
+		<MudDivider DividerType="DividerType.FullWidth" />
 		<MudCardActions>
 			<MudTable ServerData="@(new Func<TableState, Task<TableData<GetUserViewModel>>>(ServerData))" @ref="Table"
 					  Dense="@_IsTableDense" Bordered="true" Striped="true" Hover="true" Virtualize="true" Loading="@IsTableLoading"

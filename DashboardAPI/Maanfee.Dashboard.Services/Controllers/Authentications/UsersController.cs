@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Services.Controllers.Authentications
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
 	[ApiController]
 	[Authorize]
 	[ApiExplorerSettings(IgnoreApi = true)]

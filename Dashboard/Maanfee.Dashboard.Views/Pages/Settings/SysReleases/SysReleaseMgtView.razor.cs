@@ -49,7 +49,13 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
 					state.PageSize = 10;
 				}
 
-				TableState.state = state;
+				TableState.state = new TableState
+				{
+					Page = state.Page,
+					PageSize = state.PageSize,
+					SortDirection = state.SortDirection,
+					SortLabel = state.SortLabel,
+				};
 				TableState.UserName = AccountStateContainer.UserName;
 				if (FilterViewModel != null)
 				{
@@ -75,6 +81,7 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
 					}).ToList();
 
 					IsTableLoading = false;
+					TableState.Dispose();
 
 					return new TableData<TableViewModel>()
 					{
@@ -86,6 +93,7 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
 				{
 					Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
 					IsTableLoading = false;
+					TableState.Dispose();
 					return new TableData<TableViewModel>()
 					{
 						Items = Data,
@@ -97,6 +105,7 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
 			{
 				Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
 				IsTableLoading = false;
+				TableState.Dispose();
 				return new TableData<TableViewModel>()
 				{
 					Items = Data,

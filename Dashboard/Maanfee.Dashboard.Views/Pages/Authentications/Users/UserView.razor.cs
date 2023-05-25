@@ -69,13 +69,9 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 				var PostResult = await Http.PostAsJsonAsync($"api/Users/PaginationIndex", TableState);
 				if (PostResult.IsSuccessStatusCode)
 				{
-					var stringcallback = await PostResult.Content.ReadAsStringAsync();
-					var JObjectData = Newtonsoft.Json.Linq.JObject.Parse(stringcallback);
+					var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<PaginatedListViewModel<GetUserViewModel>>>();
 
-					var List = JsonConvert.DeserializeObject<List<GetUserViewModel>>(JObjectData["data"]?["list"]?.ToString());
-					int TotalItems = JsonConvert.DeserializeObject<int>(JObjectData["data"]?["totalPages"]?.ToString());
-
-					Data = List.AsEnumerable().Select((data, index) => new GetUserViewModel
+					Data = JsonResult.Data.List.AsEnumerable().Select((data, index) => new GetUserViewModel
 					{
 						RowNum = ((state.Page - 1) * state.PageSize) + (index + 1),
 						Id = data.Id,
@@ -92,7 +88,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 
 					return new TableData<GetUserViewModel>()
 					{
-						TotalItems = TotalItems,
+						TotalItems = JsonResult.Data.TotalPages,
 						Items = Data
 					};
 				}

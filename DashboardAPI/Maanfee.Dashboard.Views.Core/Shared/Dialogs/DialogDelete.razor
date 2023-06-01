@@ -1,14 +1,15 @@
-﻿@*@inherits SharedLayout*@
-
-<MudDialog>
-    <DialogContent>
-        <MudAlert Severity="Severity.Error">@DashboardResource.StringAreYouSureToDeleteThisItem</MudAlert>
-    </DialogContent>
-    <DialogActions>
-        <MudButton OnClick="Delete" Variant="Variant.Filled" Color="Color.Error" StartIcon="@Icons.Material.Filled.Delete" IconColor="Color.Surface">@DashboardResource.StringDelete</MudButton>
-        <MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.FreeCancellation" IconColor="Color.Surface">@DashboardResource.StringCancel</MudButton>
-    </DialogActions>
-</MudDialog>
+﻿
+<MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
+    <MudDialog>
+        <DialogContent>
+            <MudAlert Severity="Severity.Error">@DashboardResource.StringAreYouSureToDeleteThisItem</MudAlert>
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="Delete" Variant="Variant.Filled" Color="Color.Error" StartIcon="@Icons.Material.Filled.Delete" IconColor="Color.Surface">@DashboardResource.StringDelete</MudButton>
+            <MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.FreeCancellation" IconColor="Color.Surface">@DashboardResource.StringCancel</MudButton>
+        </DialogActions>
+    </MudDialog>
+</MudRTLProvider>
 
 @code {
 

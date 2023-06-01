@@ -3,15 +3,18 @@
 <MudCard Elevation="0" Square="true" Class="@Class">
 	<MudCardHeader>
 		<CardHeaderAvatar>
-			<MudAvatar Image="@AccountStateContainer.Avatar" Style="height:50px; width:50px;"> </MudAvatar>
+			<MudAvatar Style="height:50px; width:50px;">
+				<MudImage Src="@AccountStateContainer.Avatar" />
+			</MudAvatar>
 		</CardHeaderAvatar>
 		<CardHeaderContent>
 			<MudText Typo="Typo.body2">@AccountStateContainer.Name</MudText>
 			<MudText Typo="Typo.caption">@AccountStateContainer.PersonalCode</MudText>
 		</CardHeaderContent>
 	</MudCardHeader>
+	<MudDivider DividerType="DividerType.FullWidth" />
 </MudCard>
-
+ 
 @code {
 
 	[Parameter]

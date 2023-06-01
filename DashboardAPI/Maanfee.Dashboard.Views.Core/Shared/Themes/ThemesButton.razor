@@ -9,14 +9,8 @@
 		animation: Pendulum 3.5s ease-in-out infinite;
 	}
 
-	@@keyframes Pendulum {
-  0%, 100% {
-    transform: rotate(0deg);
-  }
-  50% {
-    transform: rotate(-90deg);
-  }
-}
+	@("@keyframes Pendulum {  0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-90deg); }}")
+	
 </style>
 
 <div class="theme-button px-3 py-2 theme-button" @onclick="OnClick">

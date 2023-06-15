@@ -191,7 +191,7 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
 				new DialogOptions()
 				{
 					NoHeader = true,
-					MaxWidth = MaxWidth.Medium,
+					MaxWidth = MaxWidth.ExtraLarge,
 					FullWidth = true,
 					Position = DialogPosition.Center,
 				});

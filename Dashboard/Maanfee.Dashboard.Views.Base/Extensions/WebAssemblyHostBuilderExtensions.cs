@@ -49,7 +49,8 @@ namespace Maanfee.Dashboard.Views.Base.Extensions
             #region - Services -
 
             builder.Services.AddSingleton<AccountStateContainer>();
-            builder.Services.AddScoped<LocalConfigurationService>();
+			builder.Services.AddSingleton<UrlStateContainer>();
+			builder.Services.AddScoped<LocalConfigurationService>();
             builder.Services.AddScoped<PermissionService>();
             builder.Services.AddScoped<TableConfigurationService>();
 

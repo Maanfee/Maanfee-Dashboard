@@ -98,7 +98,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
 		{
 			try
 			{
-				var Users = await db_SQLServer.UserDepartments
+				var Users = await db_SQLServer.UserDepartments.AsNoTracking()
 					.Include(x => x.ApplicationUser)
 					.Where(x => x.IdDepartment == IdDepartment)
 					.Select(x => x.ApplicationUser)
@@ -126,7 +126,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
 		{
 			try
 			{
-				var Users = await db_SQLServer.UserGroups
+				var Users = await db_SQLServer.UserGroups.AsNoTracking()
 					.Include(x => x.ApplicationUser)
 					.Include(x => x.Group)
 					.Where(x => x.IdGroup == IdGroup)
@@ -224,7 +224,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
 		{
 			try
 			{
-				var list = await db_SQLServer.Genders
+				var list = await db_SQLServer.Genders.AsNoTracking()
 					.Select(x => new Gender
 					{
 						Id = x.Id,
@@ -251,7 +251,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
 					return new CallbackResult<IList<DropDownDepartmentViewModel>>(null, new ExceptionError(DashboardResource.MessageChangeIsNotPossible));
 				}
 
-				var Me = await db_SQLServer.UserDepartments
+				var Me = await db_SQLServer.UserDepartments.AsNoTracking()
 						.Include(x => x.Department)
 						.Include(x => x.Department).ThenInclude(x => x.Department1)
 						.Include(x => x.Department).ThenInclude(x => x.Department2)

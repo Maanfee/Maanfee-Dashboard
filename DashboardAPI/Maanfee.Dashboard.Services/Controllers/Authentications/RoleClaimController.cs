@@ -35,7 +35,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                     return new CallbackResult<IList<GetRoleClaimViewModel>>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));
                 }
 
-                var Role = await db_SQLServer.AspNetRoles.FirstOrDefaultAsync(x => x.Id == IdRole);
+                var Role = await db_SQLServer.AspNetRoles.AsNoTracking().FirstOrDefaultAsync(x => x.Id == IdRole);
                 if (Role == null)
                 {
                     return new CallbackResult<IList<GetRoleClaimViewModel>>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));

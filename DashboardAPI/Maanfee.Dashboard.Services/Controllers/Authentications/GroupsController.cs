@@ -35,7 +35,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
             {
                 PaginatedList<Group> PaginatedList;
 
-                IQueryable<Group> Data = db_SQLServer.Groups;
+                IQueryable<Group> Data = db_SQLServer.Groups.AsNoTracking();
 
                 switch (TableState.state.SortLabel)
                 {
@@ -167,7 +167,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                     return new CallbackResult<Group>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));
                 }
 
-                var IdentityRole = await db_SQLServer.Groups.FirstOrDefaultAsync(x => x.Id == Id);
+                var IdentityRole = await db_SQLServer.Groups.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id);
                 if (IdentityRole == null)
                 {
                     return new CallbackResult<Group>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));

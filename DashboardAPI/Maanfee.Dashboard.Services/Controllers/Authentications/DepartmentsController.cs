@@ -60,7 +60,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         {
             try
             {
-                var list = await db_SQLServer.Departments.ToListAsync();
+                var list = await db_SQLServer.Departments.AsNoTracking().ToListAsync();
 
                 if (string.IsNullOrEmpty(value))
                     return new CallbackResult<List<Department>>(list, null);
@@ -133,7 +133,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         {
             try
             {
-                var IdDepartments = await db_SQLServer.UserDepartments
+                var IdDepartments = await db_SQLServer.UserDepartments.AsNoTracking()
                     .Include(x => x.Department)
                     .Where(x => x.IdApplicationUser == IdUser)
                     .ToListAsync();
@@ -227,7 +227,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                     return new CallbackResult<Department>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));
                 }
 
-                var Department = await db_SQLServer.Departments.FirstOrDefaultAsync(x => x.Id == Id);
+                var Department = await db_SQLServer.Departments.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id);
                 if (Department == null)
                 {
                     return new CallbackResult<Department>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));

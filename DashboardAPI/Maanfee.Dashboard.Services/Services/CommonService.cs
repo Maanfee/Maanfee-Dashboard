@@ -50,7 +50,7 @@ namespace Maanfee.Dashboard.Services
 
         public async Task<IEnumerable<GetUserViewModel>> GetVirtualUsersAsync()
         {
-            var UserRoles = db_SQLServer.AspNetUserRoles.ToList();
+            var UserRoles = db_SQLServer.AspNetUserRoles.AsNoTracking().ToList();
             var list = await db_SQLServer.Users
                 .Select(x => new GetUserViewModel
                 {

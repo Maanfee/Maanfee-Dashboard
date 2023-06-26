@@ -34,7 +34,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
 			{
 				PaginatedList<IdentityRole> PaginatedList;
 
-				IQueryable<IdentityRole> Data = db_SQLServer.AspNetRoles;
+				IQueryable<IdentityRole> Data = db_SQLServer.AspNetRoles.AsNoTracking();
 
 				switch (TableState.state.SortLabel)
 				{
@@ -176,7 +176,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
 					return new CallbackResult<IdentityRole>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));
 				}
 
-				var IdentityRole = await db_SQLServer.AspNetRoles.FirstOrDefaultAsync(x => x.Id == Id);
+				var IdentityRole = await db_SQLServer.AspNetRoles.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id);
 				if (IdentityRole == null)
 				{
 					return new CallbackResult<IdentityRole>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));
@@ -209,7 +209,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
 		{
 			try
 			{
-				var list = await db_SQLServer.AspNetRoles
+				var list = await db_SQLServer.AspNetRoles.AsNoTracking()
 					.Select(x => new GetRoleViewModel
 					{
 						Id = x.Id,

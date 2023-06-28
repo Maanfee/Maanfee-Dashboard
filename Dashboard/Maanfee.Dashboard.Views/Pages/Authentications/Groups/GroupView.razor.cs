@@ -28,7 +28,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
 
 			try
 			{
-				await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.Group.View, PermissionAuthenticationState,
+				await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.Group.View, AuthenticationState,
 					AuthorizationService, Navigation);
 			}
 			catch (Exception ex)

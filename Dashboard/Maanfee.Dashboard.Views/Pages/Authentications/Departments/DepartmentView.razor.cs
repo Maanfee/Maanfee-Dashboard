@@ -35,15 +35,15 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
 
             try
             {
-                await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.Department.View, PermissionAuthenticationState,
+                await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.Department.View, AuthenticationState,
                      AuthorizationService, Navigation);
 
-                CanCreate = await PermissionService.IsAuthorizeAsync(PermissionDefaultValue.Department.Create, PermissionAuthenticationState,
+                CanCreate = await PermissionService.IsAuthorizeAsync(PermissionDefaultValue.Department.Create, AuthenticationState,
                     AuthorizationService, Navigation);
 
-                CanDelete = await PermissionService.IsAuthorizeAsync(PermissionDefaultValue.Department.Delete, PermissionAuthenticationState,
+                CanDelete = await PermissionService.IsAuthorizeAsync(PermissionDefaultValue.Department.Delete, AuthenticationState,
                       AuthorizationService, Navigation);
-
+                 
                 SelectedValue = null;
 
                 await ResetAsync();

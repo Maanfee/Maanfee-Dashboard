@@ -29,7 +29,7 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
 
 			try
 			{
-				await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.Setting.ReleaseManagementView, PermissionAuthenticationState,
+				await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.Setting.ReleaseManagementView, AuthenticationState,
 					AuthorizationService, Navigation);
 			}
 			catch (Exception ex)

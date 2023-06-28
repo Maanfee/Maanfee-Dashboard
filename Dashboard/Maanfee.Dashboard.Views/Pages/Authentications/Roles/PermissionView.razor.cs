@@ -26,7 +26,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
         {
             try
             {
-                await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.Role.Permission, PermissionAuthenticationState,
+                await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.Role.Permission, AuthenticationState,
                     AuthorizationService, Navigation);
 
                 await GetTitleNamesAsync();

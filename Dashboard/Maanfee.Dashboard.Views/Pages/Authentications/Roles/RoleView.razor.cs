@@ -34,10 +34,9 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 
 			try
 			{
-				await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.Role.View, PermissionAuthenticationState,
+				await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.Role.View, AuthenticationState,
 					AuthorizationService, Navigation);
-
-				var PermissionCurrentUser = (await PermissionAuthenticationState).User;
+								
 				_PermissionCreate = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.Create)).Succeeded;
 				_PermissionEdit = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.Edit)).Succeeded;
 				_PermissionDelete = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.Delete)).Succeeded;

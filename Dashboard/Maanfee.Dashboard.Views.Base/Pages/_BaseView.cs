@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Views.Base.Pages
@@ -20,15 +21,22 @@ namespace Maanfee.Dashboard.Views.Base.Pages
 	{
 		// *****************************************
 
-		[CascadingParameter]
-		protected Task<AuthenticationState> PermissionAuthenticationState { get; set; }
+		#region - Authentication -
 
-		//protected ClaimsPrincipal PermissionCurrentUser;
+		[CascadingParameter]
+		protected Task<AuthenticationState> AuthenticationState { get; set; }
+
+		[Inject]
+		protected AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+
+		protected ClaimsPrincipal PermissionCurrentUser { get; set; }
 
 		//protected bool ViewPermissions = false;
 
 		[Inject]
 		protected PermissionService PermissionService { get; set; }
+
+		#endregion
 
 		// *****************************************
 
@@ -50,6 +58,9 @@ namespace Maanfee.Dashboard.Views.Base.Pages
 		{
 			try
 			{
+				AuthenticationState = Task.FromResult(await AuthenticationStateProvider.GetAuthenticationStateAsync());
+				PermissionCurrentUser = (await AuthenticationState).User;
+
 				var ModuleList = await Http.GetFromJsonAsync<List<ModuleViewModel>>("config.json");
 				ModuleService.LogServer = ModuleList.FirstOrDefault(x => x.Name == ModuleDefaultValue.LogServer);
 			}

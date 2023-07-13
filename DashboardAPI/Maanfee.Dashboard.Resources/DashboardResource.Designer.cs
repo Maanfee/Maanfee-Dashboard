@@ -1231,6 +1231,33 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to After reconnecting, this message will be automatically deleted.
+        /// </summary>
+        public static string StringServerConnectionAutomaticallyReconnected {
+            get {
+                return ResourceManager.GetString("StringServerConnectionAutomaticallyReconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SERVER CONNECTION ERROR.
+        /// </summary>
+        public static string StringServerConnectionError {
+            get {
+                return ResourceManager.GetString("StringServerConnectionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The connection with the server is temporarily interrupted and it is not possible to complete the request.
+        /// </summary>
+        public static string StringServerConnectionTemporarilyInterrupted {
+            get {
+                return ResourceManager.GetString("StringServerConnectionTemporarilyInterrupted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         public static string StringSettings {

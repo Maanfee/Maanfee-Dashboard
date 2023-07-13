@@ -13,7 +13,7 @@
 		<Copyright>Copyright (c) 2023-2022 Maanfee</Copyright>
 		<Authors>Maanfee Team (MF)</Authors>
 		<Company>Maanfee</Company>
-		<Version>5.141.126</Version>
+		<Version>5.145.131</Version>
 		<PackageIcon>MaanfeePink.png</PackageIcon>
 		<RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
@@ -33,7 +33,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.8" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.9" />
 	</ItemGroup>
 
 </Project>

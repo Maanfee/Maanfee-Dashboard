@@ -43,3 +43,11 @@
     background-color: #fff8e9;
     border-color: #ffcd65;
 }
+
+.Dialog-Blur {
+    backdrop-filter: blur(10px);
+}
+
+/* ************************************************************* */
+
+

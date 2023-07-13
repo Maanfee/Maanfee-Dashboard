@@ -6,171 +6,168 @@
 @inherits _BaseView
 
 <MaanfeeDashboardPage>
-	<MaanfeeDashboardPageHeader PageTitle="@DashboardResource.StringDashboard" />
+    <MaanfeeDashboardPageHeader PageTitle="@DashboardResource.StringDashboard" />
 
-	<MudGrid>
-		<MudItem md="12" xs="12">
-			<MudAlert Severity="Severity.Success" ContentAlignment="HorizontalAlignment.Start">
-				@ApplicationResource.StringWelcomeMessage
-			</MudAlert>
-		</MudItem>
-		<MudItem md="4" xs="4">
-			<MudPaper Class="py-4 px-6 rounded-lg d-flex align-center">
-				<div class="flex-grow-1">
-					<MudText Color="Color.Primary" Typo="Typo.h6">Online Users</MudText>
-					<div class="d-flex align-center my-1">
-						<MudAvatar Class="me-2 pa-4" Style="background-color: var(--mud-palette-primary-hover);" Size="Size.Small">
-							<MudIcon Color="Color.Primary" Icon="@Icons.Material.Filled.TrendingDown" Size="Size.Small" />
-						</MudAvatar>
-						<MudText Typo="Typo.subtitle2">+2.6%</MudText>
-					</div>
-					<MudText Typo="Typo.h4">149,567</MudText>
-				</div>
-				<div class="d-flex align-end justify-end mud-height-full py-8">
-					<MudPaper Height="30px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="33px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="35px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="27px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="22px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="28px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="20px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="13px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="15px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="5px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
-				</div>
-			</MudPaper>
-		</MudItem>
-		<MudItem md="4" xs="4">
-			<MudPaper Class="py-4 px-6 rounded-lg d-flex align-center">
-				<div class="flex-grow-1">
-					<MudText Color="Color.Primary" Typo="Typo.h6">Active Users</MudText>
-					<div class="d-flex align-center my-1">
-						<MudAvatar Class="me-2 pa-4" Style="background-color: var(--mud-palette-secondary-hover);" Size="Size.Small">
-							<MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.TrendingUp" Size="Size.Small" />
-						</MudAvatar>
-						<MudText Typo="Typo.subtitle2">+9.6%</MudText>
-					</div>
-					<MudText Typo="Typo.h4">12%</MudText>
-				</div>
-				<div class="d-flex align-end justify-end mud-height-full py-8">
-					<MudPaper Height="8px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="2px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="33px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="15px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="15px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="40px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="38px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="46px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="45px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="21px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
-				</div>
-			</MudPaper>
-		</MudItem>
-		<MudItem md="4" xs="4">
-			<MudPaper Class="py-4 px-6 rounded-lg d-flex align-center">
-				<div class="flex-grow-1">
-					<MudText Color="Color.Primary" Typo="Typo.h6">Deleted Users</MudText>
-					<div class="d-flex align-center my-1">
-						<MudAvatar Class="me-2 pa-4" Style="background-color: var(--mud-palette-tertiary-hover);" Size="Size.Small">
-							<MudIcon Color="Color.Tertiary" Icon="@Icons.Material.Filled.TrendingFlat" Size="Size.Small" />
-						</MudAvatar>
-						<MudText Typo="Typo.subtitle2">~0.0%</MudText>
-					</div>
-					<MudText Typo="Typo.h4">3,6</MudText>
-				</div>
-				<div class="d-flex align-end justify-end mud-height-full py-8">
-					<MudPaper Height="10px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="16px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="26px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="36px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="36px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="28px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="36px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="36px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="28px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
-					<MudPaper Height="36px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
-				</div>
-			</MudPaper>
-		</MudItem>
-		<MudItem md="12" xs="12">
-		
-		</MudItem>
+    <MudGrid>
+        <MudItem md="12" xs="12">
+            <MudAlert Severity="Severity.Success" ContentAlignment="HorizontalAlignment.Start">
+                @ApplicationResource.StringWelcomeMessage
+            </MudAlert>
+        </MudItem>
+        <MudItem md="4" xs="4">
+            <MudPaper Class="py-4 px-6 rounded-lg d-flex align-center">
+                <div class="flex-grow-1">
+                    <MudText Color="Color.Primary" Typo="Typo.h6">Online Users</MudText>
+                    <div class="d-flex align-center my-1">
+                        <MudAvatar Class="me-2 pa-4" Style="background-color: var(--mud-palette-primary-hover);" Size="Size.Small">
+                            <MudIcon Color="Color.Primary" Icon="@Icons.Material.Filled.TrendingDown" Size="Size.Small" />
+                        </MudAvatar>
+                        <MudText Typo="Typo.subtitle2">+2.6%</MudText>
+                    </div>
+                    <MudText Typo="Typo.h4">149,567</MudText>
+                </div>
+                <div class="d-flex align-end justify-end mud-height-full py-8">
+                    <MudPaper Height="30px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="33px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="35px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="27px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="22px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="28px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="20px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="13px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="15px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="5px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
+                </div>
+            </MudPaper>
+        </MudItem>
+        <MudItem md="4" xs="4">
+            <MudPaper Class="py-4 px-6 rounded-lg d-flex align-center">
+                <div class="flex-grow-1">
+                    <MudText Color="Color.Primary" Typo="Typo.h6">Active Users</MudText>
+                    <div class="d-flex align-center my-1">
+                        <MudAvatar Class="me-2 pa-4" Style="background-color: var(--mud-palette-secondary-hover);" Size="Size.Small">
+                            <MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.TrendingUp" Size="Size.Small" />
+                        </MudAvatar>
+                        <MudText Typo="Typo.subtitle2">+9.6%</MudText>
+                    </div>
+                    <MudText Typo="Typo.h4">12%</MudText>
+                </div>
+                <div class="d-flex align-end justify-end mud-height-full py-8">
+                    <MudPaper Height="8px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="2px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="33px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="15px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="15px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="40px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="38px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="46px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="45px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="21px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
+                </div>
+            </MudPaper>
+        </MudItem>
+        <MudItem md="4" xs="4">
+            <MudPaper Class="py-4 px-6 rounded-lg d-flex align-center">
+                <div class="flex-grow-1">
+                    <MudText Color="Color.Primary" Typo="Typo.h6">Deleted Users</MudText>
+                    <div class="d-flex align-center my-1">
+                        <MudAvatar Class="me-2 pa-4" Style="background-color: var(--mud-palette-tertiary-hover);" Size="Size.Small">
+                            <MudIcon Color="Color.Tertiary" Icon="@Icons.Material.Filled.TrendingFlat" Size="Size.Small" />
+                        </MudAvatar>
+                        <MudText Typo="Typo.subtitle2">~0.0%</MudText>
+                    </div>
+                    <MudText Typo="Typo.h4">3,6</MudText>
+                </div>
+                <div class="d-flex align-end justify-end mud-height-full py-8">
+                    <MudPaper Height="10px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="16px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="26px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="36px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="36px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="28px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="36px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="36px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="28px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
+                    <MudPaper Height="36px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
+                </div>
+            </MudPaper>
+        </MudItem>
 
-		<MudItem md="12" xs="12">
-			@*	<MudButton OnClick="@((e) => OpenDialog(fullScreen))" Variant="Variant.Filled" Color="Color.Secondary">
-			کتابی
-			</MudButton>
+        <MudItem md="12" xs="12">
+            @*	<MudButton OnClick="@((e) => OpenDialog(fullScreen))" Variant="Variant.Filled" Color="Color.Secondary">
+            کتابی
+            </MudButton>
 
-			@code {
+            @code {
 
-		private DialogOptions fullScreen = new DialogOptions()
-		{
-			FullScreen = true,
-			CloseButton = true,
-			NoHeader = true,
-			CloseOnEscapeKey = true,
-		};
+            private DialogOptions fullScreen = new DialogOptions()
+            {
+            FullScreen = true,
+            CloseButton = true,
+            NoHeader = true,
+            CloseOnEscapeKey = true,
+            };
 
-		private void OpenDialog(DialogOptions options)
-		{
-			Dialog.Show<BookletComponent>(string.Empty, options);
-		}
+            private void OpenDialog(DialogOptions options)
+            {
+            Dialog.Show<BookletComponent>(string.Empty, options);
+            }
 
-			}
-			*@
-		</MudItem>
-		<MudItem md="12" xs="12">
-			@*	@Http.BaseAddress.AbsoluteUri*@
-		</MudItem>
-		<MudItem md="12" xs="12">
-			@*@Http.BaseAddress.DnsSafeHost | @Http.BaseAddress.Host | @Http.BaseAddress.Port | @Http.BaseAddress.Scheme*@
-		</MudItem>
-		<MudItem md="12" xs="12">
-			@*<img src="/StaticFiles/Profile/AAA/BBB/red-rose.jpg" />*@
-		</MudItem>
-	</MudGrid>
+            }
+            *@
+        </MudItem>
+        <MudItem md="12" xs="12">
+            @*	@Http.BaseAddress.AbsoluteUri*@
+        </MudItem>
+        <MudItem md="12" xs="12">
+            @*@Http.BaseAddress.DnsSafeHost | @Http.BaseAddress.Host | @Http.BaseAddress.Port | @Http.BaseAddress.Scheme*@
+        </MudItem>
+        <MudItem md="12" xs="12">
+            @*<img src="/StaticFiles/Profile/AAA/BBB/red-rose.jpg" />*@
+        </MudItem>
+    </MudGrid>
 
 </MaanfeeDashboardPage>
 
 @code {
 
-	protected override async Task OnInitializedAsync()
-	{
-		await base.OnInitializedAsync();
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
 
-		try
-		{
-			var Callback = await Http.GetFromJsonAsync<CallbackResult<SysRelease>>($"api/SysReleases/GetLatestRelease");
+        try
+        {
+            var Callback = await Http.GetFromJsonAsync<CallbackResult<SysRelease>>($"api/SysReleases/GetLatestRelease");
 
-			if (Callback.Data != null)
-			{
-				if (string.Compare(Callback.Data.Version, SharedLayoutSettings.CurrentVersion) > 0)
-				{
-					DialogParameters parameters = new DialogParameters();
-					parameters.Add("SysRelease", Callback.Data);
+            if (Callback.Data != null)
+            {
+                if (string.Compare(Callback.Data.Version, SharedLayoutSettings.CurrentVersion) > 0)
+                {
+                    DialogParameters parameters = new DialogParameters();
+                    parameters.Add("SysRelease", Callback.Data);
 
-					var dialog = Dialog.Show<Settings.SysReleases.DialogReleaseControl>(string.Empty, parameters,
-						new DialogOptions()
-							{
-								NoHeader = true,
-								MaxWidth = MaxWidth.Medium,
-								FullWidth = true,
-								Position = DialogPosition.Center,
-							});
+                    var dialog = Dialog.Show<Settings.SysReleases.DialogReleaseControl>(string.Empty, parameters,
+                        new DialogOptions()
+                            {
+                                NoHeader = true,
+                                MaxWidth = MaxWidth.Medium,
+                                FullWidth = true,
+                                Position = DialogPosition.Center,
+                            });
 
-					SharedLayoutSettings.CurrentVersion = Callback.Data.Version;
-					await LocalConfiguration.SetConfigurationAsync();
-				}
-			}
-			else
-			{
-				Snackbar.Add(Callback.Error.ToString(), Severity.Error);
-			}
-		}
-		catch (Exception ex)
-		{
-			Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
-		}
-	}
+                    SharedLayoutSettings.CurrentVersion = Callback.Data.Version;
+                    await LocalConfiguration.SetConfigurationAsync();
+                }
+            }
+            else
+            {
+                Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+        }
+    }
 
 }

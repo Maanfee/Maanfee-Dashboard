@@ -1,0 +1,43 @@
+﻿@using Microsoft.AspNetCore.SignalR.Client;
+
+<MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
+    <MudDialog Style="background-color:black">
+        <DialogContent>
+            <MudCardContent>
+                <MudGrid>
+                    <MudItem md="12">
+                        <MudText Align="Align.Center">
+                            <MudIcon Icon="@Icons.Material.Filled.WifiOff" Color="Color.Error" Style="font-size: 4rem;" />
+                        </MudText>
+                    </MudItem>
+                    <MudItem md="12">
+                        <MudText Align="Align.Center" Color="Color.Error" Typo="Typo.h5">
+                            @DashboardResource.StringServerConnectionError
+                        </MudText>
+                    </MudItem>
+                    <MudItem md="12" Style="text-align: center !important;">
+                        <MudText Style="color:white;" Typo="Typo.button">
+                            @DashboardResource.StringServerConnectionTemporarilyInterrupted
+                        </MudText>
+                    </MudItem>
+                    <MudItem md="12" Style="text-align: center !important;">
+                        <MudText Color="Color.Success" Typo="Typo.button">
+                            @DashboardResource.StringServerConnectionAutomaticallyReconnected
+                        </MudText>
+                    </MudItem>
+                </MudGrid>
+            </MudCardContent>
+        </DialogContent>
+    </MudDialog>
+</MudRTLProvider>
+
+@code {
+
+    [CascadingParameter]
+    public MudDialogInstance MudDialog { get; set; }
+
+    private void Close() => MudDialog.Close();
+
+    // *****************************************************
+
+}

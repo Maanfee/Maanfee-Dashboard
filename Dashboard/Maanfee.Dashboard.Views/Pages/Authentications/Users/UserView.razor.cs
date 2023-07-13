@@ -141,6 +141,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 					MaxWidth = MaxWidth.ExtraExtraLarge,
 					FullWidth = true,
 					Position = DialogPosition.Center,
+					ClassBackground = "Dialog-Blur"
 				});
 
 			var result = await dialog.Result;
@@ -171,6 +172,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 					MaxWidth = MaxWidth.ExtraExtraLarge,
 					FullWidth = true,
 					Position = DialogPosition.Center,
+					ClassBackground = "Dialog-Blur"
 				});
 		}
 
@@ -188,6 +190,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 					MaxWidth = MaxWidth.ExtraSmall,
 					FullWidth = true,
 					Position = DialogPosition.Center,
+					ClassBackground = "Dialog-Blur"
 				});
 
 			var result = await dialog.Result;

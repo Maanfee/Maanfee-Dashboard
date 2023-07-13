@@ -1,23 +1,60 @@
-﻿@using Microsoft.AspNetCore.SignalR.Client;
-@inherits SharedLayout
+﻿@inherits SharedLayout
 
 <MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
     <MudThemeProvider Theme="CurrentTheme" IsDarkMode="@SharedLayoutSettings.IsDarkMode" />
-    <MudContainer MaxWidth="MaxWidth.Small" Class="d-flex align-center" Style="height: 100vh;">
-      @*  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="200px" width="200px"
-            version="1.1" id="Layer_1" viewBox="0 0 504.125 504.125" xml:space="preserve" fill="#000000">
-<g id="SVGRepo_iconCarrier">
-        <path style="fill:#3A7F0D;" d="M339.772,0c0,0,44.536,108.954-146.337,182.138C89.719,221.893,10.059,323.789,105.173,481.193 c7.877-70.357,41.653-225.485,186.888-260.884c0,0-135.176,50.546-147.117,279.347c69.459,9.752,232.361,16.305,280.726-125.062 C489.536,187.817,339.772,0,339.772,0z" /> 
+
+    <style>
+
+        /* @(".Login-Logo { position: absolute; filter: blur(18px); z-index: -1; left: 0px; }")*/
+
+        .Login-Logo1 {
+            position: absolute;
+            filter: blur(18px);
+            z-index: -1;
+            top: 15%;
+        }
+
+        .Login-Logo1-rtl {
+            transform: scaleX(-1);
+        }
+
+        .Login-Logo2 {
+            position: absolute;
+            filter: blur(5px);
+            z-index: -1;
+            top: 30%;
+        }
+
+    </style>
+
+    <MudText Align="Align.Start">
+        <div class="Login-Logo1 @(SharedLayoutSettings.IsRTL ? "Login-Logo1-rtl" : "")">
+            <svg width="100%" height="calc(100vh - 175px)" viewBox="0 0 405 809" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M-358.39 358.707L-293.914 294.23L-293.846 294.163H-172.545L-220.81 342.428L-233.272 354.889L-282.697 404.314L-276.575 410.453L0.316589 687.328L283.33 404.314L233.888 354.889L230.407 351.391L173.178 294.163H294.48L294.547 294.23L345.082 344.765L404.631 404.314L0.316589 808.629L-403.998 404.314L-358.39 358.707ZM0.316589 0L233.938 233.622H112.637L0.316589 121.301L-112.004 233.622H-233.305L0.316589 0Z" fill="#69b1ff"></path>
+                <path d="M-516.39 358.707L-451.914 294.23L-451.846 294.163H-330.545L-378.81 342.428L-391.272 354.889L-440.697 404.314L-434.575 410.453L-157.683 687.328L125.33 404.314L75.8879 354.889L72.4068 351.391L15.1785 294.163H136.48L136.547 294.23L187.082 344.765L246.631 404.314L-157.683 808.629L-561.998 404.314L-516.39 358.707ZM-157.683 0L75.9383 233.622H-45.3627L-157.683 121.301L-270.004 233.622H-391.305L-157.683 0Z" fill="#95de64" opacity="0.6"></path>
+                <path d="M-647.386 358.707L-582.91 294.23L-582.842 294.163H-461.541L-509.806 342.428L-522.268 354.889L-571.693 404.314L-565.571 410.453L-288.68 687.328L-5.66624 404.314L-55.1082 354.889L-58.5893 351.391L-115.818 294.163H5.48342L5.5507 294.23L56.0858 344.765L115.635 404.314L-288.68 808.629L-692.994 404.314L-647.386 358.707ZM-288.68 0L-55.0578 233.622H-176.359L-288.68 121.301L-401 233.622H-522.301L-288.68 0Z" fill="#fff1f0" opacity="1"></path>
+            </svg>
+        </div>
+        @*  <div class="Login-Logo2">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="200px" width="200px"
+        version="1.1" viewBox="0 0 504.125 504.125" xml:space="preserve" fill="#000000">
+        <g>
+        <path style="fill:#3A7F0D;" d="M339.772,0c0,0,44.536,108.954-146.337,182.138C89.719,221.893,10.059,323.789,105.173,481.193 c7.877-70.357,41.653-225.485,186.888-260.884c0,0-135.176,50.546-147.117,279.347c69.459,9.752,232.361,16.305,280.726-125.062 C489.536,187.817,339.772,0,339.772,0z" />
         <path style="fill:#49A010;" d="M145.007,498.704c147.456-58.849,254.748-196.71,269.556-361.283C384.418,56.107,339.772,0,339.772,0 s44.536,108.954-146.337,182.138C89.719,221.893,10.059,323.789,105.173,481.193c7.877-70.357,41.653-225.485,186.888-260.884 C292.053,220.31,157.279,270.73,145.007,498.704z" />
-        <circle style="fill:#3A7F0D;" cx="90.459" cy="171.985" r="13.785" /> 
-        <g> 
-        <circle style="fill:#49A010;" cx="133.782" cy="158.2" r="9.846" /> 
-        <circle style="fill:#49A010;" cx="124.921" cy="64.662" r="24.615" /> 
-        <circle style="fill:#49A010;" cx="200.736" cy="120.785" r="7.877" /> 
-        <circle style="fill:#49A010;" cx="266.713" cy="76.477" r="22.646" /> 
-    </g> 
-    </g>
-</svg>*@
+        <circle style="fill:#3A7F0D;" cx="90.459" cy="171.985" r="13.785" />
+        <g>
+        <circle style="fill:#49A010;" cx="133.782" cy="158.2" r="9.846" />
+        <circle style="fill:#49A010;" cx="124.921" cy="64.662" r="24.615" />
+        <circle style="fill:#49A010;" cx="200.736" cy="120.785" r="7.877" />
+        <circle style="fill:#49A010;" cx="266.713" cy="76.477" r="22.646" />
+        </g>
+        </g>
+        </svg>
+        </div>*@
+
+    </MudText>
+
+    <MudContainer MaxWidth="MaxWidth.Small" Class="d-flex align-center" Style="height: 100vh;">
         <MudPaper Elevation="25" Class="pa-8" Style="width: 500px;">
             @Body
         </MudPaper>

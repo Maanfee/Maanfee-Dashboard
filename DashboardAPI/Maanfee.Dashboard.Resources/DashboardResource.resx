@@ -507,6 +507,15 @@
   <data name="StringSend" xml:space="preserve">
     <value>Send</value>
   </data>
+  <data name="StringServerConnectionAutomaticallyReconnected" xml:space="preserve">
+    <value>After reconnecting, this message will be automatically deleted</value>
+  </data>
+  <data name="StringServerConnectionError" xml:space="preserve">
+    <value>SERVER CONNECTION ERROR</value>
+  </data>
+  <data name="StringServerConnectionTemporarilyInterrupted" xml:space="preserve">
+    <value>The connection with the server is temporarily interrupted and it is not possible to complete the request</value>
+  </data>
   <data name="StringSettings" xml:space="preserve">
     <value>Settings</value>
   </data>

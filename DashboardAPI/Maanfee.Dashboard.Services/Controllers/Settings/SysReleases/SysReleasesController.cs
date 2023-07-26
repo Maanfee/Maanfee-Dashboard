@@ -39,7 +39,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Settings.SysReleases
 				PaginatedList<SysRelease> PaginatedList;
 
 				IQueryable<SysRelease> Data = db_SQLite.SysReleases
-					.OrderByDescending(x => x.ReleaseDate);
+					.OrderByDescending(x => x.ReleaseDate).ThenBy(x=>x.Version);
 
 				switch (TableState.state.SortLabel)
 				{
@@ -179,7 +179,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Settings.SysReleases
 			{
 				await SQLTransaction.RollbackAsync();
 
-				if (ex.ToString().Contains("Cannot insert duplicate key row in object"))
+				if (ex.ToString().Contains("Cannot insert duplicate key row in object") || ex.ToString().Contains("UNIQUE constraint failed"))
 				{
 					return new CallbackResult<SubmitReleaseViewModel>(null, new DuplicateError(DashboardResource.MessageCannotInsertDuplicate));
 				}
@@ -233,9 +233,9 @@ namespace Maanfee.Dashboard.Services.Controllers.Settings.SysReleases
 			{
 				await SQLTransaction.RollbackAsync();
 
-				if (ex.ToString().Contains("Cannot insert duplicate key row in object"))
-				{
-					return new CallbackResult<SubmitReleaseViewModel>(null, new DuplicateError(DashboardResource.MessageCannotInsertDuplicate));
+                if (ex.ToString().Contains("Cannot insert duplicate key row in object") || ex.ToString().Contains("UNIQUE constraint failed"))
+                {
+                    return new CallbackResult<SubmitReleaseViewModel>(null, new DuplicateError(DashboardResource.MessageCannotInsertDuplicate));
 				}
 				else
 				{

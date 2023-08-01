@@ -60,12 +60,19 @@ namespace Maanfee.Dashboard.Server
             }
 
             app.UseBlazorFrameworkFiles();  //
-            app.UseStaticFiles();//
-            app.UseStaticFiles(new StaticFileOptions
+
+            try
             {
-                FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "D:\\_UploadedDocuments")),
-                RequestPath = "/StaticFiles"
-            });
+                app.UseStaticFiles(new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "D:\\_UploadedDocuments")),
+                    RequestPath = "/StaticFiles"
+                });
+            }
+            catch
+            {
+                app.UseStaticFiles();//
+            }
 
             // *************************** Swagger ***************************
             app.UseSwagger();

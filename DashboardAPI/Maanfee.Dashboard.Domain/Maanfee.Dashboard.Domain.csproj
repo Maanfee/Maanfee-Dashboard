@@ -13,7 +13,7 @@
 		<Copyright>Copyright (c) 2021-2023 Maanfee</Copyright>
 		<Authors>Maanfee Team (MF)</Authors>
 		<Company>Maanfee</Company>
-		<Version>6.148.133</Version>
+		<Version>6.150.140</Version>
 		<PackageIcon>MaanfeeBlue.png</PackageIcon>
 		<RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
@@ -33,16 +33,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.9" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.9" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.9" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.9" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.9" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.9">
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.10">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.9" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.10" />
 	</ItemGroup>
 
 	<ItemGroup>

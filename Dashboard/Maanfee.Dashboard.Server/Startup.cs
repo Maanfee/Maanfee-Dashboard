@@ -2,18 +2,19 @@ using Maanfee.Dashboard.Domain.DAL;
 using Maanfee.Dashboard.Server.Data;
 using Maanfee.Dashboard.Services;
 using Maanfee.Dashboard.Services.Extensions;
-using Maanfee.Dashboard.Views.Core.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using System.IO;
+using System.Linq;
 
 namespace Maanfee.Dashboard.Server
 {
-    public class Startup
+	public class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -29,6 +30,11 @@ namespace Maanfee.Dashboard.Server
             services.AddControllersWithViews();
             services.AddRazorPages();
 			services.AddSignalR();
+			services.AddResponseCompression(opts =>
+			{
+				opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+					new[] { "application/octet-stream" });
+			});
 
 			#region - Internal Services -
 
@@ -61,7 +67,8 @@ namespace Maanfee.Dashboard.Server
 
             app.UseBlazorFrameworkFiles();  //
 
-            try
+			app.UseStaticFiles();//
+			try
             {
                 app.UseStaticFiles(new StaticFileOptions
                 {
@@ -71,7 +78,7 @@ namespace Maanfee.Dashboard.Server
             }
             catch
             {
-                app.UseStaticFiles();//
+               
             }
 
             // *************************** Swagger ***************************

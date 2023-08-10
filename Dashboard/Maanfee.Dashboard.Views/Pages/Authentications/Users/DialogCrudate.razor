@@ -65,7 +65,7 @@
 										</MudItem>
 										<MudItem md="3">
 											<MudSelect T="DropDownGenderViewModel" Label="@DashboardResource.StringGender" Variant="Variant.Outlined"
-												   Clearable="true" @bind-Value="SubmitUserViewModel.Gender"
+												   Clearable @bind-Value="SubmitUserViewModel.Gender"
 												   For="@(() => SubmitUserViewModel.Gender)">
 												@foreach (var item in Genders)
 												{
@@ -75,7 +75,7 @@
 										</MudItem>
 										<MudItem md="3">
 											<MudSelect T="DropDownRoleViewModel" Label="@DashboardResource.StringRole" Variant="Variant.Outlined"
-												   Clearable="true" @bind-Value="SubmitUserViewModel.Role"
+												   Clearable @bind-Value="SubmitUserViewModel.Role"
 												   For="@(() => SubmitUserViewModel.Role)">
 												@foreach (var item in Roles)
 												{

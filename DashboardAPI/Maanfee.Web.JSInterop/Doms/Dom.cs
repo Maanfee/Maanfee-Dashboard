@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Maanfee.Web.JSInterop
 {
-	public partial class Dom : ComponentBase, IAsyncDisposable
+    public partial class Dom : ComponentBase, IAsyncDisposable
 	{
 		#region - JsRuntime -
 

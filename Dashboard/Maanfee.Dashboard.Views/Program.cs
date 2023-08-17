@@ -1,13 +1,12 @@
-using Allegiance.Blazor.Highcharts.Core.Services;
-using Allegiance.Blazor.Highcharts.Core.Services.Interfaces;
 using Maanfee.Dashboard.Views;
 using Maanfee.Dashboard.Views.Base.Extensions;
 using Maanfee.Dashboard.Views.Booklet;
 using Maanfee.Dashboard.Views.Core.Services;
+using Maanfee.Highcharts;
 using Maanfee.Web.Core;
 using Maanfee.Web.JSInterop;
 using Maanfee.Web.Printing;
-using Microsoft.AspNetCore.Components.Web;    
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -28,7 +27,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 // **************************
 
 // HighCharts
-builder.Services.AddSingleton<IChartService, ChartService>();
+builder.Services.AddHighCharts();
 
 // Print
 builder.Services.AddScoped<IPrintingService, PrintingService>();

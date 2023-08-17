@@ -232,7 +232,7 @@
     <value>بایت</value>
   </data>
   <data name="StringCancel" xml:space="preserve">
-    <value>لغو</value>
+    <value>بازگشت</value>
   </data>
   <data name="StringChangePassword" xml:space="preserve">
     <value>تغییر گذرواژه</value>

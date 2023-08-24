@@ -1,0 +1,60 @@
+﻿@namespace Maanfee.Dashboard.Views.Core
+@implements IDisposable
+@inherits _BaseComponentView
+
+<MudSkeleton SkeletonType="SkeletonType.Rectangle" Height="100%" Animation="Animation.Wave" />
+<MudCardContent>
+    <div class="d-flex align-end justify-center mud-height-full py-8">
+        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="20px" Height="230px" Class=" mr-1 rounded-t" />
+        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="20px" Height="220px" Class=" mr-1 rounded-t" />
+        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="20px" Height="130px" Class=" mr-1 rounded-t" />
+        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="20px" Height="180px" Class=" mr-1 rounded-t" />
+        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="20px" Height="280px" Class=" mr-1 rounded-t" />
+        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="20px" Height="230px" Class=" mr-1 rounded-t" />
+        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="20px" Height="190px" Class=" mr-1 rounded-t" />
+        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="20px" Height="140px" Class=" mr-1 rounded-t" />
+        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="20px" Height="170px" Class=" mr-1 rounded-t" />
+        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="20px" Height="210px" Class=" mr-1 rounded-t" />
+    </div>
+</MudCardContent>
+<MudOverlay Visible="!IsLoaded" DarkBackground="false" Absolute="true" Style="top:5%;">
+    @*<MudProgressCircular Color="Color.Secondary" Indeterminate="true" Size="Size.Large" />*@
+</MudOverlay>
+<MaanfeeTimer @ref="Timer" TimerCallback="TimerCallback" />
+
+@code {
+
+    private void TimerCallback()
+    {
+
+    }
+
+    protected MaanfeeTimer Timer = new MaanfeeTimer();
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Timer.Start();
+        }
+    }
+
+    //protected override void OnInitialized()
+    //{
+    //    try
+    //    {
+    //        Timer.Start();
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        ss = ex.Message;
+    //    }
+    //}
+
+    public void Dispose()
+    {
+        Timer.Stop();
+        Timer.Dispose();
+    }
+
+}

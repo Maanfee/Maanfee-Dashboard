@@ -1,0 +1,65 @@
+﻿@namespace Maanfee.Dashboard.Views.Core
+@using System.Timers;
+@implements IDisposable
+
+<MudChip Icon="@Icons.Material.Filled.Alarm" Color="Color.Error" Class="mt-1" Style="font-size:10px;">
+    @Time
+</MudChip>
+
+@code {
+    //https://gist.github.com/xakpc/a5621a3147a6b8fc48e66b1611538973
+
+    private Timer Timer = new Timer(1000);
+    private int _secondsToRun = 0;
+
+    protected string Time { get; set; } = "00:00:000";
+
+    [Parameter]
+    public EventCallback TimerCallback { get; set; }
+
+    public void Start()
+    {
+        Time = TimeSpan.FromSeconds(_secondsToRun).ToString(@"mm\:ss");
+
+        //Time = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+        //                   TimeSpan.FromHours(_secondsToRun), TimeSpan.FromMinutes(_secondsToRun),
+        //                        TimeSpan.FromSeconds(_secondsToRun),
+        //                 TimeSpan.FromMilliseconds(_secondsToRun) / 10);
+
+        InvokeAsync(StateHasChanged);
+
+        Timer.Elapsed += OnTimedEvent;
+        Timer.AutoReset = true;
+        Timer.Start();
+    }
+
+    public void Stop()
+    {
+        Timer.Stop();
+    }
+
+    private async void OnTimedEvent(object sender, ElapsedEventArgs e)
+    {
+        _secondsToRun++;
+
+        await InvokeAsync(() =>
+        {
+            Time = TimeSpan.FromSeconds(_secondsToRun).ToString(@"mm\:ss");
+
+            InvokeAsync(StateHasChanged);
+        });
+
+        //if (_secondsToRun <= 0)
+        //{
+        //    Timer.Stop();
+        //await TimerCallback.InvokeAsync();
+        //}
+    }
+
+    public void Dispose()
+    {
+        Timer.Stop();
+        Timer.Dispose();
+    }
+
+}

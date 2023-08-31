@@ -6,23 +6,23 @@ using Maanfee.Dashboard.Views.Core.Shared.Dialogs;
 using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using MudBlazor;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using FilterViewModel = Maanfee.Dashboard.Domain.ViewModels.FilterUserViewModel;
 
 namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 {
-	public partial class UserView
+    public partial class UserView
 	{
 		private IEnumerable<GetUserViewModel> Data = new List<GetUserViewModel>();
 		private MudTable<GetUserViewModel> Table = new();
-		private TableStateViewModel<string> TableState = new();
-		private string SearchString = string.Empty;
+        private TableStateViewModel<FilterViewModel> TableState = new();
+        //private string SearchString = string.Empty;
 
-		private bool _PermissionCreate = false;
+        private bool _PermissionCreate = false;
 		private bool _PermissionEdit = false;
 		private bool _PermissionDelete = false;
 
@@ -45,8 +45,8 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 			}
 		}
 
-		private async Task<TableData<GetUserViewModel>> ServerData(TableState state)
-		{
+        private async Task<TableData<GetUserViewModel>> ServerData(TableState state)
+        {
 			try
 			{
 				state.Page++;
@@ -63,9 +63,12 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 					SortDirection = state.SortDirection,
 					SortLabel = state.SortLabel,
 				};
-				TableState.Filter = SearchString;
+                if (FilterViewModel != null)
+                {
+                    TableState.Filter = FilterViewModel;
+                }
 
-				var PostResult = await Http.PostAsJsonAsync($"api/Users/PaginationIndex", TableState);
+                var PostResult = await Http.PostAsJsonAsync($"api/Users/PaginationIndex", TableState);
 				if (PostResult.IsSuccessStatusCode)
 				{
 					var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<PaginatedListViewModel<GetUserViewModel>>>();
@@ -118,8 +121,8 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 
 		private void OnSearch(string text)
 		{
-			SearchString = text;
-			Table.ReloadServerData();
+			//SearchString = text;
+			//Table.ReloadServerData();
 		}
 
 		private async Task OnReloadData()
@@ -127,9 +130,40 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 			await Table.ReloadServerData();
 		}
 
-		#region - Crudate -
+        #region - Search -
 
-		private async Task OpenCrudateDialog<T>(T Id)
+        private FilterViewModel FilterViewModel = new();
+
+        private async Task OpenSearchDialog()
+        {
+            DialogParameters DialogParameters = new DialogParameters();
+            DialogParameters.Add("FilterViewModel", FilterViewModel);
+
+            var dialog = Dialog.Show<DialogFilter>(DashboardResource.StringSearch, DialogParameters,
+                new DialogOptions()
+                {
+                    MaxWidth = MaxWidth.Medium,
+                    Position = DialogPosition.Center,
+                    FullWidth = true,
+                });
+
+            var result = await dialog.Result;
+
+            if (!result.Canceled)
+            {
+                if (result.Data != null)
+                {
+                    FilterViewModel = (FilterViewModel)result.Data;
+                    await Table.ReloadServerData();
+                }
+            }
+        }
+
+        #endregion
+
+        #region - Crudate -
+
+        private async Task OpenCrudateDialog<T>(T Id)
 		{
 			DialogParameters DialogParameters = new DialogParameters();
 			DialogParameters.Add("Id", Id);

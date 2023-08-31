@@ -43,6 +43,7 @@ namespace Maanfee.Dashboard.Services
                     RoleName = db_SQLServer.AspNetRoles.FirstOrDefault(a => a.Id == (db_SQLServer.AspNetUserRoles.FirstOrDefault(z => z.UserId == x.Id)).RoleId).Name ?? "-",
                     Avatar = x.Avatar,
                     UserDepartmentsTitle = string.Join(" , ", x.UserDepartments.Select(x => x.Department.Title)),
+                    UserDepartments = x.UserDepartments,
                 });
 
             return list;

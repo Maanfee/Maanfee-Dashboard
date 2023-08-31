@@ -4,7 +4,9 @@
 	{
 		public static string InitTableHeight { get; set; } = "340px";
 
-		public string SetHeight(bool IsRtl, bool IsFullscreen, bool IsTableScroll)
+        public static string InitTableHeightLarge { get; set; } = "450px";
+
+        public string SetHeight(bool IsRtl, bool IsFullscreen, bool IsTableScroll)
 		{
 			//Task.Run(async () => { IsFullscreen = await IsFullscreenMode; });
 

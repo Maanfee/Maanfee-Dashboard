@@ -1,6 +1,7 @@
 ﻿using Maanfee.Dashboard.Domain.Entities;
 using Maanfee.Dashboard.Resources;
 using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Maanfee.Dashboard.Domain.ViewModels
@@ -69,6 +70,8 @@ namespace Maanfee.Dashboard.Domain.ViewModels
         [StringLength(11, MinimumLength = 11, ErrorMessageResourceName = nameof(DashboardResource.ValidationStringLength), ErrorMessageResourceType = typeof(DashboardResource))]
         [RegularExpression("([0-9][0-9]*)", ErrorMessageResourceName = nameof(DashboardResource.ValidationPositiveNumbers), ErrorMessageResourceType = typeof(DashboardResource))]
         public virtual string PhoneNumber { get; set; }
+
+        public virtual ICollection<UserDepartment> UserDepartments { get; set; } = new List<UserDepartment>();
 
     }
 }

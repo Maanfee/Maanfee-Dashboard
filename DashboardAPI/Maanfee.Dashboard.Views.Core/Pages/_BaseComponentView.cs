@@ -89,7 +89,9 @@ namespace Maanfee.Dashboard.Views.Core
 
 		public static string TableHeight { get; set; } = TableConfigurationService.InitTableHeight;
 
-		private async void OnFullscreenChange()
+        public static string TableHeightLarge { get; set; } = TableConfigurationService.InitTableHeightLarge;
+
+        private async void OnFullscreenChange()
 		{
 			await Task.Delay(500);
 

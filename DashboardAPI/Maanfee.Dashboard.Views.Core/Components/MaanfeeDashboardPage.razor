@@ -17,7 +17,8 @@
 	public event Action<Stopwatch> Rendered;
 	private Stopwatch Stopwatch = Stopwatch.StartNew();
 
-	[Parameter] public RenderFragment ChildContent { get; set; }
+	[Parameter] 
+	public RenderFragment ChildContent { get; set; }
 
 	protected override void OnAfterRender(bool firstRender)
 	{

@@ -17,8 +17,11 @@ else
 
 @code {
 
-	[Parameter] public bool IsDisplayAsChip { get; set; }
-	[CascadingParameter] public MaanfeeDashboardPage MaanfeeDashboardPage { get; set; }
+	[Parameter]
+	public bool IsDisplayAsChip { get; set; }
+
+	[CascadingParameter]
+	public MaanfeeDashboardPage MaanfeeDashboardPage { get; set; }
 
 	private double RenderTimeMs;
 	private string StringMinute = "0";

@@ -250,7 +250,27 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 			}
 		}
 
-		#endregion
-	
-	}
+        #endregion
+
+        #region - Permission -
+
+        private void OpenPermissionDialog<T>(T Id, string RoleName)
+        {
+            DialogParameters DialogParameters = new DialogParameters();
+            DialogParameters.Add("IdRole", Id);
+            DialogParameters.Add("RoleName", RoleName);
+
+            var dialog = Dialog.Show<DialogPermission>(string.Empty, DialogParameters,
+                new DialogOptions()
+                {
+                    NoHeader = true,
+                    MaxWidth = MaxWidth.ExtraExtraLarge,
+                    FullWidth = true,
+                    Position = DialogPosition.Center,
+                    ClassBackground = "Dialog-Blur",
+                });
+        }
+
+        #endregion
+    }
 }

@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 {
-    public partial class PermissionView
+    public partial class DialogPermission
     {
         [Parameter]
         public string IdRole { get; set; }
@@ -26,12 +26,11 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
         {
             try
             {
-                await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.Role.Permission, AuthenticationState,
-                    AuthorizationService, Navigation);
-
                 await GetTitleNamesAsync();
 
                 OnSelectedTab();
+
+                IsLoaded = true;
             }
             catch (Exception ex)
             {

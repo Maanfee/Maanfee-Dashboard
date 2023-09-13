@@ -13,32 +13,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="Pages\JsInterop\_001Selector\Examples\SelectByClassCode.html" />
-	  <None Remove="Pages\JsInterop\_001Selector\Examples\SelectByEelementsCode.html" />
-	  <None Remove="Pages\JsInterop\_001Selector\Examples\SelectByMultipleClassesCode.html" />
-	  <None Remove="Pages\JsInterop\_001Selector\SelectorCode.html" />
-	  <None Remove="Pages\JsInterop\_002Html_Css\Examples\AddClassMethodCode.html" />
-	  <None Remove="Pages\JsInterop\_002Html_Css\Examples\AfterMethodCode.html" />
-	  <None Remove="Pages\JsInterop\_002Html_Css\Examples\CssMethodCode.html" />
-	  <None Remove="Pages\JsInterop\_002Html_Css\Examples\HasClassMethodCode.html" />
-	  <None Remove="Pages\JsInterop\_002Html_Css\Examples\RemoveClassMethodCode.html" />
-	  <None Remove="Pages\JsInterop\_003LocalStorage\Examples\ClearMethodCode.html" />
-	  <None Remove="Pages\JsInterop\_003LocalStorage\Examples\GetSetMethodCode.html" />
-	  <None Remove="Pages\JsInterop\_003LocalStorage\Examples\KeyMethodCode.html" />
-	  <None Remove="Pages\JsInterop\_003LocalStorage\Examples\KeysMethodCode.html" />
-	  <None Remove="Pages\JsInterop\_003LocalStorage\Examples\LengthMethodCode.html" />
-	  <None Remove="Pages\JsInterop\_003LocalStorage\Examples\RemoveMethodCode.html" />
-	  <None Remove="Pages\JsInterop\_004Fullscreen\Examples\FullscreenMethodCode.html" />
-	  <None Remove="Pages\JsInterop\_004Fullscreen\Examples\IsFullscreenMethodCode.html" />
-	  <None Remove="Pages\JsInterop\_005WindowScreen\Examples\AvailableHeightCode.html" />
-	  <None Remove="Pages\JsInterop\_005WindowScreen\Examples\AvailableWidthCode.html" />
-	  <None Remove="Pages\JsInterop\_005WindowScreen\Examples\ColorDepthCode.html" />
-	  <None Remove="Pages\JsInterop\_005WindowScreen\Examples\HeightMethodCode.html" />
-	  <None Remove="Pages\JsInterop\_005WindowScreen\Examples\ScreenPixelCode.html" />
-	  <None Remove="Pages\JsInterop\_005WindowScreen\Examples\WidthMethodCode.html" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\..\Dashboard\Maanfee.Dashboard.Views.Base\Maanfee.Dashboard.Views.Base.csproj" />
 	</ItemGroup>
 

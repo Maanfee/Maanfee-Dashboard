@@ -1,0 +1,199 @@
+﻿@inherits _BaseView
+
+<MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
+    <EditForm Model="@SubmitChangePasswordViewModel" OnValidSubmit="OnSubmit">
+        <DataAnnotationsValidator />
+        <MudDialog>
+            <DialogContent>
+                @if (!IsLoaded)
+                {
+                    <FormOverlay />
+                }
+                else
+                {
+                    <MudCard Class="mt-2">
+                        <MudCardHeader>
+                            <MudText Typo="Typo.button" Color="Color.Primary">
+                                <MudText>@DashboardResource.StringChangePassword</MudText>
+                            </MudText>
+                        </MudCardHeader>
+                        <MudDivider DividerType="DividerType.FullWidth" />
+                        <MudCardContent>
+                            <MudTabs Outlined="true" Position="@Position.Start" Rounded="true" Border="true"
+                                     ApplyEffectsToContainer="true" Class="mt-8" PanelClass="pa-6">
+                                <MudTabPanel Text="@DashboardResource.StringChangePassword">
+                                    <MudGrid>
+                                        <MudItem xs="12">
+                                            <MudTextField @bind-Value="SubmitChangePasswordViewModel.CurrentPassword" Variant="Variant.Outlined"
+                                                          For="@(() => SubmitChangePasswordViewModel.CurrentPassword)" Label="@DashboardResource.StringCurrentPassword"
+                                                          InputType="@CurrentPasswordInput" Adornment="Adornment.End" AdornmentIcon="@CurrentPasswordInputIcon"
+                                                          OnAdornmentClick="ToggleCurrentPasswordVisibility" autocomplete="off" />
+                                        </MudItem>
+                                        <MudItem xs="12" md="6">
+                                            <MudTextField @bind-Value="SubmitChangePasswordViewModel.NewPassword" Variant="Variant.Outlined"
+                                                          For="@(() => SubmitChangePasswordViewModel.NewPassword)" Label="@DashboardResource.StringNewPassword"
+                                                          InputType="@NewPasswordInput" Adornment="Adornment.End" AdornmentIcon="@NewPasswordInputIcon"
+                                                          OnAdornmentClick="ToggleNewPasswordVisibility" autocomplete="off" />
+                                        </MudItem>
+                                        <MudItem xs="12" md="6">
+                                            <MudTextField @bind-Value="SubmitChangePasswordViewModel.ConfirmNewPassword" Variant="Variant.Outlined"
+                                                          For="@(() => SubmitChangePasswordViewModel.ConfirmNewPassword)" Label="@DashboardResource.StringConfirmNewPassword"
+                                                          InputType="@ConfirmPasswordInput" Adornment="Adornment.End" AdornmentIcon="@ConfirmPasswordInputIcon"
+                                                          OnAdornmentClick="ToggleConfirmPasswordVisibility" autocomplete="off" />
+                                        </MudItem>
+                                    </MudGrid>
+                                </MudTabPanel>
+                                <MudTabPanel Text="@DashboardResource.StringUserProfile">
+
+                                </MudTabPanel>
+                            </MudTabs>
+                        </MudCardContent>
+                    </MudCard>
+                    <MudPaper Class="pa-3 my-2 ActionColor" Elevation="3" Outlined="true" Square="true">
+                        <MudStack Spacing="1" Row="true">
+                            <MudButton Disabled="@IsProcessing" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Tertiary">
+                                @if (IsProcessing)
+                                {
+                                    <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="ms-n1" />
+                                    <MudText Class="ms-2">@DashboardResource.StringProcessing</MudText>
+                                }
+                                else
+                                {
+                                    <MudIcon Icon="@Icons.Material.Filled.Save" Color="Color.Surface" Class="mx-1" />
+                                    <MudText>@DashboardResource.StringSave</MudText>
+                                }
+                            </MudButton>
+                            <MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.FreeCancellation" IconColor="Color.Surface">@DashboardResource.StringCancel</MudButton>
+                        </MudStack>
+                    </MudPaper>
+                }
+            </DialogContent>
+        </MudDialog>
+    </EditForm>
+</MudRTLProvider>
+
+@code {
+
+    [CascadingParameter]
+    public MudDialogInstance MudDialog { get; set; }
+
+    private void Close() => MudDialog.Close();
+
+    // *****************************************************
+
+    public SubmitChangePasswordViewModel SubmitChangePasswordViewModel = new();
+
+    protected override Task OnInitializedAsync()
+    {
+        SubmitChangePasswordViewModel.CurrentPassword = " ";
+        IsLoaded = true;
+
+        return base.OnInitializedAsync();
+    }
+
+    private async Task OnSubmit()
+    {
+        if (IsProcessing)
+            return;
+        IsProcessing = true;
+
+        try
+        {
+            var PostResult = await Http.PostAsJsonAsync("api/Authentications/ChangePassword", SubmitChangePasswordViewModel.TrimStringAndCheckPersianSpecialLetter());
+            if (PostResult.IsSuccessStatusCode)
+            {
+                Snackbar.Add(DashboardResource.MessageSavedSuccessfully, Severity.Success);
+
+                await Task.Delay(1000);
+
+                await AuthenticationStateProvider.Logout();
+                Navigation.NavigateTo("/login");
+            }
+            else
+            {
+                Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+        }
+
+        IsProcessing = false;
+    }
+
+    // *****************************************************
+
+    #region - Current Password -
+
+    private bool CurrentPasswordVisibility;
+    private InputType CurrentPasswordInput = InputType.Password;
+    private string CurrentPasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+
+    private void ToggleCurrentPasswordVisibility()
+    {
+        if (CurrentPasswordVisibility)
+        {
+            CurrentPasswordVisibility = false;
+            CurrentPasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+            CurrentPasswordInput = InputType.Password;
+        }
+        else
+        {
+            CurrentPasswordVisibility = true;
+            CurrentPasswordInputIcon = Icons.Material.Filled.Visibility;
+            CurrentPasswordInput = InputType.Text;
+        }
+    }
+
+    #endregion
+
+    #region - New Password -
+
+    private bool NewPasswordVisibility;
+    private InputType NewPasswordInput = InputType.Password;
+    private string NewPasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+
+    private void ToggleNewPasswordVisibility()
+    {
+        if (NewPasswordVisibility)
+        {
+            NewPasswordVisibility = false;
+            NewPasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+            NewPasswordInput = InputType.Password;
+        }
+        else
+        {
+            NewPasswordVisibility = true;
+            NewPasswordInputIcon = Icons.Material.Filled.Visibility;
+            NewPasswordInput = InputType.Text;
+        }
+    }
+
+    #endregion
+
+    #region - Confirm Password -
+
+    private bool ConfirmPasswordVisibility;
+    private InputType ConfirmPasswordInput = InputType.Password;
+    private string ConfirmPasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+
+    private void ToggleConfirmPasswordVisibility()
+    {
+        if (ConfirmPasswordVisibility)
+        {
+            ConfirmPasswordVisibility = false;
+            ConfirmPasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+            ConfirmPasswordInput = InputType.Password;
+        }
+        else
+        {
+            ConfirmPasswordVisibility = true;
+            ConfirmPasswordInputIcon = Icons.Material.Filled.Visibility;
+            ConfirmPasswordInput = InputType.Text;
+        }
+    }
+
+    #endregion
+
+}

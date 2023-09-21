@@ -41,6 +41,9 @@ builder.Services.AddBooklet();
 // File Download
 builder.Services.AddFileDownload();
 
+// File Upload
+builder.Services.AddScoped<IFilesManagerService, FilesManagerService>();
+
 var host = builder.Build();
 
 var Config = host.Services.GetRequiredService<LocalConfigurationService>();

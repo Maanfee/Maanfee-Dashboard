@@ -49,7 +49,7 @@
             <MudItem xs="12">
                 <MudTextField Label="@DashboardResource.StringPassword" Variant="Variant.Outlined"
                               @bind-Value="LoginViewModelSubmit.Password" For="@(() => LoginViewModelSubmit.Password)"
-                              InputType="@_passwordInput" Adornment="Adornment.End" AdornmentIcon="@_passwordInputIcon"
+                              InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon"
                               OnAdornmentClick="TogglePasswordVisibility" />
             </MudItem>
             <MudItem xs="12" Class="d-flex justify-space-between align-center">

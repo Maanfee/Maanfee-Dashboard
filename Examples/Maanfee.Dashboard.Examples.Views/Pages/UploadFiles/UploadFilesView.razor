@@ -1,0 +1,228 @@
+﻿@page "/UploadFilesView"
+@using System.IO;
+@inherits _ModulePage
+
+<MaanfeeDashboardPage>
+    <MaanfeeDashboardPageHeader PageTitle="@DashboardResource.StringUploadFiles" Title="@DashboardResource.StringUploadFiles" />
+
+    @if (!string.IsNullOrEmpty(ErrorMessage))
+    {
+        <div class="alert alert-danger" role="alert">
+            @ErrorMessage
+        </div>
+    }
+
+    <MudFileUpload T="IBrowserFile" OnFilesChanged="AddFilesToQueue">
+        <ButtonTemplate>
+            <MudButton HtmlTag="label"
+                       Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       StartIcon="@Icons.Material.Filled.CloudUpload"
+                       disabled="@IsUploading" multiple
+                       for="@context">
+                Click here to select your files
+            </MudButton>
+        </ButtonTemplate>
+    </MudFileUpload>
+
+    @if (filesQueue.Count > 0)
+    {
+        <MudCard Class="mt-2">
+            <MudCardHeader>
+                <MudText Typo="Typo.button" Color="Color.Primary">
+                    Upload queue
+                </MudText>
+            </MudCardHeader>
+            <MudDivider DividerType="DividerType.FullWidth" />
+            <MudCardContent>
+                <MudGrid>
+                    <MudItem md="12">
+                        <MudSimpleTable Bordered Dense Hover Striped>
+                         <thead>
+                             <tr>
+                                 <td></td>
+                                 <td class="text-center" style="width:50px">%</td>
+                                 <td style="width:170px;"></td>
+                                 <td>FileName</td>
+                                 <td class="text-end" style="width:80px;">Size (KB)</td>
+                                 <td></td>
+                             </tr>
+                         </thead>
+                         <tbody>
+                             @foreach (var file in filesQueue.OrderByDescending(x => x.FileId))
+                                {
+                                    var size = Math.Round((file.Size / 1024.00));
+                                    var percentage = Math.Round(file.UploadedPercentage);
+                                    <tr>
+                                        <td>
+                                            @if (file.HasBeenUploaded)
+                                            {
+                                                <MudIcon Icon="@Icons.Material.Filled.FileDownloadDone" Color="Color.Success" />
+                                            }
+                                            else
+                                            {
+                                                <MudIcon Icon="@Icons.Material.Filled.Download" Color="Color.Primary" />
+                                            }
+                                        </td>
+                                        <td>
+                                            @($"{percentage}%")
+                                        </td>
+                                        <td>
+                                            <MudProgressLinear Color="Color.Primary" Value="@file.UploadedBytes" Max="@file.Size" Class="my-7" />
+                                        </td>
+                                        <td>
+                                            <MudText Typo="Typo.caption" Align="Align.Center"><b>@file.FileName</b></MudText>
+                                        </td>
+                                        <td>
+                                            <MudText Typo="Typo.caption" Align="Align.Center"><b>@string.Format("{0:#,0.##}", @size)</b></MudText>
+                                        </td>
+                                        <td>
+                                            <MudIconButton OnClick="(() => RemoveFromQueue(file.FileId))" disabled="@IsUploading" Title="@DashboardResource.StringDelete" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"></MudIconButton>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </MudSimpleTable>
+                    </MudItem>
+                </MudGrid>
+            </MudCardContent>
+        </MudCard>
+        <MudPaper Class="pa-3 my-2 ActionColor" Elevation="3" Outlined="true" Square="true">
+            <MudStack Spacing="1" Row="true">
+                <MudButton Disabled="@IsUploading" OnClick="UploadFileQueue" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Filled.UploadFile" IconColor="Color.Surface">Upload file queue</MudButton>
+                <MudButton Disabled="@IsUploading" OnClick="ClearFileQueue" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.FreeCancellation" IconColor="Color.Surface">Clear file queue</MudButton>
+            </MudStack>
+        </MudPaper>
+    }
+
+</MaanfeeDashboardPage>
+
+@code {
+
+    [Inject]
+    IFilesManagerService FilesManager { get; set; }
+
+    private bool IsUploading = false;
+    private string ErrorMessage = string.Empty;
+    private int maxAllowedFiles = 30;
+    private List<FileUploadProgress> filesQueue = new();
+    private string ApiUrl = $"api/Files/UploadFileChunk";
+
+    private void AddFilesToQueue(InputFileChangeEventArgs e)
+    {
+        ErrorMessage = string.Empty;
+
+        if (e.FileCount > maxAllowedFiles)
+        {
+            ErrorMessage = $"A maximum of {maxAllowedFiles} is allowed, you have selected {e.FileCount} files!";
+        }
+        else
+        {
+            var files = e.GetMultipleFiles(maxAllowedFiles);
+            var fileCount = filesQueue.Count;
+
+            foreach (var file in files)
+            {
+                var progress = new FileUploadProgress(file, file.Name, file.Size, fileCount);
+                filesQueue.Add(progress);
+                fileCount++;
+            }
+        }
+    }
+
+    private async Task UploadFileQueue()
+    {
+        IsUploading = true;
+        await InvokeAsync(StateHasChanged);
+
+        foreach (var file in filesQueue.OrderByDescending(x => x.FileId))
+        {
+            if (!file.HasBeenUploaded)
+            {
+                await UploadChunks(file);
+                file.HasBeenUploaded = true;
+            }
+        }
+
+        IsUploading = false;
+    }
+
+    private async Task UploadChunks(FileUploadProgress file)
+    {
+        var TotalBytes = file.Size;
+        long chunkSize = 400000;
+        long numChunks = TotalBytes / chunkSize;
+        long remainder = TotalBytes % chunkSize;
+
+        string nameOnly = Path.GetFileNameWithoutExtension(file.FileName);
+        var extension = Path.GetExtension(file.FileName);
+        string newFileNameWithoutPath = $"{DateTime.Now.Ticks}-{nameOnly}{extension}";
+
+        bool firstChunk = true;
+        using (var inStream = file.FileData.OpenReadStream(long.MaxValue))
+        {
+            for (int i = 0; i < numChunks; i++)
+            {
+                var buffer = new byte[chunkSize];
+                await inStream.ReadAsync(buffer, 0, buffer.Length);
+
+                var chunk = new FileChunk
+                    {
+                        Data = buffer,
+                        FileName = newFileNameWithoutPath,
+                        Offset = filesQueue[file.FileId].UploadedBytes,
+                        FirstChunk = firstChunk
+                    };
+
+                await FilesManager.UploadFileChunk(ApiUrl, chunk);
+                firstChunk = false;
+
+                // Update our progress data and UI
+                filesQueue[file.FileId].UploadedBytes += chunkSize;
+                await InvokeAsync(StateHasChanged);
+            }
+
+            if (remainder > 0)
+            {
+                var buffer = new byte[remainder];
+                await inStream.ReadAsync(buffer, 0, buffer.Length);
+
+                var chunk = new FileChunk
+                    {
+                        Data = buffer,
+                        FileName = newFileNameWithoutPath,
+                        Offset = filesQueue[file.FileId].UploadedBytes,
+                        FirstChunk = firstChunk
+                    };
+                await FilesManager.UploadFileChunk(ApiUrl, chunk);
+
+                // Update our progress data and UI
+                filesQueue[file.FileId].UploadedBytes += remainder;
+                //await ListFiles();
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+    }
+
+    private void RemoveFromQueue(int fileId)
+    {
+        var itemToRemove = filesQueue.SingleOrDefault(x => x.FileId == fileId);
+        if (itemToRemove != null)
+            filesQueue.Remove(itemToRemove);
+    }
+
+    private void ClearFileQueue()
+    {
+        filesQueue.Clear();
+    }
+
+    private record FileUploadProgress(IBrowserFile File, string FileName, long Size, int FileId)
+    {
+        public IBrowserFile FileData { get; set; } = File;
+        public int FileId { get; set; } = FileId;
+        public long UploadedBytes { get; set; }
+        public double UploadedPercentage => (double)UploadedBytes / (double)Size * 100d;
+        public bool HasBeenUploaded { get; set; } = false;
+    }
+
+}

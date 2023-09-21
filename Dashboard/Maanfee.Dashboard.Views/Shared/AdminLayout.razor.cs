@@ -1,10 +1,10 @@
 ﻿using Maanfee.Dashboard.Core;
 using Maanfee.Dashboard.Domain.Entities;
 using Maanfee.Dashboard.Resources;
-using Maanfee.Dashboard.Views.Core;
 using Maanfee.Dashboard.Views.Core.DefaultValues;
 using Maanfee.Dashboard.Views.Core.Shared;
 using Maanfee.Dashboard.Views.Core.Shared.Dialogs;
+using Maanfee.Dashboard.Views.Pages.Authentications;
 using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -240,5 +240,25 @@ namespace Maanfee.Dashboard.Views.Shared
         }
 
         #endregion
+
+        #region - User Account -
+
+        private void OpenUserAccountDialog()
+        {
+            DialogParameters DialogParameters = new DialogParameters();
+
+            var dialog = Dialog.Show<DialogUserAccount>(string.Empty, DialogParameters,
+                new DialogOptions()
+                {
+                    NoHeader = true,
+                    MaxWidth = MaxWidth.ExtraLarge,
+                    FullWidth = true,
+                    Position = DialogPosition.Center,
+                    ClassBackground = "Dialog-Blur"
+                });
+        }
+
+        #endregion
+   
     }
 }

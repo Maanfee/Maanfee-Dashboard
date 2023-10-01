@@ -151,7 +151,7 @@
     <value>این نام کاربری قبلاً ثبت شده است</value>
   </data>
   <data name="MessageMaximumNumberOfFiles" xml:space="preserve">
-    <value>حداکثر تعداد فایل های قابل پذیرفته 10 می باشد، اما {0} فایل ارائه شده است. می توانید دوباره آن را تکرار کنید.</value>
+    <value>تعداد فایل های مجاز {0} تاست در حالیکه شما {1} فایل انتخاب کردید</value>
   </data>
   <data name="MessageNewRelease" xml:space="preserve">
     <value>نسخه جدید و بهبود یافته اکنون در دسترس است</value>

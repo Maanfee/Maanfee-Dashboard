@@ -1,0 +1,61 @@
+﻿@namespace Maanfee.Dashboard.Views.Core
+
+<MudCard Class="rounded-lg align-center">
+    <MudCardContent>
+        <MudText Color="Color" Typo="Typo.h6">@Title</MudText>
+        <MudGrid>
+            <MudItem md="6">
+                <div class="d-flex align-center justify-center my-1 me-2 pa-4">
+                    <MudIcon Color="@Color" Icon="@Icon" Size="Size.Medium" />
+                    <MudText Typo="Typo.subtitle2">@Value</MudText>
+                </div>
+            </MudItem>
+            <MudItem md="6">
+                <div class="d-flex align-end justify-end">
+                    @for (int i = 0; i <= 10; i++)
+                    {
+                        var Ran = $"{new Random().Next(5, 50)}px";
+                        <MudPaper Height="@Ran" Width="6px" Square Class="@chartClass" />
+                    }
+                </div>
+            </MudItem>
+        </MudGrid>
+        <MudDivider DividerType="DividerType.FullWidth" />
+        @if (!string.IsNullOrEmpty(Description))
+        {
+            <div class="pt-2">
+                <MudText Align="Align.Start" Typo="Typo.caption">@Description</MudText>
+            </div>
+        }
+    </MudCardContent>
+</MudCard>
+
+
+@code {
+
+    [Parameter]
+    public string Title { get; set; } = "Title";
+
+    [Parameter]
+    public string Value { get; set; } = "Value";
+
+    [Parameter]
+    public Color Color { get; set; }
+
+    [Parameter]
+    public string ChartClass { get; set; }
+
+    private string chartClass;
+
+    [Parameter]
+    public string Icon { get; set; }
+
+    [Parameter]
+    public string Description { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        chartClass = $"{ChartClass} mr-1 rounded-t ";
+    }
+
+}

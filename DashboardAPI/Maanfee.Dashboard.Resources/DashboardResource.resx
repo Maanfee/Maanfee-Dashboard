@@ -151,7 +151,7 @@
     <value>This username is already taken</value>
   </data>
   <data name="MessageMaximumNumberOfFiles" xml:space="preserve">
-    <value>The maximum number of files accepted is 10, but {0} were supplied.you can repeat it again</value>
+    <value>The number of allowed files is {0} while you selected {1} files</value>
   </data>
   <data name="MessageNewRelease" xml:space="preserve">
     <value>A new and improved version is now available</value>

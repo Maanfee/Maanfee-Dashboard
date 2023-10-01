@@ -160,7 +160,7 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The maximum number of files accepted is 10, but {0} were supplied.you can repeat it again.
+        ///   Looks up a localized string similar to The number of allowed files is {0} while you selected {1} files.
         /// </summary>
         public static string MessageMaximumNumberOfFiles {
             get {

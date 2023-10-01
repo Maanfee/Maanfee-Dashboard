@@ -100,11 +100,11 @@
 @code {
 
     [Inject]
-    IFilesManagerService FilesManager { get; set; }
+    private IFilesManagerService FilesManager { get; set; }
 
     private bool IsUploading = false;
     private string ErrorMessage = string.Empty;
-    private int maxAllowedFiles = 30;
+    private int MaxAllowedFiles = 100;
     private List<FileUploadProgress> filesQueue = new();
     private string ApiUrl = $"api/Files/UploadFileChunk";
 
@@ -112,13 +112,13 @@
     {
         ErrorMessage = string.Empty;
 
-        if (e.FileCount > maxAllowedFiles)
+        if (e.FileCount > MaxAllowedFiles)
         {
-            ErrorMessage = $"A maximum of {maxAllowedFiles} is allowed, you have selected {e.FileCount} files!";
+            ErrorMessage = $"A maximum of {MaxAllowedFiles} is allowed, you have selected {e.FileCount} files!";
         }
         else
         {
-            var files = e.GetMultipleFiles(maxAllowedFiles);
+            var files = e.GetMultipleFiles(MaxAllowedFiles);
             var fileCount = filesQueue.Count;
 
             foreach (var file in files)

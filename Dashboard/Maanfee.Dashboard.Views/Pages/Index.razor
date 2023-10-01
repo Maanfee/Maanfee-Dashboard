@@ -15,82 +15,13 @@
             </MudAlert>
         </MudItem>
         <MudItem md="4">
-            <MudPaper Class="py-4 px-6 rounded-lg d-flex align-center">
-                <div class="flex-grow-1">
-                    <MudText Color="Color.Primary" Typo="Typo.h6">Online Users</MudText>
-                    <div class="d-flex align-center my-1">
-                        <MudAvatar Class="me-2 pa-4" Style="background-color: var(--mud-palette-primary-hover);" Size="Size.Small">
-                            <MudIcon Color="Color.Primary" Icon="@Icons.Material.Filled.TrendingDown" Size="Size.Small" />
-                        </MudAvatar>
-                        <MudText Typo="Typo.subtitle2">+2.6%</MudText>
-                    </div>
-                    <MudText Typo="Typo.h4">149,567</MudText>
-                </div>
-                <div class="d-flex align-end justify-end mud-height-full py-8">
-                    <MudPaper Height="30px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="33px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="35px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="27px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="22px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="28px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="20px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="13px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="15px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="5px" Width="6px" Square="true" Class="mud-primary mr-1 rounded-t">&nbsp;</MudPaper>
-                </div>
-            </MudPaper>
+            <MaanfeeDashboardTile Title="Online Users" Value="-50" Color="Color.Primary" ChartClass="mud-primary" Icon="@Icons.Material.Filled.TrendingDown" Description="Description" />
         </MudItem>
         <MudItem md="4">
-            <MudPaper Class="py-4 px-6 rounded-lg d-flex align-center">
-                <div class="flex-grow-1">
-                    <MudText Color="Color.Primary" Typo="Typo.h6">Active Users</MudText>
-                    <div class="d-flex align-center my-1">
-                        <MudAvatar Class="me-2 pa-4" Style="background-color: var(--mud-palette-secondary-hover);" Size="Size.Small">
-                            <MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.TrendingUp" Size="Size.Small" />
-                        </MudAvatar>
-                        <MudText Typo="Typo.subtitle2">+9.6%</MudText>
-                    </div>
-                    <MudText Typo="Typo.h4">12%</MudText>
-                </div>
-                <div class="d-flex align-end justify-end mud-height-full py-8">
-                    <MudPaper Height="8px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="2px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="33px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="15px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="15px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="40px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="38px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="46px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="45px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="21px" Width="6px" Square="true" Class="mud-secondary mr-1 rounded-t">&nbsp;</MudPaper>
-                </div>
-            </MudPaper>
+            <MaanfeeDashboardTile Title="Active Users" Value="200" Color="Color.Secondary" ChartClass="mud-secondary" Icon="@Icons.Material.Filled.TrendingUp" Description="Description" />
         </MudItem>
         <MudItem md="4">
-            <MudPaper Class="py-4 px-6 rounded-lg d-flex align-center">
-                <div class="flex-grow-1">
-                    <MudText Color="Color.Primary" Typo="Typo.h6">Deleted Users</MudText>
-                    <div class="d-flex align-center my-1">
-                        <MudAvatar Class="me-2 pa-4" Style="background-color: var(--mud-palette-tertiary-hover);" Size="Size.Small">
-                            <MudIcon Color="Color.Tertiary" Icon="@Icons.Material.Filled.TrendingFlat" Size="Size.Small" />
-                        </MudAvatar>
-                        <MudText Typo="Typo.subtitle2">~0.0%</MudText>
-                    </div>
-                    <MudText Typo="Typo.h4">3,6</MudText>
-                </div>
-                <div class="d-flex align-end justify-end mud-height-full py-8">
-                    <MudPaper Height="10px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="16px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="26px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="36px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="36px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="28px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="36px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="36px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="28px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
-                    <MudPaper Height="36px" Width="6px" Square="true" Class="mud-tertiary mr-1 rounded-t">&nbsp;</MudPaper>
-                </div>
-            </MudPaper>
+            <MaanfeeDashboardTile Title="Deleted Users" Value="250" Color="Color.Tertiary" ChartClass="mud-tertiary" Icon="@Icons.Material.Filled.TrendingFlat" Description="Description" />
         </MudItem>
 
         <MudItem md="12" xs="12">

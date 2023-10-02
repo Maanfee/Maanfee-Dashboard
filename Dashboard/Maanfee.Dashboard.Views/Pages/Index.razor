@@ -84,10 +84,8 @@
                                 MaxWidth = MaxWidth.Medium,
                                 FullWidth = true,
                                 Position = DialogPosition.Center,
+                                DisableBackdropClick = true,
                             });
-
-                    SharedLayoutSettings.CurrentVersion = Callback.Data.Version;
-                    await LocalConfiguration.SetConfigurationAsync();
                 }
             }
             else

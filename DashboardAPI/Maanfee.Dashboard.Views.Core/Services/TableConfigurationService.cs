@@ -2,7 +2,7 @@
 {
 	public class TableConfigurationService
 	{
-		public static string InitTableHeight { get; set; } = "340px";
+		public static string InitTableHeight { get; set; } = "400px";
 
         public static string InitTableHeightLarge { get; set; } = "450px";
 
@@ -12,7 +12,7 @@
 
 			if (IsFullscreen && IsTableScroll)
 			{
-				return "470px";
+				return "520px";
 			}
 			if (!IsFullscreen && IsTableScroll)
 			{

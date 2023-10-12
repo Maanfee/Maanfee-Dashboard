@@ -1,5 +1,5 @@
 ﻿/*
- * JavaScript Screen Library V 1.0.0
+ * JavaScript Screen Library V 1.1.0
  *
  *
  *
@@ -8,7 +8,6 @@
 
 window.AppScreen = {
     Width: () => {
-
         return screen.width;
     },
     Height: () => {

@@ -12,7 +12,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Ocelot" Version="19.0.3" />
+		<PackageReference Include="Ocelot" Version="20.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

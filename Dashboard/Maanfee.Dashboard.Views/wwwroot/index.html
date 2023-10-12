@@ -12,8 +12,7 @@
     <link href="_content/Maanfee.Dashboard.Views.Base/css/App.css" rel="stylesheet" />
 </head>
 
-<!--<body oncontextmenu="return false">-->
-<body>
+<body oncontextmenu="return false">
     <div id="app">
         <style>
             @keyframes slide {
@@ -77,3 +76,9 @@
 </body>
 
 </html>
+
+<script>
+    window.onpopstate = function () {
+        window.history.go(1);
+    };
+</script>

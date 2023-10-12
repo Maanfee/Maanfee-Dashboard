@@ -1,35 +1,27 @@
 ﻿@page "/Releases/SysReleaseMgtView"
 @inherits _BaseView
-
 @using TableViewModel = Maanfee.Dashboard.Domain.ViewModels.GetReleaseViewModel
 
 <MaanfeeDashboardPage>
 	<MaanfeeDashboardPageHeader PageTitle="@DashboardResource.StringRelease" />
 
-	<MudCard>
-		<MudCardHeader>
-			<MudText Typo="Typo.button" Color="Color.Primary">
+	<MudPaper>
+		<MudToolBar>
+			<MudText Color="Color.Primary">
 				@DashboardResource.StringRelease
 			</MudText>
-		</MudCardHeader>
-		<MudDivider DividerType="DividerType.FullWidth" />
-		<MudToolBar>
-			<MudStack Row="true" Spacing="1" AlignItems="AlignItems.Start">
-				<MudPaper>
-					<MudButton OnClick="@(()=>OpenCrudateDialog("0"))" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" IconColor="Color.Surface">@DashboardResource.StringCreate</MudButton>
-				</MudPaper>
-				<MudPaper>
-					<MudButton OnClick="OnReloadData" Variant="Variant.Filled" Color="Color.Secondary" StartIcon="@Icons.Material.Filled.Refresh" IconColor="Color.Surface">@DashboardResource.StringReload</MudButton>
-				</MudPaper>
-			</MudStack>
 			<MudSpacer />
-			<MudButton OnClick="OpenSearchDialog" Variant="Variant.Filled" Color="Color.Tertiary" StartIcon="@Icons.Material.Filled.ManageSearch" IconColor="Color.Surface">@DashboardResource.StringSearch</MudButton>
+			<MudIconButton OnClick="@(() => OpenCrudateDialog("0"))" Color="Color.Primary" Icon="@Icons.Material.Outlined.Add" Title="@DashboardResource.StringCreate" />
+			<MudIconButton OnClick="OnReloadData" Icon="@Icons.Material.Outlined.Refresh" Color="Color.Secondary" Title="@DashboardResource.StringReload" />
+			<MudIconButton OnClick="OpenSearchDialog" Icon="@Icons.Material.Filled.ManageSearch" Color="Color.Tertiary" Title="@DashboardResource.StringSearch" />
 		</MudToolBar>
+	</MudPaper>
+	<MudCard>
 		<MudDivider DividerType="DividerType.FullWidth" />
 		<MudCardActions>
 			<MudTable ServerData="@(new Func<TableState, Task<TableData<TableViewModel>>>(ServerData))" @ref="Table"
-					  Dense="@_IsTableDense" Bordered="true" Striped="true" Hover="true" Virtualize="true" Loading="@IsTableLoading"
-					  FixedHeader="@_IsTableFixedHeader" FixedFooter="true" Height="@TableHeight">
+					  Dense="@_IsTableDense" Bordered Striped Hover Virtualize FixedFooter Loading="@IsTableLoading"
+					  FixedHeader="@_IsTableFixedHeader" Height="@TableHeight">
 				<HeaderContent>
 					<MudTh Class="column-1x"><MudText Align="Align.Center">#</MudText></MudTh>
 					<MudTh><MudTableSortLabel SortLabel="Version" T="TableViewModel">@DashboardResource.StringVersion</MudTableSortLabel></MudTh>

@@ -5,6 +5,7 @@ using Maanfee.Dashboard.Views.Core.DefaultValues;
 using Maanfee.Dashboard.Views.Core.Shared;
 using Maanfee.Dashboard.Views.Core.Shared.Dialogs;
 using Maanfee.Dashboard.Views.Pages.Authentications;
+using Maanfee.Dashboard.Views.Pages.Settings;
 using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -104,6 +105,19 @@ namespace Maanfee.Dashboard.Views.Shared
             Dialog.Show<DialogLogout>(DashboardResource.StringLogout, parameters, options);
 
             await Task.Delay(10);
+        }
+
+        private void OpenConfigurationDialog()
+        {
+            DialogParameters DialogParameters = new DialogParameters();
+
+            var dialog = Dialog.Show<DialogConfiguration>(string.Empty, DialogParameters,
+                new DialogOptions()
+                {
+                    MaxWidth = MaxWidth.Medium,
+                    Position = DialogPosition.Center,
+                    FullWidth = true,
+                });
         }
 
         // ******************************************************

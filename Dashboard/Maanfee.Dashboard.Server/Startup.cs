@@ -2,6 +2,7 @@ using Maanfee.Dashboard.Domain.DAL;
 using Maanfee.Dashboard.Server.Data;
 using Maanfee.Dashboard.Services;
 using Maanfee.Dashboard.Services.Extensions;
+using Maanfee.Dashboard.Views.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -92,6 +93,7 @@ namespace Maanfee.Dashboard.Server
             // ***************************************************************
 
             app.UseRouting();  //
+            app.UseResponseCompression();   //
 
             #region - Internal Configuration -
 
@@ -113,7 +115,8 @@ namespace Maanfee.Dashboard.Server
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("index.html");
 				endpoints.MapHub<SignalRHub>("/signalRHub");
-			});
+                endpoints.MapHub<LoggingHub>("/LoggingHub");
+            });
         }
 
         // ********************************

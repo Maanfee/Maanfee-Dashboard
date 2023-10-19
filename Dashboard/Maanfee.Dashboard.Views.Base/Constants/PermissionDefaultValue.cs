@@ -90,25 +90,17 @@ namespace Maanfee.Dashboard.Views.Base
 		[Description("Settings Permissions")]
 		public static class Setting
 		{
-			[Display(Name = nameof(DashboardResource.StringSettings))]
-			public const string SettingsView = "Permission.Settings.View";
-
 			[Display(Name = nameof(DashboardResource.StringRelease))]
 			public const string ReleaseManagementView = "Permission.Settings.ReleaseManagementView";
 
 			[Display(Name = nameof(DashboardResource.StringSwagger))]
 			public const string Swagger = "Permission.Settings.SwaggersView";
-		}
+
+            [Display(Name = nameof(DashboardResource.StringMonitoringLogs))]
+            public const string MonitorLogs = "Permission.Settings.MonitorLogs";
+        }
 
 		#endregion
-
-		//[Display(Name = nameof(AppResource.StringDelegationSuccessor))]
-		//[Description("Delegation Successor")]
-		//public static class DelegationSuccessor
-		//{
-		//    [Display(Name = nameof(DashboardResource.StringList))]
-		//    public const string View = "Permission.DelegationSuccessor.View";
-		//}
 
 		//[Display(Name = nameof(AppResource.StringReports))]
 		//[Description("Reports")]

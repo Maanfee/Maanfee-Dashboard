@@ -6,6 +6,7 @@ using Maanfee.Dashboard.Resources;
 using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
     [ApiExplorerSettings(IgnoreApi = true)]
     public class DepartmentsController : _BaseController
     {
-        public DepartmentsController(_BaseContext_SQLServer context, CommonService CommonService, HttpClient http) : base(context, CommonService, http)
+        public DepartmentsController(_BaseContext_SQLServer context, CommonService CommonService, HttpClient http, IHubContext<LoggingHub> loggingHub) : base(context, CommonService, http, loggingHub)
         {
         }
 

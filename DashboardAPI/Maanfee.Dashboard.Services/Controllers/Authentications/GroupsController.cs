@@ -6,6 +6,7 @@ using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor;
 using System;
@@ -22,7 +23,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
     [ApiExplorerSettings(IgnoreApi = true)]
     public class GroupsController : _BaseController
     {
-        public GroupsController(_BaseContext_SQLServer context, CommonService CommonService, HttpClient http) : base(context, CommonService, http)
+        public GroupsController(_BaseContext_SQLServer context, CommonService CommonService, HttpClient http, IHubContext<LoggingHub> loggingHub) : base(context, CommonService, http, loggingHub)
         {
         }
 

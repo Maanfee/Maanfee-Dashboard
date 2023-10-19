@@ -24,12 +24,18 @@
 
     public struct Padding
     {
-        public static string Padding10 = "padding-10mm";
+		public static string Padding0 = "padding-0mm";
+		
+        public static string Padding5 = "5mm";
+		
+        public static string Padding10 = "10mm";
 
-        public static string Padding15 = "padding-15mm";
+        public static string Padding15 = "15mm";
 
-        public static string Padding20 = "padding-20mm";
+        public static string Padding20 = "20mm";
 
-        public static string Padding25 = "padding-25mm";
-    }
+        public static string Padding25 = "25mm";
+
+		public static string Padding30 = "30mm";
+	}
 }

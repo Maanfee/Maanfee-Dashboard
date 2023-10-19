@@ -5,6 +5,7 @@ using Maanfee.Dashboard.Resources;
 using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor;
 using System;
@@ -21,7 +22,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
     [ApiExplorerSettings(IgnoreApi = true)]
     public class UsersController : _BaseController
     {
-        public UsersController(_BaseContext_SQLServer context, CommonService CommonService, HttpClient http) : base(context, CommonService, http)
+        public UsersController(_BaseContext_SQLServer context, CommonService CommonService, HttpClient http, IHubContext<LoggingHub> loggingHub) : base(context, CommonService, http, loggingHub)
         {
         }
 
@@ -175,6 +176,12 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         {
             try
             {
+                await LoggingHub.Clients.All.SendAsync("ReceiveMessage", new LogInfo
+                {
+                    LogDate = DateTime.Now,
+                    Message = "Message From Server",
+                }, "Server");
+
                 PaginatedList<GetUserViewModel> PaginatedList;
 
                 IQueryable<GetUserViewModel> Data = CommonService.GetQueryableVirtualUsers();

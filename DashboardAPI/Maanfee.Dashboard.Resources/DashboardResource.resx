@@ -243,6 +243,9 @@
   <data name="StringChats" xml:space="preserve">
     <value>گپ</value>
   </data>
+  <data name="StringClearCache" xml:space="preserve">
+    <value>Clear cache</value>
+  </data>
   <data name="StringCode" xml:space="preserve">
     <value>کد</value>
   </data>
@@ -257,6 +260,9 @@
   </data>
   <data name="StringCommunity" xml:space="preserve">
     <value>Community</value>
+  </data>
+  <data name="StringConfiguration" xml:space="preserve">
+    <value>Configuration</value>
   </data>
   <data name="StringConfirmation" xml:space="preserve">
     <value>Confirmation</value>
@@ -377,6 +383,9 @@
   </data>
   <data name="StringModuleName" xml:space="preserve">
     <value>Module</value>
+  </data>
+  <data name="StringMonitoringLogs" xml:space="preserve">
+    <value>Monitoring logs</value>
   </data>
   <data name="StringName" xml:space="preserve">
     <value>Name</value>
@@ -533,6 +542,9 @@
   </data>
   <data name="StringStatus" xml:space="preserve">
     <value>Status</value>
+  </data>
+  <data name="StringStorage" xml:space="preserve">
+    <value>Storage</value>
   </data>
   <data name="StringSummary" xml:space="preserve">
     <value>Summary</value>

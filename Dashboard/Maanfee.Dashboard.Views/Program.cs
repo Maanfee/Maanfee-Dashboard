@@ -6,8 +6,10 @@ using Maanfee.Highcharts;
 using Maanfee.Web.Core;
 using Maanfee.Web.JSInterop;
 using Maanfee.Web.Printing;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
@@ -43,6 +45,15 @@ builder.Services.AddFileDownload();
 
 // File Upload
 builder.Services.AddScoped<IFilesManagerService, FilesManagerService>();
+
+// Logging SignalR
+builder.Services.AddSingleton<HubConnection>(sp => {
+    var navigationManager = sp.GetRequiredService<NavigationManager>();
+    return new HubConnectionBuilder()
+      .WithUrl(navigationManager.ToAbsoluteUri("/LoggingHub"))
+      .WithAutomaticReconnect()
+      .Build();
+});
 
 var host = builder.Build();
 

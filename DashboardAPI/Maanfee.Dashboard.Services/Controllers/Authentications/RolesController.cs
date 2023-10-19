@@ -5,6 +5,7 @@ using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor;
 using System;
@@ -21,7 +22,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
 	[ApiExplorerSettings(IgnoreApi = true)]
 	public class RolesController : _BaseController
 	{
-		public RolesController(_BaseContext_SQLServer context, CommonService CommonService, HttpClient http) : base(context, CommonService, http)
+		public RolesController(_BaseContext_SQLServer context, CommonService CommonService, HttpClient http, IHubContext<LoggingHub> loggingHub) : base(context, CommonService, http, loggingHub)
 		{
 		}
 

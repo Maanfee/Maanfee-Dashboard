@@ -243,6 +243,9 @@
   <data name="StringChats" xml:space="preserve">
     <value>گپ ها</value>
   </data>
+  <data name="StringClearCache" xml:space="preserve">
+    <value>پاک کردن حافظه پنهان</value>
+  </data>
   <data name="StringCode" xml:space="preserve">
     <value>کد</value>
   </data>
@@ -257,6 +260,9 @@
   </data>
   <data name="StringCommunity" xml:space="preserve">
     <value>انجمن</value>
+  </data>
+  <data name="StringConfiguration" xml:space="preserve">
+    <value>پیکربندی</value>
   </data>
   <data name="StringConfirmation" xml:space="preserve">
     <value>تایید</value>
@@ -377,6 +383,9 @@
   </data>
   <data name="StringModuleName" xml:space="preserve">
     <value>ماژول</value>
+  </data>
+  <data name="StringMonitoringLogs" xml:space="preserve">
+    <value>نظارت بر فعالیت‌های روزانه</value>
   </data>
   <data name="StringName" xml:space="preserve">
     <value>نام و نام خانوادگی</value>
@@ -533,6 +542,9 @@
   </data>
   <data name="StringStatus" xml:space="preserve">
     <value>وضعیت</value>
+  </data>
+  <data name="StringStorage" xml:space="preserve">
+    <value>ذخیره سازی</value>
   </data>
   <data name="StringSummary" xml:space="preserve">
     <value>خلاصه</value>

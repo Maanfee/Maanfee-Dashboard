@@ -439,6 +439,15 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear cache.
+        /// </summary>
+        public static string StringClearCache {
+            get {
+                return ResourceManager.GetString("StringClearCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to کد.
         /// </summary>
         public static string StringCode {
@@ -480,6 +489,15 @@ namespace Maanfee.Dashboard.Resources {
         public static string StringCommunity {
             get {
                 return ResourceManager.GetString("StringCommunity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configuration.
+        /// </summary>
+        public static string StringConfiguration {
+            get {
+                return ResourceManager.GetString("StringConfiguration", resourceCulture);
             }
         }
         
@@ -840,6 +858,15 @@ namespace Maanfee.Dashboard.Resources {
         public static string StringModuleName {
             get {
                 return ResourceManager.GetString("StringModuleName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monitoring logs.
+        /// </summary>
+        public static string StringMonitoringLogs {
+            get {
+                return ResourceManager.GetString("StringMonitoringLogs", resourceCulture);
             }
         }
         
@@ -1308,6 +1335,15 @@ namespace Maanfee.Dashboard.Resources {
         public static string StringStatus {
             get {
                 return ResourceManager.GetString("StringStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Storage.
+        /// </summary>
+        public static string StringStorage {
+            get {
+                return ResourceManager.GetString("StringStorage", resourceCulture);
             }
         }
         

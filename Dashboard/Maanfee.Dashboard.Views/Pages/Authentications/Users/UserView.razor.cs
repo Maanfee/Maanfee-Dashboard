@@ -5,6 +5,7 @@ using Maanfee.Dashboard.Views.Base;
 using Maanfee.Dashboard.Views.Core.Shared.Dialogs;
 using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR.Client;
 using MudBlazor;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,17 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 		{
 			await base.OnInitializedAsync();
 
-			try
+            if (LoggingHubConnection is not null)
+            {
+                await LoggingHubConnection.SendAsync("SendMessageAsync", new LogInfo
+                {
+                    Message = "Client",
+                    LogDate = DateTime.Now
+                }
+                    , "GG");
+            }
+
+            try
 			{
 				await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.User.View, AuthenticationState,
 					AuthorizationService, Navigation);

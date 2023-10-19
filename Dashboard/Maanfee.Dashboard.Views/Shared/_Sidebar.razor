@@ -56,36 +56,41 @@
         </MudNavGroup>
     }
 
-    @if (_PermissionSettings || _PermissionReleaseManagement)
+    @if (_PermissionReleaseManagement || _PermissionMonitoringLogs)
     {
         <MudNavGroup Title="@DashboardResource.StringSettings" Icon="@Icons.Material.Filled.Handyman" ExpandIcon="@Icons.Material.Filled.ExpandMore">
-            @if (_PermissionSettings)
-            {
-                <MudNavLink Href="/Settings/SettingsView">
-                    @DashboardResource.StringSettings
-                </MudNavLink>
-            }
             @if (_PermissionReleaseManagement)
             {
                 <MudNavLink Href="/Releases/SysReleaseMgtView">
                     @DashboardResource.StringRelease
                 </MudNavLink>
             }
+            @if (_PermissionMonitoringLogs)
+            {
+                <MudNavLink Href="/Settings/MonitoringLogsView">
+                    @DashboardResource.StringMonitoringLogs
+                </MudNavLink>
+            }
         </MudNavGroup>
     }
 
-    <MudNavGroup Title="@DashboardResource.StringAbout" Icon="@Icons.Material.Filled.Feed" ExpandIcon="@Icons.Material.Filled.ExpandMore">
-        <MudNavLink Href="/Releases/ReleaseView">
-            @DashboardResource.StringRelease
-        </MudNavLink>
-        @if (_PermissionPublicSwagger)
-        {
-
-            <MudNavLink Href="/swagger/index.html" Target="_blank">
-                @DashboardResource.StringSwagger
-            </MudNavLink>
-        }
-    </MudNavGroup>
+    @if (_PermissionReleaseManagement || _PermissionPublicSwagger)
+    {
+        <MudNavGroup Title="@DashboardResource.StringAbout" Icon="@Icons.Material.Filled.Feed" ExpandIcon="@Icons.Material.Filled.ExpandMore">
+            @if (_PermissionReleaseManagement)
+            {
+                <MudNavLink Href="/Releases/ReleaseView">
+                    @DashboardResource.StringRelease
+                </MudNavLink>
+            }
+            @if (_PermissionPublicSwagger)
+            {
+                <MudNavLink Href="/swagger/index.html" Target="_blank">
+                    @DashboardResource.StringSwagger
+                </MudNavLink>
+            }
+        </MudNavGroup>
+    }
 
     <Maanfee.Dashboard.Examples.Views._Sidebar />
     <Maanfee.Dashboard.Examples.Views.JsInterop._Sidebar />
@@ -97,13 +102,13 @@
     [CascadingParameter]
     private Task<AuthenticationState> PermissionAuthenticationState { get; set; }
 
-    private bool _PermissionSettings = false;
     private bool _PermissionRoles = false;
     private bool _PermissionDepartments = false;
     private bool _PermissionGroups = false;
     private bool _PermissionUsers = false;
     private bool _PermissionPublicSwagger = false;
     private bool _PermissionReleaseManagement = false;
+    private bool _PermissionMonitoringLogs = false;
 
     protected override async Task OnParametersSetAsync()
     {
@@ -113,9 +118,9 @@
         _PermissionDepartments = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Department.View)).Succeeded;
         _PermissionGroups = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Group.View)).Succeeded;
         _PermissionUsers = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.User.View)).Succeeded;
-        _PermissionSettings = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Setting.SettingsView)).Succeeded;
         _PermissionPublicSwagger = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Setting.Swagger)).Succeeded;
         _PermissionReleaseManagement = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Setting.ReleaseManagementView)).Succeeded;
+        _PermissionMonitoringLogs = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Setting.MonitorLogs)).Succeeded;
     }
 
 }

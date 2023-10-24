@@ -1,4 +1,5 @@
 ﻿using Maanfee.Dashboard.Domain.DAL;
+using Maanfee.Logging.Console;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;

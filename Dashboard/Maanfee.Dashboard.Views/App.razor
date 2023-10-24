@@ -47,46 +47,9 @@
 		}
 	}
 
-
-}
-
-@code {
-	private CancellationTokenSource cts = new CancellationTokenSource();
-
 	protected override async Task OnInitializedAsync()
 	{
-		await ConnectWithRetryAsync(cts.Token);
-
-		LoggingHubConnection.Closed += error =>
-				{
-					return ConnectWithRetryAsync(cts.Token);
-				};
+		await LoggingInitializer.InitializedAsync();
 	}
 
-	private async Task<bool> ConnectWithRetryAsync(CancellationToken token)
-	{
-		while (true)
-		{
-			try
-			{
-				await LoggingHubConnection.StartAsync(token);
-				return true;
-			}
-			catch when (token.IsCancellationRequested)
-			{
-				return false;
-			}
-			catch
-			{
-				await Task.Delay(5000);
-			}
-		}
-	}
-
-	public async ValueTask DisposeAsync()
-	{
-		cts.Cancel();
-		cts.Dispose();
-		await LoggingHubConnection.DisposeAsync();
-	}
 }

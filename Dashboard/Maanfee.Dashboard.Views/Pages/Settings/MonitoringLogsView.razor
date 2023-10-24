@@ -1,77 +1,9 @@
 ﻿@page "/Settings/MonitoringLogsView"
 @inherits _BaseView
 
-<style>
-
-    .console {
-        font-family: Courier New, Courier, monospace;
-        font-size: 12px;
-        background-color: #303030;
-        color: #ffffffc7;
-        border-radius: 0.5rem;
-        padding: 1rem;
-        width:100%;
-    }
-
-</style>
-
 <MaanfeeDashboardPage>
     <MaanfeeDashboardPageHeader PageTitle="@DashboardResource.StringMonitoringLogs" />
 
-    <MudPaper>
-        <MudToolBar>
-            <MudText Color="Color.Primary">
-                @DashboardResource.StringMonitoringLogs
-            </MudText>
-            <MudSpacer />
-            <MudIconButton OnClick="@(() => LogMessages.Clear())" Icon="@Icons.Material.Filled.DeleteSweep" Color="Color.Error" Title="@DashboardResource.StringSearch" />
-        </MudToolBar>
-    </MudPaper>
-    <MudCard>
-        <MudDivider DividerType="DividerType.FullWidth" />
-        <MudCardActions>
-            <div class="console">
-                @foreach (var item in LogMessages)
-                {
-                    <div>@item.Message | @item.LogDate.ToShortDateString()</div>
-                }
-            </div>
-        </MudCardActions>
-    </MudCard>
+    <Maanfee.Logging.Console.Components.LogConsole Title="@DashboardResource.StringMonitoringLogs" Align="@(SharedLayoutSettings.IsRTL ? Align.End : Align.Start)" />
 
 </MaanfeeDashboardPage>
-
-
-@code {
-
-    private List<LogInfo> LogMessages = new();
-
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-
-        if (LoggingHubConnection is not null)
-        {
-            await LoggingHubConnection.SendAsync("SendMessageAsync", new LogInfo
-                {
-                    Message = "Console ...",
-                    LogDate = DateTime.Now
-                }
-                , "GG");
-        }
-
-        LoggingHubConnection.On<LogInfo, string>("ReceiveMessage", /* async */ (Log, userName) =>
-        {
-            var LogMessage = new LogInfo
-                {
-                    Message = Log.Message,
-                    LogDate = Log.LogDate,
-                };
-            LogMessages.Add(LogMessage);
-
-            StateHasChanged();
-        });
-
-    }
-
-}

@@ -2,17 +2,13 @@
 using Maanfee.Dashboard.Domain.Entities;
 using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Dashboard.Resources;
+using Maanfee.Logging.Console;
 using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Services.Controllers.Authentications
 {
@@ -176,12 +172,6 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         {
             try
             {
-                await LoggingHub.Clients.All.SendAsync("ReceiveMessage", new LogInfo
-                {
-                    LogDate = DateTime.Now,
-                    Message = "Message From Server",
-                }, "Server");
-
                 PaginatedList<GetUserViewModel> PaginatedList;
 
                 IQueryable<GetUserViewModel> Data = CommonService.GetQueryableVirtualUsers();
@@ -224,6 +214,17 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
             }
             catch (Exception ex)
             {
+                if (LoggingHub is not null)
+                {
+                    await LoggingHub.Clients.All.SendAsync("ReceiveMessage", new LogInfo
+                    {
+                        Platform = LoggingPlatformDefaultValue.Server,
+                        Message = $"{ex.Message}",
+                        LogDate = DateTime.Now,
+                        Level = LogLevel.Error,
+                    });
+                }
+
                 return new CallbackResult<PaginatedList<GetUserViewModel>>(null, new ExceptionError(ex.ToString()));
             }
         }

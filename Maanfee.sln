@@ -51,6 +51,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoggingPlatform", "LoggingP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateway.Api", "Gateway\Gateway.Api\Gateway.Api.csproj", "{515912FD-DD96-407E-88FB-54226DDCEBBA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maanfee.Logging.Console", "DashboardAPI\Maanfee.Logging.Console\Maanfee.Logging.Console.csproj", "{BF65CF28-6619-41C8-966E-97CFCF3ADA63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +123,10 @@ Global
 		{515912FD-DD96-407E-88FB-54226DDCEBBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{515912FD-DD96-407E-88FB-54226DDCEBBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{515912FD-DD96-407E-88FB-54226DDCEBBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF65CF28-6619-41C8-966E-97CFCF3ADA63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF65CF28-6619-41C8-966E-97CFCF3ADA63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF65CF28-6619-41C8-966E-97CFCF3ADA63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF65CF28-6619-41C8-966E-97CFCF3ADA63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -142,6 +148,7 @@ Global
 		{4E826F25-7905-4D2A-ABAB-276598FFD1C9} = {2C86B95E-FCFF-4AFE-AE8C-1B892A20200B}
 		{F2D62E62-2A6A-4BD0-9714-7ECBB44E5B46} = {C431711A-B332-4990-8AA9-BD5B2347FA01}
 		{515912FD-DD96-407E-88FB-54226DDCEBBA} = {EB2F145B-F621-4FBF-93C5-BD6D13F42829}
+		{BF65CF28-6619-41C8-966E-97CFCF3ADA63} = {2C86B95E-FCFF-4AFE-AE8C-1B892A20200B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E3DD1F6F-DB97-4380-9B9B-3F37A2C8D178}

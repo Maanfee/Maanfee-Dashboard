@@ -3,12 +3,14 @@ using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Dashboard.Resources;
 using Maanfee.Dashboard.Views.Base;
 using Maanfee.Dashboard.Views.Core.Shared.Dialogs;
+using Maanfee.Logging.Console;
 using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR.Client;
 using MudBlazor;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -21,7 +23,6 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 		private IEnumerable<GetUserViewModel> Data = new List<GetUserViewModel>();
 		private MudTable<GetUserViewModel> Table = new();
         private TableStateViewModel<FilterViewModel> TableState = new();
-        //private string SearchString = string.Empty;
 
         private bool _PermissionCreate = false;
 		private bool _PermissionEdit = false;
@@ -35,14 +36,15 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
             {
                 await LoggingHubConnection.SendAsync("SendMessageAsync", new LogInfo
                 {
-                    Message = "Client",
-                    LogDate = DateTime.Now
-                }
-                    , "GG");
+                    Platform = LoggingPlatformDefaultValue.Client,
+                    Message = $"{AccountStateContainer.UserName} ({AccountStateContainer.Name}) is Viewing ({DashboardResource.StringUser})",
+                    LogDate = DateTime.Now,
+                    Level = LogLevel.Information,
+                });
             }
 
             try
-			{
+            {
 				await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.User.View, AuthenticationState,
 					AuthorizationService, Navigation);
 
@@ -53,7 +55,18 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 			catch (Exception ex)
 			{
 				Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
-			}
+
+                if (LoggingHubConnection is not null)
+                {
+                    await LoggingHubConnection.SendAsync("SendMessageAsync", new LogInfo
+                    {
+                        Platform = LoggingPlatformDefaultValue.Client,
+                        Message = $"{ex.Message}",
+                        LogDate = DateTime.Now,
+                        Level = LogLevel.Error,
+                    });
+                }
+            }
 		}
 
         private async Task<TableData<GetUserViewModel>> ServerData(TableState state)

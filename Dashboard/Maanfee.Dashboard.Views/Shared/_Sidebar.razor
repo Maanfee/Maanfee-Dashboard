@@ -74,23 +74,20 @@
         </MudNavGroup>
     }
 
-    @if (_PermissionReleaseManagement || _PermissionPublicSwagger)
-    {
-        <MudNavGroup Title="@DashboardResource.StringAbout" Icon="@Icons.Material.Filled.Feed" ExpandIcon="@Icons.Material.Filled.ExpandMore">
-            @if (_PermissionReleaseManagement)
-            {
-                <MudNavLink Href="/Releases/ReleaseView">
-                    @DashboardResource.StringRelease
-                </MudNavLink>
-            }
-            @if (_PermissionPublicSwagger)
-            {
-                <MudNavLink Href="/swagger/index.html" Target="_blank">
-                    @DashboardResource.StringSwagger
-                </MudNavLink>
-            }
-        </MudNavGroup>
-    }
+    <MudNavGroup Title="@DashboardResource.StringAbout" Icon="@Icons.Material.Filled.Feed" ExpandIcon="@Icons.Material.Filled.ExpandMore">
+        @if (_PermissionReleaseManagement)
+        {
+            <MudNavLink Href="/Releases/ReleaseView">
+                @DashboardResource.StringRelease
+            </MudNavLink>
+        }
+        @if (_PermissionPublicSwagger)
+        {
+            <MudNavLink Href="/swagger/index.html" Target="_blank">
+                @DashboardResource.StringSwagger
+            </MudNavLink>
+        }
+    </MudNavGroup>
 
     <Maanfee.Dashboard.Examples.Views._Sidebar />
     <Maanfee.Dashboard.Examples.Views.JsInterop._Sidebar />

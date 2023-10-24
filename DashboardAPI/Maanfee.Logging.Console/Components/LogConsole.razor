@@ -1,0 +1,118 @@
+﻿@using MudBlazor
+@using Microsoft.AspNetCore.SignalR.Client;
+@inject HubConnection LoggingHubConnection
+
+<style>
+
+    .console {
+        font-family: Courier New, Courier, monospace;
+        font-size: 12px;
+        background-color: #303030;
+        color: #ffffffc7;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        width: 100%;
+    }
+
+</style>
+
+<MudPaper>
+    <MudToolBar>
+        <MudText Color="Color.Primary">
+            @Title
+        </MudText>
+        <MudSpacer />
+        <MudIconButton OnClick="@(() => LogMessages.Clear())" Icon="@Icons.Material.Filled.DeleteSweep" Color="Color.Error" />
+    </MudToolBar>
+</MudPaper>
+<MudCard>
+    <MudDivider DividerType="DividerType.FullWidth" />
+    <MudCardActions>
+        <MudText Align="@Align" class="console">
+            @foreach (var item in LogMessages)
+            {
+                Color ConsoleColor = Color.Dark;
+                switch (item.Level)
+                {
+                    case LogLevel.Warning:
+                        ConsoleColor = Color.Warning;
+                        break;
+                    case LogLevel.Error:
+                        ConsoleColor = Color.Error;
+                        break;
+                    case LogLevel.Information:
+                        ConsoleColor = Color.Success;
+                        break;
+                    case LogLevel.Debug:
+                        ConsoleColor = Color.Info;
+                        break;
+                }
+           @*  display: inline - block!important; *@
+                <div style="direction:ltr !important; text-align:left !important;">
+                    <MudText Style="color:white" Typo="Typo.caption">
+                        <small>
+                            @item.Platform :
+                        </small>
+                    </MudText>
+                    <MudText Typo="Typo.caption" Color="ConsoleColor">
+                        <small>
+                            @item.Message
+                        </small>
+                    </MudText>
+                    <MudText Typo="Typo.caption" Color="Color.Secondary">
+                        <small>
+                            @item.LogDate.ToShortDateString() - @item.LogDate.ToShortTimeString()
+                        </small>
+                    </MudText>
+                </div>
+            }
+        </MudText>
+    </MudCardActions>
+</MudCard>
+
+@code {
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public Align Align { get; set; } = Align.Center;
+
+    private List<LogInfo> LogMessages = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        if (LoggingHubConnection is not null)
+        {
+            await LoggingHubConnection.SendAsync("SendMessageAsync", new LogInfo
+                {
+                    Platform = LoggingPlatformDefaultValue.System,
+                    Message = "Console Initialized ...",
+                    LogDate = DateTime.Now,
+                    Level = LogLevel.Warning,
+                });
+        }
+
+        LoggingHubConnection.On<LogInfo>("ReceiveMessage", async (Log) =>
+        {
+            var LogMessage = new LogInfo
+                {
+                    Platform = Log.Platform,
+                    Message = Log.Message,
+                    LogDate = Log.LogDate,
+                    Level = Log.Level,
+                };
+            LogMessages.Add(LogMessage);
+
+            await Task.Run(() =>
+                    {
+                        StateHasChanged();
+                    });
+
+        });
+
+    }
+
+}

@@ -2,6 +2,7 @@
 @using System.Net.Http.Json
 @using System.Text.Json.Serialization;
 @using System.Globalization
+@using Maanfee.Logging.Console;
 @using Microsoft.AspNetCore.Components.Forms
 @using Microsoft.AspNetCore.Components.Routing
 @using Microsoft.AspNetCore.Components.Web
@@ -36,7 +37,7 @@
 @using MudBlazor
 
 @inject NavigationManager Navigation
-@inject CustomStateProvider AuthenticationStateProvider
+@inject CustomAuthenticationStateProvider AuthenticationStateProvider
 @inject IJSRuntime JS
 @inject AccountStateContainer AccountStateContainer
 @inject UrlStateContainer UrlStateContainer
@@ -65,3 +66,4 @@
 @inject Chart Chart
 
 @inject HubConnection LoggingHubConnection
+@inject LoggingInitializer LoggingInitializer

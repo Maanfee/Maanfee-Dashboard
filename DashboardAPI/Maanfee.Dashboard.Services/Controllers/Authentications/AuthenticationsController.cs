@@ -4,52 +4,40 @@ using Maanfee.Dashboard.Domain.DefaultValues;
 using Maanfee.Dashboard.Domain.Entities;
 using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Dashboard.Resources;
+using Maanfee.Logging.Console;
 using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Linq;
-using System.Net.Http;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Services.Controllers.Authentications
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     [ApiExplorerSettings(IgnoreApi = true)]
-    public class AuthenticationsController : ControllerBase
+    public class AuthenticationsController : _BaseController
     {
         public AuthenticationsController(UserManager<ApplicationUser> userManager
             , SignInManager<ApplicationUser> signInManager
             , RoleManager<IdentityRole> rolesManager
             , _BaseContext_SQLServer context
-            , CommonService commonService, HttpClient http
-			/*, ILogger<AuthenticationsController> logger*/)
+            , CommonService CommonService
+            , HttpClient http
+            , IHubContext<LoggingHub> loggingHub) : base(context, CommonService, http, loggingHub)
         {
             this.UserManager = userManager;
             this.SignInManager = signInManager;
             this.RolesManager = rolesManager;
-            this.db_SQLServer = context;
-
-            this.CommonService = commonService;
-            this.Http = http;
-
-			//Logger = logger;
-		}
+        }
 
         private readonly UserManager<ApplicationUser> UserManager;
         private readonly SignInManager<ApplicationUser> SignInManager;
-        private readonly _BaseContext_SQLServer db_SQLServer;
         private readonly RoleManager<IdentityRole> RolesManager;
-        private readonly HttpClient Http;
-        private readonly CommonService CommonService;
-		//private readonly ILogger<AuthenticationsController> Logger;
 
-		[HttpPost]
+        [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginViewModel request)
         {
             var user = await UserManager.FindByNameAsync(request.UserName);
@@ -73,19 +61,28 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
             {
                 new Claim("Id", user.Id),
                 new Claim("Name", user.Name),
-				new Claim("UserName", user.UserName),
-			};
+                new Claim("UserName", user.UserName),
+            };
 
-			//await SignInManager.SignInAsync(user, request.RememberMe, CustomClaims);
-			await SignInManager.SignInWithClaimsAsync(user, request.RememberMe, CustomClaims);
-			//await SignInManager.PasswordSignInAsync(user, request.Password, request.RememberMe, lockoutOnFailure: false);
+            //await SignInManager.SignInAsync(user, request.RememberMe, CustomClaims);
+            await SignInManager.SignInWithClaimsAsync(user, request.RememberMe, CustomClaims);
+            //await SignInManager.PasswordSignInAsync(user, request.Password, request.RememberMe, lockoutOnFailure: false);
 
-			//Logger.LogInformation($"{user.UserName} | {user.Name} login successfully.");
+            if (LoggingHub is not null)
+            {
+                await LoggingHub.Clients.All.SendAsync("ReceiveMessage", new LogInfo
+                {
+                    Platform = LoggingPlatformDefaultValue.Server,
+                    LogDate = DateTime.Now,
+                    Message = $"{user.UserName} ({user.Name}) - is logged in",
+                    Level = LogLevel.Information,
+                });
+            }
 
-			return Ok();
+            return Ok();
         }
 
-        [HttpPost]
+        [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterViewModel RegisterViewModel)
         {
             var GUID = Guid.NewGuid().ToString().Substring(0, 7).Replace("-", new Random().Next(0, 9).ToString());
@@ -141,7 +138,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
             });
         }
 
-        [HttpPost]
+        [HttpPost("ResetPassword")]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel ResetPasswordViewModel)
         {
             var user = await db_SQLServer.ApplicationUsers.FirstOrDefaultAsync(x => x.Password == ResetPasswordViewModel.Password);
@@ -175,14 +172,14 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         }
 
         [Authorize]
-        [HttpPost]
+        [HttpPost("Logout")]
         public async Task<IActionResult> Logout()
         {
             await SignInManager.SignOutAsync();
             return Ok();
         }
 
-        [HttpGet]
+        [HttpGet("CurrentUserInfo")]
         public CurrentUser CurrentUserInfo()
         {
             return new CurrentUser
@@ -196,7 +193,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         // *********************************************************
 
         [Authorize]
-        [HttpPost]
+        [HttpPost("Create")]
         public async Task<CallbackResult<ApplicationUser>> Create(SubmitUserViewModel Model)
         {
             var SQLTransaction = db_SQLServer.Database.BeginTransaction();
@@ -339,7 +336,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         }
 
         [Authorize]
-        [HttpPut]
+        [HttpPut("Edit")]
         public async Task<CallbackResult<ApplicationUser>> Edit(SubmitUserViewModel Model)
         {
             var SQLTransaction = db_SQLServer.Database.BeginTransaction();
@@ -501,13 +498,13 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 }
                 else
                 {
-					return new CallbackResult<ApplicationUser>(null, new ExceptionError(ex.InnerException.ToString()));
-				}
-			}
+                    return new CallbackResult<ApplicationUser>(null, new ExceptionError(ex.InnerException.ToString()));
+                }
+            }
         }
 
         [Authorize]
-        [HttpDelete("{Id}")]
+        [HttpDelete("Delete/{Id}")]
         public async Task<CallbackResult<ApplicationUser>> Delete(string Id)
         {
             try
@@ -547,7 +544,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         }
 
         [Authorize]
-        [HttpPost]
+        [HttpPost("ChangePassword")]
         public async Task<IActionResult> ChangePassword(SubmitChangePasswordViewModel Model)
         {
             var user = await db_SQLServer.ApplicationUsers

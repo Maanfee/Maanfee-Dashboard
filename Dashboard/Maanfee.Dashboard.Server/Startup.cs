@@ -3,6 +3,7 @@ using Maanfee.Dashboard.Server.Data;
 using Maanfee.Dashboard.Services;
 using Maanfee.Dashboard.Services.Extensions;
 using Maanfee.Dashboard.Views.Core;
+using Maanfee.Logging.Console;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;

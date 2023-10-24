@@ -1,5 +1,4 @@
 ﻿@page "/Releases/ReleaseView"
-@using System.Text.RegularExpressions;
 @inherits _BaseView
 
 <style>
@@ -53,7 +52,7 @@
                         <MudText Typo="Typo.h5" Inline="true">@DashboardResource.StringVersion</MudText>
                         <MudText Typo="Typo.h5" Inline="true" Color="Color.Primary"><b>@Releases.Version</b></MudText>
                         <MudStack Row="true" Spacing="1">
-                            <MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.CalendarMonth" Size="Size.Small"  />
+                            <MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.CalendarMonth" Size="Size.Small" />
                             <MudText Color="Color.Secondary" Typo="Typo.subtitle2">
                                 @DashboardResource.StringReleasedOn <strong>@Releases.ReleaseDate.ToDateString()</strong>
                             </MudText>
@@ -123,6 +122,18 @@
         StateHasChanged();
 
         IsLoaded = true;
+
+        if (LoggingHubConnection is not null)
+        {
+            await LoggingHubConnection.SendAsync("SendMessageAsync", new LogInfo
+                {
+                    Platform = LoggingPlatformDefaultValue.Client,
+                    Message = $"{AccountStateContainer.UserName} ({AccountStateContainer.Name}) is Viewing ({DashboardResource.StringRelease})",
+                    LogDate = DateTime.Now,
+                    Level = LogLevel.Information,
+                });
+        }
+
     }
 
 }

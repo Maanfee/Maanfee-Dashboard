@@ -1,6 +1,9 @@
 ﻿using Maanfee.Dashboard.Domain.DAL;
+using Maanfee.Dashboard.Domain.ViewModels;
+using Maanfee.Logging.Console;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using System.Linq;
 using System.Net.Http;
 
 namespace Maanfee.Dashboard.Services.Controllers
@@ -22,5 +25,17 @@ namespace Maanfee.Dashboard.Services.Controllers
         protected HttpClient Http;
 
         protected readonly IHubContext<LoggingHub> LoggingHub;
+
+        protected CurrentUser GetCurrentUserInfo()
+        {
+            return new CurrentUser
+            {
+                IsAuthenticated = User.Identity.IsAuthenticated,
+                UserName = User.Identity.Name,
+                Claims = User.Claims.ToDictionary(c => c.Type, c => c.Value),
+                Id = User.Claims.FirstOrDefault(x => x.Type == "Id").Value,
+                Name = User.Claims.FirstOrDefault(x => x.Type == "Name").Value,
+            };
+        }
     }
 }

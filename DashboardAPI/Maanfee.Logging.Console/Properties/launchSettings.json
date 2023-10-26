@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Maanfee.Logging.Console": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:58194;http://localhost:58195"
+    }
+  }
+}

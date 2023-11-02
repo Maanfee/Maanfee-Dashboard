@@ -5,7 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace LoggingPlatform.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class AccountsController : ControllerBase
     {

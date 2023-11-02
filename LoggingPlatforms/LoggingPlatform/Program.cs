@@ -1,8 +1,11 @@
 using LoggingPlatform.Extensions;
+using Maanfee.Logging.Console;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
+using System.Linq;
 using System.Net.Http;
 
 var builder = WebApplication.CreateBuilder(args);

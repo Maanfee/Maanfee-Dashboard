@@ -19,11 +19,14 @@ namespace Maanfee.Dashboard.Views.Base.Pages
 {
 	public class _BaseView : _BaseComponentView
 	{
-		// *****************************************
+        [Inject]
+        protected GatewayApi GatewayApi { get; set; }
 
-		#region - Authentication -
+        // *****************************************
 
-		[CascadingParameter]
+        #region - Authentication -
+
+        [CascadingParameter]
 		protected Task<AuthenticationState> AuthenticationState { get; set; }
 
 		[Inject]

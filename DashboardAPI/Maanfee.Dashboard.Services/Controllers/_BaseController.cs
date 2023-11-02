@@ -10,7 +10,10 @@ namespace Maanfee.Dashboard.Services.Controllers
 {
     public class _BaseController : ControllerBase
     {
-        public _BaseController(_BaseContext_SQLServer context, CommonService commonService, HttpClient http, IHubContext<LoggingHub> _LoggingHub)
+        public _BaseController(_BaseContext_SQLServer context
+            , CommonService commonService
+            , HttpClient http
+            , IHubContext<LoggingHub> _LoggingHub)
         {
             db_SQLServer = context;
             CommonService = commonService;

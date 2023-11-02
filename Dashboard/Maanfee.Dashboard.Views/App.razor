@@ -2,54 +2,86 @@
 @using System.Threading;
 
 <ErrorView>
-	<MudDialogProvider />
-	<MudSnackbarProvider />
-	<Router AppAssembly="@typeof(Program).Assembly"
-			AdditionalAssemblies="@LazyLoadedAssemblies" OnNavigateAsync="@OnNavigateAsync">
-		<Found Context="routeData">
-			<AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(AdminLayout)">
-				<NotAuthorized>
-					<Maanfee.Dashboard.Views.Pages.Authentications.Login />
-				</NotAuthorized>
-			</AuthorizeRouteView>
-		</Found>
-		<NotFound>
-			<CascadingAuthenticationState>
-				<LayoutView Layout="@typeof(NotFoundLayout)">
+    <MudDialogProvider />
+    <MudSnackbarProvider />
+    <Router AppAssembly="@typeof(Program).Assembly"
+            AdditionalAssemblies="@LazyLoadedAssemblies" OnNavigateAsync="@OnNavigateAsync">
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(AdminLayout)">
+                <NotAuthorized>
+                    <Maanfee.Dashboard.Views.Pages.Authentications.Login />
+                </NotAuthorized>
+            </AuthorizeRouteView>
+        </Found>
+        <NotFound>
+            <CascadingAuthenticationState>
+                <LayoutView Layout="@typeof(NotFoundLayout)">
 
-				</LayoutView>
-			</CascadingAuthenticationState>
-		</NotFound>
-	</Router>
+                </LayoutView>
+            </CascadingAuthenticationState>
+        </NotFound>
+    </Router>
 </ErrorView>
 
 @code {
 
-	private List<Assembly> LazyLoadedAssemblies = new();
+    private List<Assembly> LazyLoadedAssemblies = new();
 
-	private async Task OnNavigateAsync(NavigationContext args)
-	{
-		try
-		{
-			LazyLoadedAssemblies = new()
-			{
-				typeof(Maanfee.Dashboard.Views.Core.Shared.SharedLayout).Assembly,
-				typeof(Maanfee.Dashboard.Examples.Views.Pages._ModulePage).Assembly,
-				typeof(Maanfee.Dashboard.Examples.Views.JsInterop.Pages._ModulePage).Assembly,
+    private async Task OnNavigateAsync(NavigationContext args)
+    {
+        try
+        {
+            LazyLoadedAssemblies = new()
+            {
+                typeof(Maanfee.Dashboard.Views.Core.Shared.SharedLayout).Assembly,
+                typeof(Maanfee.Dashboard.Examples.Views.Pages._ModulePage).Assembly,
+                typeof(Maanfee.Dashboard.Examples.Views.JsInterop.Pages._ModulePage).Assembly,
             };
-			LazyLoadedAssemblies.AddRange(LazyLoadedAssemblies);
+            LazyLoadedAssemblies.AddRange(LazyLoadedAssemblies);
 
-			await Task.Delay(1);
-		}
-		catch (Exception ex)
-		{
-			Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
-		}
-	}
+            await Task.Delay(1);
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+        }
+    }
 
-	protected override async Task OnInitializedAsync()
-	{
-		await LoggingInitializer.InitializedAsync();
-	}
+    protected override async Task OnInitializedAsync()
+    {
+        IDialogReference dialog = null;
+
+        await LoggingInitializer.InitializedAsync();
+        LoggingInitializer.Closed += async () =>
+        {
+            await Task.Run(() =>
+                {
+                    DialogParameters DialogParameters = new DialogParameters();
+
+                    dialog = Dialog.Show<DialogServerConnection>(string.Empty, DialogParameters,
+                        new DialogOptions()
+                            {
+                                NoHeader = true,
+                                MaxWidth = MaxWidth.Small,
+                                FullWidth = true,
+                                //FullScreen = true,
+                                Position = DialogPosition.Center,
+                                CloseOnEscapeKey = true,
+                                ClassBackground = "Dialog-Blur",
+                                DisableBackdropClick = true,
+                            });
+                });
+        };
+        LoggingInitializer.Reconnected += async () =>
+        {
+            await Task.Run(() =>
+                {
+                    if (dialog != null)
+                    {
+                        dialog.Close();
+                    }
+                });
+        };
+    }
 
 }

@@ -2,7 +2,6 @@ using Maanfee.Dashboard.Domain.DAL;
 using Maanfee.Dashboard.Server.Data;
 using Maanfee.Dashboard.Services;
 using Maanfee.Dashboard.Services.Extensions;
-using Maanfee.Dashboard.Views.Core;
 using Maanfee.Logging.Console;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,7 +15,7 @@ using System.Linq;
 
 namespace Maanfee.Dashboard.Server
 {
-	public class Startup
+    public class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -115,7 +114,6 @@ namespace Maanfee.Dashboard.Server
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("index.html");
-				endpoints.MapHub<SignalRHub>("/signalRHub");
                 endpoints.MapHub<LoggingHub>("/LoggingHub");
             });
         }

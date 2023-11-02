@@ -14,13 +14,17 @@
 		<Copyright>Copyright (c) 2023 Maanfee</Copyright>
 		<Authors>Maanfee Team (MF)</Authors>
 		<Company>Maanfee</Company>
-		<Version>1.7.0</Version>
+		<Version>1.12.0</Version>
 		<RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<!--**********************************************-->
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Content Remove="Components\DialogLoggingConnectionError.razor" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<None Include="..\..\LICENSE" Pack="true" Visible="false" PackagePath="" />
@@ -31,6 +35,14 @@
 		<PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
 		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.13" />
 		<PackageReference Include="MudBlazor" Version="6.11.0" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="Components\DialogLoggingConnectionError.razor" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <_ContentIncludedByDefault Remove="Components\DialogLoggingConnectionError.razor" />
 	</ItemGroup>
 
 </Project>

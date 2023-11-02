@@ -1,8 +1,10 @@
 using Maanfee.Dashboard.Views;
 using Maanfee.Dashboard.Views.Base.Extensions;
+using Maanfee.Dashboard.Views.Base.Services;
 using Maanfee.Dashboard.Views.Booklet;
 using Maanfee.Dashboard.Views.Core.Services;
 using Maanfee.Highcharts;
+using Maanfee.Logging.Console;
 using Maanfee.Web.Core;
 using Maanfee.Web.JSInterop;
 using Maanfee.Web.Printing;
@@ -11,7 +13,6 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
-using Maanfee.Logging.Console;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args).AddClientServices();
 
@@ -47,6 +48,9 @@ builder.Services.AddScoped<IFilesManagerService, FilesManagerService>();
 
 // Logging SignalR
 builder.Services.AddLoggingConsole();
+
+// GatewayApi
+builder.Services.AddScoped<GatewayApi>();
 
 var host = builder.Build();
 

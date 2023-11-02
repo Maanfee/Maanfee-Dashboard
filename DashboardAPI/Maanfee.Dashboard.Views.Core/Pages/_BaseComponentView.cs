@@ -23,13 +23,10 @@ namespace Maanfee.Dashboard.Views.Core
 		[Inject]
         protected NavigationManager Navigation { get; set; }
 
-        //[Inject]
-        //protected CustomStateProvider AuthenticationStateProvider { get; set; }
+		//[Inject]
+		//protected CustomStateProvider AuthenticationStateProvider { get; set; }
 
-        //[Inject]
-        //protected IJSRuntime JS { get; set; }
-
-        [Inject]
+		[Inject]
         protected AccountStateContainer AccountStateContainer { get; set; }
 
         // JWT

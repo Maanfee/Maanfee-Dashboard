@@ -19,6 +19,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\DashboardAPI\Maanfee.Dashboard.Domain\Maanfee.Dashboard.Domain.csproj" />
+		<ProjectReference Include="..\..\DashboardAPI\Maanfee.Logging.Console\Maanfee.Logging.Console.csproj" />
 	</ItemGroup>
 
 </Project>

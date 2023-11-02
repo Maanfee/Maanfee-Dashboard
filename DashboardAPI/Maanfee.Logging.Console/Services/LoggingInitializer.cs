@@ -13,17 +13,23 @@ namespace Maanfee.Logging.Console
 
         private CancellationTokenSource cts = new CancellationTokenSource();
 
-		public async Task InitializedAsync()
+        public async Task InitializedAsync()
         {
             await ConnectWithRetryAsync(cts.Token);
 
-            LoggingHubConnection.Closed += error =>
+            LoggingHubConnection.Closed += async (Error) =>
             {
-                return ConnectWithRetryAsync(cts.Token);
+                OnClosed();
+                await ConnectWithRetryAsync(cts.Token);
+            };
+            LoggingHubConnection.Reconnected += async (Message) =>
+            {
+                OnReconnected();
+                await Task.Delay(100);
             };
         }
 
-        private async Task<bool> ConnectWithRetryAsync(CancellationToken token)
+        public async Task<bool> ConnectWithRetryAsync(CancellationToken token)
         {
             while (true)
             {
@@ -38,7 +44,7 @@ namespace Maanfee.Logging.Console
                 }
                 catch
                 {
-                    await Task.Delay(5000);
+                    await Task.Delay(1000);
                 }
             }
         }
@@ -49,5 +55,20 @@ namespace Maanfee.Logging.Console
             cts.Dispose();
             await LoggingHubConnection.DisposeAsync();
         }
+
+        #region - Events -
+
+        public event Action Closed;
+
+        private void OnClosed() => Closed?.Invoke();
+
+        // *****************************************************
+
+        public event Action Reconnected;
+
+        private void OnReconnected() => Reconnected?.Invoke();
+
+        #endregion
+
     }
 }

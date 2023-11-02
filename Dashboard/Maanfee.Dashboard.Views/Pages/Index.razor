@@ -10,9 +10,22 @@
 
     <MudGrid>
         <MudItem md="12" xs="12">
+            @AA
             <MudAlert Severity="Severity.Success" ContentAlignment="HorizontalAlignment.Start">
                 @ApplicationResource.StringWelcomeMessage
             </MudAlert>
+            @GatewayApi.ToUri
+            @*   @try
+            {
+            <span>
+            @(new GatewayApi().ToUriEnvironment())
+            </span>
+            }catch(Exception ex)
+            {
+            <span>
+            @(ex.Message)
+            </span>
+            } *@
         </MudItem>
         <MudItem md="4">
             <MaanfeeDashboardTile Title="Online Users" Value="-50" Color="Color.Primary" ChartClass="mud-primary" Icon="@Icons.Material.Filled.TrendingDown" Description="Description" />
@@ -22,6 +35,32 @@
         </MudItem>
         <MudItem md="4">
             <MaanfeeDashboardTile Title="Deleted Users" Value="250" Color="Color.Tertiary" ChartClass="mud-tertiary" Icon="@Icons.Material.Filled.TrendingFlat" Description="Description" />
+        </MudItem>
+        <MudItem md="3">
+            <MaanfeeDashboardExploreCard Title="Colors" HoverTypo="MaanfeeDashboardExploreCard.HoverType.Type1" Link="/features/colors">
+                <div style="width:50px;height:50px" class="relative mb-n6 ml-n8 justify-center align-center">
+                    <MudPaper Elevation="25" Height="68px" Width="24px" Class="mud-theme-dark absolute" Style="bottom:0;left: 0; transform: rotate(0deg);transform-origin: bottom center;" />
+                    <MudPaper Elevation="25" Height="68px" Width="24px" Class="mud-theme-tertiary absolute" Style="bottom:0;left: 0; transform: rotate(30deg);transform-origin: bottom center;" />
+                    <MudPaper Elevation="25" Height="68px" Width="24px" Class="mud-theme-secondary absolute" Style="bottom:0;left: 0; transform: rotate(60deg);transform-origin: bottom center;" />
+                    <MudPaper Elevation="25" Height="68px" Width="24px" Class="mud-theme-primary d-flex justify-center align-end absolute" Style="bottom:0;left: 0; transform: rotate(90deg);transform-origin: bottom center;">
+                        <MudPaper Elevation="0" Height="8px" Width="8px" Class="rounded-circle ma-2" />
+                    </MudPaper>
+                </div>
+            </MaanfeeDashboardExploreCard>
+        </MudItem>
+        <MudItem md="3">
+            <MaanfeeDashboardExploreCard Title="Colors" HoverTypo="MaanfeeDashboardExploreCard.HoverType.Type2" Link="/features/colors">
+                <div style="width:50px;height:50px" class="relative mb-n6 ml-n8 justify-center align-center">
+                    <MudIcon Icon="@Icons.Material.Filled.TextFields" Color="Color.Primary" Style="font-size:84px;" />
+                </div>
+            </MaanfeeDashboardExploreCard>
+        </MudItem>
+        <MudItem md="6">
+            <MaanfeeDashboardButtonCard Title="Colors">
+                @*  <div style="width:50px;height:50px" class="relative mb-n6 ml-n8 justify-center align-center">
+                <MudIcon Icon="@Icons.Material.Filled.TextFields" Color="Color.Primary" Style="font-size:84px;" />
+                </div> *@
+            </MaanfeeDashboardButtonCard>
         </MudItem>
 
         <MudItem md="12" xs="12">
@@ -97,6 +136,21 @@
         {
             Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
         }
+
+        // ******************************************
+
+        try
+        {
+            var Callback = await Http.GetStringAsync($"http://localhost:22002/Test/ConnectionTest");
+
+            AA = Callback;
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+        }
     }
+
+    private string AA = "AA";
 
 }

@@ -8,12 +8,14 @@ namespace Maanfee.Logging.Console
     {
         public static IServiceCollection AddLoggingConsole(this IServiceCollection services)
         {
-            services.AddSingleton<HubConnection>(sp => {
-                var navigationManager = sp.GetRequiredService<NavigationManager>();
+            services.AddSingleton<HubConnection>(sp =>
+            {
+                var NavigationManager = sp.GetRequiredService<NavigationManager>();
+
                 return new HubConnectionBuilder()
-                  .WithUrl(navigationManager.ToAbsoluteUri("/LoggingHub"))
-                  .WithAutomaticReconnect()
-                  .Build();
+                     .WithUrl(NavigationManager.ToAbsoluteUri("/LoggingHub"))
+                     .WithAutomaticReconnect()
+                     .Build();
             });
 
             services.AddSingleton<LoggingInitializer>();

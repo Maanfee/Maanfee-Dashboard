@@ -1,5 +1,4 @@
 ﻿using Maanfee.Dashboard.Core;
-using Maanfee.Dashboard.Domain.DefaultValues;
 using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Logging.Console;
 using Microsoft.AspNetCore.SignalR.Client;

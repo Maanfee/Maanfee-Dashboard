@@ -1,11 +1,10 @@
 using LoggingPlatform.Extensions;
 using Maanfee.Logging.Console;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
-using System.Linq;
+using System;
 using System.Net.Http;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +20,9 @@ builder.Services.AddScoped<HttpClient>();
 builder.Services.AddControllers()
 	.AddNewtonsoftJson(options => { options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; })
 	.AddJsonOptions(options => { options.JsonSerializerOptions.PropertyNameCaseInsensitive = false; });
+
+// RealTime Logging
+builder.Services.AddLoggingConsole(new Uri("http://localhost:22001"), new Uri("http://172.17.17.22:8000"));
 
 var app = builder.Build();
 

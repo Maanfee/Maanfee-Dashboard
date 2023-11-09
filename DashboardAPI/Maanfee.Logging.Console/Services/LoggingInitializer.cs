@@ -69,6 +69,5 @@ namespace Maanfee.Logging.Console
         private void OnReconnected() => Reconnected?.Invoke();
 
         #endregion
-
     }
 }

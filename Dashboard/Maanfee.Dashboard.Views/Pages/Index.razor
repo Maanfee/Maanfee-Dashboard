@@ -10,22 +10,9 @@
 
     <MudGrid>
         <MudItem md="12" xs="12">
-            @AA
             <MudAlert Severity="Severity.Success" ContentAlignment="HorizontalAlignment.Start">
                 @ApplicationResource.StringWelcomeMessage
             </MudAlert>
-            @GatewayApi.ToUri
-            @*   @try
-            {
-            <span>
-            @(new GatewayApi().ToUriEnvironment())
-            </span>
-            }catch(Exception ex)
-            {
-            <span>
-            @(ex.Message)
-            </span>
-            } *@
         </MudItem>
         <MudItem md="4">
             <MaanfeeDashboardTile Title="Online Users" Value="-50" Color="Color.Primary" ChartClass="mud-primary" Icon="@Icons.Material.Filled.TrendingDown" Description="Description" />
@@ -136,21 +123,6 @@
         {
             Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
         }
-
-        // ******************************************
-
-        try
-        {
-            var Callback = await Http.GetStringAsync($"http://localhost:22002/Test/ConnectionTest");
-
-            AA = Callback;
-        }
-        catch (Exception ex)
-        {
-            Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
-        }
     }
-
-    private string AA = "AA";
 
 }

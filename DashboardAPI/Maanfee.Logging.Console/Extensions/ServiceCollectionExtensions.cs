@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,14 +15,50 @@ namespace Maanfee.Logging.Console
                 var NavigationManager = sp.GetRequiredService<NavigationManager>();
 
                 return new HubConnectionBuilder()
-                     .WithUrl(NavigationManager.ToAbsoluteUri("/LoggingHub"))
-                     .WithAutomaticReconnect()
-                     .Build();
+                         .WithUrl(NavigationManager.ToAbsoluteUri("/LoggingHub"))
+                         .WithAutomaticReconnect()
+                         .Build();
             });
 
             services.AddSingleton<LoggingInitializer>();
 
             return services;
         }
+
+        public static IServiceCollection AddLoggingConsole(this IServiceCollection services, Uri LocalAddress, Uri PhysicalAddress)
+        {
+            if(LocalAddress is null || PhysicalAddress == null)
+            {
+                throw new ArgumentNullException("Address Error ...");
+            }
+
+            services.AddSingleton<HubConnection>(sp =>
+            {
+                var HostEnvironment = sp.GetRequiredService<IHostingEnvironment>();
+
+                if (HostEnvironment.IsDevelopment())
+                {
+                    return new HubConnectionBuilder()
+                           .WithUrl($"{LocalAddress}LoggingHub")
+                           .WithAutomaticReconnect()
+                           .Build();
+                }
+
+                return new HubConnectionBuilder()
+                           .WithUrl($"{PhysicalAddress}LoggingHub")
+                           .WithAutomaticReconnect()
+                           .Build();
+
+                //return new HubConnectionBuilder()
+                //         .WithUrl("http://localhost:22001/LoggingHub")
+                //         .WithAutomaticReconnect()
+                //         .Build();
+            });
+
+            services.AddSingleton<LoggingInitializer>();
+
+            return services;
+        }
+    
     }
 }

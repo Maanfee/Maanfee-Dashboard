@@ -46,7 +46,7 @@ builder.Services.AddFileDownload();
 // File Upload
 builder.Services.AddScoped<IFilesManagerService, FilesManagerService>();
 
-// Logging SignalR
+// RealTime Logging
 builder.Services.AddLoggingConsole();
 
 // GatewayApi

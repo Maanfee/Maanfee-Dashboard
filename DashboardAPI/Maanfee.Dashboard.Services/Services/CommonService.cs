@@ -34,6 +34,7 @@ namespace Maanfee.Dashboard.Services
             var UserRoles = db_SQLServer.AspNetUserRoles.AsNoTracking();
             var list = db_SQLServer.Users
                 .Include(x => x.UserDepartments)
+                .AsSplitQuery()
                 .Select(x => new GetUserViewModel
                 {
                     Id = x.Id,

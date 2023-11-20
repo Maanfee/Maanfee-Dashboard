@@ -3,6 +3,7 @@ using Maanfee.Dashboard.Domain.Entities.Communications;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Maanfee.Dashboard.Domain.DAL
@@ -302,6 +303,11 @@ namespace Maanfee.Dashboard.Domain.DAL
 
             #endregion
 
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.ConfigureWarnings(w => w.Ignore(SqlServerEventId.SavepointsDisabledBecauseOfMARS));
         }
     }
 }

@@ -5,20 +5,14 @@ using Maanfee.Dashboard.Resources;
 using Maanfee.Logging.Console;
 using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Services.Controllers.Authentications
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     [Authorize]
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -37,7 +31,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
             {
                 PaginatedList<Group> PaginatedList;
 
-                IQueryable<Group> Data = db_SQLServer.Groups.AsNoTracking();
+                IQueryable<Group> Data = db_SQLServer.Groups.AsNoTracking().OrderBy(x => x.Title);
 
                 switch (TableState.state.SortLabel)
                 {
@@ -59,9 +53,9 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                     PaginatedList = await PaginatedList<Group>.CreateAsync(Data, TableState.state.Page, TableState.state.PageSize);
                 }
 
-				return new CallbackResult<PaginatedListViewModel<Group>>(new PaginatedListViewModel<Group> { List = PaginatedList.List, TotalPages = PaginatedList.TotalPages, }, null);
-			}
-			catch (Exception ex)
+                return new CallbackResult<PaginatedListViewModel<Group>>(new PaginatedListViewModel<Group> { List = PaginatedList.List, TotalPages = PaginatedList.TotalPages, }, null);
+            }
+            catch (Exception ex)
             {
                 return new CallbackResult<PaginatedListViewModel<Group>>(null, new ExceptionError(ex.ToString()));
             }

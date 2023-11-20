@@ -23,7 +23,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         }
 
         // Used : User->DetailsView
-        [HttpGet("GetUserById/{id}")]
+        [HttpGet("GetUserById/{Id}")]
         // GET: api/Users/DetailsView/fb0fc65b-9cb4-47b7-823d-94612b966adf
         public async Task<CallbackResult<GetUserViewModel>> GetUserById(string Id)
         {
@@ -33,6 +33,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                     .Include(x => x.Gender)
                     .Include(x => x.UserDepartments).ThenInclude(x => x.Department)
                     .Include(x => x.UserGroups).ThenInclude(x => x.Group)
+                    .AsSplitQuery()
                     .Select(x => new GetUserViewModel
                     {
                         Id = x.Id,
@@ -174,7 +175,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
             {
                 PaginatedList<GetUserViewModel> PaginatedList;
 
-                IQueryable<GetUserViewModel> Data = CommonService.GetQueryableVirtualUsers();
+                IQueryable<GetUserViewModel> Data = CommonService.GetQueryableVirtualUsers().OrderBy(x => x.Name);
 
                 switch (TableState.state.SortLabel)
                 {

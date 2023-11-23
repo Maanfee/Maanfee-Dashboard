@@ -14,7 +14,7 @@
 		<Copyright>Copyright (c) 2023 Maanfee</Copyright>
 		<Authors>Maanfee Team (MF)</Authors>
 		<Company>Maanfee</Company>
-		<Version>1.16.0</Version>
+		<Version>1.17.0</Version>
 		<RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -35,7 +35,7 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
 		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.0" />
-		<PackageReference Include="MudBlazor" Version="6.11.0" />
+		<PackageReference Include="MudBlazor" Version="6.11.1" />
 	</ItemGroup>
 	
 	<ItemGroup>

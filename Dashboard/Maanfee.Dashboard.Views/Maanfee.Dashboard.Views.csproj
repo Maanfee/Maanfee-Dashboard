@@ -17,7 +17,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.0" PrivateAssets="all" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="System.Net.Http.Json" Version="8.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="8.0.0" />
@@ -27,7 +26,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\Examples\Maanfee.Dashboard.Examples.Views.JsInterop\Maanfee.Dashboard.Examples.Views.JsInterop.csproj" />
 		<ProjectReference Include="..\..\Examples\Maanfee.Dashboard.Examples.Views\Maanfee.Dashboard.Examples.Views.csproj" />
-		
+
 		<ProjectReference Include="..\..\DashboardAPI\Maanfee.Dashboard.Domain\Maanfee.Dashboard.Domain.csproj" />
 		<ProjectReference Include="..\..\DashboardAPI\Maanfee.Dashboard.Resources\Maanfee.Dashboard.Resources.csproj" />
 		<ProjectReference Include="..\Maanfee.Dashboard.Views.Base\Maanfee.Dashboard.Views.Base.csproj" />

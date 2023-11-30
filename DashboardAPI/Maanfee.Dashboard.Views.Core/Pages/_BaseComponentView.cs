@@ -150,7 +150,6 @@ namespace Maanfee.Dashboard.Views.Core
 				"تیر", "مرداد", "شهریور",
 				"مهر", "آبان", "آذر",
 				"دی", "بهمن", "اسفند",
-				"",
 			};
 			formatInfo.AbbreviatedMonthNames = monthNames;
 			formatInfo.MonthNames =

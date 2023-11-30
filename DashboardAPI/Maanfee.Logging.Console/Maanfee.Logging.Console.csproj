@@ -14,17 +14,13 @@
 		<Copyright>Copyright (c) 2023 Maanfee</Copyright>
 		<Authors>Maanfee Team (MF)</Authors>
 		<Company>Maanfee</Company>
-		<Version>1.17.0</Version>
+		<Version>1.51.0</Version>
 		<RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<!--**********************************************-->
 	</PropertyGroup>
-
-	<ItemGroup>
-	  <Content Remove="Components\DialogLoggingConnectionError.razor" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<None Include="..\..\LICENSE" Pack="true" Visible="false" PackagePath="" />

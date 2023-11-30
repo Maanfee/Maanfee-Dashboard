@@ -3,9 +3,11 @@ using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Dashboard.Resources;
 using Maanfee.Dashboard.Views.Base;
 using Maanfee.Dashboard.Views.Core.Shared.Dialogs;
+using Maanfee.Logging.Console;
 using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR.Client;
 using MudBlazor;
 using System;
 using System.Collections.Generic;
@@ -17,7 +19,7 @@ using TableViewModel = Maanfee.Dashboard.Domain.ViewModels.GetRoleViewModel;
 
 namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 {
-	public partial class RoleView
+    public partial class RoleView
 	{
 		private IEnumerable<TableViewModel> Data = new List<TableViewModel>();
 		private MudTable<TableViewModel> Table = new();
@@ -32,7 +34,18 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 		{
 			await base.OnInitializedAsync();
 
-			try
+            if (LoggingHubConnection is not null)
+            {
+                await LoggingHubConnection.SendAsync("SendMessageAsync", new LogInfo
+                {
+                    Platform = LoggingPlatformDefaultValue.Client,
+                    Message = $"{AccountStateContainer.UserName} ({AccountStateContainer.Name}) is Viewing ({DashboardResource.StringRole})",
+                    LogDate = DateTime.Now,
+                    Level = LogLevel.Information,
+                });
+            }
+
+            try
 			{
 				await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.Role.View, AuthenticationState,
 					AuthorizationService, Navigation);

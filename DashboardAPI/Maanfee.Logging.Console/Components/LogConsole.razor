@@ -1,7 +1,8 @@
-﻿@using MudBlazor
+﻿@namespace Maanfee.Logging.Console
+@using MudBlazor
 @using Microsoft.AspNetCore.SignalR.Client;
 @inject HubConnection LoggingHubConnection
-@namespace Maanfee.Logging.Console
+@inject IDialogService Dialog
 
 <style>
 
@@ -48,7 +49,7 @@
                         ConsoleColor = Color.Info;
                         break;
                 }
-           @*  display: inline - block!important; *@
+                @*  display: inline - block!important; *@
                 <div style="direction:ltr !important; text-align:left !important;">
                     <MudText Style="color:white" Typo="Typo.caption">
                         <small>
@@ -115,5 +116,7 @@
         });
 
     }
+
+    // *******************************************
 
 }

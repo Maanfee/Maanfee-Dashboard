@@ -1,4 +1,5 @@
 ﻿using Maanfee.Dashboard.Core;
+using Maanfee.Dashboard.Resources;
 using Maanfee.Dashboard.Views.Core.Services;
 using Maanfee.Web.Core;
 using Maanfee.Web.JSInterop;
@@ -9,6 +10,7 @@ using System;
 using System.Globalization;
 using System.Net.Http;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Views.Core
@@ -20,13 +22,13 @@ namespace Maanfee.Dashboard.Views.Core
         [Inject]
         protected HttpClient Http { get; set; }
 
-		[Inject]
+        [Inject]
         protected NavigationManager Navigation { get; set; }
 
-		//[Inject]
-		//protected CustomStateProvider AuthenticationStateProvider { get; set; }
+        //[Inject]
+        //protected CustomStateProvider AuthenticationStateProvider { get; set; }
 
-		[Inject]
+        [Inject]
         protected AccountStateContainer AccountStateContainer { get; set; }
 
         // JWT
@@ -44,17 +46,17 @@ namespace Maanfee.Dashboard.Views.Core
         [Inject]
         protected IDialogService Dialog { get; set; }
 
-		[Inject]
-		protected Fullscreen Fullscreen { get; set; }
+        [Inject]
+        protected Fullscreen Fullscreen { get; set; }
 
-		[Inject]
-		protected TableConfigurationService TableConfiguration { get; set; }
+        [Inject]
+        protected TableConfigurationService TableConfiguration { get; set; }
 
 #pragma warning restore CS0108
 
-		// *****************************************
+        // *****************************************
 
-		protected bool IsProcessing = false;
+        protected bool IsProcessing = false;
 
         protected bool IsLoaded = false;
 
@@ -62,55 +64,55 @@ namespace Maanfee.Dashboard.Views.Core
 
         // *****************************************
 
-        protected override void OnInitialized() 
+        protected override void OnInitialized()
         {
             AccountStateContainer.OnChange += StateHasChanged;
-			Fullscreen.OnFullscreenChange += OnFullscreenChange;
-		}
+            Fullscreen.OnFullscreenChange += OnFullscreenChange;
+        }
 
-		public void Dispose()
+        public void Dispose()
         {
             AccountStateContainer.OnChange -= StateHasChanged;
-			Fullscreen.OnFullscreenChange -= OnFullscreenChange;
-		}
+            Fullscreen.OnFullscreenChange -= OnFullscreenChange;
+        }
 
-		// *****************************************
+        // *****************************************
 
-		#region - MudTable Config -
+        #region - MudTable Config -
 
-		protected bool _IsTableDense { get; set; } = true;
+        protected bool _IsTableDense { get; set; } = true;
 
         protected bool _IsTableFixedHeader { get; set; } = true;
-        
-		protected bool _IsTableScroll { get; set; } = true;
 
-		public static string TableHeight { get; set; } = TableConfigurationService.InitTableHeight;
+        protected bool _IsTableScroll { get; set; } = true;
+
+        public static string TableHeight { get; set; } = TableConfigurationService.InitTableHeight;
 
         public static string TableHeightLarge { get; set; } = TableConfigurationService.InitTableHeightLarge;
 
         private async void OnFullscreenChange()
-		{
-			await Task.Delay(500);
+        {
+            await Task.Delay(500);
 
-			TableHeight = TableConfiguration.SetHeight(SharedLayoutSettings.IsRTL, await Fullscreen.IsFullscreenAsync(), _IsTableScroll);
+            TableHeight = TableConfiguration.SetHeight(SharedLayoutSettings.IsRTL, await Fullscreen.IsFullscreenAsync(), _IsTableScroll);
 
-			StateHasChanged();
-		}
+            StateHasChanged();
+        }
 
-		protected async void OnScrollChanged()
-		{
-			_IsTableScroll = _IsTableScroll ? false : true;
+        protected async void OnScrollChanged()
+        {
+            _IsTableScroll = _IsTableScroll ? false : true;
 
-			TableHeight = TableConfiguration.SetHeight(SharedLayoutSettings.IsRTL, await Fullscreen.IsFullscreenAsync(), _IsTableScroll);
+            TableHeight = TableConfiguration.SetHeight(SharedLayoutSettings.IsRTL, await Fullscreen.IsFullscreenAsync(), _IsTableScroll);
 
-			StateHasChanged();
-		}
+            StateHasChanged();
+        }
 
-		#endregion
+        #endregion
 
-		#region - Snackbar Config -
+        #region - Snackbar Config -
 
-		[Inject]
+        [Inject]
         protected ISnackbar Snackbar { get; set; }
 
         #endregion
@@ -123,56 +125,57 @@ namespace Maanfee.Dashboard.Views.Core
 
         protected bool HasValidationError = false;
 
-		#endregion
+        #endregion
 
-		#region - Calendar Culture -
+        #region - Calendar Culture -
 
-		protected CultureInfo GetCalendarCulture(string Culture)
-		{
-			switch (Culture)
-			{
-				case "fa-IR":
-					return GetPersianCulture();
-				default:
-					return new CultureInfo(Culture);
-			}
-		}
+        protected CultureInfo GetCalendarCulture(string Culture)
+        {
+            switch (Culture)
+            {
+                case "fa-IR":
+                    return GetPersianCulture(Culture);
+                default:
+                    return new CultureInfo(Culture);
+            }
+        }
 
-		private CultureInfo GetPersianCulture()
-		{
-			var culture = new CultureInfo("fa-IR");
-			DateTimeFormatInfo formatInfo = culture.DateTimeFormat;
-			formatInfo.AbbreviatedDayNames = new[] { "ی", "د", "س", "چ", "پ", "ج", "ش" };
-			formatInfo.DayNames = new[] { "یکشنبه", "دوشنبه", "سه شنبه", "چهار شنبه", "پنجشنبه", "جمعه", "شنبه" };
-			var monthNames = new[]
-			{
-				"فروردین", "اردیبهشت", "خرداد",
-				"تیر", "مرداد", "شهریور",
-				"مهر", "آبان", "آذر",
-				"دی", "بهمن", "اسفند",
-			};
-			formatInfo.AbbreviatedMonthNames = monthNames;
-			formatInfo.MonthNames =
-					formatInfo.MonthGenitiveNames = formatInfo.AbbreviatedMonthGenitiveNames = monthNames;
-			formatInfo.AMDesignator = "ق.ظ";
-			formatInfo.PMDesignator = "ب.ظ";
-			formatInfo.ShortDatePattern = "yyyy/MM/dd";
-			formatInfo.LongDatePattern = "dddd, dd MMMM,yyyy";
-			formatInfo.FirstDayOfWeek = DayOfWeek.Saturday;
-			Calendar cal = new PersianCalendar();
-			FieldInfo fieldInfo = culture.GetType().GetField("calendar", BindingFlags.NonPublic | BindingFlags.Instance);
-			if (fieldInfo != null)
-				fieldInfo.SetValue(culture, cal);
-			FieldInfo info = formatInfo.GetType().GetField("calendar", BindingFlags.NonPublic | BindingFlags.Instance);
-			if (info != null)
-				info.SetValue(formatInfo, cal);
-			culture.NumberFormat.NumberDecimalSeparator = "/";
-			culture.NumberFormat.DigitSubstitution = DigitShapes.NativeNational;
-			culture.NumberFormat.NumberNegativePattern = 0;
-			return culture;
-		}
+        private CultureInfo GetPersianCulture(string Culture)
+        {
+            CultureInfo cultureInfo = new CultureInfo(Culture);
 
-		#endregion
+            DateTimeFormatInfo formatInfo = cultureInfo.DateTimeFormat;
+            formatInfo.AbbreviatedDayNames = new[] { "ی", "د", "س", "چ", "پ", "ج", "ش" };
+            formatInfo.DayNames = new[] { "یکشنبه", "دوشنبه", "سه شنبه", "چهار شنبه", "پنجشنبه", "جمعه", "شنبه" };
+            var monthNames = new[]
+            {
+            "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن",
+            "اسفند",
+            "",
+        };
+            formatInfo.AbbreviatedMonthNames =
+                formatInfo.MonthNames =
+                    formatInfo.MonthGenitiveNames = formatInfo.AbbreviatedMonthGenitiveNames = monthNames;
+            formatInfo.AMDesignator = "ق.ظ";
+            formatInfo.PMDesignator = "ب.ظ";
+            formatInfo.ShortDatePattern = "yyyy/MM/dd";
+            formatInfo.LongDatePattern = "dddd, dd MMMM,yyyy";
+            formatInfo.FirstDayOfWeek = DayOfWeek.Saturday;
+            System.Globalization.Calendar cal = new PersianCalendar();
+            FieldInfo fieldInfo = cultureInfo.GetType().GetField("calendar", BindingFlags.NonPublic | BindingFlags.Instance);
+            if (fieldInfo != null)
+                fieldInfo.SetValue(cultureInfo, cal);
+            FieldInfo info = formatInfo.GetType().GetField("calendar", BindingFlags.NonPublic | BindingFlags.Instance);
+            if (info != null)
+                info.SetValue(formatInfo, cal);
+            cultureInfo.NumberFormat.NumberDecimalSeparator = "/";
+            cultureInfo.NumberFormat.DigitSubstitution = DigitShapes.NativeNational;
+            cultureInfo.NumberFormat.NumberNegativePattern = 0;
 
-	}
+            return cultureInfo;
+        }
+
+        #endregion
+
+    }
 }

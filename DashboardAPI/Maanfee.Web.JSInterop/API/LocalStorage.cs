@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using System;
-using System.Collections.Generic;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Maanfee.Web.JSInterop
 {
-	public partial class LocalStorage : ComponentBase, IAsyncDisposable
+    public partial class LocalStorage : ComponentBase, IAsyncDisposable
     {
         #region - JsRuntime -
 

@@ -17,7 +17,7 @@ using TableViewModel = Maanfee.Dashboard.Domain.ViewModels.GetReleaseViewModel;
 
 namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
 {
-	public partial class SysReleaseMgtView
+    public partial class SysReleaseMgtView
 	{
 		private IEnumerable<TableViewModel> Data = new List<TableViewModel>();
 		private MudTable<TableViewModel> Table = new();
@@ -56,8 +56,9 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
 					SortDirection = state.SortDirection,
 					SortLabel = state.SortLabel,
 				};
-				TableState.UserName = AccountStateContainer.UserName;
-				if (FilterViewModel != null)
+                TableState._UserName = AccountStateContainer.UserName;
+                TableState._Name = AccountStateContainer.Name;
+                if (FilterViewModel != null)
 				{
 					TableState.Filter = FilterViewModel;
 				}

@@ -7,7 +7,9 @@ using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using MudBlazor;
 
 namespace Maanfee.Dashboard.Services.Controllers.Authentications
@@ -16,9 +18,15 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
     [ApiController]
     [Authorize]
     [ApiExplorerSettings(IgnoreApi = true)]
-    public class GroupsController : _BaseController
+    public class GroupsController : _BaseController<GroupsController>
     {
-        public GroupsController(_BaseContext_SQLServer context, CommonService CommonService, HttpClient http, IHubContext<LoggingHub> loggingHub) : base(context, CommonService, http, loggingHub)
+        public GroupsController(_BaseContext_SQLServer context
+            , CommonService CommonService
+            , HttpClient http
+            , ILogger<GroupsController> logger
+            , LoggingInitializer loggingInitializer
+            , HubConnection loggingHubConnection
+            ) : base(context, CommonService, http, logger, loggingInitializer, loggingHubConnection)
         {
         }
 
@@ -29,6 +37,17 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         {
             try
             {
+                if (LoggingHubConnection is not null)
+                {
+                    await LoggingHubConnection.SendAsync("SendMessageAsync", new LogInfo
+                    {
+                        Platform = LoggingPlatformDefaultValue.Server,
+                        Message = $"{TableState._UserName} ({TableState._Name}) is Viewing (Groups)",
+                        LogDate = DateTime.Now,
+                        Level = Maanfee.Logging.Console.LogLevel.Information,
+                    });
+                }
+
                 PaginatedList<Group> PaginatedList;
 
                 IQueryable<Group> Data = db_SQLServer.Groups.AsNoTracking().OrderBy(x => x.Title);

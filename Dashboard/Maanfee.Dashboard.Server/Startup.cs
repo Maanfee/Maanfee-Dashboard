@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using System;
 using System.IO;
 using System.Linq;
 
@@ -24,30 +25,31 @@ namespace Maanfee.Dashboard.Server
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
 			services.AddSignalR();
-			services.AddResponseCompression(opts =>
-			{
-				opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
-					new[] { "application/octet-stream" });
-			});
+            services.AddResponseCompression(opts =>
+            {
+                opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+                    new[] { "application/octet-stream" });
+            });
 
-			#region - Internal Services -
+            // RealTime Logging
+            services.AddLoggingConsole(new Uri("http://localhost:22001"), new Uri("http://172.17.17.22"));
 
-			services.AddLocalization(options =>
+            #region - Internal Services -
+
+            services.AddLocalization(options =>
             {
                 options.ResourcesPath = "Resources";
             });
             services.AddServerServices(Configuration, "SQLServerConnection_DebugMode");
 
-            // ***********************************
+            // ********************************************
             services.AddSwaggerServices(Configuration);
-            // *******************************
+            // ********************************************
 
             #endregion
         }
@@ -67,8 +69,8 @@ namespace Maanfee.Dashboard.Server
             }
 
             app.UseBlazorFrameworkFiles();  //
-
-			app.UseStaticFiles();//
+            app.UseResponseCompression();
+            app.UseStaticFiles();//
 			try
             {
                 app.UseStaticFiles(new StaticFileOptions

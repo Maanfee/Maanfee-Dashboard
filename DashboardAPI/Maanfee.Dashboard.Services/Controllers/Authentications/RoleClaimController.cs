@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,9 +22,15 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
     [ApiController]
     [Authorize]
     [ApiExplorerSettings(IgnoreApi = true)]
-    public class RoleClaimController : _BaseController
+    public class RoleClaimController : _BaseController<RoleClaimController>
     {
-        public RoleClaimController(_BaseContext_SQLServer context, CommonService CommonService, HttpClient http, IHubContext<LoggingHub> loggingHub) : base(context, CommonService, http, loggingHub)
+        public RoleClaimController(_BaseContext_SQLServer context
+         , CommonService CommonService
+         , HttpClient http
+         , ILogger<RoleClaimController> logger
+         , LoggingInitializer loggingInitializer
+         , HubConnection loggingHubConnection
+         ) : base(context, CommonService, http, logger, loggingInitializer, loggingHubConnection)
         {
         }
 

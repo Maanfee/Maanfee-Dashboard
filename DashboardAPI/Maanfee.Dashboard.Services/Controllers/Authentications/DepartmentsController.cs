@@ -7,13 +7,9 @@ using Maanfee.Logging.Console;
 using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Maanfee.Dashboard.Services.Controllers.Authentications
 {
@@ -21,9 +17,15 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
     [ApiController]
     [Authorize]
     [ApiExplorerSettings(IgnoreApi = true)]
-    public class DepartmentsController : _BaseController
+    public class DepartmentsController : _BaseController<DepartmentsController>
     {
-        public DepartmentsController(_BaseContext_SQLServer context, CommonService CommonService, HttpClient http, IHubContext<LoggingHub> loggingHub) : base(context, CommonService, http, loggingHub)
+        public DepartmentsController(_BaseContext_SQLServer context
+            , CommonService commonService
+            , HttpClient http
+            , ILogger<DepartmentsController> logger
+            , LoggingInitializer loggingInitializer
+            , HubConnection loggingHubConnection
+            ) : base(context, commonService, http, logger, loggingInitializer, loggingHubConnection)
         {
         }
 

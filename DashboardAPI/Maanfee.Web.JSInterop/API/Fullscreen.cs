@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using System;
-using System.Threading.Tasks;
 
 namespace Maanfee.Web.JSInterop
 {
-	public partial class Fullscreen : ComponentBase, IAsyncDisposable
+    public partial class Fullscreen : ComponentBase, IAsyncDisposable
 	{
 		#region - JsRuntime -
 

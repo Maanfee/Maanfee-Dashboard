@@ -10,7 +10,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 
 namespace Maanfee.Dashboard.Services.Controllers.Authentications
@@ -18,7 +20,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
     [Route("api/[controller]")]
     [ApiController]
     [ApiExplorerSettings(IgnoreApi = true)]
-    public class AuthenticationsController : _BaseController
+    public class AuthenticationsController : _BaseController<AuthenticationsController>
     {
         public AuthenticationsController(UserManager<ApplicationUser> userManager
             , SignInManager<ApplicationUser> signInManager
@@ -26,7 +28,10 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
             , _BaseContext_SQLServer context
             , CommonService CommonService
             , HttpClient http
-            , IHubContext<LoggingHub> loggingHub) : base(context, CommonService, http, loggingHub)
+            , ILogger<AuthenticationsController> logger
+            , LoggingInitializer loggingInitializer
+            , HubConnection loggingHubConnection
+            ) : base(context, CommonService, http, logger, loggingInitializer, loggingHubConnection)
         {
             this.UserManager = userManager;
             this.SignInManager = signInManager;
@@ -68,14 +73,14 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
             await SignInManager.SignInWithClaimsAsync(user, request.RememberMe, CustomClaims);
             //await SignInManager.PasswordSignInAsync(user, request.Password, request.RememberMe, lockoutOnFailure: false);
 
-            if (LoggingHub is not null)
+            if (LoggingHubConnection is not null)
             {
-                await LoggingHub.Clients.All.SendAsync("ReceiveMessage", new LogInfo
+                await LoggingHubConnection.SendAsync("SendMessageAsync", new LogInfo
                 {
                     Platform = LoggingPlatformDefaultValue.Server,
                     LogDate = DateTime.Now,
                     Message = $"{user.UserName} ({user.Name}) - is logged in",
-                    Level = LogLevel.Information,
+                    Level = Maanfee.Logging.Console.LogLevel.Information,
                 });
             }
 

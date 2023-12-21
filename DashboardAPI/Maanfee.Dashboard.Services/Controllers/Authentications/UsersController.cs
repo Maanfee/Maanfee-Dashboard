@@ -7,7 +7,9 @@ using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using MudBlazor;
 
 namespace Maanfee.Dashboard.Services.Controllers.Authentications
@@ -16,9 +18,15 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
     [ApiController]
     [Authorize]
     [ApiExplorerSettings(IgnoreApi = true)]
-    public class UsersController : _BaseController
+    public class UsersController : _BaseController<UsersController>
     {
-        public UsersController(_BaseContext_SQLServer context, CommonService CommonService, HttpClient http, IHubContext<LoggingHub> loggingHub) : base(context, CommonService, http, loggingHub)
+        public UsersController(_BaseContext_SQLServer context
+            , CommonService commonService
+            , HttpClient http
+            , ILogger<UsersController> logger
+            , LoggingInitializer loggingInitializer
+            , HubConnection loggingHubConnection
+            ) : base(context, commonService, http, logger, loggingInitializer, loggingHubConnection)
         {
         }
 
@@ -215,14 +223,14 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
             }
             catch (Exception ex)
             {
-                if (LoggingHub is not null)
+                if (LoggingHubConnection is not null)
                 {
-                    await LoggingHub.Clients.All.SendAsync("ReceiveMessage", new LogInfo
+                    await LoggingHubConnection.SendAsync("SendMessageAsync", new LogInfo
                     {
                         Platform = LoggingPlatformDefaultValue.Server,
-                        Message = $"{ex.Message}",
+                        Message = ex.ToString(),
                         LogDate = DateTime.Now,
-                        Level = LogLevel.Error,
+                        Level = Maanfee.Logging.Console.LogLevel.Error,
                     });
                 }
 

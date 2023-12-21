@@ -3,6 +3,7 @@
 @using Microsoft.AspNetCore.SignalR.Client;
 @inject HubConnection LoggingHubConnection
 @inject IDialogService Dialog
+@inject Maanfee.RabbitMQ.EventBus.IEventBus RMQPublisher;
 
 <style>
 
@@ -95,26 +96,35 @@
                     LogDate = DateTime.Now,
                     Level = LogLevel.Warning,
                 });
-        }
 
-        LoggingHubConnection.On<LogInfo>("ReceiveMessage", async (Log) =>
-        {
-            var LogMessage = new LogInfo
-                {
-                    Platform = Log.Platform,
-                    Message = Log.Message,
-                    LogDate = Log.LogDate,
-                    Level = Log.Level,
-                };
-            LogMessages.Add(LogMessage);
 
-            await Task.Run(() =>
+            LoggingHubConnection.On<LogInfo>("ReceiveMessage", async (Log) =>
+            {
+                var LogMessage = new LogInfo
                     {
-                        StateHasChanged();
-                    });
+                        Platform = Log.Platform,
+                        Message = Log.Message,
+                        LogDate = Log.LogDate,
+                        Level = Log.Level,
+                    };
+                LogMessages.Add(LogMessage);
 
-        });
+                // try
+                // {
+                //     RMQPublisher.Publish(LogMessage);
+                // }
+                // catch(Exception ex)
+                // {
+                //     ss = ex.InnerException.Message;
+                // }
 
+                await Task.Run(() =>
+                        {
+                            StateHasChanged();
+                        });
+
+            });
+        }
     }
 
     // *******************************************

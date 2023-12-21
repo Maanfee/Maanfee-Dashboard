@@ -79,8 +79,9 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 					SortDirection = state.SortDirection,
 					SortLabel = state.SortLabel,
 				};
-				TableState.UserName = AccountStateContainer.UserName;
-				if (FilterViewModel != null)
+				TableState._UserName = AccountStateContainer.UserName;
+                TableState._Name = AccountStateContainer.Name;
+                if (FilterViewModel != null)
 				{
 					TableState.Filter = FilterViewModel;
 				}

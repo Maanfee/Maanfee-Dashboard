@@ -2,23 +2,38 @@
 using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Logging.Console;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
-using System.Linq;
-using System.Net.Http;
+using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.Logging;
 
 namespace Maanfee.Dashboard.Services.Controllers
 {
-    public class _BaseController : ControllerBase
+    public class _BaseController<T> : ControllerBase
     {
         public _BaseController(_BaseContext_SQLServer context
             , CommonService commonService
             , HttpClient http
-            , IHubContext<LoggingHub> _LoggingHub)
+            , ILogger<T> logger
+            , LoggingInitializer loggingInitializer
+            , HubConnection loggingHubConnection)
         {
-            db_SQLServer = context;
-            CommonService = commonService;
-            Http = http;
-            LoggingHub = _LoggingHub;
+            try
+            {
+                db_SQLServer = context;
+                Http = http;
+                CommonService = commonService;
+                Logger = logger;
+                LoggingInitializer = loggingInitializer;
+                LoggingHubConnection = loggingHubConnection;
+
+                Task.Run(async () =>
+                {
+                    await LoggingInitializer.InitializedAsync();
+                });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex.Message, ex);
+            }
         }
 
         protected readonly _BaseContext_SQLServer db_SQLServer;
@@ -27,18 +42,12 @@ namespace Maanfee.Dashboard.Services.Controllers
 
         protected HttpClient Http;
 
-        protected readonly IHubContext<LoggingHub> LoggingHub;
+        protected readonly ILogger<T> Logger;
 
-        protected CurrentUser GetCurrentUserInfo()
-        {
-            return new CurrentUser
-            {
-                IsAuthenticated = User.Identity.IsAuthenticated,
-                UserName = User.Identity.Name,
-                Claims = User.Claims.ToDictionary(c => c.Type, c => c.Value),
-                Id = User.Claims.FirstOrDefault(x => x.Type == "Id").Value,
-                Name = User.Claims.FirstOrDefault(x => x.Type == "Name").Value,
-            };
-        }
+        protected HubConnection LoggingHubConnection;
+
+        protected LoggingInitializer LoggingInitializer;
+
+        // ********************************************************
     }
 }

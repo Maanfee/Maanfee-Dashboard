@@ -4,13 +4,9 @@ using Maanfee.Dashboard.Resources;
 using Maanfee.Logging.Console;
 using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Maanfee.Dashboard.Services.Controllers.Providers
 {
@@ -18,9 +14,15 @@ namespace Maanfee.Dashboard.Services.Controllers.Providers
     [ApiController]
     //[Authorize]
     //[ApiExplorerSettings(IgnoreApi = true)]
-    public class WebServiceProvidersController : _BaseController
+    public class WebServiceProvidersController : _BaseController<WebServiceProvidersController>
     {
-        public WebServiceProvidersController(_BaseContext_SQLServer context, CommonService CommonService, HttpClient http, IHubContext<LoggingHub> loggingHub) : base(context, CommonService, http, loggingHub)
+        public WebServiceProvidersController(_BaseContext_SQLServer context
+            , CommonService commonService
+            , HttpClient http
+            , ILogger<WebServiceProvidersController> logger
+            , LoggingInitializer loggingInitializer
+            , HubConnection loggingHubConnection
+            ) : base(context, commonService, http, logger, loggingInitializer, loggingHubConnection)
         {
         }
 

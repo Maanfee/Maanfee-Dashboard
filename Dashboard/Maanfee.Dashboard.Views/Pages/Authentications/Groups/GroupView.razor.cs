@@ -16,7 +16,7 @@ using TableViewModel = Maanfee.Dashboard.Domain.ViewModels.GetGroupViewModel;
 
 namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
 {
-	public partial class GroupView
+    public partial class GroupView
 	{
 		private IEnumerable<TableViewModel> Data = new List<TableViewModel>();
 		private MudTable<TableViewModel> Table = new();
@@ -55,8 +55,9 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
 					SortDirection = state.SortDirection,
 					SortLabel = state.SortLabel,
 				};
-				TableState.UserName = AccountStateContainer.UserName;
-				if (FilterViewModel != null)
+                TableState._UserName = AccountStateContainer.UserName;
+                TableState._Name = AccountStateContainer.Name;
+                if (FilterViewModel != null)
 				{
 					TableState.Filter = FilterViewModel;
 				}

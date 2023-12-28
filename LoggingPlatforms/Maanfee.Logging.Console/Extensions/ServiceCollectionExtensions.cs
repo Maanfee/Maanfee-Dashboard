@@ -1,10 +1,8 @@
-﻿using Maanfee.RabbitMQ.EventBus;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Maanfee.Logging.Console
 {
@@ -23,8 +21,6 @@ namespace Maanfee.Logging.Console
             });
 
             services.AddSingleton<LoggingInitializer>();
-
-            RabbitMQEventBusInitializer(services);
 
             return services;
         }
@@ -61,27 +57,8 @@ namespace Maanfee.Logging.Console
 
             services.AddSingleton<LoggingInitializer>();
 
-            RabbitMQEventBusInitializer(services);
-
             return services;
         }
 
-        #region - Event Bus -
-
-        private static void RabbitMQEventBusInitializer(IServiceCollection services)
-        {
-            // Add services to the container.
-            services.AddRabbitMQEventBus
-                        (
-                            HostName: "localhost",
-                            Username: "guest",
-                            Password: "guest",
-                            BrokerName: "netCoreEventBusBroker",
-                            QueueName: "Queue"
-                        );
-        }
-
-        #endregion
-
-    }
+   }
 }

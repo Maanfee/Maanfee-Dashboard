@@ -3,7 +3,6 @@
 @using Microsoft.AspNetCore.SignalR.Client;
 @inject HubConnection LoggingHubConnection
 @inject IDialogService Dialog
-@inject Maanfee.RabbitMQ.EventBus.IEventBus RMQPublisher;
 
 <style>
 
@@ -108,15 +107,6 @@
                         Level = Log.Level,
                     };
                 LogMessages.Add(LogMessage);
-
-                // try
-                // {
-                //     RMQPublisher.Publish(LogMessage);
-                // }
-                // catch(Exception ex)
-                // {
-                //     ss = ex.InnerException.Message;
-                // }
 
                 await Task.Run(() =>
                         {

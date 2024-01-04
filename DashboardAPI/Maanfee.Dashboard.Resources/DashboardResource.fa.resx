@@ -366,6 +366,9 @@
   <data name="StringLoading" xml:space="preserve">
     <value>در حال بارگزاری ...</value>
   </data>
+  <data name="StringLogHistory" xml:space="preserve">
+    <value>تاریخچه فعالیت ها</value>
+  </data>
   <data name="StringLogout" xml:space="preserve">
     <value>خروج</value>
   </data>

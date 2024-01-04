@@ -2,56 +2,71 @@
     "GlobalConfiguration": {
         "BaseUrl": "http://localhost:4030"
     },
-    "Routes": [
-        // **************** Login ****************
+  "Routes": [
+    // **************** Login ****************
+    {
+      "DownstreamPathTemplate": "/api/Accounts/Login",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
         {
-            "DownstreamPathTemplate": "/api/Accounts/Login",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 22002
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/Accounts/Login",
-            "UpstreamHttpMethod": [ "POST" ]
-        },
-        {
-            "DownstreamPathTemplate": "/api/Accounts/GetStatus",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 22002
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/Accounts/GetStatus",
-            "UpstreamHttpMethod": [ "GET" ]
-        },
-        {
-            "DownstreamPathTemplate": "/Test/ConnectionTest",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 22002
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/Test/ConnectionTest",
-            "UpstreamHttpMethod": [ "GET" ]
-        },
-        {
-            "DownstreamPathTemplate": "/Test/GetStatus",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 22002
-                }
-            ],
-            "UpstreamPathTemplate": "/gateway/Test/GetStatus",
-            "UpstreamHttpMethod": [ "GET" ]
+          "Host": "localhost",
+          "Port": 22002
         }
-    ]
+      ],
+      "UpstreamPathTemplate": "/gateway/Accounts/Login",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Accounts/GetStatus",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 22002
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/Accounts/GetStatus",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/Test/ConnectionTest",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 22002
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/Test/ConnectionTest",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/Test/GetStatus",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 22002
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/Test/GetStatus",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    // **************** Logging ****************
+    // PaginationIndex
+    {
+      "DownstreamPathTemplate": "/api/Logging/PaginationIndex",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 4031
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/Logging/PaginationIndex",
+      "UpstreamHttpMethod": [ "POST" ]
+    }
+
+  ]
 
 }

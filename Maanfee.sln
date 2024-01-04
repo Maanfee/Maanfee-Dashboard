@@ -53,6 +53,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maanfee.Logging.Console", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maanfee.Logging.Server", "LoggingPlatforms\Maanfee.Logging.Server\Maanfee.Logging.Server.csproj", "{5C61A69E-00D8-40BD-82BE-7F3514C8416B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maanfee.Logging.Domain", "LoggingPlatforms\Maanfee.Logging.Domain\Maanfee.Logging.Domain.csproj", "{AD4A10AA-7565-4D73-A3B5-DE056F8C4A57}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -127,6 +129,10 @@ Global
 		{5C61A69E-00D8-40BD-82BE-7F3514C8416B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C61A69E-00D8-40BD-82BE-7F3514C8416B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C61A69E-00D8-40BD-82BE-7F3514C8416B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD4A10AA-7565-4D73-A3B5-DE056F8C4A57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD4A10AA-7565-4D73-A3B5-DE056F8C4A57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD4A10AA-7565-4D73-A3B5-DE056F8C4A57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD4A10AA-7565-4D73-A3B5-DE056F8C4A57}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -149,6 +155,7 @@ Global
 		{515912FD-DD96-407E-88FB-54226DDCEBBA} = {EB2F145B-F621-4FBF-93C5-BD6D13F42829}
 		{D6739A20-7D83-49D8-A1DE-E5ED2DE02D2F} = {C431711A-B332-4990-8AA9-BD5B2347FA01}
 		{5C61A69E-00D8-40BD-82BE-7F3514C8416B} = {C431711A-B332-4990-8AA9-BD5B2347FA01}
+		{AD4A10AA-7565-4D73-A3B5-DE056F8C4A57} = {C431711A-B332-4990-8AA9-BD5B2347FA01}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E3DD1F6F-DB97-4380-9B9B-3F37A2C8D178}

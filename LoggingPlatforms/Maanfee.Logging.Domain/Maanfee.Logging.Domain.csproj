@@ -1,9 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<TieredPGO>true</TieredPGO>
 		<!--**********************************************-->
 		<DebugType>none</DebugType>
 		<RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
@@ -25,17 +24,15 @@
 	<ItemGroup>
 		<None Include="..\..\LICENSE" Pack="true" Visible="false" PackagePath="" />
 	</ItemGroup>
-	
+
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components" Version="8.0.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0" />
-		<PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
-		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
+		<PackageReference Include="MudBlazor" Version="6.12.0" />
 	</ItemGroup>
-	
+
 	<ItemGroup>
-	  <ProjectReference Include="..\..\DashboardAPI\Maanfee.Web.Core\Maanfee.Web.Core.csproj" />
-	  <ProjectReference Include="..\Maanfee.Logging.Domain\Maanfee.Logging.Domain.csproj" />
+		<ProjectReference Include="..\..\DashboardAPI\Maanfee.Dashboard.Resources\Maanfee.Dashboard.Resources.csproj" />
 	</ItemGroup>
 
 </Project>

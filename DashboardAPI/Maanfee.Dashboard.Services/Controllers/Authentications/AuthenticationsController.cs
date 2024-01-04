@@ -5,6 +5,7 @@ using Maanfee.Dashboard.Domain.Entities;
 using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Dashboard.Resources;
 using Maanfee.Logging.Console;
+using Maanfee.Logging.Domain;
 using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -77,10 +78,10 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
             {
                 await LoggingHubConnection.SendAsync("SendMessageAsync", new LogInfo
                 {
-                    Platform = LoggingPlatformDefaultValue.Server,
+                    IdLoggingPlatform = LoggingPlatformDefaultValue.Server,
                     LogDate = DateTime.Now,
                     Message = $"{user.UserName} ({user.Name}) - is logged in",
-                    Level = Maanfee.Logging.Console.LogLevel.Information,
+                    IdLoggingLevel = LoggingLevelDefaultValue.Information,
                 });
             }
 

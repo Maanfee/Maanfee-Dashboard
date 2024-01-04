@@ -808,6 +808,15 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Log History.
+        /// </summary>
+        public static string StringLogHistory {
+            get {
+                return ResourceManager.GetString("StringLogHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Logout.
         /// </summary>
         public static string StringLogout {

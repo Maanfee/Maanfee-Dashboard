@@ -3,7 +3,7 @@ using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Dashboard.Resources;
 using Maanfee.Dashboard.Views.Base;
 using Maanfee.Dashboard.Views.Core.Shared.Dialogs;
-using Maanfee.Logging.Console;
+using Maanfee.Logging.Domain;
 using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -38,10 +38,10 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
             {
                 await LoggingHubConnection.SendAsync("SendMessageAsync", new LogInfo
                 {
-                    Platform = LoggingPlatformDefaultValue.Client,
+                    IdLoggingPlatform = LoggingPlatformDefaultValue.Client,
                     Message = $"{AccountStateContainer.UserName} ({AccountStateContainer.Name}) is Viewing ({DashboardResource.StringRole})",
                     LogDate = DateTime.Now,
-                    Level = LogLevel.Information,
+                    IdLoggingLevel = LoggingLevelDefaultValue.Information,
                 });
             }
 

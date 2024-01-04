@@ -1,3 +1,4 @@
+using Maanfee.Logging.Domain;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Maanfee.Logging.Console

@@ -1,6 +1,6 @@
 ﻿using Maanfee.Dashboard.Core;
 using Maanfee.Dashboard.Domain.ViewModels;
-using Maanfee.Logging.Console;
+using Maanfee.Logging.Domain;
 using Microsoft.AspNetCore.SignalR.Client;
 using MudBlazor;
 using System;
@@ -57,10 +57,10 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications
                 {
                     await LoggingHubConnection.SendAsync("SendMessageAsync", new LogInfo
                     {
-                        Platform = LoggingPlatformDefaultValue.Client,
+                        IdLoggingPlatform = LoggingPlatformDefaultValue.Client,
                         Message = $"{ex.Message}",
                         LogDate = DateTime.Now,
-                        Level = LogLevel.Error,
+                        IdLoggingLevel = LoggingLevelDefaultValue.Error,
                     });
                 }
             }

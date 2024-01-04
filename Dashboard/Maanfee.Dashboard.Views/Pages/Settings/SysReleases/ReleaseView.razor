@@ -127,10 +127,10 @@
         {
             await LoggingHubConnection.SendAsync("SendMessageAsync", new LogInfo
                 {
-                    Platform = LoggingPlatformDefaultValue.Client,
+                    IdLoggingPlatform = LoggingPlatformDefaultValue.Client,
                     Message = $"{AccountStateContainer.UserName} ({AccountStateContainer.Name}) is Viewing ({DashboardResource.StringRelease})",
                     LogDate = DateTime.Now,
-                    Level = LogLevel.Information,
+                    IdLoggingLevel = LoggingLevelDefaultValue.Information,
                 });
         }
 

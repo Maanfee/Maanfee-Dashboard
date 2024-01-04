@@ -1,8 +1,11 @@
 ﻿@namespace Maanfee.Logging.Console
+@using Maanfee.Logging.Domain
+@using Maanfee.Web.Core
 @using MudBlazor
 @using Microsoft.AspNetCore.SignalR.Client;
 @inject HubConnection LoggingHubConnection
 @inject IDialogService Dialog
+@inject HttpClient Http
 
 <style>
 
@@ -34,18 +37,18 @@
             @foreach (var item in LogMessages)
             {
                 Color ConsoleColor = Color.Dark;
-                switch (item.Level)
+                switch (item.IdLoggingLevel)
                 {
-                    case LogLevel.Warning:
+                    case LoggingLevelDefaultValue.Warning:
                         ConsoleColor = Color.Warning;
                         break;
-                    case LogLevel.Error:
+                    case LoggingLevelDefaultValue.Error:
                         ConsoleColor = Color.Error;
                         break;
-                    case LogLevel.Information:
+                    case LoggingLevelDefaultValue.Information:
                         ConsoleColor = Color.Success;
                         break;
-                    case LogLevel.Debug:
+                    case LoggingLevelDefaultValue.Debug:
                         ConsoleColor = Color.Info;
                         break;
                 }
@@ -53,7 +56,7 @@
                 <div style="direction:ltr !important; text-align:left !important;">
                     <MudText Style="color:white" Typo="Typo.caption">
                         <small>
-                            @item.Platform :
+                            @LoggingPlatformDefaultValue.GetLoggingPlatformTitle(item.IdLoggingPlatform) :
                         </small>
                     </MudText>
                     <MudText Typo="Typo.caption" Color="ConsoleColor">
@@ -90,21 +93,20 @@
         {
             await LoggingHubConnection.SendAsync("SendMessageAsync", new LogInfo
                 {
-                    Platform = LoggingPlatformDefaultValue.System,
+                    IdLoggingPlatform = LoggingPlatformDefaultValue.System,
                     Message = "Console Initialized ...",
                     LogDate = DateTime.Now,
-                    Level = LogLevel.Warning,
+                    IdLoggingLevel = LoggingLevelDefaultValue.Warning,
                 });
-
 
             LoggingHubConnection.On<LogInfo>("ReceiveMessage", async (Log) =>
             {
                 var LogMessage = new LogInfo
                     {
-                        Platform = Log.Platform,
+                        IdLoggingPlatform = Log.IdLoggingPlatform,
                         Message = Log.Message,
                         LogDate = Log.LogDate,
-                        Level = Log.Level,
+                        IdLoggingLevel = Log.IdLoggingLevel,
                     };
                 LogMessages.Add(LogMessage);
 
@@ -112,7 +114,6 @@
                         {
                             StateHasChanged();
                         });
-
             });
         }
     }

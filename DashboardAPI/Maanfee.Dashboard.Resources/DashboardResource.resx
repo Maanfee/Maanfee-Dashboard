@@ -366,6 +366,9 @@
   <data name="StringLoading" xml:space="preserve">
     <value>Loading...</value>
   </data>
+  <data name="StringLogHistory" xml:space="preserve">
+    <value>Log History</value>
+  </data>
   <data name="StringLogout" xml:space="preserve">
     <value>Logout</value>
   </data>

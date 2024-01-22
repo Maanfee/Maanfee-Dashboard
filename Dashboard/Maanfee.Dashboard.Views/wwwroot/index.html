@@ -73,12 +73,12 @@
     <script src="_framework/blazor.webassembly.js"></script>
     <script src="_content/MudBlazor/MudBlazor.min.js"></script>
 
+    <script>
+        window.onpopstate = function () {
+            window.history.go(1);
+        };
+    </script>
+
 </body>
 
 </html>
-
-<script>
-    window.onpopstate = function () {
-        window.history.go(1);
-    };
-</script>

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 
-namespace Maanfee.Dashboard.Server.Data
+namespace Maanfee.Dashboard.Server
 {
     public static class DatabaseConfigureExtensions
     {

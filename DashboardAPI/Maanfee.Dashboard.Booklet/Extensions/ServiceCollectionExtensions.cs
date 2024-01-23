@@ -6,7 +6,7 @@ namespace Maanfee.Dashboard.Views.Booklet
     {
         public static IServiceCollection AddBooklet(this IServiceCollection services)
         {
-            services.AddScoped<Booklet>();
+            services.AddSingleton<Booklet>();
             return services;
         }
     }

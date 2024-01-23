@@ -6,7 +6,7 @@ namespace Maanfee.Web.Core
     {
         public static IServiceCollection AddFileDownload(this IServiceCollection services)
         {
-            services.AddScoped<FileDownloadService>();
+            services.AddSingleton<FileDownloadService>();
             return services;
         }
     }

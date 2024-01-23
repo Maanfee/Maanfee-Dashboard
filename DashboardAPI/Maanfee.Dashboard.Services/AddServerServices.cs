@@ -71,7 +71,7 @@ namespace Maanfee.Dashboard.Services
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             );
 
-            services.AddScoped<HttpClient>();
+            services.AddSingleton<HttpClient>();
             return services.AddScoped<CommonService>();
         }
 

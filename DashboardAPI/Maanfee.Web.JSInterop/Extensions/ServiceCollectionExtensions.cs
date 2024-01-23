@@ -6,11 +6,11 @@ namespace Maanfee.Web.JSInterop
     {
         public static IServiceCollection AddJsQuery(this IServiceCollection services)
         {
-            services.AddScoped<Dom>();
-			services.AddScoped<LocalStorage>();
-            services.AddScoped<Fullscreen>();
-            services.AddScoped<Screen>();
-            services.AddScoped<History>();
+            services.AddSingleton<Dom>();
+			services.AddSingleton<LocalStorage>();
+            services.AddSingleton<Fullscreen>();
+            services.AddSingleton<Screen>();
+            services.AddSingleton<History>();
 
             return services;
         }

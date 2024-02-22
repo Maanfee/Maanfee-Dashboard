@@ -14,7 +14,7 @@
 		<Copyright>Copyright (c) 2021-2023 Maanfee</Copyright>
 		<Authors>Maanfee Team (MF)</Authors>
 		<Company>Maanfee</Company>
-		<Version>7.6.0</Version>
+		<Version>7.9.0</Version>
 		<PackageIcon>MaanfeeGreen.png</PackageIcon>
 		<RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
@@ -39,9 +39,9 @@
 
 	<ItemGroup>
 		<PackageReference Include="Maanfee.Highcharts" Version="1.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="8.0.1" />
-		<PackageReference Include="MudBlazor" Version="6.14.0" />
-		<PackageReference Include="EPPlus" Version="7.0.7" />
+		<PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="8.0.2" />
+		<PackageReference Include="MudBlazor" Version="6.16.0" />
+		<PackageReference Include="EPPlus" Version="7.0.9" />
 		<PackageReference Include="SkiaSharp.Views.Blazor" Version="2.88.7" />
 	</ItemGroup>
 

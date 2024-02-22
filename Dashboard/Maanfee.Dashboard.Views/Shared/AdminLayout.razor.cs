@@ -123,11 +123,6 @@ namespace Maanfee.Dashboard.Views.Shared
 
 		private bool DrawerOpen = true;
 
-		private void DrawerToggle()
-		{
-			DrawerOpen = !DrawerOpen;
-		}
-
 		// ******************************************************
 
 		private async Task ToggleDarkMode()

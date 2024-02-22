@@ -21,53 +21,53 @@
                 <MudAppBar Elevation="25">
                     <MudIcon Icon="@Icons.Custom.Brands.MicrosoftVisualStudio" Size="Size.Large" />
                     <MudText Typo="Typo.h6" Class="ml-4">&nbsp;@ApplicationResource.StringApplicationName</MudText>
-                    <MudToolBar DisableGutters="true">
-                        <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" OnClick="@((e) => DrawerToggle())" Class="ml-3" />
-                    </MudToolBar>
-                    <MudSpacer />
-                    @* ********************************** *@
-                    @*<NotificationBar />*@
-                    @* ********************************** *@
-                    <MudHidden Breakpoint="Breakpoint.MdAndUp" Invert="true">
-                        <SupportBar />
-                        <MudDivider Vertical="true" FlexItem="true" DividerType="DividerType.Middle" Class="mx-4 my-5" />
-                        <MudTooltip Text="@DashboardResource.StringToggleFullscreen">
-                            <MudToggleIconButton Icon="@Icons.Material.Filled.Fullscreen" Color="Color.Inherit"
-                                                 ToggledIcon="@Icons.Material.Filled.FullscreenExit"
-                                                 ToggledColor="@Color.Inherit" ToggledChanged="ToggleFullscrren" />
-                        </MudTooltip>
-                        <LanguageSelector />
-                        <MudTooltip Text="@DashboardResource.StringToggleRTL">
-                            <MudIconButton Icon="@Icons.Material.Filled.FormatTextdirectionRToL" Color="Color.Inherit" OnClick="@((e) => ToggleDirection())" />
-                        </MudTooltip>
-                        <MudTooltip Text="@DashboardResource.StringToggleDarkMode">
-                            <MudIconButton Icon="@Icons.Material.Filled.Brightness4" Color="Color.Inherit" OnClick="@((e) => ToggleDarkMode())" />
-                        </MudTooltip>
-                    </MudHidden>
-                    @* ********************************* *@
-                    <MudMenu AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.BottomRight" Dense="true" Class="mt-1 ml-4">
-                        <ActivatorContent>
-                            <MudAvatar Style="height:50px; width:50px;">
-                                <MudImage Src="@AccountStateContainer.Avatar" />
-                            </MudAvatar>
-                        </ActivatorContent>
-                        <ChildContent>
-                            <ComponentsUserCard Class="mt-n2" />
-                            <MudDivider Class="mb-2" />
-                            <MudListItem Text="@DashboardResource.StringAccount" OnClick="OpenUserAccountDialog" Icon="@Icons.Material.Outlined.Person" />
-                            <MudListItem Text="@DashboardResource.StringConfiguration" Icon="@Icons.Material.Filled.Settings" OnClick="OpenConfigurationDialog" />
-                            <MudDivider />
-                            <MudListItem Text="@DashboardResource.StringLogout" Icon="@Icons.Material.Filled.Logout" OnClick="LogoutClick" />
-                        </ChildContent>
-                    </MudMenu>
-                </MudAppBar>
-                @*************************************@
-                <MudDrawer @bind-Open="DrawerOpen" Elevation="25" ClipMode="DrawerClipMode.Always">
-                    <Maanfee.Dashboard.Views.Shared._Sidebar />
-                </MudDrawer>
-                <MudMainContent>
-                    <MudContainer MaxWidth="MaxWidth.False" Class="mt-4">
-                        @Body
+                        <MudToolBar DisableGutters="true">
+                            <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" OnClick="@(() => DrawerOpen = !DrawerOpen)" Class="ml-3" />
+                        </MudToolBar>
+                        <MudSpacer />
+                        @* ********************************** *@
+                        @*<NotificationBar />*@
+                        @* ********************************** *@
+                        <MudHidden Breakpoint="Breakpoint.MdAndUp" Invert="true">
+                            <SupportBar />
+                            <MudDivider Vertical="true" FlexItem="true" DividerType="DividerType.Middle" Class="mx-4 my-5" />
+                            <MudTooltip Text="@DashboardResource.StringToggleFullscreen">
+                                <MudToggleIconButton Icon="@Icons.Material.Filled.Fullscreen" Color="Color.Inherit"
+                                                     ToggledIcon="@Icons.Material.Filled.FullscreenExit"
+                                                     ToggledColor="@Color.Inherit" ToggledChanged="ToggleFullscrren" />
+                            </MudTooltip>
+                            <LanguageSelector />
+                            <MudTooltip Text="@DashboardResource.StringToggleRTL">
+                                <MudIconButton Icon="@Icons.Material.Filled.FormatTextdirectionRToL" Color="Color.Inherit" OnClick="@((e) => ToggleDirection())" />
+                            </MudTooltip>
+                            <MudTooltip Text="@DashboardResource.StringToggleDarkMode">
+                                <MudIconButton Icon="@Icons.Material.Filled.Brightness4" Color="Color.Inherit" OnClick="@((e) => ToggleDarkMode())" />
+                            </MudTooltip>
+                        </MudHidden>
+                        @* ********************************* *@
+                        <MudMenu AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.BottomRight" Dense="true" Class="mt-1 ml-4">
+                            <ActivatorContent>
+                                <MudAvatar Style="height:50px; width:50px;">
+                                    <MudImage Src="@AccountStateContainer.Avatar" />
+                                </MudAvatar>
+                            </ActivatorContent>
+                            <ChildContent>
+                                <ComponentsUserCard Class="mt-n2" />
+                                <MudDivider Class="mb-2" />
+                                <MudListItem Text="@DashboardResource.StringAccount" OnClick="OpenUserAccountDialog" Icon="@Icons.Material.Outlined.Person" />
+                                <MudListItem Text="@DashboardResource.StringConfiguration" Icon="@Icons.Material.Filled.Settings" OnClick="OpenConfigurationDialog" />
+                                <MudDivider />
+                                <MudListItem Text="@DashboardResource.StringLogout" Icon="@Icons.Material.Filled.Logout" OnClick="LogoutClick" />
+                            </ChildContent>
+                        </MudMenu>
+                    </MudAppBar>
+                    @*************************************@
+                    <MudDrawer @bind-Open="DrawerOpen" Elevation="25" ClipMode="DrawerClipMode.Always">
+                        <Maanfee.Dashboard.Views.Shared._Sidebar />
+                    </MudDrawer>
+                    <MudMainContent>
+                        <MudContainer MaxWidth="MaxWidth.False" Class="mt-4">
+                            @Body
                     </MudContainer>
                 </MudMainContent>
                 @*************************************@

@@ -14,7 +14,7 @@
 		<Copyright>Copyright (c) 2021-2023 Maanfee</Copyright>
 		<Authors>Maanfee Team (MF)</Authors>
 		<Company>Maanfee</Company>
-		<Version>7.15.0</Version>
+		<Version>7.16.0</Version>
 		<PackageIcon>MaanfeeRed.png</PackageIcon>
 		<RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
@@ -33,14 +33,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.4" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.4" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.5" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.5" PrivateAssets="all" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
 		<PackageReference Include="System.Net.Http.Json" Version="8.0.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="8.0.4" />
-		<PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.4" />
-		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.4" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="8.0.5" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.5" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.5" />
 	</ItemGroup>
 
 	<ItemGroup>

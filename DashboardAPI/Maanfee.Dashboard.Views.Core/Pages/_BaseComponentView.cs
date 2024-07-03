@@ -1,21 +1,17 @@
 ﻿using Maanfee.Dashboard.Core;
-using Maanfee.Dashboard.Resources;
+using Maanfee.Dashboard.Views.Core.DefaultValues;
 using Maanfee.Dashboard.Views.Core.Services;
-using Maanfee.Web.Core;
 using Maanfee.Web.JSInterop;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
-using System;
+using MudBlazor.Utilities;
 using System.Globalization;
-using System.Net.Http;
 using System.Reflection;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Views.Core
 {
-    public class _BaseComponentView : ComponentBase, IDisposable
+    public class _BaseComponentView : LayoutComponentBase, IDisposable
     {
 #pragma warning disable CS0108
 
@@ -50,6 +46,9 @@ namespace Maanfee.Dashboard.Views.Core
         protected Fullscreen Fullscreen { get; set; }
 
         [Inject]
+        protected Screen Screen { get; set; }
+
+        [Inject]
         protected TableConfigurationService TableConfiguration { get; set; }
 
 #pragma warning restore CS0108
@@ -64,19 +63,37 @@ namespace Maanfee.Dashboard.Views.Core
 
         // *****************************************
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
+            await base.OnInitializedAsync();
+
             AccountStateContainer.OnChange += StateHasChanged;
-            Fullscreen.OnFullscreenChange += OnFullscreenChange;
+
+            await SaveDefaultsAsync();
         }
 
         public void Dispose()
         {
             AccountStateContainer.OnChange -= StateHasChanged;
-            Fullscreen.OnFullscreenChange -= OnFullscreenChange;
         }
 
         // *****************************************
+
+        #region - Save Defaults -
+
+        protected LanguageModel LanguageModel = new();
+
+        protected virtual MudTheme CurrentTheme { get; set; }
+
+        protected async Task SaveDefaultsAsync()
+        {
+            LanguageModel = await LocalStorage.GetAsync<LanguageModel>(StorageDefaultValue.CultureStorage);
+            SharedLayoutSettings.IsRTL = LanguageModel.IsRTL;
+
+            CurrentTheme = MaanfeeTheme.ThemeBuilder(SharedLayoutSettings.IsRTL, SharedLayoutSettings.IsDarkMode, (MudColor)SharedLayoutSettings.ThemeColor);
+        }
+
+        #endregion
 
         #region - MudTable Config -
 
@@ -89,15 +106,6 @@ namespace Maanfee.Dashboard.Views.Core
         public static string TableHeight { get; set; } = TableConfigurationService.InitTableHeight;
 
         public static string TableHeightLarge { get; set; } = TableConfigurationService.InitTableHeightLarge;
-
-        private async void OnFullscreenChange()
-        {
-            await Task.Delay(500);
-
-            TableHeight = TableConfiguration.SetHeight(SharedLayoutSettings.IsRTL, await Fullscreen.IsFullscreenAsync(), _IsTableScroll);
-
-            StateHasChanged();
-        }
 
         protected async void OnScrollChanged()
         {

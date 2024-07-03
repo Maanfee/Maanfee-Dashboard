@@ -142,12 +142,6 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 			}
 		}
 
-		private void OnSearch(string text)
-		{
-			//SearchString = text;
-			//Table.ReloadServerData();
-		}
-
 		private async Task OnReloadData()
 		{
 			await Table.ReloadServerData();

@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
+using static Maanfee.Web.JSInterop.Fullscreen;
 
 namespace Maanfee.Web.JSInterop
-{
+{ 
     public partial class Fullscreen : ComponentBase, IAsyncDisposable
-	{
+    {
 		#region - JsRuntime -
 
 		public Fullscreen(IJSRuntime JsRuntime)
@@ -26,7 +28,7 @@ namespace Maanfee.Web.JSInterop
 
 		#endregion
 
-		public async Task OpenFullscreenAsync(string Id)
+        public async Task OpenFullscreenAsync(string Id)
 		{
 			var Module = await moduleTask.Value;
 			await Module.InvokeVoidAsync("OpenFullscreen", Id);
@@ -82,5 +84,13 @@ namespace Maanfee.Web.JSInterop
 		public event Action OnFullscreenChange;
 
 		private void NotifyStateChanged() => OnFullscreenChange?.Invoke();
-	}
+
+        // ****************************************************
+
+        //public delegate void AuthDelegate();
+
+        //public event AuthDelegate AuthDelegate;
+
+        //public void NotifyStateChanged() => AuthDelegate?.Invoke();
+    }
 }

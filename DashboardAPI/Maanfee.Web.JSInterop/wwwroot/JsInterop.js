@@ -163,6 +163,8 @@ window.AppJsInterop = {
 
         return Result;
     },
+    // *********************** Events ***********************
+
 }
 
 export function QuerySelector(Selector) {
@@ -194,6 +196,10 @@ export function RemoveClass(Selector, ClassName) {
 export function HasClass(Selector, ClassName) {
     return AppJsInterop.HasClass(Selector, ClassName);
 }
+
+// *********************** Events ***********************
+
+
 
 // ******************************************************
 

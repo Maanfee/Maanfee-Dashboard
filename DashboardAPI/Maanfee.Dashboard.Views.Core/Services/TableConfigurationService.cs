@@ -1,10 +1,10 @@
 ﻿namespace Maanfee.Dashboard.Views.Core.Services
 {
 	public class TableConfigurationService
-	{
-		public static string InitTableHeight { get; set; } = "400px";
+	{ 
+		public static string InitTableHeight { get; } = "400px";
 
-        public static string InitTableHeightLarge { get; set; } = "450px";
+        public static string InitTableHeightLarge { get; } = "450px";
 
         public string SetHeight(bool IsRtl, bool IsFullscreen, bool IsTableScroll)
 		{

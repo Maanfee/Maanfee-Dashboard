@@ -1,15 +1,15 @@
 ﻿using Maanfee.Dashboard.Core;
 using Maanfee.Dashboard.Domain.Entities;
 using Maanfee.Dashboard.Resources;
+using Maanfee.Dashboard.Views.Core;
 using Maanfee.Dashboard.Views.Core.DefaultValues;
-using Maanfee.Dashboard.Views.Core.Shared;
 using Maanfee.Dashboard.Views.Core.Shared.Dialogs;
 using Maanfee.Dashboard.Views.Pages.Authentications;
 using Maanfee.Dashboard.Views.Pages.Settings;
 using Maanfee.Web.Core;
+using Maanfee.Web.JSInterop;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.SignalR.Client;
 using MudBlazor;
 using MudBlazor.Utilities;
 using System;
@@ -19,8 +19,8 @@ using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Views.Shared
 {
-	public partial class AdminLayout : SharedLayout
-	{
+    public partial class AdminLayout : _BaseComponentView, IDisposable
+    {
 		[CascadingParameter]
 		private Task<AuthenticationState> AuthenticationState { get; set; }
 
@@ -87,11 +87,18 @@ namespace Maanfee.Dashboard.Views.Shared
 			{
 				Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
 			}
-		}
 
-		// ******************************************************
+            Fullscreen.OnFullscreenChange += FullscreenChanged;
+        }
 
-		private async Task LogoutClick()
+        public void Dispose()
+        {
+            Fullscreen.OnFullscreenChange -= FullscreenChanged;
+        }
+
+        // ******************************************************
+
+        private async Task LogoutClick()
 		{
 			var parameters = new DialogParameters
 			{
@@ -167,11 +174,18 @@ namespace Maanfee.Dashboard.Views.Shared
 			{
 				await Fullscreen.CloseFullscreenAsync();
 			}
-		}
+        }
 
-		// ******************************************************
+        private async void FullscreenChanged()
+        {
+            TableHeight = TableConfiguration.SetHeight(SharedLayoutSettings.IsRTL, await Fullscreen.IsFullscreenAsync(), _IsTableScroll);
 
-		private bool IshemingDrawerOpen;
+            await InvokeAsync(StateHasChanged);
+        }
+
+        // ******************************************************
+
+        private bool IshemingDrawerOpen;
 
 		protected async void ThemingDrawerOpenChangedHandler(bool state)
 		{

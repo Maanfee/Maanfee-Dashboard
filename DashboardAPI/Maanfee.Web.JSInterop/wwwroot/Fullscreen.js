@@ -60,10 +60,12 @@ window.AppFullscreen = {
     },
     IsFullscreen() {
         if (document.fullscreenElement) {
-            return true;
+            //alert(false);
+            return false;
         }
         else {
-            return false;
+            //alert(true);
+            return true;
         }
     }
 }

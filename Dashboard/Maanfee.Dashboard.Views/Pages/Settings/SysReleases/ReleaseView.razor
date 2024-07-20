@@ -68,7 +68,8 @@
                             </MudText>
                         </MudStack>
                         <MudDivider DividerType="DividerType.FullWidth" />
-                        @foreach (var itemGroup in Releases.SysReleaseFeatures.OrderBy(x => x.SysReleaseType.Title))
+                        @foreach (var itemGroup in Releases.SysReleaseFeatures.OrderBy(x => x.SysReleaseType.Title)
+                            .ThenByDescending(x => x.FeatureDate))
                         {
                             <MudStack Row="true" Spacing="2">
                                 @if (itemGroup.SysReleaseType.Id == 1)
@@ -85,6 +86,9 @@
                                 }
                                 <MudText Typo="Typo.caption" Color="Color.Primary" Class="mt-2">
                                     @itemGroup.Comment
+                                </MudText>
+                                <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mt-2">
+                                    @itemGroup.FeatureDate.ToDateString()
                                 </MudText>
                             </MudStack>
                         }

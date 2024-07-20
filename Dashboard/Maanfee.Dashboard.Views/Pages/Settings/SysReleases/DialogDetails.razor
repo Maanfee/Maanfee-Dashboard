@@ -1,100 +1,102 @@
 ﻿@inherits _BaseView
 
 <MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
-	<MudDialog>
-		<DialogContent>
-			@if (!IsLoaded)
-			{
-				<FormOverlay />
-			}
-			else
-			{
-				<MudCard Class="mt-2">
-					<MudCardHeader>
-						<MudText Typo="Typo.button" Color="Color.Primary">
-							@DashboardResource.StringRelease
-						</MudText>
-					</MudCardHeader>
-					<MudDivider DividerType="DividerType.FullWidth" />
-					<MudCardContent>
-						<MudGrid>
-							<MudItem md="4">
-								<MudField Disabled="true" Label="@DashboardResource.StringVersion" Variant="Variant.Outlined">
-									@Model.Version
-								</MudField>
-							</MudItem>
-							<MudItem md="4">
-								<MudField Disabled="true" Label="@DashboardResource.StringDate" Variant="Variant.Outlined">
-									@Model.ReleaseDate.ToDateString()
-								</MudField>
-							</MudItem>
-							<MudItem md="4" Class="my-3">
-								<MudCheckBox Disabled="true" @bind-Value="Model.IsActive" Label="@DashboardResource.StringIsActive"
-										 Color="Color.Primary"></MudCheckBox>
-							</MudItem>
-							<MudItem md="12">
-								<MudTable Items="@Model.SysReleaseFeatures" FixedHeader="true" FixedFooter="@true" Height="250px" Dense="true"
-									  Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
-									<HeaderContent>
-										<MudTh>@DashboardResource.StringComment</MudTh>
-										<MudTh>@DashboardResource.StringTitle</MudTh>
-									</HeaderContent>
-									<RowTemplate>
-										<MudTd DataLabel="Comment">@context.Comment</MudTd>
-										<MudTd DataLabel="SysReleaseTypeTitle">@context.SysReleaseType.Title</MudTd>
-									</RowTemplate>
-								</MudTable>
-							</MudItem>
-						</MudGrid>
-					</MudCardContent>
-				</MudCard>
-				<MudPaper Class="pa-3 my-2 ActionColor" Elevation="3" Outlined="true" Square="true">
-					<MudStack Spacing="1" Row="true">
-						<MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.FreeCancellation" IconColor="Color.Surface">@DashboardResource.StringCancel</MudButton>
-					</MudStack>
-				</MudPaper>
-			}
-		</DialogContent>
-	</MudDialog>
+    <MudDialog>
+        <DialogContent>
+            @if (!IsLoaded)
+            {
+                <FormOverlay />
+            }
+            else
+            {
+                <MudCard Class="mt-2">
+                    <MudCardHeader>
+                        <MudText Typo="Typo.button" Color="Color.Primary">
+                            @DashboardResource.StringRelease
+                        </MudText>
+                    </MudCardHeader>
+                    <MudDivider DividerType="DividerType.FullWidth" />
+                    <MudCardContent>
+                        <MudGrid>
+                            <MudItem md="4">
+                                <MudField Disabled="true" Label="@DashboardResource.StringVersion" Variant="Variant.Outlined">
+                                    @Model.Version
+                                </MudField>
+                            </MudItem>
+                            <MudItem md="4">
+                                <MudField Disabled="true" Label="@DashboardResource.StringDate" Variant="Variant.Outlined">
+                                    @Model.ReleaseDate.ToDateString()
+                                </MudField>
+                            </MudItem>
+                            <MudItem md="4" Class="my-3">
+                                <MudCheckBox Disabled="true" @bind-Value="Model.IsActive" Label="@DashboardResource.StringIsActive"
+                                             Color="Color.Primary"></MudCheckBox>
+                            </MudItem>
+                            <MudItem md="12">
+                                <MudTable Items="@Model.SysReleaseFeatures" FixedHeader="true" FixedFooter="@true" Height="250px" Dense="true"
+                                          Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
+                                    <HeaderContent>
+                                        <MudTh><MudTableSortLabel SortBy="new Func<SysReleaseFeature, object>(x=>x.Comment)">@DashboardResource.StringComment</MudTableSortLabel></MudTh>
+                                        <MudTh><MudTableSortLabel SortBy="new Func<SysReleaseFeature, object>(x=>x.SysReleaseType.Title)">@DashboardResource.StringTitle</MudTableSortLabel></MudTh>
+                                        <MudTh><MudTableSortLabel SortBy="new Func<SysReleaseFeature, object>(x=>x.FeatureDate)">@DashboardResource.StringDate</MudTableSortLabel></MudTh>
+                                    </HeaderContent>
+                                    <RowTemplate>
+                                        <MudTd>@context.Comment</MudTd>
+                                        <MudTd>@context.SysReleaseType.Title</MudTd>
+                                        <MudTd>@context.FeatureDate.ToDateString() - @context.FeatureDate.ToTimeString()</MudTd>
+                                    </RowTemplate>
+                                </MudTable>
+                            </MudItem>
+                        </MudGrid>
+                    </MudCardContent>
+                </MudCard>
+                <MudPaper Class="pa-3 my-2 ActionColor" Elevation="3" Outlined="true" Square="true">
+                    <MudStack Spacing="1" Row="true">
+                        <MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.FreeCancellation" IconColor="Color.Surface">@DashboardResource.StringCancel</MudButton>
+                    </MudStack>
+                </MudPaper>
+            }
+        </DialogContent>
+    </MudDialog>
 </MudRTLProvider>
 
 @code {
 
-	[CascadingParameter]
-	public MudDialogInstance MudDialog { get; set; }
+    [CascadingParameter]
+    public MudDialogInstance MudDialog { get; set; }
 
-	private void Close() => MudDialog.Close();
+    private void Close() => MudDialog.Close();
 
-	// *****************************************************
+    // *****************************************************
 
-	[Parameter]
-	public string Id { get; set; }
+    [Parameter]
+    public string Id { get; set; }
 
-	private SysRelease Model = new();
+    private SysRelease Model = new();
 
-	protected override async Task OnInitializedAsync()
-	{
-		IsLoaded = false;
+    protected override async Task OnInitializedAsync()
+    {
+        IsLoaded = false;
 
-		try
-		{
-			var Callback = await Http.GetFromJsonAsync<CallbackResult<SysRelease>>($"api/SysReleases/Details/{Id}");
+        try
+        {
+            var Callback = await Http.GetFromJsonAsync<CallbackResult<SysRelease>>($"api/SysReleases/Details/{Id}");
 
-			if (Callback.Data != null)
-			{
-				Model = Callback.Data;
-			}
-			else
-			{
-				Snackbar.Add(Callback.Error.ToString(), Severity.Error);
-			}
-		}
-		catch (Exception ex)
-		{
-			Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
-		}
+            if (Callback.Data != null)
+            {
+                Model = Callback.Data;
+            }
+            else
+            {
+                Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+        }
 
-		IsLoaded = true;
-	}
+        IsLoaded = true;
+    }
 
 } 

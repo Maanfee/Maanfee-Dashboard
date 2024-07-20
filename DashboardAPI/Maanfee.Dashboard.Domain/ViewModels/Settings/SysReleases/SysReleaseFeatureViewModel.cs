@@ -9,5 +9,7 @@
 		public int IdSysReleaseType { get; set; }
 		
 		public string SysReleaseTypeTitle { get; set; }
-	}
+
+        public Nullable<DateTime> FeatureDate { get; set; }
+    }
 }

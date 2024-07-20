@@ -1,11 +1,9 @@
 ﻿using Maanfee.Dashboard.Resources;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Maanfee.Dashboard.Domain.ViewModels
 {
-	public class SubmitReleaseViewModel
+    public class SubmitReleaseViewModel
 	{
 		[Key]
 		public string Id { get; set; }

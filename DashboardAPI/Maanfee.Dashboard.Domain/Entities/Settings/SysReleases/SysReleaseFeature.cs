@@ -14,9 +14,12 @@ namespace Maanfee.Dashboard.Domain.Entities
 		[Required(ErrorMessageResourceName = nameof(DashboardResource.ValidationRequired), ErrorMessageResourceType = typeof(DashboardResource))]
 		public string Comment { get; set; }
 
-		// ===============================================
+        [Display(Name = nameof(DashboardResource.StringDate), ResourceType = typeof(DashboardResource))]
+        public Nullable<DateTime> FeatureDate { get; set; }
 
-		[Display(Name = nameof(DashboardResource.StringRelease), ResourceType = typeof(DashboardResource))]
+        // ===============================================
+
+        [Display(Name = nameof(DashboardResource.StringRelease), ResourceType = typeof(DashboardResource))]
         [Required(ErrorMessageResourceName = nameof(DashboardResource.ValidationRequired), ErrorMessageResourceType = typeof(DashboardResource))]
         public string IdSysRelease { get; set; }
 

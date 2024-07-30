@@ -92,12 +92,12 @@
                             </MudCardHeader>
                             <MudCardContent>
                                 @*@bind-SelectedValues="SelectedValues" @bind-ActivatedValue="ActivatedValue" *@
-                                <MudTreeView Items="Departments" Hover="true" Color="Color.Tertiary" @bind-SelectedValue="SelectedValue">
+                                <MudTreeViewOld Items="Departments" Hover="true" Color="Color.Tertiary" @bind-SelectedValue="SelectedValue">
                                     <ItemTemplate>
-                                        <MudTreeViewItem Items="@context.Department1" Expanded="true"
+                                        <MudTreeViewItemOld Items="@context.Department1" Expanded="true"
                                                      Value="@context" Text="@context.Title" EndTextTypo="@Typo.caption" />
                                     </ItemTemplate>
-                                </MudTreeView>
+                                </MudTreeViewOld>
                             </MudCardContent>
                         </MudCard>
                     </MudItem>

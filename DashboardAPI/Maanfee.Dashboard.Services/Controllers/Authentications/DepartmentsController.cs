@@ -79,7 +79,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
             }
         }
 
-        #region -  -
+        #region - Get DropDown Departments -
 
         // Used : Departments->GetDropDownDepartments
         [HttpGet("GetDropDownDepartments")]

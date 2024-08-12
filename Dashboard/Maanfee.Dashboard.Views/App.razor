@@ -1,9 +1,9 @@
 @using System.Reflection
-@using System.Threading;
 
 <ErrorView>
     <MudDialogProvider />
     <MudSnackbarProvider />
+    <MudPopoverProvider />
     <Router AppAssembly="@typeof(Program).Assembly"
             AdditionalAssemblies="@LazyLoadedAssemblies" OnNavigateAsync="@OnNavigateAsync">
         <Found Context="routeData">
@@ -27,7 +27,7 @@
 
     private List<Assembly> LazyLoadedAssemblies = new();
 
-    private async Task OnNavigateAsync(NavigationContext args)
+    private async Task OnNavigateAsync(Microsoft.AspNetCore.Components.Routing.NavigationContext args)
     {
         try
         {
@@ -66,8 +66,8 @@
                                 //FullScreen = true,
                                 Position = DialogPosition.Center,
                                 CloseOnEscapeKey = true,
-                                ClassBackground = "Dialog-Blur",
-                                DisableBackdropClick = true,
+                                BackgroundClass = "Dialog-Blur",
+                                BackdropClick = false,
                             });
                 });
         };

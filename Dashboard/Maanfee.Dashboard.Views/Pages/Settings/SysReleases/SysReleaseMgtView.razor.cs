@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using FilterViewModel = Maanfee.Dashboard.Domain.ViewModels.FilterReleaseViewModel;
 using TableViewModel = Maanfee.Dashboard.Domain.ViewModels.GetReleaseViewModel;
@@ -38,7 +39,7 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
 			}
 		}
 
-		private async Task<TableData<TableViewModel>> ServerData(TableState state)
+		private async Task<TableData<TableViewModel>> ServerData(TableState state, CancellationToken token)
 		{
 			try
 			{
@@ -63,7 +64,7 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
 					TableState.Filter = FilterViewModel;
 				}
 
-				var PostResult = await Http.PostAsJsonAsync($"api/SysReleases/PaginationIndex", TableState);
+				var PostResult = await Http.PostAsJsonAsync($"api/SysReleases/PaginationIndex", TableState, token);
 				if (PostResult.IsSuccessStatusCode)
 				{
 					var stringcallback = await PostResult.Content.ReadAsStringAsync();

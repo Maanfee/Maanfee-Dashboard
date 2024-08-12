@@ -20,7 +20,7 @@
     <MudCard>
         <MudDivider DividerType="DividerType.FullWidth" />
         <MudCardActions>
-            <MudTable ServerData="@(new Func<TableState, Task<TableData<TableViewModel>>>(ServerData))" @ref="Table"
+            <MudTable ServerData="ServerData" @ref="Table"
                       Dense="@_IsTableDense" Bordered Striped Hover Virtualize FixedFooter Loading="@IsTableLoading"
                        FixedHeader="@_IsTableFixedHeader" Height="@TableHeight">
                  <HeaderContent>

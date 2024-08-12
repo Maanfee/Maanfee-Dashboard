@@ -13,7 +13,7 @@
 <MudCard>
     <MudDivider DividerType="DividerType.FullWidth" />
     <MudCardActions>
-        <MudTable ServerData="@(new Func<TableState, Task<TableData<GetLogInfo>>>(ServerData))" @ref="Table"
+        <MudTable ServerData="ServerData" @ref="Table"
                   Dense="@_IsTableDense" Bordered Striped Hover Virtualize FixedFooter Loading="@IsTableLoading"
                    FixedHeader="@_IsTableFixedHeader" Height="@(_IsTableScroll ? "350px" : "100%")"
                    T="GetLogInfo">
@@ -96,7 +96,7 @@
         await base.OnInitializedAsync();
     }
 
-    private async Task<TableData<GetLogInfo>> ServerData(TableState state)
+    private async Task<TableData<GetLogInfo>> ServerData(TableState state, CancellationToken token)
     {
         try
         {
@@ -120,7 +120,7 @@
                 TableState.Filter = FilterViewModel;
             }
 
-            var PostResult = await Http.PostAsJsonAsync($"{GatewayApi.ToUri}/Logging/PaginationIndex", TableState);
+            var PostResult = await Http.PostAsJsonAsync($"{GatewayApi.ToUri}/Logging/PaginationIndex", TableState, token);
             if (PostResult.IsSuccessStatusCode)
             {
                 var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<PaginatedListViewModel<LogInfo>>>();

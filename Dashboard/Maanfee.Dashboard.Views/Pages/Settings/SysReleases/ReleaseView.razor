@@ -69,18 +69,18 @@
                         </MudStack>
                         <MudDivider DividerType="DividerType.FullWidth" />
                         @foreach (var itemGroup in Releases.SysReleaseFeatures.OrderBy(x => x.SysReleaseType.Title)
-                            .ThenByDescending(x => x.FeatureDate))
+                       .ThenByDescending(x => x.FeatureDate))
                         {
                             <MudStack Row="true" Spacing="2">
                                 @if (itemGroup.SysReleaseType.Id == 1)
                                 {
-                                    <MudChip Icon="@Icons.Material.Filled.Polymer" Size="Size.Small" Label="true" Color="Color.Success">
+                                    <MudChip T="string" Icon="@Icons.Material.Filled.Polymer" Size="Size.Small" Label="true" Color="Color.Success">
                                         @itemGroup.SysReleaseType.Title
                                     </MudChip>
                                 }
                                 else
                                 {
-                                    <MudChip Icon="@Icons.Material.Filled.BugReport" Size="Size.Small" Label="true" Color="Color.Error">
+                                    <MudChip T="string" Icon="@Icons.Material.Filled.BugReport" Size="Size.Small" Label="true" Color="Color.Error">
                                         @itemGroup.SysReleaseType.Title
                                     </MudChip>
                                 }

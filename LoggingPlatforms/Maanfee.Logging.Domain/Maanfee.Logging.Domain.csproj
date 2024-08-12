@@ -28,7 +28,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.7" />
-		<PackageReference Include="MudBlazor" Version="6.20.0" />
+		<PackageReference Include="MudBlazor" Version="7.6.0" />
 	</ItemGroup>
 
 	<ItemGroup>

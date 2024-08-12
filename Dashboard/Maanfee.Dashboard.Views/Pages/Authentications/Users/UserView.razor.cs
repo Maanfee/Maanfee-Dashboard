@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using FilterViewModel = Maanfee.Dashboard.Domain.ViewModels.FilterUserViewModel;
 
@@ -68,7 +69,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
             }
 		}
 
-        private async Task<TableData<GetUserViewModel>> ServerData(TableState state)
+        private async Task<TableData<GetUserViewModel>> ServerData(TableState state, CancellationToken token)
         {
 			try
 			{
@@ -91,7 +92,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
                     TableState.Filter = FilterViewModel;
                 }
 
-                var PostResult = await Http.PostAsJsonAsync($"api/Users/PaginationIndex", TableState);
+                var PostResult = await Http.PostAsJsonAsync($"api/Users/PaginationIndex", TableState, token);
 				if (PostResult.IsSuccessStatusCode)
 				{
 					var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<PaginatedListViewModel<GetUserViewModel>>>();
@@ -192,8 +193,8 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 					MaxWidth = MaxWidth.ExtraExtraLarge,
 					FullWidth = true,
 					Position = DialogPosition.Center,
-					ClassBackground = "Dialog-Blur"
-				});
+                    BackgroundClass = "Dialog-Blur",
+                });
 
 			var result = await dialog.Result;
 
@@ -223,7 +224,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 					MaxWidth = MaxWidth.ExtraExtraLarge,
 					FullWidth = true,
 					Position = DialogPosition.Center,
-					ClassBackground = "Dialog-Blur"
+					BackgroundClass = "Dialog-Blur"
 				});
 		}
 
@@ -241,8 +242,8 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 					MaxWidth = MaxWidth.ExtraSmall,
 					FullWidth = true,
 					Position = DialogPosition.Center,
-					ClassBackground = "Dialog-Blur"
-				});
+                    BackgroundClass = "Dialog-Blur",
+                });
 
 			var result = await dialog.Result;
 			if (!result.Canceled)

@@ -51,10 +51,10 @@
 
     #region - Combobox -
 
-    protected async Task<IEnumerable<DropDownDepartmentViewModel>> GetDepartmentsAsync(string value)
+	protected async Task<IEnumerable<DropDownDepartmentViewModel>> GetDepartmentsAsync(string value, CancellationToken token)
     {
         List<DropDownDepartmentViewModel> Parents = new();
-        var Callback = await Http.GetFromJsonAsync<CallbackResult<List<DropDownDepartmentViewModel>>>($"api/Departments/GetDropDownDepartments?value={value}");
+        var Callback = await Http.GetFromJsonAsync<CallbackResult<List<DropDownDepartmentViewModel>>>($"api/Departments/GetDropDownDepartments?value={value}", token);
         if (Callback.Data != null)
         {
             Parents = Callback.Data;

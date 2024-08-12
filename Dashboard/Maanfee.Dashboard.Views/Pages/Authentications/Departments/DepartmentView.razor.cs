@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Json;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
@@ -106,9 +107,9 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
 
         private List<DropDownDepartmentViewModel> Parents = new();
 
-        private async Task<IEnumerable<DropDownDepartmentViewModel>> GetParentsAsync(string value)
+        private async Task<IEnumerable<DropDownDepartmentViewModel>> GetParentsAsync(string value, CancellationToken token)
         {
-            var Callback = await Http.GetFromJsonAsync<CallbackResult<List<DropDownDepartmentViewModel>>>($"api/Departments/GetDropDownDepartments?value={value}");
+            var Callback = await Http.GetFromJsonAsync<CallbackResult<List<DropDownDepartmentViewModel>>>($"api/Departments/GetDropDownDepartments?value={value}", token);
             if (Callback.Data != null)
             {
                 Parents = Callback.Data.Select(x => new DropDownDepartmentViewModel
@@ -145,7 +146,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
 		private async Task ResetAsync()
         {
             await GetDepartmentsAsync();
-            await GetParentsAsync(string.Empty);
+            await GetParentsAsync(string.Empty, new CancellationTokenSource().Token);
 
             SubmitDepartmentViewModel.Id = null;
             SubmitDepartmentViewModel.Title = string.Empty;

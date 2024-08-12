@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using FilterViewModel = Maanfee.Dashboard.Domain.ViewModels.FilterRoleViewModel;
 using TableViewModel = Maanfee.Dashboard.Domain.ViewModels.GetRoleViewModel;
@@ -61,7 +62,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 			}
 		}
 
-		private async Task<TableData<TableViewModel>> ServerData(TableState state)
+		private async Task<TableData<TableViewModel>> ServerData(TableState state, CancellationToken token)
 		{
 			try
 			{
@@ -86,7 +87,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 					TableState.Filter = FilterViewModel;
 				}
 
-				var PostResult = await Http.PostAsJsonAsync($"api/Roles/PaginationIndex", TableState);
+				var PostResult = await Http.PostAsJsonAsync($"api/Roles/PaginationIndex", TableState, token);
 				if (PostResult.IsSuccessStatusCode)
 				{
 					var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<PaginatedListViewModel<IdentityRole>>>();
@@ -281,7 +282,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
                     MaxWidth = MaxWidth.ExtraExtraLarge,
                     FullWidth = true,
                     Position = DialogPosition.Center,
-                    ClassBackground = "Dialog-Blur",
+                    BackgroundClass = "Dialog-Blur",
                 });
         }
 

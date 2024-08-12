@@ -13,16 +13,16 @@
     }
 
     <MudFileUpload T="IBrowserFile" OnFilesChanged="AddFilesToQueue">
-        <ButtonTemplate>
+        <ActivatorContent>
             <MudButton HtmlTag="label"
                        Variant="Variant.Filled"
                        Color="Color.Primary"
                        StartIcon="@Icons.Material.Filled.CloudUpload"
-                       disabled="@IsUploading" multiple
-                       for="@context">
+                       Disabled="@IsUploading" multiple>
                 Click here to select your files
             </MudButton>
-        </ButtonTemplate>
+        </ActivatorContent>
+       @*  for="@context" *@
     </MudFileUpload>
 
     @if (filesQueue.Count > 0)

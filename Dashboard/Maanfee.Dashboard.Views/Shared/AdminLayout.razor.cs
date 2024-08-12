@@ -68,8 +68,8 @@ namespace Maanfee.Dashboard.Views.Shared
 							Dialog.Show<DialogDepartmentNotFound>(string.Empty,
 								new DialogOptions
 								{
-									DisableBackdropClick = true,
-									MaxWidth = MaxWidth.Small,
+                                    BackdropClick = false,
+                                    MaxWidth = MaxWidth.Small,
 									FullWidth = true
 								});
 						}
@@ -217,7 +217,7 @@ namespace Maanfee.Dashboard.Views.Shared
 					MaxWidth = MaxWidth.ExtraLarge,
 					FullWidth = true,
 					Position = DialogPosition.Center,
-					ClassBackground = "Dialog-Blur"
+					BackgroundClass = "Dialog-Blur"
 				});
 		}
 

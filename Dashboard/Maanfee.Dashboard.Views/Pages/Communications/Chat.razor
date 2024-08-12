@@ -15,10 +15,11 @@
 										  AdornmentColor="Color.Secondary" />
 						</MudToolBar>
 						@*<div class="d-flex flex-column px-4" style="max-height:70vh;min-height:70vh; overflow:scroll;">*@
-							<MudList Clickable="true">
+						@* Clickable="true" *@
+						<MudList T="List<GetUserViewModel>">
 								@foreach (var user in ChatUsers)
 								{
-									<MudListItem Class="pa-0 px-3" OnClick="@(() => LoadUserChat(user))">
+									<MudListItem T="string" Class="pa-0 px-3" OnClick="@(() => LoadUserChat(user))">
 										<div class="d-flex flex-row mt-n1 mb-n1">
 											<div class="mr-4">
 												<MudBadge Dot="true" Overlap="true" Visible="false" Color="Color.Error" Class="my-2">

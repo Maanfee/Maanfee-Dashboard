@@ -27,7 +27,7 @@
   - [.NET 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) 
 
 ## Development Enviroment
-- [Microsoft Visual Studio 2022 (64-bit)](https://visualstudio.microsoft.com/downloads/) 
+- [Microsoft Visual Studio 2022](https://visualstudio.microsoft.com/downloads/) 
 - [.NET 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) 
 
 ## Supported databases

@@ -1,26 +1,29 @@
 ﻿@page "/Booklets/BookletView"
 
 <MaanfeeDashboardPage>
-	<MaanfeeDashboardPageHeader PageTitle="Booklet" Title="Booklet" />
+    <MaanfeeDashboardPageHeader PageTitle="Booklet" Title="Booklet" />
 
-	<MudItem>
-		<MudButton OnClick="()=>OpenBookletDialog()" Color="Color.Dark" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.MenuBook">
-			Booklet
-		</MudButton>
-	</MudItem>
-	<BookletComponent />
-
+    <MudButton OnClick="()=>OpenBookletDialog()" Color="Color.Dark" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.MenuBook">
+        Booklet
+    </MudButton>
+  @*   <BookletComponent />  *@
+  
 </MaanfeeDashboardPage>
 
 @code {
 
-	private void OpenBookletDialog()
-	{
-		Dialog.Show<BookletComponent>(string.Empty, new DialogOptions()
-			{
-				NoHeader = true,
-				FullScreen = true,
-				CloseButton = false,
-			});
-	}
+    private void OpenBookletDialog()
+    {
+        Dialog.Show<BookletComponent>(string.Empty, new DialogOptions()
+            {
+                NoHeader = true,
+                FullScreen = true,
+                CloseButton = false,
+                // MaxWidth = MaxWidth.ExtraExtraLarge,
+                // FullWidth = true,
+                Position = DialogPosition.Center,
+                BackgroundClass = "Dialog-Blur",
+            });
+    }
+
 }

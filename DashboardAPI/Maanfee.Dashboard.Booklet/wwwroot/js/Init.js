@@ -1,7 +1,7 @@
 ﻿
 //function Alert() {
 
-//    alert("KOOOOOOOOOOOOO");
+//    alert("KOOOOOOOOOOOOO !!!");
 
 //}
 

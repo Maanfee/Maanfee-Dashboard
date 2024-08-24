@@ -39,7 +39,7 @@
 		<PackageReference Include="Maanfee.Highcharts" Version="1.5.0" />
 		<PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="8.0.8" />
 		<PackageReference Include="MudBlazor" Version="7.6.0" />
-		<PackageReference Include="EPPlus" Version="7.2.2" />
+		<PackageReference Include="EPPlus" Version="7.3.0" />
 		<PackageReference Include="SkiaSharp.Views.Blazor" Version="2.88.8" />
 	</ItemGroup>
 

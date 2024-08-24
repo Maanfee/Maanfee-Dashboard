@@ -47,7 +47,7 @@
         <MudGrid>
             @foreach (var Releases in SysReleases)
             {
-                <MudItem md="4">
+                <MudItem md="3">
                     <div class="release-sticky-info">
                         <MudText Typo="Typo.h5" Inline="true">@DashboardResource.StringVersion</MudText>
                         <MudText Typo="Typo.h5" Inline="true" Color="Color.Primary"><b>@Releases.Version</b></MudText>
@@ -59,7 +59,7 @@
                         </MudStack>
                     </div>
                 </MudItem>
-                <MudItem md="8">
+                <MudItem md="9">
                     <div class="release-body">
                         <MudStack Row="true" Spacing="1">
                             <MudIcon Icon="@Icons.Material.Filled.NewReleases" Class="mt-1" />
@@ -68,8 +68,7 @@
                             </MudText>
                         </MudStack>
                         <MudDivider DividerType="DividerType.FullWidth" />
-                        @foreach (var itemGroup in Releases.SysReleaseFeatures.OrderBy(x => x.SysReleaseType.Title)
-                       .ThenByDescending(x => x.FeatureDate))
+                        @foreach (var itemGroup in Releases.SysReleaseFeatures.OrderByDescending(x => x.FeatureDate))
                         {
                             <MudStack Row="true" Spacing="2">
                                 @if (itemGroup.SysReleaseType.Id == 1)
@@ -84,12 +83,24 @@
                                         @itemGroup.SysReleaseType.Title
                                     </MudChip>
                                 }
+                                @if (itemGroup.FeatureDate.HasValue)
+                                {
+                                    <MudChip T="string" Size="Size.Small" Label="true" Color="Color.Warning">
+                                        @itemGroup.FeatureDate.ToDateString()
+                                    </MudChip>
+                                }
+                                else
+                                {
+                                    <MudChip T="string" Size="Size.Small" Label="true" Color="Color.Warning">
+                                        نامشخص
+                                    </MudChip>
+                                }
                                 <MudText Typo="Typo.caption" Color="Color.Primary" Class="mt-2">
                                     @itemGroup.Comment
                                 </MudText>
-                                <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mt-2">
-                                    @itemGroup.FeatureDate.ToDateString()
-                                </MudText>
+                                @*   <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mt-2">
+                    @itemGroup.FeatureDate.ToDateString()
+                    </MudText> *@
                             </MudStack>
                         }
                     </div>

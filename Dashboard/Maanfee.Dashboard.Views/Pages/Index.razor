@@ -71,23 +71,22 @@
         try
         {
             var Callback = await Http.GetFromJsonAsync<CallbackResult<SysRelease>>($"api/SysReleases/GetLatestRelease");
-
             if (Callback.Data != null)
             {
                 if (string.Compare(Callback.Data.Version, SharedLayoutSettings.CurrentVersion) > 0)
                 {
-                    DialogParameters parameters = new DialogParameters();
-                    parameters.Add("SysRelease", Callback.Data);
+                    DialogParameters DialogParameters = new DialogParameters();
+                    DialogParameters.Add("SysRelease", Callback.Data);
 
-                    var dialog = Dialog.Show<Settings.SysReleases.DialogReleaseControl>(string.Empty, parameters,
-                        new DialogOptions()
-                            {
-                                NoHeader = true,
-                                MaxWidth = MaxWidth.Medium,
-                                FullWidth = true,
-                                Position = DialogPosition.Center,
-                                BackdropClick = false,
-                            });
+                    var dialog = Dialog.Show<Settings.SysReleases.DialogReleaseControl>(string.Empty, DialogParameters,
+                                new DialogOptions()
+                                    {
+                                        NoHeader = true,
+                                        MaxWidth = MaxWidth.Medium,
+                                        FullWidth = true,
+                                        Position = DialogPosition.Center,
+                                        BackdropClick = false,
+                                    });
                 }
             }
             else

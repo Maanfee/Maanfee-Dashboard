@@ -1,153 +1,152 @@
 ﻿@inherits _BaseView
 
 <MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
-	<EditForm OnValidSubmit="OnSubmit" Model="SubmitGroupViewModel">
-		<DataAnnotationsValidator />
-		<MudDialog>
-			<DialogContent>
-				@if (!IsLoaded)
-				{
-					<FormOverlay />
-				}
-				else
-				{
+    <EditForm OnValidSubmit="OnSubmit" Model="SubmitGroupViewModel">
+        <DataAnnotationsValidator />
+        <MudDialog>
+            <DialogContent>
+                @if (!IsLoaded)
+                {
+                    <FormOverlay />
+                }
+                else
+                {
                     <MudCard Class="mt-2">
-						<MudCardHeader>
-							<MudText Typo="Typo.button" Color="Color.Primary">
-								@DashboardResource.StringRole
-							</MudText>
-						</MudCardHeader>
-						<MudDivider DividerType="DividerType.FullWidth" />
-						<MudCardContent>
-							<MudGrid>
-								<MudItem md="12">
-									<MudTextField @bind-Value="SubmitGroupViewModel.Title" Variant="Variant.Outlined"
-											  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Title" Clearable
-											  For="@(() => SubmitGroupViewModel.Title)"
-											  Label="@DashboardResource.StringTitle" />
-								</MudItem>
-							</MudGrid>
-						</MudCardContent>
-					</MudCard>
-					<MudPaper Class="pa-3 my-2 ActionColor" Elevation="3" Outlined="true" Square="true">
-						<MudStack Spacing="1" Row="true">
-							<MudButton Disabled="@IsProcessing" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Tertiary">
-								@if (IsProcessing)
-								{
-									<MudProgressCircular Size="Size.Small" Indeterminate="true" Class="ms-n1" />
-									<MudText Class="ms-2">@DashboardResource.StringProcessing</MudText>
-								}
-								else
-								{
-									<MudIcon Icon="@Icons.Material.Filled.Save" Color="Color.Surface" Class="mx-1" />
-									<MudText>@DashboardResource.StringSave</MudText>
-								}
-							</MudButton>
-							<MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.FreeCancellation" IconColor="Color.Surface">@DashboardResource.StringCancel</MudButton>
-						</MudStack>
-					</MudPaper>
-				}
-			</DialogContent>
-		</MudDialog>
-	</EditForm>
+                        <MudPaper Elevation="25">
+                            <MudToolBar Dense>
+                                <MudText Color="Color.Primary">
+                                    @DashboardResource.StringGroup
+                                </MudText>
+                                <MudSpacer />
+                                <MudIconButton Disabled="@IsProcessing" ButtonType="ButtonType.Submit" Icon="@Icons.Material.Filled.Save" Color="Color.Tertiary" title="@DashboardResource.StringCreate">
+                                    @if (IsProcessing)
+                                    {
+                                        <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="ms-n1" />
+                                        <MudText Class="ms-2">@DashboardResource.StringProcessing</MudText>
+                                    }
+                                    else
+                                    {
+                                        <MudIcon Icon="@Icons.Material.Filled.Save" Color="Color.Surface" Class="mx-1" />
+                                        <MudText>@DashboardResource.StringSave</MudText>
+                                    }
+                                </MudIconButton>
+                                <MudIconButton OnClick="Close" Icon="@Icons.Material.Filled.Close" Color="Color.Error" title="@DashboardResource.StringCancel" />
+                            </MudToolBar>
+                        </MudPaper>
+                        <MudDivider DividerType="DividerType.FullWidth" />
+                        <MudCardContent>
+                            <MudGrid>
+                                <MudItem md="12">
+                                    <MudTextField @bind-Value="SubmitGroupViewModel.Title" Variant="Variant.Outlined"
+                                                  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Title" Clearable
+                                                  For="@(() => SubmitGroupViewModel.Title)"
+                                                  Label="@DashboardResource.StringTitle" />
+                                </MudItem>
+                            </MudGrid>
+                        </MudCardContent>
+                    </MudCard>
+                }
+            </DialogContent>
+        </MudDialog>
+    </EditForm>
 </MudRTLProvider>
 
 @code {
 
-	[CascadingParameter]
-	public MudDialogInstance MudDialog { get; set; }
+    [CascadingParameter]
+    public MudDialogInstance MudDialog { get; set; }
 
-	private void Close() => MudDialog.Close();
+    private void Close() => MudDialog.Close();
 
-	// *****************************************************
+    // *****************************************************
 
-	[Parameter]
-	public int Id { get; set; }
+    [Parameter]
+    public int Id { get; set; }
 
-	private SubmitGroupViewModel SubmitGroupViewModel = new();
+    private SubmitGroupViewModel SubmitGroupViewModel = new();
 
-	protected override async Task OnInitializedAsync()
-	{
-		IsLoaded = false;
+    protected override async Task OnInitializedAsync()
+    {
+        IsLoaded = false;
 
-		try
-		{
-			if (Id != 0)
-			{
-				var Callback = await Http.GetFromJsonAsync<CallbackResult<Group>>($"api/Groups/Details/{Id}");
+        try
+        {
+            if (Id != 0)
+            {
+                var Callback = await Http.GetFromJsonAsync<CallbackResult<Group>>($"api/Groups/Details/{Id}");
 
-				if (Callback.Data != null)
-				{
-					SubmitGroupViewModel.Id = Callback.Data.Id;
-					SubmitGroupViewModel.Title = Callback.Data.Title;
-				}
-				else
-				{
-					Snackbar.Add(Callback.Error.ToString(), Severity.Error);
-				}
-			}
-		}
-		catch (Exception ex)
-		{
-			Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
-		}
-	
-		IsLoaded = true;
-	}
+                if (Callback.Data != null)
+                {
+                    SubmitGroupViewModel.Id = Callback.Data.Id;
+                    SubmitGroupViewModel.Title = Callback.Data.Title;
+                }
+                else
+                {
+                    Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+        }
 
-	private async Task OnSubmit()
-	{
-		if (IsProcessing)
-			return;
-		IsProcessing = true;
+        IsLoaded = true;
+    }
 
-		try
-		{
-			if (Id == 0)
-			{
-				var PostResult = await Http.PostAsJsonAsync($"api/Groups/Create", SubmitGroupViewModel.TrimStringAndCheckPersianSpecialLetter());
-				if (PostResult.IsSuccessStatusCode)
-				{
-					var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<SubmitGroupViewModel>>();
-					if (JsonResult.Data != null)
-					{
-						Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
-						MudDialog.Close(DialogResult.Ok(SubmitGroupViewModel));
-					}
-					else
-					{
-						Snackbar.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
-					}
-				}
-				else
-				{
-					Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
-				}
-			}
-			else
-			{
-				var PutResult = await Http.PutAsJsonAsync($"api/Groups/Edit", SubmitGroupViewModel.TrimStringAndCheckPersianSpecialLetter());
-				if (PutResult.IsSuccessStatusCode)
-				{
-					var JsonResult = await PutResult.Content.ReadFromJsonAsync<CallbackResult<SubmitGroupViewModel>>();
-					if (JsonResult.Data != null)
-					{
-						Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
-						MudDialog.Close(DialogResult.Ok(SubmitGroupViewModel));
-					}
-					else
-					{
-						Snackbar.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
-					}
-				}
-			}
-		}
-		catch (Exception ex)
-		{
-			Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
-		}
+    private async Task OnSubmit()
+    {
+        if (IsProcessing)
+            return;
+        IsProcessing = true;
 
-		IsProcessing = false;
-	}
+        try
+        {
+            if (Id == 0)
+            {
+                var PostResult = await Http.PostAsJsonAsync($"api/Groups/Create", SubmitGroupViewModel.TrimStringAndCheckPersianSpecialLetter());
+                if (PostResult.IsSuccessStatusCode)
+                {
+                    var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<SubmitGroupViewModel>>();
+                    if (JsonResult.Data != null)
+                    {
+                        Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
+                        MudDialog.Close(DialogResult.Ok(SubmitGroupViewModel));
+                    }
+                    else
+                    {
+                        Snackbar.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
+                    }
+                }
+                else
+                {
+                    Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
+                }
+            }
+            else
+            {
+                var PutResult = await Http.PutAsJsonAsync($"api/Groups/Edit", SubmitGroupViewModel.TrimStringAndCheckPersianSpecialLetter());
+                if (PutResult.IsSuccessStatusCode)
+                {
+                    var JsonResult = await PutResult.Content.ReadFromJsonAsync<CallbackResult<SubmitGroupViewModel>>();
+                    if (JsonResult.Data != null)
+                    {
+                        Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
+                        MudDialog.Close(DialogResult.Ok(SubmitGroupViewModel));
+                    }
+                    else
+                    {
+                        Snackbar.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+        }
+
+        IsProcessing = false;
+    }
 
 }

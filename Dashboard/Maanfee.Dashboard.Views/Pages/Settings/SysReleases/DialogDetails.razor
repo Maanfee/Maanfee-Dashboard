@@ -10,11 +10,15 @@
             else
             {
                 <MudCard Class="mt-2">
-                    <MudCardHeader>
-                        <MudText Typo="Typo.button" Color="Color.Primary">
-                            @DashboardResource.StringRelease
-                        </MudText>
-                    </MudCardHeader>
+                    <MudPaper Elevation="3" Class="" Outlined="true" Square="true">
+                        <MudToolBar Dense>
+                            <MudText Typo="Typo.button" Color="Color.Primary">
+                                @DashboardResource.StringRelease
+                            </MudText>
+                            <MudSpacer />
+                            <MudIconButton OnClick="Close" Icon="@Icons.Material.Filled.Close" Color="Color.Error" title="@DashboardResource.StringCancel" />
+                        </MudToolBar>
+                    </MudPaper>
                     <MudDivider DividerType="DividerType.FullWidth" />
                     <MudCardContent>
                         <MudGrid>
@@ -33,7 +37,7 @@
                                              Color="Color.Primary"></MudCheckBox>
                             </MudItem>
                             <MudItem md="12">
-                                <MudTable Items="@Model.SysReleaseFeatures" FixedHeader="true" FixedFooter="@true" Height="250px" Dense="true"
+                                <MudTable Items="@Model.SysReleaseFeatures" FixedHeader FixedFooter Dense Height="350px"
                                           Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
                                     <HeaderContent>
                                         <MudTh><MudTableSortLabel SortBy="new Func<SysReleaseFeature, object>(x=>x.Comment)">@DashboardResource.StringComment</MudTableSortLabel></MudTh>
@@ -50,11 +54,6 @@
                         </MudGrid>
                     </MudCardContent>
                 </MudCard>
-                <MudPaper Class="pa-3 my-2 ActionColor" Elevation="3" Outlined="true" Square="true">
-                    <MudStack Spacing="1" Row="true">
-                        <MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.FreeCancellation" IconColor="Color.Surface">@DashboardResource.StringCancel</MudButton>
-                    </MudStack>
-                </MudPaper>
             }
         </DialogContent>
     </MudDialog>

@@ -1,42 +1,50 @@
 ﻿
 <MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
-	<MudDialog>
-		<DialogContent>
-			<MudGrid>
-				<MudItem md="12">
-					<MudTextField @bind-Value="FilterViewModel.Title" Variant="Variant.Outlined"
-								  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Title" Clearable
-								  For="@(() => FilterViewModel.Title)"
-								  Label="@DashboardResource.StringTitle" />
-				</MudItem>
-			</MudGrid>
-			<MudPaper Class="pa-3 my-2 ActionColor" Elevation="3" Outlined="true" Square="true">
-				<MudStack Spacing="1" Row="true">
-					<MudButton OnClick="Search" Variant="Variant.Filled" Color="Color.Tertiary" StartIcon="@Icons.Material.Filled.ManageSearch" IconColor="Color.Surface">@DashboardResource.StringSearch</MudButton>
-					<MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.FreeCancellation" IconColor="Color.Surface">@DashboardResource.StringCancel</MudButton>
-				</MudStack>
-			</MudPaper>
-		</DialogContent>
-	</MudDialog>
+    <MudDialog>
+        <DialogContent>
+            <MudCard Class="mt-2">
+                <MudPaper Elevation="3" Class="" Outlined="true" Square="true">
+                    <MudToolBar Dense>
+                        <MudText Typo="Typo.button" Color="Color.Primary">
+                            @DashboardResource.StringSearch
+                        </MudText>
+                        <MudSpacer />
+                        <MudIconButton OnClick="Search" Icon="@Icons.Material.Filled.ManageSearch" Color="Color.Tertiary" title="@DashboardResource.StringSearch" />
+                        <MudIconButton OnClick="Close" Icon="@Icons.Material.Filled.Close" Color="Color.Error" title="@DashboardResource.StringCancel" />
+                    </MudToolBar>
+                </MudPaper>
+                <MudCardContent>
+                    <MudGrid>
+                        <MudItem md="12">
+                            <MudTextField @bind-Value="FilterViewModel.Title" Variant="Variant.Outlined"
+                                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Title" Clearable
+                                          For="@(() => FilterViewModel.Title)"
+                                          Label="@DashboardResource.StringTitle" />
+                        </MudItem>
+                    </MudGrid>
+                </MudCardContent>
+            </MudCard>
+        </DialogContent>
+    </MudDialog>
 </MudRTLProvider>
 
 @code {
 
-	[CascadingParameter]
-	public MudDialogInstance MudDialog { get; set; }
+    [CascadingParameter]
+    public MudDialogInstance MudDialog { get; set; }
 
-	private void Close() => MudDialog.Close();
+    private void Close() => MudDialog.Close();
 
-	// *****************************************************
+    // *****************************************************
 
-	private async Task Search()
-	{
-		await Task.Delay(100);
+    private async Task Search()
+    {
+        await Task.Delay(100);
 
-		MudDialog.Close(DialogResult.Ok(FilterViewModel));
-	}
+        MudDialog.Close(DialogResult.Ok(FilterViewModel));
+    }
 
-	[Parameter]
-	public FilterGroupViewModel FilterViewModel { get; set; } = new();
+    [Parameter]
+    public FilterGroupViewModel FilterViewModel { get; set; } = new();
 
 }

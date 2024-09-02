@@ -10,11 +10,15 @@
             else
             {
                 <MudCard Class="mt-2">
-                    <MudCardHeader>
-                        <MudText Typo="Typo.button" Color="Color.Primary">
-                            @DashboardResource.StringManagePermission - @RoleName
-                        </MudText>
-                    </MudCardHeader>
+                    <MudPaper Elevation="25">
+                        <MudToolBar Dense>
+                            <MudText Color="Color.Primary">
+                                @DashboardResource.StringManagePermission - @RoleName
+                            </MudText>
+                            <MudSpacer />
+                            <MudIconButton OnClick="Close" Icon="@Icons.Material.Filled.Close" Color="Color.Error" title="@DashboardResource.StringCancel" />
+                        </MudToolBar>
+                    </MudPaper>
                     <MudDivider DividerType="DividerType.FullWidth" />
                     <MudCardContent>
                         <MudTabs @ref="tabs" Elevation="25" Rounded Centered ApplyEffectsToContainer AlwaysShowScrollButtons>
@@ -37,7 +41,6 @@
                                                 }
                                             </MudButton>
                                             <MudSpacer />
-                                            <MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Filled.PlaylistAddCheck" IconColor="Color.Surface">@DashboardResource.StringList</MudButton>
                                         </ToolBarContent>
                                         <HeaderContent>
                                             <MudTh Class="column-1x"></MudTh>

@@ -10,9 +10,9 @@
                 @DashboardResource.StringUser
             </MudText>
             <MudSpacer />
-            <MudIconButton Disabled="@(!_PermissionCreate)" OnClick="@(() => OpenCrudateDialog("0"))" Color="Color.Primary" Icon="@Icons.Material.Outlined.Add" Title="@DashboardResource.StringCreate" />
-            <MudIconButton OnClick="OnReloadData" Icon="@Icons.Material.Outlined.Refresh" Color="Color.Secondary" Title="@DashboardResource.StringReload" />
-            <MudIconButton OnClick="OpenSearchDialog" Icon="@Icons.Material.Filled.ManageSearch" Color="Color.Tertiary" Title="@DashboardResource.StringSearch" />
+            <MudIconButton Disabled="@(!_PermissionCreate)" OnClick="@(() => OpenCrudateDialog("0"))" Color="Color.Primary" Icon="@Icons.Material.Outlined.Add" title="@DashboardResource.StringCreate" />
+            <MudIconButton OnClick="OnReloadData" Icon="@Icons.Material.Outlined.Refresh" Color="Color.Secondary" title="@DashboardResource.StringReload" />
+            <MudIconButton OnClick="OpenSearchDialog" Icon="@Icons.Material.Filled.ManageSearch" Color="Color.Tertiary" title="@DashboardResource.StringSearch" />
         </MudToolBar>
     </MudPaper>
     <MudCard>
@@ -64,9 +64,9 @@
                     <MudTd>@context.RoleName</MudTd>
                     <MudTd>@context?.UserDepartmentsTitle</MudTd>
                     <MudTd>
-                        <MudIconButton OnClick="()=>OpenDetailsDialog(context.Id)" Title="@DashboardResource.StringDetails" Icon="@Icons.Material.Filled.Details" Color="Color.Primary" Size="Size.Small"></MudIconButton>
-                        <MudIconButton Disabled="@(!_PermissionEdit)" OnClick="()=>OpenCrudateDialog(context.Id)" Title="@DashboardResource.StringEdit" Icon="@Icons.Material.Filled.Edit" Color="Color.Success" Size="Size.Small"></MudIconButton>
-                        <MudIconButton Disabled="@(!_PermissionDelete)" OnClick="()=>OpenDeleteDialog(context.Id)" Title="@DashboardResource.StringDelete" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"></MudIconButton>
+                        <MudIconButton OnClick="()=>OpenDetailsDialog(context.Id)" title="@DashboardResource.StringDetails" Icon="@Icons.Material.Filled.Details" Color="Color.Primary" Size="Size.Small"></MudIconButton>
+                        <MudIconButton Disabled="@(!_PermissionEdit)" OnClick="()=>OpenCrudateDialog(context.Id)" title="@DashboardResource.StringEdit" Icon="@Icons.Material.Filled.Edit" Color="Color.Success" Size="Size.Small"></MudIconButton>
+                        <MudIconButton Disabled="@(!_PermissionDelete)" OnClick="()=>OpenDeleteDialog(context.Id)" title="@DashboardResource.StringDelete" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"></MudIconButton>
                     </MudTd>
                 </RowTemplate>
                 <NoRecordsContent>

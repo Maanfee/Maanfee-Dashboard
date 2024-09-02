@@ -67,7 +67,7 @@ namespace Maanfee.Dashboard.Views.Base.Pages
                 PermissionCurrentUser = (await AuthenticationState).User;
 
                 var ModuleList = await Http.GetFromJsonAsync<List<ModuleViewModel>>("config.json");
-                ModuleService.LogServer = ModuleList.FirstOrDefault(x => x.Name == ModuleDefaultValue.LogServer);
+                //ModuleService.LogServer = ModuleList.FirstOrDefault(x => x.Name == ModuleDefaultValue.LogServer);
             }
             catch (Exception ex)
             {
@@ -82,44 +82,44 @@ namespace Maanfee.Dashboard.Views.Base.Pages
 
             #region - Log Server -
 
-            try
-            {
-                if (ModuleService.LogServer.IsActive)
-                {
-                    var JwtTokenStorage = ModuleService.LogServer.Name;
+            //try
+            //{
+            //    if (ModuleService.LogServer.IsActive)
+            //    {
+            //        var JwtTokenStorage = ModuleService.LogServer.Name;
 
-                    var PostResult = await Http.PostAsJsonAsync($"{GatewayApi.ToUri}/Accounts/Login", Model.TrimStringAndCheckPersianSpecialLetter());
-                    if (PostResult.IsSuccessStatusCode)
-                    {
-                        var JsonResult = await PostResult.Content.ReadFromJsonAsync<JwtAuthenticationViewModel>();
-                        if (JsonResult != null)
-                        {
-                            await LocalStorage.SetAsync(JwtTokenStorage, JsonResult.Token);
-                            ((JwtAuthenticationStateProvider)JwtAuthenticationStateProvider).JwtTokenStorage = JwtTokenStorage;
-                            ((JwtAuthenticationStateProvider)JwtAuthenticationStateProvider).NotifyUserAuthentication(Model.UserName);
-                            Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", JsonResult.Token);
+            //        var PostResult = await Http.PostAsJsonAsync($"{GatewayApi.ToUri}/Accounts/Login", Model.TrimStringAndCheckPersianSpecialLetter());
+            //        if (PostResult.IsSuccessStatusCode)
+            //        {
+            //            var JsonResult = await PostResult.Content.ReadFromJsonAsync<JwtAuthenticationViewModel>();
+            //            if (JsonResult != null)
+            //            {
+            //                await LocalStorage.SetAsync(JwtTokenStorage, JsonResult.Token);
+            //                ((JwtAuthenticationStateProvider)JwtAuthenticationStateProvider).JwtTokenStorage = JwtTokenStorage;
+            //                ((JwtAuthenticationStateProvider)JwtAuthenticationStateProvider).NotifyUserAuthentication(Model.UserName);
+            //                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", JsonResult.Token);
 
-                            ModuleService.LogServer.CanNavigation = true;
+            //                ModuleService.LogServer.CanNavigation = true;
 
-                            //Snackbar.Add(JsonResult.Token, Severity.Error);
-                        }
-                        else
-                        {
-                            Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
-                        }
-                    }
-                    else
-                    {
-                        Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
-                    }
+            //                //Snackbar.Add(JsonResult.Token, Severity.Error);
+            //            }
+            //            else
+            //            {
+            //                Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
+            //            }
+            //        }
+            //        else
+            //        {
+            //            Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
+            //        }
 
-                }
-            }
-            catch (Exception ex)
-            {
-                ModuleService.LogServer.CanNavigation = false;
-                Snackbar.Add($"{DashboardResource.StringError} : {DashboardResource.MessageServiceCommunicationError} - {ex.InnerException.Message}", Severity.Error);
-            }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    ModuleService.LogServer.CanNavigation = false;
+            //    Snackbar.Add($"{DashboardResource.StringError} : {DashboardResource.MessageServiceCommunicationError} - {ex.InnerException.Message}", Severity.Error);
+            //}
 
             #endregion
         }

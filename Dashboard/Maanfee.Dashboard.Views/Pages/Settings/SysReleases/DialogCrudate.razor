@@ -12,11 +12,28 @@
                 else
                 {
                     <MudCard Class="mt-2">
-                        <MudCardHeader>
-                            <MudText Typo="Typo.button" Color="Color.Primary">
-                                @DashboardResource.StringRelease
-                            </MudText>
-                        </MudCardHeader>
+                        <MudPaper Elevation="3" Class="" Outlined="true" Square="true">
+                            <MudToolBar Dense>
+                                <MudText Typo="Typo.button" Color="Color.Primary">
+                                    @DashboardResource.StringRelease
+                                </MudText>
+                                <MudSpacer />
+                                <MudIconButton id="btn" Disabled="@IsProcessing" ButtonType="ButtonType.Submit" Color="Color.Tertiary"
+                                               title="@DashboardResource.StringSave" Icon="@Icons.Material.Filled.Save">
+                                    @if (IsProcessing)
+                                    {
+                                        <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="ms-n1" />
+                                        <MudText Class="ms-2">@DashboardResource.StringProcessing</MudText>
+                                    }
+                                    else
+                                    {
+                                        <MudIcon Icon="@Icons.Material.Filled.Save" Color="Color.Surface" Class="mx-1" />
+                                        <MudText>@DashboardResource.StringSave</MudText>
+                                    }
+                                </MudIconButton>
+                                <MudIconButton OnClick="Close" Icon="@Icons.Material.Filled.Close" Color="Color.Error" title="@DashboardResource.StringCancel" />
+                            </MudToolBar>
+                        </MudPaper>
                         <MudDivider DividerType="DividerType.FullWidth" />
                         <MudCardContent>
                             <MudGrid>
@@ -44,23 +61,6 @@
                             </MudGrid>
                         </MudCardContent>
                     </MudCard>
-                    <MudPaper Class="pa-3 my-2 ActionColor" Elevation="3" Outlined="true" Square="true">
-                        <MudStack Spacing="1" Row="true">
-                            <MudButton Disabled="@IsProcessing" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Tertiary">
-                                @if (IsProcessing)
-                                {
-                                    <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="ms-n1" />
-                                    <MudText Class="ms-2">@DashboardResource.StringProcessing</MudText>
-                                }
-                                else
-                                {
-                                    <MudIcon Icon="@Icons.Material.Filled.Save" Color="Color.Surface" Class="mx-1" />
-                                    <MudText>@DashboardResource.StringSave</MudText>
-                                }
-                            </MudButton>
-                            <MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.FreeCancellation" IconColor="Color.Surface">@DashboardResource.StringCancel</MudButton>
-                        </MudStack>
-                    </MudPaper>
                 }
             </DialogContent>
         </MudDialog>

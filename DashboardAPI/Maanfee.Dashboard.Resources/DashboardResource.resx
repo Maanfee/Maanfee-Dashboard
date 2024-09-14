@@ -642,4 +642,10 @@
   <data name="ValidationValueValidation" xml:space="preserve">
     <value>The {0} value must be {1}</value>
   </data>
+  <data name="StringQuickSearch" xml:space="preserve">
+    <value>Quick search</value>
+  </data>
+  <data name="StringAdvancedSearch" xml:space="preserve">
+    <value>Advanced search</value>
+  </data>
 </root>

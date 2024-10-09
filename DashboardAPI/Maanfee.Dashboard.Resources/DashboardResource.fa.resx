@@ -456,7 +456,7 @@
   <data name="StringRegister" xml:space="preserve">
     <value>ثبت نام</value>
   </data>
-  <data name="StringRegisterhere" xml:space="preserve">
+  <data name="StringRegisterHere" xml:space="preserve">
     <value>اینجا ثبت نام کنید</value>
   </data>
   <data name="StringRegistrantName" xml:space="preserve">
@@ -641,5 +641,14 @@
   </data>
   <data name="ValidationValueValidation" xml:space="preserve">
     <value>مقدار  {0} باید {1} باشد</value>
+  </data>
+  <data name="StringQuickSearch" xml:space="preserve">
+    <value>جستجوی سریع</value>
+  </data>
+  <data name="StringAdvancedSearch" xml:space="preserve">
+    <value>جستجوی پیشرفته</value>
+  </data>
+  <data name="StringExportExcel" xml:space="preserve">
+    <value>خروجی اکسل</value>
   </data>
 </root>

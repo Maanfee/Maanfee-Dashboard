@@ -648,4 +648,7 @@
   <data name="StringAdvancedSearch" xml:space="preserve">
     <value>Advanced search</value>
   </data>
+  <data name="StringExportExcel" xml:space="preserve">
+    <value>Export to Excel</value>
+  </data>
 </root>

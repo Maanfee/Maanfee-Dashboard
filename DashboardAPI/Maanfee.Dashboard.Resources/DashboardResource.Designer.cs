@@ -349,6 +349,15 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advanced search.
+        /// </summary>
+        public static string StringAdvancedSearch {
+            get {
+                return ResourceManager.GetString("StringAdvancedSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alert.
         /// </summary>
         public static string StringAlert {
@@ -678,6 +687,15 @@ namespace Maanfee.Dashboard.Resources {
         public static string StringError {
             get {
                 return ResourceManager.GetString("StringError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export to Excel.
+        /// </summary>
+        public static string StringExportExcel {
+            get {
+                return ResourceManager.GetString("StringExportExcel", resourceCulture);
             }
         }
         
@@ -1047,6 +1065,15 @@ namespace Maanfee.Dashboard.Resources {
         public static string StringProcessing {
             get {
                 return ResourceManager.GetString("StringProcessing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quick search.
+        /// </summary>
+        public static string StringQuickSearch {
+            get {
+                return ResourceManager.GetString("StringQuickSearch", resourceCulture);
             }
         }
         

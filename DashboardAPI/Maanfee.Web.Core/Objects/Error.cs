@@ -5,7 +5,8 @@
         SystemError = 100,
         DuplicateError = 200,
         DeleteError = 300,
-         
+        ConnectionError = 500,
+
         FileSizeIsZero = 1,
         FileSizeIsLarge = 2,
         FileCount = 3,
@@ -19,6 +20,8 @@
         InvalidUserName = 103,
         ChangeIsNotPossible = 104,
         NoMatchingRecordsFound = 105,
+
+        ServiceUnavailable = 503,
 
         PrimaryKeyConstraint = 201,
     }

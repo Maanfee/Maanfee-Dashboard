@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
 		<TieredPGO>true</TieredPGO>
 		<!--**********************************************-->
 		<DebugType>none</DebugType>
@@ -11,10 +11,10 @@
 		<RunAnalyzers>false</RunAnalyzers>
 		<!--**********************************************-->
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Copyright>Copyright (c) 2021-2023 Maanfee</Copyright>
-		<Authors>Maanfee Team (MF)</Authors>
+    <Copyright>Copyright (c) 2021-2024 Maanfee</Copyright>
+    <Authors>Maanfee Team (MF)</Authors>
 		<Company>Maanfee</Company>
-		<Version>8.16.0</Version>
+		<Version>8.20.0</Version>
 		<PackageIcon>MaanfeeYellow.png</PackageIcon>
 		<RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>

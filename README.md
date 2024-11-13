@@ -24,11 +24,11 @@
 
 ## Prerequisites
 - Supported .NET versions
-  - [.NET 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) 
+  - [.NET 9.0](https://dotnet.microsoft.com/en-us/download/dotnet/9.0) 
 
 ## Development Enviroment
 - [Microsoft Visual Studio 2022](https://visualstudio.microsoft.com/downloads/) 
-- [.NET 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) 
+- [.NET 9.0](https://dotnet.microsoft.com/en-us/download/dotnet/9.0) 
 
 ## Supported databases
 - [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) 

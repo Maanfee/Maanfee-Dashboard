@@ -95,6 +95,7 @@ namespace Maanfee.Dashboard.Server
 
             app.UseRouting();  //
             app.UseResponseCompression();   //
+            app.UseAntiforgery();
 
             #region - Internal Configuration -
 

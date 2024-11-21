@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace Maanfee.Logging.Console
 {
@@ -34,7 +34,7 @@ namespace Maanfee.Logging.Console
 
             services.AddSingleton<HubConnection>(sp =>
             {
-                var HostEnvironment = sp.GetRequiredService<IHostingEnvironment>();
+                var HostEnvironment = sp.GetRequiredService<IHostEnvironment>();
 
                 if (HostEnvironment.IsDevelopment())
                 {

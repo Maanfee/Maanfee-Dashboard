@@ -11,9 +11,15 @@
                 @DashboardResource.StringRole
             </MudText>
             <MudSpacer />
-            <MudIconButton Disabled="@(!_PermissionCreate)" OnClick="@(() => OpenCrudateDialog("0"))" Color="Color.Primary" Icon="@Icons.Material.Outlined.Add" title="@DashboardResource.StringCreate" />
-            <MudIconButton OnClick="OnReloadData" Icon="@Icons.Material.Outlined.Refresh" Color="Color.Secondary" title="@DashboardResource.StringReload" />
-            <MudIconButton OnClick="OpenSearchDialog" Icon="@Icons.Material.Filled.ManageSearch" Color="Color.Tertiary" title="@DashboardResource.StringSearch" />
+            <MudTooltip Text="@DashboardResource.StringCreate" Color="Color.Tertiary" Arrow>
+                <MudIconButton Disabled="@(!_PermissionCreate)" OnClick="@(() => OpenCrudateDialog("0"))" Color="Color.Primary" Icon="@Icons.Material.Outlined.Add" />
+            </MudTooltip>
+            <MudTooltip Text="@DashboardResource.StringReload" Color="Color.Tertiary" Arrow>
+                <MudIconButton OnClick="OnReloadData" Icon="@Icons.Material.Outlined.Refresh" Color="Color.Secondary" />
+            </MudTooltip>
+            <MudTooltip Text="@DashboardResource.StringSearch" Color="Color.Tertiary" Arrow>
+                <MudIconButton OnClick="OpenSearchDialog" Icon="@Icons.Material.Filled.ManageSearch" Color="Color.Tertiary" />
+            </MudTooltip>
         </MudToolBar>
     </MudPaper>
     <MudCard>
@@ -21,17 +27,17 @@
         <MudCardActions>
             <MudTable ServerData="ServerData" @ref="Table"
                       Dense="@_IsTableDense" Bordered Striped Hover Virtualize FixedFooter Loading="@IsTableLoading"
-                       FixedHeader="@_IsTableFixedHeader" Height="@TableHeight">
-                 <HeaderContent>
-                     <MudTh Class="column-1x">#</MudTh>
-                     <MudTh><MudTableSortLabel SortLabel="Name" T="TableViewModel">@DashboardResource.StringRole</MudTableSortLabel></MudTh>
-                        <MudTh><MudTableSortLabel SortLabel="NormalizedName" T="TableViewModel">@DashboardResource.StringNormalizedName</MudTableSortLabel></MudTh>
-                        <MudTh Class="column-4x">
-                            <MudText Align="Align.Left">
-                                <MudMenu Icon="@Icons.Material.Filled.MoreVert" Color="Color.Secondary">
-                                    <MudMenuItem OnClick="@(() => _IsTableDense = _IsTableDense ? false : true)">
-                                        <MudSwitch @bind-Value="@_IsTableDense" Color="Color.Secondary">
-                                            @DashboardResource.StringDense
+                      FixedHeader="@_IsTableFixedHeader" Height="@TableHeight">
+                <HeaderContent>
+                    <MudTh Class="column-1x">#</MudTh>
+                    <MudTh><MudTableSortLabel SortLabel="Name" T="TableViewModel">@DashboardResource.StringRole</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortLabel="NormalizedName" T="TableViewModel">@DashboardResource.StringNormalizedName</MudTableSortLabel></MudTh>
+                    <MudTh Class="column-4x">
+                        <MudText Align="Align.Left">
+                            <MudMenu Icon="@Icons.Material.Filled.MoreVert" Color="Color.Secondary">
+                                <MudMenuItem OnClick="@(() => _IsTableDense = _IsTableDense ? false : true)">
+                                    <MudSwitch @bind-Value="@_IsTableDense" Color="Color.Secondary">
+                                        @DashboardResource.StringDense
                                     </MudSwitch>
                                 </MudMenuItem>
                                 <MudMenuItem OnClick="@(() => _IsTableFixedHeader = _IsTableFixedHeader ? false : true)">
@@ -50,26 +56,34 @@
                 </HeaderContent>
                 <RowTemplate>
                     <MudTd Class="mud-text-align-center">@context.RowNum</MudTd>
-                        <MudTd>@context.Name</MudTd>
-                        <MudTd>@context.NormalizedName</MudTd>
-                        <MudTd>
-                            <MudIconButton Disabled="@(!_PermissionPermission)" OnClick="()=>OpenPermissionDialog(context.Id, context.Name)" Title="@DashboardResource.StringManagePermission" Icon="@Icons.Material.Filled.PermDataSetting" Color="Color.Secondary" Size="Size.Small"></MudIconButton>
-                            <MudIconButton OnClick="()=>OpenDetailsDialog(context.Id)" Title="@DashboardResource.StringDetails" Icon="@Icons.Material.Filled.Details" Color="Color.Primary" Size="Size.Small"></MudIconButton>
-                            <MudIconButton Disabled="@(!_PermissionEdit)" OnClick="()=>OpenCrudateDialog(context.Id)" Title="@DashboardResource.StringEdit" Icon="@Icons.Material.Filled.Edit" Color="Color.Success" Size="Size.Small"></MudIconButton>
-                            <MudIconButton Disabled="@(!_PermissionDelete)" OnClick="()=>OpenDeleteDialog(context.Id)" Title="@DashboardResource.StringDelete" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"></MudIconButton>
-                        </MudTd>
-                    </RowTemplate>
-                    <NoRecordsContent>
-                        <MudText>@DashboardResource.MessageNoMatchingRecordsFound</MudText>
-                    </NoRecordsContent>
-                    <LoadingContent>
-                        <MudText>@DashboardResource.StringLoading</MudText>
-                    </LoadingContent>
-                    <PagerContent>
-                        <MudTablePager />
-                    </PagerContent>
-                </MudTable>
-            </MudCardActions>
-        </MudCard>
+                    <MudTd>@context.Name</MudTd>
+                    <MudTd>@context.NormalizedName</MudTd>
+                    <MudTd>
+                        <MudTooltip Text="@DashboardResource.StringManagePermission" Color="Color.Tertiary" Arrow>
+                            <MudIconButton Disabled="@(!_PermissionPermission)" OnClick="()=>OpenPermissionDialog(context.Id, context.Name)" Icon="@Icons.Material.Filled.PermDataSetting" Color="Color.Secondary" Size="Size.Small"></MudIconButton>
+                        </MudTooltip>
+                        <MudTooltip Text="@DashboardResource.StringDetails" Color="Color.Tertiary" Arrow>
+                            <MudIconButton OnClick="()=>OpenDetailsDialog(context.Id)" Icon="@Icons.Material.Filled.Details" Color="Color.Primary" Size="Size.Small"></MudIconButton>
+                        </MudTooltip>
+                        <MudTooltip Text="@DashboardResource.StringEdit" Color="Color.Tertiary" Arrow>
+                            <MudIconButton Disabled="@(!_PermissionEdit)" OnClick="()=>OpenCrudateDialog(context.Id)" Icon="@Icons.Material.Filled.Edit" Color="Color.Success" Size="Size.Small"></MudIconButton>
+                        </MudTooltip>
+                        <MudTooltip Text="@DashboardResource.StringDelete" Color="Color.Tertiary" Arrow>
+                            <MudIconButton Disabled="@(!_PermissionDelete)" OnClick="()=>OpenDeleteDialog(context.Id)" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"></MudIconButton>
+                        </MudTooltip>
+                    </MudTd>
+                </RowTemplate>
+                <NoRecordsContent>
+                    <MudText>@DashboardResource.MessageNoMatchingRecordsFound</MudText>
+                </NoRecordsContent>
+                <LoadingContent>
+                    <MudText>@DashboardResource.StringLoading</MudText>
+                </LoadingContent>
+                <PagerContent>
+                    <MudTablePager />
+                </PagerContent>
+            </MudTable>
+        </MudCardActions>
+    </MudCard>
 
-    </MaanfeeDashboardPage>
+</MaanfeeDashboardPage>

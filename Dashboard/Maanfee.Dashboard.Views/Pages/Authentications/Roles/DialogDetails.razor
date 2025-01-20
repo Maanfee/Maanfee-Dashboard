@@ -16,7 +16,9 @@
                                 @DashboardResource.StringRole
                             </MudText>
                             <MudSpacer />
-                            <MudIconButton OnClick="Close" Icon="@Icons.Material.Filled.Close" Color="Color.Error" title="@DashboardResource.StringCancel" />
+                            <MudTooltip Text="@DashboardResource.StringCancel" Color="Color.Tertiary" Arrow>
+                                <MudIconButton OnClick="Close" Icon="@Icons.Material.Filled.Close" Color="Color.Error" />
+                            </MudTooltip>
                         </MudToolBar>
                     </MudPaper>
                     <MudDivider DividerType="DividerType.FullWidth" />
@@ -43,7 +45,7 @@
 @code {
 
     [CascadingParameter]
-    public MudDialogInstance MudDialog { get; set; }
+    public IMudDialogInstance MudDialog { get; set; }
 
     private void Close() => MudDialog.Close();
 

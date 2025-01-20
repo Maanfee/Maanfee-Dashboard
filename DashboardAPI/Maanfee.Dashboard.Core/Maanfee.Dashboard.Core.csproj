@@ -11,10 +11,10 @@
 		<RunAnalyzers>false</RunAnalyzers>
 		<!--**********************************************-->
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Copyright>Copyright (c) 2021-2024 Maanfee</Copyright>
+    <Copyright>Copyright (c) 2021-2025 Maanfee</Copyright>
     <Authors>Maanfee Team (MF)</Authors>
 		<Company>Maanfee</Company>
-		<Version>8.20.0</Version>
+		<Version>8.85.0</Version>
 		<PackageIcon>MaanfeeGreen.png</PackageIcon>
 		<RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
@@ -36,11 +36,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Maanfee.Highcharts" Version="1.10.0" />
-		<PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="9.0.0" />
-		<PackageReference Include="MudBlazor" Version="7.15.0" />
-		<PackageReference Include="EPPlus" Version="7.5.0" />
-		<PackageReference Include="SkiaSharp.Views.Blazor" Version="2.88.9" />
+		<PackageReference Include="Maanfee.Highcharts" Version="1.11.0" />
+		<PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="9.0.1" />
+		<PackageReference Include="MudBlazor" Version="8.0.0" />
+		<PackageReference Include="EPPlus" Version="7.5.3" />
+		<PackageReference Include="SkiaSharp.Views.Blazor" Version="3.116.1" />
 	</ItemGroup>
 
 	<!--<ItemGroup>

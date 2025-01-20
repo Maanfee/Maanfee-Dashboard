@@ -6,8 +6,12 @@
             @Title
         </MudText>
         <MudSpacer />
-        <MudIconButton OnClick="OnReloadData" Icon="@Icons.Material.Outlined.Refresh" Color="Color.Secondary" Title="@DashboardResource.StringReload" />
-        <MudIconButton OnClick="OpenSearchDialog" Icon="@Icons.Material.Filled.ManageSearch" Color="Color.Tertiary" Title="@DashboardResource.StringSearch" />
+        <MudTooltip Text="@DashboardResource.StringReload" Color="Color.Tertiary" Arrow>
+            <MudIconButton OnClick="OnReloadData" Icon="@Icons.Material.Outlined.Refresh" Color="Color.Secondary" />
+        </MudTooltip>
+        <MudTooltip Text="@DashboardResource.StringSearch" Color="Color.Tertiary" Arrow>
+            <MudIconButton OnClick="OpenSearchDialog" Icon="@Icons.Material.Filled.ManageSearch" Color="Color.Tertiary" />
+        </MudTooltip>
     </MudToolBar>
 </MudPaper>
 <MudCard>
@@ -15,20 +19,20 @@
     <MudCardActions>
         <MudTable ServerData="ServerData" @ref="Table"
                   Dense="@_IsTableDense" Bordered Striped Hover Virtualize FixedFooter Loading="@IsTableLoading"
-                   FixedHeader="@_IsTableFixedHeader" Height="@(_IsTableScroll ? "350px" : "100%")"
-                   T="GetLogInfo">
-             <HeaderContent>
-                 <MudTh Class="column-1x"><MudText Align="Align.Center">#</MudText></MudTh>
-                 <MudTh><MudTableSortLabel SortLabel="Platform" T="GetLogInfo">Platform</MudTableSortLabel></MudTh>
-                 <MudTh><MudTableSortLabel SortLabel="Message" T="GetLogInfo">Message</MudTableSortLabel></MudTh>
-                 <MudTh><MudTableSortLabel SortLabel="LogDate" T="GetLogInfo">LogDate</MudTableSortLabel></MudTh>
-                 <MudTh><MudTableSortLabel SortLabel="LoggingLevel" T="GetLogInfo">LoggingLevel</MudTableSortLabel></MudTh>
-                 <MudTh Class="column-2x">
-                     <MudText Align="Align.Left">
-                         <MudMenu Icon="@Icons.Material.Filled.MoreVert" Color="Color.Secondary">
-                             <MudMenuItem OnClick="@(() => _IsTableDense = _IsTableDense ? false : true)">
-                                 <MudSwitch @bind-Value="@_IsTableDense" Color="Color.Secondary">
-                                     @DashboardResource.StringDense
+                  FixedHeader="@_IsTableFixedHeader" Height="@(_IsTableScroll ? "350px" : "100%")"
+                  T="GetLogInfo">
+            <HeaderContent>
+                <MudTh Class="column-1x"><MudText Align="Align.Center">#</MudText></MudTh>
+                <MudTh><MudTableSortLabel SortLabel="Platform" T="GetLogInfo">Platform</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortLabel="Message" T="GetLogInfo">Message</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortLabel="LogDate" T="GetLogInfo">LogDate</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortLabel="LoggingLevel" T="GetLogInfo">LoggingLevel</MudTableSortLabel></MudTh>
+                <MudTh Class="column-2x">
+                    <MudText Align="Align.Left">
+                        <MudMenu Icon="@Icons.Material.Filled.MoreVert" Color="Color.Secondary">
+                            <MudMenuItem OnClick="@(() => _IsTableDense = _IsTableDense ? false : true)">
+                                <MudSwitch @bind-Value="@_IsTableDense" Color="Color.Secondary">
+                                    @DashboardResource.StringDense
                                 </MudSwitch>
                             </MudMenuItem>
                             <MudMenuItem OnClick="@(() => _IsTableFixedHeader = _IsTableFixedHeader ? false : true)">
@@ -47,9 +51,9 @@
             </HeaderContent>
             <RowTemplate>
                 <MudTd><MudText Class="text-small-2x" Align="Align.Center">@context.RowNum</MudText></MudTd>
-                    <MudTd>
-                        <MudText Style="@($"color:#F06292;")" Class="text-small-2x">
-                            @context?.LoggingPlatformTitle
+                <MudTd>
+                    <MudText Style="@($"color:#F06292;")" Class="text-small-2x">
+                        @context?.LoggingPlatformTitle
                     </MudText>
                 </MudTd>
                 <MudTd>
@@ -71,18 +75,18 @@
             </RowTemplate>
             <NoRecordsContent>
                 <MudText>@DashboardResource.MessageNoMatchingRecordsFound</MudText>
-                </NoRecordsContent>
-                <LoadingContent>
-                    <MudText>@DashboardResource.StringLoading</MudText>
-                </LoadingContent>
-                <PagerContent>
-                    <MudTablePager PageSizeOptions="new int[]{10, 50, 100, 200, 500, 1000, 2000, 5000}" />
-                </PagerContent>
-            </MudTable>
-        </MudCardActions>
-    </MudCard>
+            </NoRecordsContent>
+            <LoadingContent>
+                <MudText>@DashboardResource.StringLoading</MudText>
+            </LoadingContent>
+            <PagerContent>
+                <MudTablePager PageSizeOptions="new int[]{10, 50, 100, 200, 500, 1000, 2000, 5000}" />
+            </PagerContent>
+        </MudTable>
+    </MudCardActions>
+</MudCard>
 
-    @code {
+@code {
 
     [Parameter]
     public string Title { get; set; }
@@ -183,12 +187,14 @@
         DialogParameters parameters = new DialogParameters();
         parameters.Add("FilterViewModel", FilterViewModel);
 
-        var dialog = Dialog.Show<DialogFilter>(DashboardResource.StringSearch, parameters,
+        var dialog = await Dialog.ShowAsync<DialogFilter>(DashboardResource.StringSearch, parameters,
             new DialogOptions()
                 {
+                    NoHeader = true,
                     MaxWidth = MaxWidth.Large,
-                    FullWidth = true,
                     Position = DialogPosition.Center,
+                    FullWidth = true,
+                    CloseOnEscapeKey = true,
                 });
 
         var result = await dialog.Result;

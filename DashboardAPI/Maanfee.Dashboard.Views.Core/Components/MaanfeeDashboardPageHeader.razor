@@ -19,7 +19,7 @@
         @SpecialHeaderContent
         @if (IsDisplayRenderTime)
         {
-            <MaanfeeDashboardRenderTime />
+            <MaanfeeTimer />
         }
     </div>
 }
@@ -30,7 +30,7 @@ else if (!string.IsNullOrEmpty(Title) || !string.IsNullOrEmpty(SubTitle))
         <MudText>@GetSubTitle() @Description</MudText>
         @if (IsDisplayRenderTime)
         {
-            <MaanfeeDashboardRenderTime />
+            <MaanfeeTimer />
         }
     </div>
 }

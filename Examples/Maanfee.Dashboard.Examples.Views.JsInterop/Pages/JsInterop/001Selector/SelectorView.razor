@@ -4,16 +4,16 @@
 <style>
 
 	.htmlElementName {
-		color: var(--mud-palette-primary);
-		font-weight: 600;
+	color: var(--mud-palette-primary);
+	font-weight: 600;
 	}
 
 	.htmlAttributeName {
-		color: #8323d8;
+	color: #8323d8;
 	}
 
 	.html .enum {
-		color: #00c853;
+	color: #00c853;
 	}
 
 	/**************************************************/
@@ -77,7 +77,7 @@
 									<MudButton OnClick="@(()=>OpenExampleDialog("SelectByEelements", typeof(SelectByEelements)))" StartIcon="@Icons.Material.Filled.PlayArrow" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Try</MudButton>
 								</td>
 							</tr>					
-							
+
 							@*<tr>
 								<td>:first</td>
 								<td>await Dom.QuerySelector(".intro:first")</td>
@@ -99,13 +99,13 @@
 
 @code {
 
-	private void OpenExampleDialog(string CodeFileName, Type Type)
+	private async void OpenExampleDialog(string CodeFileName, Type Type)
 	{
 		DialogParameters parameters = new DialogParameters();
 		parameters.Add("CodeFileName", CodeFileName);
 		parameters.Add("Type", Type);
 
-		var dialog = Dialog.Show<DialogTry>("Try", parameters,
+		var dialog = await Dialog.ShowAsync<DialogTry>("Try", parameters,
 		new DialogOptions()
 			{
 				MaxWidth = MaxWidth.Medium,

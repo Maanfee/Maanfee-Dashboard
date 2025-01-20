@@ -1,6 +1,6 @@
 ﻿
 <MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
-    <MudDialog>
+    <MudDialog OnKeyDown="OnKeyDownAsync">
         <DialogContent>
             <MudCard Class="mt-2">
                 <MudPaper Elevation="3" Class="" Outlined="true" Square="true">
@@ -9,8 +9,12 @@
                             @DashboardResource.StringSearch
                         </MudText>
                         <MudSpacer />
-                        <MudIconButton OnClick="Search" Icon="@Icons.Material.Filled.ManageSearch" Color="Color.Tertiary" title="@DashboardResource.StringSearch" />
-                        <MudIconButton OnClick="Close" Icon="@Icons.Material.Filled.Close" Color="Color.Error" title="@DashboardResource.StringCancel" />
+                        <MudTooltip Text="@DashboardResource.StringSearch" Color="Color.Tertiary" Arrow>
+                            <MudIconButton OnClick="Search" Icon="@Icons.Material.Filled.ManageSearch" Color="Color.Tertiary" />
+                        </MudTooltip>
+                        <MudTooltip Text="@DashboardResource.StringCancel" Color="Color.Tertiary" Arrow>
+                            <MudIconButton OnClick="Close" Icon="@Icons.Material.Filled.Close" Color="Color.Error" />
+                        </MudTooltip>
                     </MudToolBar>
                 </MudPaper>
                 <MudCardContent>
@@ -31,7 +35,7 @@
 @code {
 
     [CascadingParameter]
-    public MudDialogInstance MudDialog { get; set; }
+    public IMudDialogInstance MudDialog { get; set; }
 
     private void Close() => MudDialog.Close();
 
@@ -46,5 +50,20 @@
 
     [Parameter]
     public FilterReleaseViewModel FilterViewModel { get; set; } = new();
+
+    #region - Key Events -
+
+    private async Task OnKeyDownAsync(KeyboardEventArgs args)
+    {
+        switch (args.Key)
+        {
+            case "Enter":
+            case "NumpadEnter":
+                await Search();
+                break;
+        }
+    }
+
+    #endregion
 
 }

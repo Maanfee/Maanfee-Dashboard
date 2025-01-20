@@ -159,7 +159,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
         {
             DialogParameters parameters = new DialogParameters();
 
-            var dialog = Dialog.Show<DialogDelete>(DashboardResource.StringAlert, parameters,
+            var dialog = await Dialog.ShowAsync<DialogDelete>(DashboardResource.StringAlert, parameters,
                 new DialogOptions()
                 {
                     MaxWidth = MaxWidth.ExtraSmall,

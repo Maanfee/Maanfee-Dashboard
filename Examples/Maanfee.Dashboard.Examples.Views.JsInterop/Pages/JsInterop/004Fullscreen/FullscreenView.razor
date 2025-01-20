@@ -100,13 +100,13 @@
 
 @code {
 
-    private void OpenExampleDialog(string CodeFileName, Type Type)
+    private async void OpenExampleDialog(string CodeFileName, Type Type)
     {
         DialogParameters parameters = new DialogParameters();
         parameters.Add("CodeFileName", CodeFileName);
         parameters.Add("Type", Type);
 
-        var dialog = Dialog.Show<DialogTry>("Try", parameters,
+        var dialog = await Dialog.ShowAsync<DialogTry>("Try", parameters,
         new DialogOptions()
             {
                 MaxWidth = MaxWidth.Large,

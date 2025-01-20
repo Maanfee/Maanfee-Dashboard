@@ -77,7 +77,7 @@
                                             <MudText Typo="Typo.caption" Align="Align.Center"><b>@string.Format("{0:#,0.##}", @size)</b></MudText>
                                         </td>
                                         <td>
-                                            <MudIconButton OnClick="(() => RemoveFromQueue(file.FileId))" disabled="@IsUploading" Title="@DashboardResource.StringDelete" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"></MudIconButton>
+                                            <MudIconButton OnClick="(() => RemoveFromQueue(file.FileId))" disabled="@IsUploading" title="@DashboardResource.StringDelete" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"></MudIconButton>
                                         </td>
                                     </tr>
                                 }

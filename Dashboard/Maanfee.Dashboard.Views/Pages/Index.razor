@@ -4,8 +4,21 @@
 @page "/"
 @inherits _BaseView
 
+@inject Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment Environment
+
 <MaanfeeDashboardPage>
     <MaanfeeDashboardPageHeader PageTitle="@DashboardResource.StringDashboard" />
+
+    <p>The application is running in <strong>@Environment.Environment</strong> mode.</p>
+    <p><strong>@GetType().Name</strong></p>
+    <p><strong>@GetFilePath()</strong></p>
+
+    @code{
+        private string GetFilePath([System.Runtime.CompilerServices.CallerFilePath] string filePath = null)
+        {
+        return filePath ?? "Unknown file path";
+        }
+    }
 
     <MudGrid>
         <MudItem md="12" xs="12">
@@ -78,7 +91,7 @@
                     DialogParameters DialogParameters = new DialogParameters();
                     DialogParameters.Add("SysRelease", Callback.Data);
 
-                    var dialog = Dialog.Show<Settings.SysReleases.DialogReleaseControl>(string.Empty, DialogParameters,
+                    var dialog = await Dialog.ShowAsync<Settings.SysReleases.DialogReleaseControl>(string.Empty, DialogParameters,
                                 new DialogOptions()
                                     {
                                         NoHeader = true,

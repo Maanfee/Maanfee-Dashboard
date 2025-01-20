@@ -1,52 +1,64 @@
 ﻿@inherits _BaseView
 
 <MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
-    <MudDialog>
+    <MudDialog OnKeyDown="OnKeyDownAsync">
         <DialogContent>
-            <MudGrid>
-                <MudItem md="12">
-                    <MudTextField @bind-Value="FilterViewModel.Message" Variant="Variant.Outlined"
-                                  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.FilterDrama" Clearable
-                                  For="@(() => FilterViewModel.Message)"
-                                  Label="Message" />
-                </MudItem>
-                <MudItem md="6">
-                    <MudDatePicker Label="Log Date From" Clearable
-                                   Color="Color.Success" Rounded Elevation="12"
-                                   For="@(() => FilterViewModel.LogDateFrom)" @bind-Date="FilterViewModel.LogDateFrom"
-                                   Culture="@GetCalendarCulture(CultureInfo.DefaultThreadCurrentUICulture.Name)"
-                                   Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.EditCalendar"
-                                   PickerVariant="PickerVariant.Dialog"
-                                   Variant="Variant.Outlined" TitleDateFormat="dddd, dd MMMM" />
-                </MudItem>
-                <MudItem md="6">
-                    <MudDatePicker Label="Log Date To" Clearable
-                                   Color="Color.Success" Rounded Elevation="12"
-                                   For="@(() => FilterViewModel.LogDateTo)" @bind-Date="FilterViewModel.LogDateTo"
-                                   Culture="@GetCalendarCulture(CultureInfo.DefaultThreadCurrentUICulture.Name)"
-                                   Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.EditCalendar"
-                                   PickerVariant="PickerVariant.Dialog"
-                                   Variant="Variant.Outlined" TitleDateFormat="dddd, dd MMMM" />
-                </MudItem>
-                <MudItem md="12">
+            <MudCard Class="mt-2">
+                <MudPaper Elevation="3" Class="" Outlined="true" Square="true">
+                    <MudToolBar Dense>
+                        <MudText Typo="Typo.button" Color="Color.Primary">
+                            @DashboardResource.StringSearch
+                        </MudText>
+                        <MudSpacer />
+                        <MudTooltip Text="@DashboardResource.StringSearch" Color="Color.Tertiary" Arrow>
+                            <MudIconButton OnClick="Search" Icon="@Icons.Material.Filled.ManageSearch" Color="Color.Tertiary" />
+                        </MudTooltip>
+                        <MudTooltip Text="@DashboardResource.StringCancel" Color="Color.Tertiary" Arrow>
+                            <MudIconButton OnClick="Close" Icon="@Icons.Material.Filled.Close" Color="Color.Error" />
+                        </MudTooltip>
+                    </MudToolBar>
+                </MudPaper>
+                <MudCardContent>
+                    <MudGrid>
+                        <MudItem md="12">
+                            <MudTextField @bind-Value="FilterViewModel.Message" Variant="Variant.Outlined"
+                                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.FilterDrama" Clearable
+                                          For="@(() => FilterViewModel.Message)"
+                                          Label="Message" />
+                        </MudItem>
+                        <MudItem md="6">
+                            <MudDatePicker Label="Log Date From" Clearable
+                                           Color="Color.Success" Rounded
+                                           For="@(() => FilterViewModel.LogDateFrom)" @bind-Date="FilterViewModel.LogDateFrom"
+                                           Culture="@GetCalendarCulture(CultureInfo.DefaultThreadCurrentUICulture.Name)"
+                                           Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.EditCalendar"
+                                           PickerVariant="PickerVariant.Dialog"
+                                           Variant="Variant.Outlined" TitleDateFormat="dddd, dd MMMM" />
+                        </MudItem>
+                        <MudItem md="6">
+                            <MudDatePicker Label="Log Date To" Clearable
+                                           Color="Color.Success" Rounded
+                                           For="@(() => FilterViewModel.LogDateTo)" @bind-Date="FilterViewModel.LogDateTo"
+                                           Culture="@GetCalendarCulture(CultureInfo.DefaultThreadCurrentUICulture.Name)"
+                                           Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.EditCalendar"
+                                           PickerVariant="PickerVariant.Dialog"
+                                           Variant="Variant.Outlined" TitleDateFormat="dddd, dd MMMM" />
+                        </MudItem>
+                        <MudItem md="12">
 
-                </MudItem>
-                <MudItem md="12">
+                        </MudItem>
+                        <MudItem md="12">
 
-                </MudItem>
-                <MudItem md="12">
+                        </MudItem>
+                        <MudItem md="12">
 
-                </MudItem>
-                <MudItem md="12">
+                        </MudItem>
+                        <MudItem md="12">
 
-                </MudItem>
-            </MudGrid>
-            <MudPaper Class="pa-3 my-2 ActionColor" Elevation="3" Outlined Square>
-                <MudStack Spacing="1" Row>
-                    <MudButton OnClick="Search" Variant="Variant.Filled" Color="Color.Tertiary" StartIcon="@Icons.Material.Filled.ManageSearch" IconColor="Color.Surface">@DashboardResource.StringSearch</MudButton>
-                    <MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.FreeCancellation" IconColor="Color.Surface">@DashboardResource.StringCancel</MudButton>
-                </MudStack>
-            </MudPaper>
+                        </MudItem>
+                    </MudGrid>
+                </MudCardContent>
+            </MudCard>
         </DialogContent>
     </MudDialog>
 </MudRTLProvider>
@@ -54,7 +66,7 @@
 @code {
 
     [CascadingParameter]
-    public MudDialogInstance MudDialog { get; set; }
+    public IMudDialogInstance MudDialog { get; set; }
 
     private void Close() => MudDialog.Close();
 
@@ -69,5 +81,20 @@
 
     [Parameter]
     public FilterLogViewModel FilterViewModel { get; set; } = new();
+
+    #region - Key Events -
+
+    private async Task OnKeyDownAsync(KeyboardEventArgs args)
+    {
+        switch (args.Key)
+        {
+            case "Enter":
+            case "NumpadEnter":
+                await Search();
+                break;
+        }
+    }
+
+    #endregion
 
 }

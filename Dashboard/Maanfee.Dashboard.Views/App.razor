@@ -5,7 +5,7 @@
     <MudSnackbarProvider />
     <MudPopoverProvider />
     <Router AppAssembly="@typeof(Program).Assembly"
-            AdditionalAssemblies="@LazyLoadedAssemblies" OnNavigateAsync="@OnNavigateAsync">
+    AdditionalAssemblies="@LazyLoadedAssemblies" OnNavigateAsync="@OnNavigateAsync">
         <Found Context="routeData">
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(AdminLayout)">
                 <NotAuthorized>
@@ -53,11 +53,11 @@
         await LoggingInitializer.InitializedAsync();
         LoggingInitializer.Closed += async () =>
         {
-            await Task.Run(() =>
+            await Task.Run(async () =>
                 {
                     DialogParameters DialogParameters = new DialogParameters();
 
-                    dialog = Dialog.Show<DialogServerConnection>(string.Empty, DialogParameters,
+                    dialog = await Dialog.ShowAsync<DialogServerConnection>(string.Empty, DialogParameters,
                         new DialogOptions()
                             {
                                 NoHeader = true,

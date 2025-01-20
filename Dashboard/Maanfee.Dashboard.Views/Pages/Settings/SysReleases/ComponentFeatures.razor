@@ -1,4 +1,5 @@
-﻿
+﻿@inherits _BaseView
+
 <EditForm OnValidSubmit="OnSubmit" Model="SubmitSysReleaseFeatureViewModel">
     <DataAnnotationsValidator />
     <MudGrid>
@@ -41,8 +42,9 @@
                 <MudTd DataLabel="SysReleaseTypeTitle">@context.SysReleaseTypeTitle</MudTd>
                 <MudTd DataLabel="FeatureDate">@context.FeatureDate.ToDateString() - @context.FeatureDate.ToTimeString()</MudTd>
                 <MudTd>
-                    <MudIconButton title="@DashboardResource.StringDelete" OnClick="@((e) => DeleteDialog(context.Id))"
-                                   Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small" />
+                    <MudTooltip Text="@DashboardResource.StringDelete" Color="Color.Tertiary" Arrow>
+                        <MudIconButton OnClick="()=>DeleteDialog(context.Id)" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"></MudIconButton>
+                    </MudTooltip>
                 </MudTd>
             </RowTemplate>
         </MudTable>
@@ -103,7 +105,7 @@
     {
         DialogParameters parameters = new DialogParameters();
 
-        var dialog = Dialog.Show<DialogDelete>(DashboardResource.StringAlert, parameters,
+        var dialog = await Dialog.ShowAsync<DialogDelete>(DashboardResource.StringAlert, parameters,
             new DialogOptions()
                 {
                     MaxWidth = MaxWidth.ExtraSmall,

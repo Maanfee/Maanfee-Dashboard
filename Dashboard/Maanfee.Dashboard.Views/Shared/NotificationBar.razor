@@ -63,7 +63,7 @@
 					config.ShowTransitionDuration = 500;
 					config.Action = $"{DashboardResource.StringChat} ? ";
 					config.ActionColor = Color.Info;
-					config.Onclick = snackbar =>
+					config.OnClick = snackbar =>
 					{
 						IsVisible = false;
 						Navigation.NavigateTo($"/chat/{ChatMessage.IdFromUser}");

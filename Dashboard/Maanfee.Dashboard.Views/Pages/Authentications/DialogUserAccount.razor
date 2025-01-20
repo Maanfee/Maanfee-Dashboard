@@ -27,19 +27,19 @@
                                             <MudTextField @bind-Value="SubmitChangePasswordViewModel.CurrentPassword" Variant="Variant.Outlined"
                                                           For="@(() => SubmitChangePasswordViewModel.CurrentPassword)" Label="@DashboardResource.StringCurrentPassword"
                                                           InputType="@CurrentPasswordInput" Adornment="Adornment.End" AdornmentIcon="@CurrentPasswordInputIcon"
-                                                          OnAdornmentClick="ToggleCurrentPasswordVisibility" autocomplete="off" />
+                                                          OnAdornmentClick="ToggleCurrentPasswordVisibility" />
                                         </MudItem>
                                         <MudItem xs="12" md="6">
                                             <MudTextField @bind-Value="SubmitChangePasswordViewModel.NewPassword" Variant="Variant.Outlined"
                                                           For="@(() => SubmitChangePasswordViewModel.NewPassword)" Label="@DashboardResource.StringNewPassword"
                                                           InputType="@NewPasswordInput" Adornment="Adornment.End" AdornmentIcon="@NewPasswordInputIcon"
-                                                          OnAdornmentClick="ToggleNewPasswordVisibility" autocomplete="off" />
+                                                          OnAdornmentClick="ToggleNewPasswordVisibility" />
                                         </MudItem>
                                         <MudItem xs="12" md="6">
                                             <MudTextField @bind-Value="SubmitChangePasswordViewModel.ConfirmNewPassword" Variant="Variant.Outlined"
                                                           For="@(() => SubmitChangePasswordViewModel.ConfirmNewPassword)" Label="@DashboardResource.StringConfirmNewPassword"
                                                           InputType="@ConfirmPasswordInput" Adornment="Adornment.End" AdornmentIcon="@ConfirmPasswordInputIcon"
-                                                          OnAdornmentClick="ToggleConfirmPasswordVisibility" autocomplete="off" />
+                                                          OnAdornmentClick="ToggleConfirmPasswordVisibility" />
                                         </MudItem>
                                     </MudGrid>
                                 </MudTabPanel>
@@ -75,7 +75,7 @@
 @code {
 
     [CascadingParameter]
-    public MudDialogInstance MudDialog { get; set; }
+    public IMudDialogInstance MudDialog { get; set; }
 
     private void Close() => MudDialog.Close();
 

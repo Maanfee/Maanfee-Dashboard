@@ -18,19 +18,23 @@
                                     @DashboardResource.StringGroup
                                 </MudText>
                                 <MudSpacer />
-                                <MudIconButton Disabled="@IsProcessing" ButtonType="ButtonType.Submit" Icon="@Icons.Material.Filled.Save" Color="Color.Tertiary" title="@DashboardResource.StringCreate">
-                                    @if (IsProcessing)
-                                    {
-                                        <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="ms-n1" />
-                                        <MudText Class="ms-2">@DashboardResource.StringProcessing</MudText>
-                                    }
-                                    else
-                                    {
-                                        <MudIcon Icon="@Icons.Material.Filled.Save" Color="Color.Surface" Class="mx-1" />
-                                        <MudText>@DashboardResource.StringSave</MudText>
-                                    }
-                                </MudIconButton>
-                                <MudIconButton OnClick="Close" Icon="@Icons.Material.Filled.Close" Color="Color.Error" title="@DashboardResource.StringCancel" />
+                                <MudTooltip Text="@DashboardResource.StringCreate" Color="Color.Tertiary" Arrow>
+                                    <MudIconButton Disabled="@IsProcessing" ButtonType="ButtonType.Submit" Icon="@Icons.Material.Filled.Save" Color="Color.Tertiary">
+                                        @if (IsProcessing)
+                                        {
+                                            <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="ms-n1" />
+                                            <MudText Class="ms-2">@DashboardResource.StringProcessing</MudText>
+                                        }
+                                        else
+                                        {
+                                            <MudIcon Icon="@Icons.Material.Filled.Save" Color="Color.Surface" Class="mx-1" />
+                                            <MudText>@DashboardResource.StringSave</MudText>
+                                        }
+                                    </MudIconButton>
+                                </MudTooltip>
+                                <MudTooltip Text="@DashboardResource.StringCancel" Color="Color.Tertiary" Arrow>
+                                    <MudIconButton OnClick="Close" Icon="@Icons.Material.Filled.Close" Color="Color.Error" />
+                                </MudTooltip>
                             </MudToolBar>
                         </MudPaper>
                         <MudDivider DividerType="DividerType.FullWidth" />
@@ -54,7 +58,7 @@
 @code {
 
     [CascadingParameter]
-    public MudDialogInstance MudDialog { get; set; }
+    public IMudDialogInstance MudDialog { get; set; }
 
     private void Close() => MudDialog.Close();
 

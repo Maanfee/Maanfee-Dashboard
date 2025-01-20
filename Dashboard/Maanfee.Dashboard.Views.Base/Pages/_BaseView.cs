@@ -1,5 +1,4 @@
-﻿using Maanfee.Dashboard.Core;
-using Maanfee.Dashboard.Domain.ViewModels;
+﻿using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Dashboard.Resources;
 using Maanfee.Dashboard.Views.Base.Services;
 using Maanfee.Dashboard.Views.Core;
@@ -9,8 +8,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Security.Claims;
 using System.Threading.Tasks;

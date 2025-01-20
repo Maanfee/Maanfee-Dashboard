@@ -11,10 +11,10 @@
 		<RunAnalyzers>false</RunAnalyzers>
 		<!--**********************************************-->
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Copyright>Copyright (c) 2022-2024 Maanfee</Copyright>
+    <Copyright>Copyright (c) 2022-2025 Maanfee</Copyright>
     <Authors>Maanfee Team (MF)</Authors>
 		<Company>Maanfee</Company>
-		<Version>8.20.0</Version>
+		<Version>8.85.0</Version>
 		<PackageIcon>MaanfeeCyan.png</PackageIcon>
 		<RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
@@ -32,7 +32,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.1" />
 	</ItemGroup>
 
 </Project>

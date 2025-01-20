@@ -12,9 +12,15 @@
                 @DashboardResource.StringGroup
             </MudText>
             <MudSpacer />
-            <MudIconButton OnClick="@(() => OpenCrudateDialog(0))" Color="Color.Primary" Icon="@Icons.Material.Outlined.Add" Title="@DashboardResource.StringCreate" />
-            <MudIconButton OnClick="OnReloadData" Icon="@Icons.Material.Outlined.Refresh" Color="Color.Secondary" Title="@DashboardResource.StringReload" />
-            <MudIconButton OnClick="OpenSearchDialog" Icon="@Icons.Material.Filled.ManageSearch" Color="Color.Tertiary" Title="@DashboardResource.StringSearch" />
+            <MudTooltip Text="@DashboardResource.StringCreate" Color="Color.Tertiary" Arrow>
+                <MudIconButton OnClick="@(() => OpenCrudateDialog(0))" Color="Color.Primary" Icon="@Icons.Material.Outlined.Add" />
+            </MudTooltip>
+            <MudTooltip Text="@DashboardResource.StringReload" Color="Color.Tertiary" Arrow>
+                <MudIconButton OnClick="OnReloadData" Icon="@Icons.Material.Outlined.Refresh" Color="Color.Secondary" />
+            </MudTooltip>
+            <MudTooltip Text="@DashboardResource.StringSearch" Color="Color.Tertiary" Arrow>
+                <MudIconButton OnClick="OpenSearchDialog" Icon="@Icons.Material.Filled.ManageSearch" Color="Color.Tertiary" />
+            </MudTooltip>
         </MudToolBar>
     </MudPaper>
     <MudCard>
@@ -22,16 +28,16 @@
         <MudCardActions>
             <MudTable ServerData="ServerData" @ref="Table"
                       Dense="@_IsTableDense" Bordered Striped Hover Virtualize FixedFooter Loading="@IsTableLoading"
-                       FixedHeader="@_IsTableFixedHeader" Height="@TableHeight">
-                 <HeaderContent>
-                     <MudTh Class="column-1x"><MudText Align="Align.Center">#</MudText></MudTh>
-                     <MudTh><MudTableSortLabel SortLabel="Title" T="TableViewModel">@DashboardResource.StringTitle</MudTableSortLabel></MudTh>
-                        <MudTh Class="column-3x">
-                            <MudText Align="Align.Left">
-                                <MudMenu Icon="@Icons.Material.Filled.MoreVert" Color="Color.Secondary">
-                                    <MudMenuItem OnClick="@(() => _IsTableDense = _IsTableDense ? false : true)">
-                                        <MudSwitch @bind-Value="@_IsTableDense" Color="Color.Secondary">
-                                            @DashboardResource.StringDense
+                      FixedHeader="@_IsTableFixedHeader" Height="@TableHeight">
+                <HeaderContent>
+                    <MudTh Class="column-1x"><MudText Align="Align.Center">#</MudText></MudTh>
+                    <MudTh><MudTableSortLabel SortLabel="Title" T="TableViewModel">@DashboardResource.StringTitle</MudTableSortLabel></MudTh>
+                    <MudTh Class="column-3x">
+                        <MudText Align="Align.Left">
+                            <MudMenu Icon="@Icons.Material.Filled.MoreVert" Color="Color.Secondary">
+                                <MudMenuItem OnClick="@(() => _IsTableDense = _IsTableDense ? false : true)">
+                                    <MudSwitch @bind-Value="@_IsTableDense" Color="Color.Secondary">
+                                        @DashboardResource.StringDense
                                     </MudSwitch>
                                 </MudMenuItem>
                                 <MudMenuItem OnClick="@(() => _IsTableFixedHeader = _IsTableFixedHeader ? false : true)">
@@ -50,26 +56,32 @@
                 </HeaderContent>
                 <RowTemplate>
                     <MudTd><MudText Class="text-small-2x" Align="Align.Center">@context.RowNum</MudText></MudTd>
-                        <MudTd>
-                            @context?.Title
+                    <MudTd>
+                        @context?.Title
                     </MudTd>
                     <MudTd>
-                        <MudIconButton OnClick="()=>OpenDetailsDialog(context.Id)" Title="@DashboardResource.StringDetails" Icon="@Icons.Material.Filled.Details" Color="Color.Primary" Size="Size.Small"></MudIconButton>
-                        <MudIconButton OnClick="()=>OpenCrudateDialog(context.Id)" Title="@DashboardResource.StringEdit" Icon="@Icons.Material.Filled.Edit" Color="Color.Success" Size="Size.Small"></MudIconButton>
-                        <MudIconButton OnClick="()=>OpenDeleteDialog(context.Id)" Title="@DashboardResource.StringDelete" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"></MudIconButton>
+                        <MudTooltip Text="@DashboardResource.StringDetails" Color="Color.Tertiary" Arrow>
+                            <MudIconButton OnClick="()=>OpenDetailsDialog(context.Id)" Icon="@Icons.Material.Filled.Details" Color="Color.Primary" Size="Size.Small"></MudIconButton>
+                        </MudTooltip>
+                        <MudTooltip Text="@DashboardResource.StringEdit" Color="Color.Tertiary" Arrow>
+                            <MudIconButton OnClick="()=>OpenCrudateDialog(context.Id)" Icon="@Icons.Material.Filled.Edit" Color="Color.Success" Size="Size.Small"></MudIconButton>
+                        </MudTooltip>
+                        <MudTooltip Text="@DashboardResource.StringDelete" Color="Color.Tertiary" Arrow>
+                            <MudIconButton OnClick="()=>OpenDeleteDialog(context.Id)" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"></MudIconButton>
+                        </MudTooltip>
                     </MudTd>
                 </RowTemplate>
                 <NoRecordsContent>
                     <MudText>@DashboardResource.MessageNoMatchingRecordsFound</MudText>
-                    </NoRecordsContent>
-                    <LoadingContent>
-                        <MudText>@DashboardResource.StringLoading</MudText>
-                    </LoadingContent>
-                    <PagerContent>
-                        <MudTablePager PageSizeOptions="new int[]{10, 50, 100, 200, 500, 1000}" />
-                    </PagerContent>
-                </MudTable>
-            </MudCardActions>
-        </MudCard>
+                </NoRecordsContent>
+                <LoadingContent>
+                    <MudText>@DashboardResource.StringLoading</MudText>
+                </LoadingContent>
+                <PagerContent>
+                    <MudTablePager PageSizeOptions="new int[]{10, 50, 100, 200, 500, 1000}" />
+                </PagerContent>
+            </MudTable>
+        </MudCardActions>
+    </MudCard>
 
-    </MaanfeeDashboardPage>
+</MaanfeeDashboardPage>

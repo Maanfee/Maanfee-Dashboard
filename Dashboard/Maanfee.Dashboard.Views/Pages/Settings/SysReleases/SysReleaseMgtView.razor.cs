@@ -130,13 +130,14 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
             DialogParameters parameters = new DialogParameters();
             parameters.Add("FilterViewModel", FilterViewModel);
 
-            var dialog = Dialog.Show<DialogFilter>(DashboardResource.StringSearch, parameters,
+            var dialog = await Dialog.ShowAsync<DialogFilter>(DashboardResource.StringSearch, parameters,
                 new DialogOptions()
                 {
                     NoHeader = true,
                     MaxWidth = MaxWidth.Small,
                     Position = DialogPosition.Center,
                     FullWidth = true,
+                    CloseOnEscapeKey = true,
                 });
 
             var result = await dialog.Result;
@@ -160,13 +161,15 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
             DialogParameters parameters = new DialogParameters();
             parameters.Add("Id", Id);
 
-            var dialog = Dialog.Show<DialogCrudate>(string.Empty, parameters,
+            var dialog = await Dialog.ShowAsync<DialogCrudate>(string.Empty, parameters,
                 new DialogOptions()
                 {
                     NoHeader = true,
                     MaxWidth = MaxWidth.ExtraExtraLarge,
                     FullWidth = true,
                     Position = DialogPosition.Center,
+                    BackgroundClass = "Dialog-Blur",
+                    CloseOnEscapeKey = true,
                 });
 
             var result = await dialog.Result;
@@ -185,18 +188,20 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
 
         #region - Details -
 
-        private void OpenDetailsDialog<T>(T Id)
+        private async Task OpenDetailsDialog<T>(T Id)
         {
             DialogParameters parameters = new DialogParameters();
             parameters.Add("Id", Id);
 
-            var dialog = Dialog.Show<DialogDetails>(string.Empty, parameters,
+            var dialog = await Dialog.ShowAsync<DialogDetails>(string.Empty, parameters,
                 new DialogOptions()
                 {
                     NoHeader = true,
                     MaxWidth = MaxWidth.ExtraLarge,
                     FullWidth = true,
                     Position = DialogPosition.Center,
+                    BackgroundClass = "Dialog-Blur",
+                    CloseOnEscapeKey = true,
                 });
         }
 
@@ -208,12 +213,13 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
         {
             DialogParameters parameters = new DialogParameters();
 
-            var dialog = Dialog.Show<DialogDelete>(DashboardResource.StringAlert, parameters,
+            var dialog = await Dialog.ShowAsync<DialogDelete>(DashboardResource.StringAlert, parameters,
                 new DialogOptions()
                 {
                     MaxWidth = MaxWidth.ExtraSmall,
                     FullWidth = true,
                     Position = DialogPosition.Center,
+                    CloseOnEscapeKey = true,
                 });
 
             var result = await dialog.Result;
@@ -249,5 +255,6 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
         }
 
         #endregion
+    
     }
 }

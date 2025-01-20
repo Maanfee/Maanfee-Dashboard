@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using System;
+﻿using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using System.Net.Http;
 
 namespace Maanfee.Dashboard.Views.Base.Services

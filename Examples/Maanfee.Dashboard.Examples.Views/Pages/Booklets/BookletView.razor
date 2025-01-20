@@ -6,15 +6,15 @@
     <MudButton OnClick="()=>OpenBookletDialog()" Color="Color.Dark" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.MenuBook">
         Booklet
     </MudButton>
-  @*   <BookletComponent />  *@
-  
+    @*   <BookletComponent />  *@
+
 </MaanfeeDashboardPage>
 
 @code {
 
-    private void OpenBookletDialog()
+    private async void OpenBookletDialog()
     {
-        Dialog.Show<BookletComponent>(string.Empty, new DialogOptions()
+        await Dialog.ShowAsync<BookletComponent>(string.Empty, new DialogOptions()
             {
                 NoHeader = true,
                 FullScreen = true,

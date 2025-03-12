@@ -3,7 +3,6 @@
 
 <MaanfeeDashboardPage>
     <MaanfeeDashboardPageHeader PageTitle="@DashboardResource.StringDepartment" />
-
     @if (!IsLoaded)
     {
         <PublicOverlay />
@@ -104,25 +103,6 @@
                 </MudGrid>
             </MudCardContent>
         </MudCard>
-
-        @*
-    <div style="width: 100%">
-    <MudText Typo="@Typo.subtitle1">Activated Key: @(ActivatedValue?.Id)
-
-    </MudText>
-    <MudText Typo="@Typo.subtitle1">Activated item: @(ActivatedValue?.Title)</MudText>
-    </div>
-
-    <MudTreeView Items="TreeItems" CanHover="true" ExpandOnClick="true" Color="Color.Tertiary"
-    @bind-ActivatedValue="ActivatedValue" @bind-SelectedValues="SelectedValues">
-    <ItemTemplate>
-    <MudTreeViewItem @bind-Expanded="@context.IsExpanded" Items="@context.TreeItems"
-    Value="@context" Text="@context.Title" EndTextTypo="@Typo.caption" />
-    </ItemTemplate>
-    </MudTreeView>
-    *@
-
     }
-
 </MaanfeeDashboardPage>
 

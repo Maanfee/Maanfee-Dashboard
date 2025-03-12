@@ -9,7 +9,7 @@
 <MaanfeeDashboardPage>
     <MaanfeeDashboardPageHeader PageTitle="@DashboardResource.StringDashboard" />
 
-    <p>The application is running in <strong>@Environment.Environment</strong> mode.</p>
+    @*   <p>The application is running in <strong>@Environment.Environment</strong> mode.</p>
     <p><strong>@GetType().Name</strong></p>
     <p><strong>@GetFilePath()</strong></p>
 
@@ -18,7 +18,7 @@
         {
         return filePath ?? "Unknown file path";
         }
-    }
+    } *@
 
     <MudGrid>
         <MudItem md="12" xs="12">
@@ -40,27 +40,30 @@
         </MudItem>
 
         <MudItem md="12" xs="12">
-            @*	<MudButton OnClick="@((e) => OpenDialog(fullScreen))" Variant="Variant.Filled" Color="Color.Secondary">
-            کتابی
+          @*   <MudButton OnClick="OpenDialog" Variant="Variant.Filled" Color="Color.Secondary">
+                کتابی
             </MudButton>
 
             @code {
 
-            private DialogOptions fullScreen = new DialogOptions()
-            {
-            FullScreen = true,
-            CloseButton = true,
-            NoHeader = true,
-            CloseOnEscapeKey = true,
-            };
+        private async Task OpenDialog()
+        {
+            DialogParameters DialogParameters = new DialogParameters();
 
-            private void OpenDialog(DialogOptions options)
+            var dialog = await Dialog.ShowAsync<DialogTest>(string.Empty, DialogParameters,
+            new DialogOptions()
             {
-            Dialog.Show<BookletComponent>(string.Empty, options);
+                NoHeader = true,
+                //FullScreen = true,
+                MaxWidth = MaxWidth.ExtraExtraLarge,
+                FullWidth = true,
+                Position = DialogPosition.Center,
+                BackgroundClass = "Dialog-Blur",
+            });
+        } *@
+
             }
 
-            }
-            *@
         </MudItem>
         <MudItem md="12" xs="12">
             @*	@Http.BaseAddress.AbsoluteUri*@

@@ -1,0 +1,65 @@
+﻿@*گزارش تحلیلی مساعدت بیش از یکبار*@
+
+<MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
+    <MudDialog>
+        <DialogContent>
+            <MudPaper>
+                <MudToolBar>
+                    <MudText Color="Color.Primary">@ReportTitle</MudText>
+                    <MudSpacer />
+                    <MudTooltip Text="@DashboardResource.StringReload" Color="Color.Tertiary" Arrow>
+                        <MudIconButton Icon="@Icons.Material.Outlined.Refresh" Color="Color.Secondary" />
+                    </MudTooltip>
+                    <MudTooltip Text="@DashboardResource.StringSearch" Color="Color.Tertiary" Arrow>
+                        <MudIconButton Icon="@Icons.Material.Filled.ManageSearch" Color="Color.Tertiary" />
+                    </MudTooltip>
+                    <MudTooltip Disabled Text="@DashboardResource.StringExportExcel" Color="Color.Tertiary" Arrow>
+                        <MudIconButton Icon="@Icons.Custom.FileFormats.FileExcel" Color="Color.Success" />
+                    </MudTooltip>
+                    <MudTooltip Text="@DashboardResource.StringCancel" Color="Color.Tertiary" Arrow>
+                        <MudIconButton Icon="@Icons.Material.Filled.Close" OnClick="Close" Color="Color.Error"></MudIconButton>
+                    </MudTooltip>
+                </MudToolBar>
+            </MudPaper>
+            <MudCard>
+                <MudCardContent>
+                    @if (!IsLoaded)
+                    {
+                        <DiagramOverlay />
+                    }
+                    else
+                    {
+
+                    }
+                </MudCardContent>
+            </MudCard>
+        </DialogContent>
+    </MudDialog>
+</MudRTLProvider>
+
+@code {
+
+    [CascadingParameter]
+    public IMudDialogInstance MudDialog { get; set; }
+
+    private void Close()
+    {
+        MudDialog.Close();
+    }
+
+    private bool IsLoaded = false;
+
+    // ******************************************
+
+    private string ReportTitle => $"گزارش تحلیلی مساعدت بیش از یکبار";
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsLoaded = false;
+
+        await base.OnInitializedAsync();
+
+        // IsLoaded = true;
+    }
+
+}

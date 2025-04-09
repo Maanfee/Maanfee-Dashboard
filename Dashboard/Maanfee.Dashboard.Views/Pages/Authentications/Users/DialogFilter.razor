@@ -1,6 +1,6 @@
 ﻿
 <MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
-    <MudDialog OnKeyDown="OnKeyDownAsync">
+    <MudDialog>
         <DialogContent>
             <MudCard Class="mt-2">
                 <MudPaper Elevation="3" Class="" Outlined="true" Square="true">
@@ -76,21 +76,6 @@
             Snackbar.Add(Callback.Error.ToString(), Severity.Error);
         }
         return Parents;
-    }
-
-    #endregion
-
-    #region - Key Events -
-
-    private async Task OnKeyDownAsync(KeyboardEventArgs args)
-    {
-        switch (args.Key)
-        {
-            case "Enter":
-            case "NumpadEnter":
-                await Search();
-                break;
-        }
     }
 
     #endregion

@@ -14,7 +14,7 @@
     <Copyright>Copyright (c) 2021-2025 Maanfee</Copyright>
     <Authors>Maanfee Team (MF)</Authors>
 		<Company>Maanfee</Company>
-		<Version>8.100.0</Version>
+		<Version>8.102.0</Version>
 		<PackageIcon>MaanfeePurple.png</PackageIcon>
 		<RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
@@ -32,8 +32,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.3" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="8.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.4" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>

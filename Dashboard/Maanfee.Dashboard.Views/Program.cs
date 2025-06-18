@@ -1,7 +1,6 @@
 using Maanfee.Dashboard.Views;
 using Maanfee.Dashboard.Views.Base.Extensions;
 using Maanfee.Dashboard.Views.Base.Services;
-using Maanfee.Dashboard.Views.Booklet;
 using Maanfee.Dashboard.Views.Core.Services;
 using Maanfee.Highcharts;
 using Maanfee.Logging.Console;
@@ -36,9 +35,6 @@ builder.Services.AddScoped<IPrintingService, PrintingService>();
 
 // JsQuery
 builder.Services.AddJsQuery();
-
-// Booklet
-builder.Services.AddBooklet();
 
 // File Download
 builder.Services.AddFileDownload();

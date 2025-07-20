@@ -367,6 +367,15 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string StringAllItemsText {
+            get {
+                return ResourceManager.GetString("StringAllItemsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Already have an account?.
         /// </summary>
         public static string StringAlreadyAccount {
@@ -786,6 +795,15 @@ namespace Maanfee.Dashboard.Resources {
         public static string StringImage {
             get {
                 return ResourceManager.GetString("StringImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {first_item}-{last_item} of {all_items}.
+        /// </summary>
+        public static string StringInfoFormat {
+            get {
+                return ResourceManager.GetString("StringInfoFormat", resourceCulture);
             }
         }
         
@@ -1227,6 +1245,15 @@ namespace Maanfee.Dashboard.Resources {
         public static string StringRole {
             get {
                 return ResourceManager.GetString("StringRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rows per page:.
+        /// </summary>
+        public static string StringRowsPerPage {
+            get {
+                return ResourceManager.GetString("StringRowsPerPage", resourceCulture);
             }
         }
         

@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MessageCannotInsertDuplicate" xml:space="preserve">
-    <value>This item has been already inserted</value>
-  </data>
-  <data name="MessageChangeIsNotPossible" xml:space="preserve">
-    <value>Change is not possible</value>
-  </data>
   <data name="MessageCompareReleases" xml:space="preserve">
     <value>The current version is {0} and the new version is {1}.</value>
   </data>
@@ -650,5 +644,20 @@
   </data>
   <data name="StringExportExcel" xml:space="preserve">
     <value>Export to Excel</value>
+  </data>
+  <data name="MessageChangeIsNotPossible" xml:space="preserve">
+    <value>Change is not possible</value>
+  </data>
+  <data name="MessageCannotInsertDuplicate" xml:space="preserve">
+    <value>This item has been already inserted</value>
+  </data>
+  <data name="StringRowsPerPage" xml:space="preserve">
+    <value>Rows per page:</value>
+  </data>
+  <data name="StringInfoFormat" xml:space="preserve">
+    <value>{first_item}-{last_item} of {all_items}</value>
+  </data>
+  <data name="StringAllItemsText" xml:space="preserve">
+    <value>All</value>
   </data>
 </root>

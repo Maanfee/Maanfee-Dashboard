@@ -44,7 +44,7 @@
                         </MudTooltip>
                     </MudHidden>
                     @* ********************************* *@
-                    <MudMenu AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.BottomRight" Dense="true" Class="mt-1 ml-4">
+                    <MudMenu AnchorOrigin="Origin.BottomCenter" Dense="true" Class="mt-1 ml-4">
                         <ActivatorContent>
                             <MudAvatar Style="height:50px; width:50px;">
                                 <MudImage Src="@AccountStateContainer.Avatar" />
@@ -52,7 +52,6 @@
                         </ActivatorContent>
                         <ChildContent>
                             <ComponentsUserCard Class="mt-n2" />
-                            <MudDivider Class="mb-2" />
                             <MudListItem T="string" Text="@DashboardResource.StringAccount" OnClick="OpenUserAccountDialog" Icon="@Icons.Material.Outlined.Person" />
                             <MudListItem T="string" Text="@DashboardResource.StringConfiguration" Icon="@Icons.Material.Filled.Settings" OnClick="OpenConfigurationDialog" />
                             <MudDivider />

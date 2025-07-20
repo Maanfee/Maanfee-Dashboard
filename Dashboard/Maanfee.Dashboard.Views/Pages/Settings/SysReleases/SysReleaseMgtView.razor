@@ -84,7 +84,10 @@
                     <MudText>@DashboardResource.StringLoading</MudText>
                 </LoadingContent>
                 <PagerContent>
-                    <MudTablePager PageSizeOptions="new int[]{10, 50, 100, 200, 500, 1000}" />
+                    <MudTablePager PageSizeOptions="new int[] { 10, 50, 100, 200, 500, 1000, int.MaxValue }"
+                                   RowsPerPageString="@DashboardResource.StringRowsPerPage"
+                                   InfoFormat="@DashboardResource.StringInfoFormat" AllItemsText="@DashboardResource.StringAllItemsText"
+                                   HorizontalAlignment=" HorizontalAlignment.Start" />
                 </PagerContent>
             </MudTable>
         </MudCardActions>

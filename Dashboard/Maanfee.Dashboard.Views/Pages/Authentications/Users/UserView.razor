@@ -71,13 +71,13 @@
                     <MudTd>@context?.UserDepartmentsTitle</MudTd>
                     <MudTd>
                         <MudTooltip Text="@DashboardResource.StringDetails" Color="Color.Tertiary" Arrow>
-                            <MudIconButton OnClick="()=>OpenDetailsDialog(context.Id)" Icon="@Icons.Material.Filled.Details" Color="Color.Primary" Size="Size.Small"></MudIconButton>
+                            <MudIconButton OnClick="() => OpenDetailsDialog(context.Id)" Icon="@Icons.Material.Filled.Details" Color="Color.Primary" Size="Size.Small"></MudIconButton>
                         </MudTooltip>
                         <MudTooltip Text="@DashboardResource.StringEdit" Color="Color.Tertiary" Arrow>
-                            <MudIconButton Disabled="@(!_PermissionEdit)" OnClick="()=>OpenCrudateDialog(context.Id)" Icon="@Icons.Material.Filled.Edit" Color="Color.Success" Size="Size.Small"></MudIconButton>
+                            <MudIconButton Disabled="@(!_PermissionEdit)" OnClick="() => OpenCrudateDialog(context.Id)" Icon="@Icons.Material.Filled.Edit" Color="Color.Success" Size="Size.Small"></MudIconButton>
                         </MudTooltip>
                         <MudTooltip Text="@DashboardResource.StringDelete" Color="Color.Tertiary" Arrow>
-                            <MudIconButton Disabled="@(!_PermissionDelete)" OnClick="()=>OpenDeleteDialog(context.Id)" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"></MudIconButton>
+                            <MudIconButton Disabled="@(!_PermissionDelete)" OnClick="() => OpenDeleteDialog(context.Id)" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"></MudIconButton>
                         </MudTooltip>
                     </MudTd>
                 </RowTemplate>
@@ -88,7 +88,10 @@
                     <MudText>@DashboardResource.StringLoading</MudText>
                 </LoadingContent>
                 <PagerContent>
-                    <MudTablePager />
+                    <MudTablePager PageSizeOptions="new int[] { 10, 50, 100, 200, 500, 1000, int.MaxValue }"
+                                   RowsPerPageString="@DashboardResource.StringRowsPerPage"
+                                   InfoFormat="@DashboardResource.StringInfoFormat" AllItemsText="@DashboardResource.StringAllItemsText"
+                                   HorizontalAlignment=" HorizontalAlignment.Start" />
                 </PagerContent>
             </MudTable>
         </MudCardActions>

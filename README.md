@@ -35,9 +35,50 @@
 - [SQLite](https://www.sqlite.org/index.html) 
 
 ## How to build solution 
-- Open 'Mcafee.Dashboard.Server' project and then
-configure 'connection string' in appsettings.json. 
-- Run solution
+### SQL Server Connection String Configuration
+
+In the `appsettings.json` file of the `Maanfee.Dashboard.Server` and `Maanfee.Logging.Server` projects, set the `SQLServerConnection_DebugMode` connection string as follows:
+
+```json
+{
+  "ConnectionStrings": {
+    "SQLServerConnection_DebugMode": "Your_Connection_String_Here"
+  }
+}
+```
+
+### Configuration Details
+
+#### Local SQL Server (Windows Authentication)
+```text
+Server=.;Database=YourDB;Trusted_Connection=True;
+```
+
+#### Remote SQL Server (SQL Authentication)
+```text
+Server=your_server_ip;Database=YourDB;User Id=username;Password=password;
+```
+
+#### Common Parameters
+- `Server`: Server name/IP (`.` for local)
+- `Database`: Database name
+- `Trusted_Connection`: Windows authentication
+- `User Id/Password`: SQL authentication
+- `MultipleActiveResultSets`: Enable MARS feature
+
+> Note: Always keep connection strings secure and never commit sensitive credentials to version control.
+### Project startup Configuration 
+Right click on the solution name and then select 
+"properties->multiple startup projects" then set followings project 
+as startup.
+
+-`Maanfee.Dashboard.Server` 
+
+-`Gateway.Api`
+
+-`Maanfee.Logging.Server`
+
+### Run solution
 ![image](SolutionItems/Screenshots/VisualStudio.png)
 - Default login credentials
     - Username : Admin

@@ -80,7 +80,10 @@
                 <MudText>@DashboardResource.StringLoading</MudText>
             </LoadingContent>
             <PagerContent>
-                <MudTablePager PageSizeOptions="new int[]{10, 50, 100, 200, 500, 1000, 2000, 5000}" />
+                <MudTablePager PageSizeOptions="new int[] { 10, 50, 100, 200, 500, 1000, int.MaxValue }"
+                               RowsPerPageString="@DashboardResource.StringRowsPerPage"
+                               InfoFormat="@DashboardResource.StringInfoFormat" AllItemsText="@DashboardResource.StringAllItemsText"
+                               HorizontalAlignment=" HorizontalAlignment.Start" />
             </PagerContent>
         </MudTable>
     </MudCardActions>
@@ -112,12 +115,12 @@
             }
 
             TableState.state = new TableState
-                {
-                    Page = state.Page,
-                    PageSize = state.PageSize,
-                    SortDirection = state.SortDirection,
-                    SortLabel = state.SortLabel,
-                };
+            {
+                Page = state.Page,
+                PageSize = state.PageSize,
+                SortDirection = state.SortDirection,
+                SortLabel = state.SortLabel,
+            };
 
             if (FilterViewModel != null)
             {
@@ -130,23 +133,23 @@
                 var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<PaginatedListViewModel<LogInfo>>>();
 
                 Data = JsonResult.Data.List.AsEnumerable().Select((data, index) => new GetLogInfo
-                    {
-                        RowNum = ((state.Page - 1) * state.PageSize) + (index + 1),
-                        Id = data.Id,
-                        Message = data?.Message,
-                        LogDate = data.LogDate,
-                        LoggingLevelTitle = data?.LoggingLevel?.Title,
-                        LoggingPlatformTitle = data?.LoggingPlatform?.Title,
-                    }).ToList();
+                {
+                    RowNum = ((state.Page - 1) * state.PageSize) + (index + 1),
+                    Id = data.Id,
+                    Message = data?.Message,
+                    LogDate = data.LogDate,
+                    LoggingLevelTitle = data?.LoggingLevel?.Title,
+                    LoggingPlatformTitle = data?.LoggingPlatform?.Title,
+                }).ToList();
 
                 IsTableLoading = false;
                 TableState.Dispose();
 
                 return new TableData<GetLogInfo>()
-                    {
-                        TotalItems = JsonResult.Data.TotalPages,
-                        Items = Data
-                    };
+                {
+                    TotalItems = JsonResult.Data.TotalPages,
+                    Items = Data
+                };
             }
             else
             {
@@ -154,10 +157,10 @@
                 IsTableLoading = false;
                 TableState.Dispose();
                 return new TableData<GetLogInfo>()
-                    {
-                        Items = Data,
-                        TotalItems = 0,
-                    };
+                {
+                    Items = Data,
+                    TotalItems = 0,
+                };
             }
         }
         catch (Exception ex)
@@ -166,10 +169,10 @@
             IsTableLoading = false;
             TableState.Dispose();
             return new TableData<GetLogInfo>()
-                {
-                    Items = Data,
-                    TotalItems = 0,
-                };
+            {
+                Items = Data,
+                TotalItems = 0,
+            };
         }
     }
 
@@ -189,13 +192,13 @@
 
         var dialog = await Dialog.ShowAsync<DialogFilter>(DashboardResource.StringSearch, parameters,
             new DialogOptions()
-                {
-                    NoHeader = true,
-                    MaxWidth = MaxWidth.Large,
-                    Position = DialogPosition.Center,
-                    FullWidth = true,
-                    CloseOnEscapeKey = true,
-                });
+            {
+                NoHeader = true,
+                MaxWidth = MaxWidth.Large,
+                Position = DialogPosition.Center,
+                FullWidth = true,
+                CloseOnEscapeKey = true,
+            });
 
         var result = await dialog.Result;
 

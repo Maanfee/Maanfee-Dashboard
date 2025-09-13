@@ -1,6 +1,4 @@
 ﻿using Microsoft.JSInterop;
-using System;
-using System.Threading.Tasks;
 
 namespace Maanfee.Web.Core
 {
@@ -28,6 +26,12 @@ namespace Maanfee.Web.Core
         {
             var Module = await moduleTask.Value;
             await Module.InvokeVoidAsync("DownloadFileFromStream", FileName, Stream);
+        }
+
+        public async Task DownloadFileFromUrl(string fileName, string url)
+        {
+            var Module = await moduleTask.Value;
+            await Module.InvokeVoidAsync("DownloadFileFromUrl", fileName, url);
         }
 
     }

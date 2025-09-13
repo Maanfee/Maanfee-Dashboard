@@ -1,7 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Maanfee.Web.Core
 {
@@ -52,6 +49,22 @@ namespace Maanfee.Web.Core
             var count = await Task.Run(() => source.Count());
             var items = await Task.Run(() => source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList());
             return new PaginatedList<T>(items, count, pageIndex, pageSize);
+        }
+
+        public static async Task<PaginatedList<T>> ClearAsync(IQueryable<T> source)
+        {
+            var count = await source.CountAsync();
+            var items = await source.ToListAsync();
+            items.Clear();
+            return new PaginatedList<T>(items, 0, 1, 10);
+        }
+
+        public static async Task<PaginatedList<T>> ClearAsync(IList<T> source)
+        {
+            var count = await Task.Run(() => source.Count());
+            var items = await Task.Run(() => source.ToList());
+            items.Clear();
+            return new PaginatedList<T>(items, 0, 1, 10);
         }
     }
 

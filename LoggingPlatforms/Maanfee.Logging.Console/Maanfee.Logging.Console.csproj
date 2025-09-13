@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
 		<TieredPGO>true</TieredPGO>
 		<!--**********************************************-->
-		<DebugType>none</DebugType>
+    <DebugType>none</DebugType>
 		<RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
 		<RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
 		<RunAnalyzers>false</RunAnalyzers>
@@ -14,7 +14,7 @@
 		<Copyright>Copyright (c) 2023-2024 Maanfee</Copyright>
 		<Authors>Maanfee Team (MF)</Authors>
 		<Company>Maanfee</Company>
-		<Version>2.6.0</Version>
+		<Version>2.9.0</Version>
 		<RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -27,11 +27,11 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components" Version="9.0.8" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.8" />
-		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="9.0.8" />
+		<PackageReference Include="Microsoft.AspNetCore.Components" Version="9.0.9" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.9" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="9.0.9" />
 		<PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.2.0" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.8" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.9" />
 	</ItemGroup>
 	
 	<ItemGroup>

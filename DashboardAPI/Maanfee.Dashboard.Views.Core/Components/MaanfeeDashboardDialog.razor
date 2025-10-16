@@ -1,0 +1,70 @@
+﻿@namespace Maanfee.Dashboard.Views.Core
+
+<MudRTLProvider RightToLeft="@IsRTL">
+    <MudDialog OnKeyDown="@OnKeyDown" @attributes="AdditionalAttributes">
+        <DialogContent>
+            @if (!IsLoaded)
+            {
+                <DashboardOverlay Random="true" />
+            }
+            else
+            {
+                <MudPaper Elevation="25">
+                    <MudPaper Elevation="25">
+                        <MudToolBar Dense>
+                            <MudText Color="Color.Primary">
+                                @Title
+                            </MudText>
+                            <MudSpacer />
+                            @MaanfeeDashboardDialogActionContent
+                            <MudTooltip Text="@DashboardResource.StringCancel" Color="Color.Tertiary" Arrow>
+                                <MudIconButton OnClick="@(() => Close())" Icon="@Icons.Material.Filled.Close" Color="Color.Error" />
+                            </MudTooltip>
+                        </MudToolBar>
+                    </MudPaper>
+                    <MudDivider DividerType="DividerType.FullWidth" />
+                    <MudCardContent>
+                        @MaanfeeDashboardDialogContent
+                    </MudCardContent>
+                </MudPaper>
+            }
+        </DialogContent>
+    </MudDialog>
+</MudRTLProvider>
+
+@code {
+
+    [CascadingParameter]
+    public IMudDialogInstance MudDialog { get; set; }
+
+    public void Close() => MudDialog?.Close();
+
+    public void Close(DialogResult result) => MudDialog?.Close(result);
+
+    // ***************************************************
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> AdditionalAttributes { get; set; }
+
+    [Parameter]
+    public RenderFragment MaanfeeDashboardDialogContent { get; set; }
+
+    [Parameter]
+    public bool IsLoaded { get; set; } = true;
+
+    [Parameter]
+    public bool IsRTL { get; set; } = true;
+
+    // ********************* Title *********************
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public RenderFragment MaanfeeDashboardDialogActionContent { get; set; }
+
+    // ********************* Events *********************
+
+    [Parameter]
+    public EventCallback<KeyboardEventArgs> OnKeyDown { get; set; }
+}

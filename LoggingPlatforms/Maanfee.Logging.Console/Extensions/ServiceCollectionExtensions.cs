@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 
 namespace Maanfee.Logging.Console
@@ -10,17 +11,17 @@ namespace Maanfee.Logging.Console
     {
         public static IServiceCollection AddLoggingConsole(this IServiceCollection services)
         {
-            services.AddSingleton<HubConnection>(sp =>
+            services.TryAddSingleton<HubConnection>(sp =>
             {
                 var NavigationManager = sp.GetRequiredService<NavigationManager>();
 
                 return new HubConnectionBuilder()
-                         .WithUrl(NavigationManager.ToAbsoluteUri("/LoggingHub"))
+                         .WithUrl(NavigationManager.ToAbsoluteUri($"/{HubName.Name}"))
                          .WithAutomaticReconnect()
                          .Build();
             });
 
-            services.AddSingleton<LoggingInitializer>();
+            services.TryAddSingleton<LoggingInitializer>();
 
             return services;
         }
@@ -32,30 +33,25 @@ namespace Maanfee.Logging.Console
                 throw new ArgumentNullException("Address Error ...");
             }
 
-            services.AddSingleton<HubConnection>(sp =>
+            services.TryAddSingleton<HubConnection>(sp =>
             {
                 var HostEnvironment = sp.GetRequiredService<IHostEnvironment>();
 
                 if (HostEnvironment.IsDevelopment())
                 {
                     return new HubConnectionBuilder()
-                           .WithUrl($"{LocalAddress}LoggingHub")
+                           .WithUrl($"{LocalAddress}{HubName.Name}")
                            .WithAutomaticReconnect()
                            .Build();
                 }
 
                 return new HubConnectionBuilder()
-                           .WithUrl($"{PhysicalAddress}LoggingHub")
+                           .WithUrl($"{PhysicalAddress}{HubName.Name}")
                            .WithAutomaticReconnect()
                            .Build();
-
-                //return new HubConnectionBuilder()
-                //         .WithUrl("http://localhost:22001/LoggingHub")
-                //         .WithAutomaticReconnect()
-                //         .Build();
             });
 
-            services.AddSingleton<LoggingInitializer>();
+            services.TryAddSingleton<LoggingInitializer>();
 
             return services;
         }

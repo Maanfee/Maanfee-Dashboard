@@ -53,7 +53,6 @@ namespace Maanfee.Dashboard.Server
             #endregion
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, _BaseContext_SQLServer SQLServerContext
            , _BaseContext_SQLite SQLiteContext, _BaseContext_InMemory InMemoryContext)
         {
@@ -116,7 +115,7 @@ namespace Maanfee.Dashboard.Server
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("index.html");
-                endpoints.MapHub<LoggingHub>("/LoggingHub");
+                endpoints.MapHub<LoggingHub>($"/{HubName.Name}");
             });
         }
 

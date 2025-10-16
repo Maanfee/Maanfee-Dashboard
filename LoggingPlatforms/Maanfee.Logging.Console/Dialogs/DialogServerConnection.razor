@@ -1,5 +1,7 @@
-﻿
-<MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
+﻿@namespace Maanfee.Logging.Console
+@using MudBlazor
+
+<MudRTLProvider RightToLeft="@IsRTL">
     <MudDialog Style="background-color:black">
         <DialogContent>
             <MudCardContent>
@@ -11,17 +13,17 @@
                     </MudItem>
                     <MudItem md="12">
                         <MudText Align="Align.Center" Color="Color.Error" Typo="Typo.h5">
-                            @DashboardResource.StringServerConnectionError
+                            @Maanfee.Logging.Console.Resources.Resource.StringServerConnectionError
                         </MudText>
                     </MudItem>
                     <MudItem md="12" Style="text-align: center !important;">
                         <MudText Style="color:white;" Typo="Typo.button">
-                            @DashboardResource.StringServerConnectionTemporarilyInterrupted
+                            @Maanfee.Logging.Console.Resources.Resource.StringServerConnectionTemporarilyInterrupted
                         </MudText>
                     </MudItem>
                     <MudItem md="12" Style="text-align: center !important;">
                         <MudText Color="Color.Success" Typo="Typo.button">
-                            @DashboardResource.StringServerConnectionAutomaticallyReconnected
+                            @Maanfee.Logging.Console.Resources.Resource.StringServerConnectionAutomaticallyReconnected
                         </MudText>
                     </MudItem>
                 </MudGrid>
@@ -38,5 +40,10 @@
     private void Close() => MudDialog.Close();
 
     // *****************************************************
+
+    [Parameter]
+    public bool IsRTL { get; set; } = false;
+
+
 
 }

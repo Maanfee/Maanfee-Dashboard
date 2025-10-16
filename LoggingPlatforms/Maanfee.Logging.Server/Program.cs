@@ -1,10 +1,10 @@
+using Maanfee.Logging.Console;
 using Maanfee.Logging.Domain.DAL;
 using Maanfee.Logging.Server.Data;
+using Maanfee.Logging.Server.Services;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using Maanfee.Logging.Console;
-using Maanfee.Logging.Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();

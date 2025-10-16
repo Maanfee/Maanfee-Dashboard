@@ -4,6 +4,7 @@ using Maanfee.Dashboard.Views.Base.Services;
 using Maanfee.Dashboard.Views.Core.Services;
 using Maanfee.Highcharts;
 using Maanfee.Logging.Console;
+using Maanfee.Lottie;
 using Maanfee.Web.Core;
 using Maanfee.Web.JSInterop;
 using Maanfee.Web.Printing;
@@ -47,6 +48,9 @@ builder.Services.AddLoggingConsole();
 
 // GatewayApi
 builder.Services.AddScoped<GatewayApi>();
+
+// Lottie
+builder.Services.AddLottie();
 
 var host = builder.Build();
 

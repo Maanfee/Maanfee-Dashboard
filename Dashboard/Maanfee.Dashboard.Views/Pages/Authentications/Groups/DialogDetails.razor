@@ -1,49 +1,21 @@
 ﻿@inherits _BaseView
 
-<MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
-    <MudDialog>
-        <DialogContent>
-            @if (!IsLoaded)
-            {
-                <FormOverlay />
-            }
-            else
-            {
-                <MudCard Class="mt-2">
-                    <MudPaper Elevation="25">
-                        <MudToolBar Dense>
-                            <MudText Color="Color.Primary">
-                                @DashboardResource.StringGroup
-                            </MudText>
-                            <MudSpacer />
-                            <MudTooltip Text="@DashboardResource.StringCancel" Color="Color.Tertiary" Arrow>
-                                <MudIconButton OnClick="Close" Icon="@Icons.Material.Filled.Close" Color="Color.Error" />
-                            </MudTooltip>
-                        </MudToolBar>
-                    </MudPaper>
-                    <MudDivider DividerType="DividerType.FullWidth" />
-                    <MudCardContent>
-                        <MudGrid>
-                            <MudItem md="12">
-                                <MudField Disabled="true" Label="@DashboardResource.StringTitle" Variant="Variant.Outlined"
-                                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Title">
-                                    @Details.Title
-                                </MudField>
-                            </MudItem>
-                        </MudGrid>
-                    </MudCardContent>
-                </MudCard>
-            }
-        </DialogContent>
-    </MudDialog>
-</MudRTLProvider>
+<MaanfeeDashboardDialog @ref="MDialog" IsLoaded="IsLoaded" Title="@DashboardResource.StringGroup" IsRTL="SharedLayoutSettings.IsRTL">
+    <MaanfeeDashboardDialogContent>
+        <MudGrid>
+            <MudItem md="12">
+                <MudField Disabled="true" Label="@DashboardResource.StringTitle" Variant="Variant.Outlined"
+                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Title">
+                    @Details.Title
+                </MudField>
+            </MudItem>
+        </MudGrid>
+    </MaanfeeDashboardDialogContent>
+</MaanfeeDashboardDialog>
 
 @code {
 
-    [CascadingParameter]
-    public IMudDialogInstance MudDialog { get; set; }
-
-    private void Close() => MudDialog.Close();
+    private MaanfeeDashboardDialog MDialog = new();
 
     // *****************************************************
 

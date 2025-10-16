@@ -96,19 +96,11 @@ namespace Maanfee.Dashboard.Views.Base
 			[Display(Name = nameof(DashboardResource.StringSwagger))]
 			public const string Swagger = "Permission.Settings.SwaggersView";
 
-            [Display(Name = nameof(DashboardResource.StringMonitoringLogs))]
+            [Display(Name = nameof(Maanfee.Logging.Console.Resources.Resource.StringMonitoringLogs))]
             public const string MonitorLogs = "Permission.Settings.MonitorLogs";
         }
 
 		#endregion
-
-		//[Display(Name = nameof(AppResource.StringReports))]
-		//[Description("Reports")]
-		//public static class Reports
-		//{
-		//    [Display(Name = nameof(AppResource.StringList))]
-		//    public const string View = "Permission.Reports.View";
-		//}
 
 	}
 }

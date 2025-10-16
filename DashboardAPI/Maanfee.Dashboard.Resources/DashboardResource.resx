@@ -360,9 +360,6 @@
   <data name="StringLoading" xml:space="preserve">
     <value>Loading...</value>
   </data>
-  <data name="StringLogHistory" xml:space="preserve">
-    <value>Log History</value>
-  </data>
   <data name="StringLogout" xml:space="preserve">
     <value>Logout</value>
   </data>
@@ -380,9 +377,6 @@
   </data>
   <data name="StringModuleName" xml:space="preserve">
     <value>Module</value>
-  </data>
-  <data name="StringMonitoringLogs" xml:space="preserve">
-    <value>Monitoring logs</value>
   </data>
   <data name="StringName" xml:space="preserve">
     <value>Name</value>
@@ -512,15 +506,6 @@
   </data>
   <data name="StringSend" xml:space="preserve">
     <value>Send</value>
-  </data>
-  <data name="StringServerConnectionAutomaticallyReconnected" xml:space="preserve">
-    <value>After reconnecting, this message will be automatically deleted</value>
-  </data>
-  <data name="StringServerConnectionError" xml:space="preserve">
-    <value>SERVER CONNECTION ERROR</value>
-  </data>
-  <data name="StringServerConnectionTemporarilyInterrupted" xml:space="preserve">
-    <value>The connection with the server is temporarily interrupted and it is not possible to complete the request</value>
   </data>
   <data name="StringSettings" xml:space="preserve">
     <value>Settings</value>

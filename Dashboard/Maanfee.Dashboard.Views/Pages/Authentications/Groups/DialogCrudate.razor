@@ -1,66 +1,40 @@
 ﻿@inherits _BaseView
 
-<MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
-    <EditForm OnValidSubmit="OnSubmit" Model="SubmitGroupViewModel">
-        <DataAnnotationsValidator />
-        <MudDialog>
-            <DialogContent>
-                @if (!IsLoaded)
-                {
-                    <FormOverlay />
-                }
-                else
-                {
-                    <MudCard Class="mt-2">
-                        <MudPaper Elevation="25">
-                            <MudToolBar Dense>
-                                <MudText Color="Color.Primary">
-                                    @DashboardResource.StringGroup
-                                </MudText>
-                                <MudSpacer />
-                                <MudTooltip Text="@DashboardResource.StringCreate" Color="Color.Tertiary" Arrow>
-                                    <MudIconButton Disabled="@IsProcessing" ButtonType="ButtonType.Submit" Icon="@Icons.Material.Filled.Save" Color="Color.Tertiary">
-                                        @if (IsProcessing)
-                                        {
-                                            <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="ms-n1" />
-                                            <MudText Class="ms-2">@DashboardResource.StringProcessing</MudText>
-                                        }
-                                        else
-                                        {
-                                            <MudIcon Icon="@Icons.Material.Filled.Save" Color="Color.Surface" Class="mx-1" />
-                                            <MudText>@DashboardResource.StringSave</MudText>
-                                        }
-                                    </MudIconButton>
-                                </MudTooltip>
-                                <MudTooltip Text="@DashboardResource.StringCancel" Color="Color.Tertiary" Arrow>
-                                    <MudIconButton OnClick="Close" Icon="@Icons.Material.Filled.Close" Color="Color.Error" />
-                                </MudTooltip>
-                            </MudToolBar>
-                        </MudPaper>
-                        <MudDivider DividerType="DividerType.FullWidth" />
-                        <MudCardContent>
-                            <MudGrid>
-                                <MudItem md="12">
-                                    <MudTextField @bind-Value="SubmitGroupViewModel.Title" Variant="Variant.Outlined"
-                                                  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Title" Clearable
-                                                  For="@(() => SubmitGroupViewModel.Title)"
-                                                  Label="@DashboardResource.StringTitle" />
-                                </MudItem>
-                            </MudGrid>
-                        </MudCardContent>
-                    </MudCard>
-                }
-            </DialogContent>
-        </MudDialog>
-    </EditForm>
-</MudRTLProvider>
+<EditForm OnValidSubmit="OnSubmit" Model="SubmitGroupViewModel">
+    <DataAnnotationsValidator />
+    <MaanfeeDashboardDialog @ref="MDialog" IsLoaded="IsLoaded" Title="@DashboardResource.StringGroup" IsRTL="SharedLayoutSettings.IsRTL">
+        <MaanfeeDashboardDialogActionContent>
+            <MudTooltip Text="@DashboardResource.StringCreate" Color="Color.Tertiary" Arrow>
+                <MudIconButton Disabled="@IsProcessing" ButtonType="ButtonType.Submit" Icon="@Icons.Material.Filled.Save" Color="Color.Tertiary">
+                    @if (IsProcessing)
+                    {
+                        <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="ms-n1" />
+                        <MudText Class="ms-2">@DashboardResource.StringProcessing</MudText>
+                    }
+                    else
+                    {
+                        <MudIcon Icon="@Icons.Material.Filled.Save" Color="Color.Surface" Class="mx-1" />
+                        <MudText>@DashboardResource.StringSave</MudText>
+                    }
+                </MudIconButton>
+            </MudTooltip>
+        </MaanfeeDashboardDialogActionContent>
+        <MaanfeeDashboardDialogContent>
+            <MudGrid>
+                <MudItem md="12">
+                    <MudTextField @bind-Value="SubmitGroupViewModel.Title" Variant="Variant.Outlined"
+                                  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Title" Clearable
+                                  For="@(() => SubmitGroupViewModel.Title)"
+                                  Label="@DashboardResource.StringTitle" />
+                </MudItem>
+            </MudGrid>
+        </MaanfeeDashboardDialogContent>
+    </MaanfeeDashboardDialog>
+</EditForm>
 
 @code {
 
-    [CascadingParameter]
-    public IMudDialogInstance MudDialog { get; set; }
-
-    private void Close() => MudDialog.Close();
+    private MaanfeeDashboardDialog MDialog = new();
 
     // *****************************************************
 
@@ -115,7 +89,7 @@
                     if (JsonResult.Data != null)
                     {
                         Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
-                        MudDialog.Close(DialogResult.Ok(SubmitGroupViewModel));
+                        MDialog.Close(DialogResult.Ok(SubmitGroupViewModel));
                     }
                     else
                     {
@@ -136,7 +110,7 @@
                     if (JsonResult.Data != null)
                     {
                         Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
-                        MudDialog.Close(DialogResult.Ok(SubmitGroupViewModel));
+                        MDialog.Close(DialogResult.Ok(SubmitGroupViewModel));
                     }
                     else
                     {

@@ -5,7 +5,7 @@
     <MaanfeeDashboardPageHeader PageTitle="@DashboardResource.StringDepartment" />
     @if (!IsLoaded)
     {
-        <PublicOverlay />
+        <DashboardOverlay Random="true" />
     }
     else
     {
@@ -26,15 +26,15 @@
                                     <MudGrid>
                                         <MudItem md="12" xs="12">
                                             <MudTextField Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AccountTree"
-                                                      @bind-Value="SubmitDepartmentViewModel.Title"
-                                                      For="@(() => SubmitDepartmentViewModel.Title)"
-                                                      Label="@DashboardResource.StringDepartment" />
+                                                          @bind-Value="SubmitDepartmentViewModel.Title"
+                                                          For="@(() => SubmitDepartmentViewModel.Title)"
+                                                          Label="@DashboardResource.StringDepartment" />
                                         </MudItem>
                                         <MudItem md="12" xs="12">
                                             <MudAutocomplete T="DropDownDepartmentViewModel" Label="@DashboardResource.StringParent"
-                                                         ResetValueOnEmptyText="true" Clearable="true" MaxItems="null"
-                                                         @bind-Value="SubmitDepartmentViewModel.Parent" Variant="Variant.Outlined"
-                                                         SearchFunc="GetParentsAsync" ToStringFunc="@(e=> e==null?null : $"{e.Title}")" />
+                                                             ResetValueOnEmptyText="true" Clearable="true" MaxItems="null"
+                                                             @bind-Value="SubmitDepartmentViewModel.Parent" Variant="Variant.Outlined"
+                                                             SearchFunc="GetParentsAsync" ToStringFunc="@(e=> e==null?null : $"{e.Title}")" />
                                         </MudItem>
                                     </MudGrid>
                                 </MudCardContent>
@@ -60,13 +60,13 @@
                                     @if (CanDelete)
                                     {
                                         <MudButton OnClick="@((e) => OpenDeleteDialog())" Variant="Variant.Filled" Color="Color.Error"
-                                           Disabled=@(SubmitDepartmentViewModel?.Id == 0 ||SubmitDepartmentViewModel?.Id == null ? true : false)>
+                                                   Disabled=@(SubmitDepartmentViewModel?.Id == 0 ||SubmitDepartmentViewModel?.Id == null ? true : false)>
                                             <MudIcon Icon="@Icons.Material.Filled.DeleteForever" Color="Color.Surface" />
                                             <MudText>@DashboardResource.StringDelete</MudText>
                                         </MudButton>
                                     }
-                                    <MudButton OnClick="@ResetAsync" Variant="Variant.Filled" Color="Color.Secondary" 
-                                        StartIcon="@Icons.Material.Filled.Refresh" IconColor="Color.Surface">
+                                    <MudButton OnClick="@ResetAsync" Variant="Variant.Filled" Color="Color.Secondary"
+                                               StartIcon="@Icons.Material.Filled.Refresh" IconColor="Color.Surface">
                                         @DashboardResource.StringReload
                                     </MudButton>
                                 </MudStack>
@@ -94,7 +94,7 @@
                                 <MudTreeViewOld Items="Departments" Hover="true" Color="Color.Tertiary" @bind-SelectedValue="SelectedValue">
                                     <ItemTemplate>
                                         <MudTreeViewItemOld Items="@context.Department1" Expanded="true"
-                                                     Value="@context" Text="@context.Title" EndTextTypo="@Typo.caption" />
+                                                            Value="@context" Text="@context.Title" EndTextTypo="@Typo.caption" />
                                     </ItemTemplate>
                                 </MudTreeViewOld>
                             </MudCardContent>

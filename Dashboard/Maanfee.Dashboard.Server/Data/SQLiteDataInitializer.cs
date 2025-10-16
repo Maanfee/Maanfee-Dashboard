@@ -1,8 +1,7 @@
 ﻿using Maanfee.Dashboard.Domain.DAL;
+using Maanfee.Dashboard.Domain.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using Maanfee.Dashboard.Domain.DefaultValues;
-using Maanfee.Dashboard.Domain.Entities;
 
 namespace Maanfee.Dashboard.Server
 {

@@ -360,9 +360,6 @@
   <data name="StringLoading" xml:space="preserve">
     <value>در حال بارگزاری ...</value>
   </data>
-  <data name="StringLogHistory" xml:space="preserve">
-    <value>تاریخچه فعالیت ها</value>
-  </data>
   <data name="StringLogout" xml:space="preserve">
     <value>خروج</value>
   </data>
@@ -380,9 +377,6 @@
   </data>
   <data name="StringModuleName" xml:space="preserve">
     <value>ماژول</value>
-  </data>
-  <data name="StringMonitoringLogs" xml:space="preserve">
-    <value>نظارت بر فعالیت‌های روزانه</value>
   </data>
   <data name="StringName" xml:space="preserve">
     <value>نام و نام خانوادگی</value>
@@ -512,15 +506,6 @@
   </data>
   <data name="StringSend" xml:space="preserve">
     <value>ارسال</value>
-  </data>
-  <data name="StringServerConnectionAutomaticallyReconnected" xml:space="preserve">
-    <value>پس از اتصال مجدد، این پیام به طور خودکار حذف می شود</value>
-  </data>
-  <data name="StringServerConnectionError" xml:space="preserve">
-    <value>خطای اتصال سرور</value>
-  </data>
-  <data name="StringServerConnectionTemporarilyInterrupted" xml:space="preserve">
-    <value>ارتباط با سرور به طور موقت قطع شده و امکان تکمیل درخواست وجود ندارد</value>
   </data>
   <data name="StringSettings" xml:space="preserve">
     <value>تنظیمات</value>

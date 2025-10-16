@@ -2,14 +2,14 @@
 @inherits _BaseView
 
 <MaanfeeDashboardPage>
-    <MaanfeeDashboardPageHeader PageTitle="@DashboardResource.StringMonitoringLogs" />
+    <MaanfeeDashboardPageHeader PageTitle="@Maanfee.Logging.Console.Resources.Resource.StringMonitoringLogs" />
 
     <MudTabs Elevation="2" Rounded ApplyEffectsToContainer PanelClass="pa-2">
-         <MudTabPanel Text="@DashboardResource.StringMonitoringLogs">
-             <LogConsole Title="@DashboardResource.StringMonitoringLogs" Align="@(SharedLayoutSettings.IsRTL ? Align.End : Align.Start)" />
-         </MudTabPanel>
-         <MudTabPanel Text="@DashboardResource.StringLogHistory">
-             <ComponentLogHistory Title="@DashboardResource.StringLogHistory" />
+        <MudTabPanel Text="@Maanfee.Logging.Console.Resources.Resource.StringMonitoringLogs">
+            <LogConsole Title="@Maanfee.Logging.Console.Resources.Resource.StringMonitoringLogs" Align="@(SharedLayoutSettings.IsRTL? Align.End: Align.Start)" />
+        </MudTabPanel>
+        <MudTabPanel Text="@Maanfee.Logging.Console.Resources.Resource.StringLogHistory">
+            <ComponentLogHistory Title="@Maanfee.Logging.Console.Resources.Resource.StringLogHistory" />
         </MudTabPanel>
     </MudTabs>
 

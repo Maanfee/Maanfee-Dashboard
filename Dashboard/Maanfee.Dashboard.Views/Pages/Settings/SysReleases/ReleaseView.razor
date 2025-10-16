@@ -40,7 +40,8 @@
 
     @if (!IsLoaded)
     {
-        <PublicOverlay />
+       @*  <DashboardOverlay Random="true" /> *@
+       <LottieOverlay />
     }
     else
     {
@@ -132,7 +133,6 @@
         else
         {
             Snackbar.Add(Callback.Error.ToString(), Severity.Error);
-            IsLoaded = true;
         }
         StateHasChanged();
 
@@ -141,12 +141,12 @@
         if (LoggingHubConnection is not null)
         {
             await LoggingHubConnection.SendAsync("SendMessageAsync", new LogInfo
-                {
-                    IdLoggingPlatform = LoggingPlatformDefaultValue.Client,
-                    Message = $"{AccountStateContainer.UserName} ({AccountStateContainer.Name}) is Viewing ({DashboardResource.StringRelease})",
-                    LogDate = DateTime.Now,
-                    IdLoggingLevel = LoggingLevelDefaultValue.Information,
-                });
+            {
+                IdLoggingPlatform = LoggingPlatformDefaultValue.Client,
+                Message = $"{AccountStateContainer.UserName} ({AccountStateContainer.Name}) is Viewing ({DashboardResource.StringRelease})",
+                LogDate = DateTime.Now,
+                IdLoggingLevel = LoggingLevelDefaultValue.Information,
+            });
         }
 
     }

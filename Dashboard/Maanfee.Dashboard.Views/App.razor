@@ -56,19 +56,20 @@
             await Task.Run(async () =>
                 {
                     DialogParameters DialogParameters = new DialogParameters();
+                    DialogParameters.Add("IsRTL", SharedLayoutSettings.IsRTL);
 
                     dialog = await Dialog.ShowAsync<DialogServerConnection>(string.Empty, DialogParameters,
                         new DialogOptions()
-                            {
-                                NoHeader = true,
-                                MaxWidth = MaxWidth.Small,
-                                FullWidth = true,
-                                //FullScreen = true,
-                                Position = DialogPosition.Center,
-                                CloseOnEscapeKey = true,
-                                BackgroundClass = "Dialog-Blur",
-                                BackdropClick = false,
-                            });
+                        {
+                            NoHeader = true,
+                            MaxWidth = MaxWidth.Small,
+                            FullWidth = true,
+                            //FullScreen = true,
+                            Position = DialogPosition.Center,
+                            CloseOnEscapeKey = true,
+                            BackgroundClass = "Dialog-Blur",
+                            BackdropClick = false,
+                        });
                 });
         };
         LoggingInitializer.Reconnected += async () =>

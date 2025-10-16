@@ -844,15 +844,6 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log History.
-        /// </summary>
-        public static string StringLogHistory {
-            get {
-                return ResourceManager.GetString("StringLogHistory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Logout.
         /// </summary>
         public static string StringLogout {
@@ -903,15 +894,6 @@ namespace Maanfee.Dashboard.Resources {
         public static string StringModuleName {
             get {
                 return ResourceManager.GetString("StringModuleName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Monitoring logs.
-        /// </summary>
-        public static string StringMonitoringLogs {
-            get {
-                return ResourceManager.GetString("StringMonitoringLogs", resourceCulture);
             }
         }
         
@@ -1317,33 +1299,6 @@ namespace Maanfee.Dashboard.Resources {
         public static string StringSend {
             get {
                 return ResourceManager.GetString("StringSend", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to After reconnecting, this message will be automatically deleted.
-        /// </summary>
-        public static string StringServerConnectionAutomaticallyReconnected {
-            get {
-                return ResourceManager.GetString("StringServerConnectionAutomaticallyReconnected", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SERVER CONNECTION ERROR.
-        /// </summary>
-        public static string StringServerConnectionError {
-            get {
-                return ResourceManager.GetString("StringServerConnectionError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The connection with the server is temporarily interrupted and it is not possible to complete the request.
-        /// </summary>
-        public static string StringServerConnectionTemporarilyInterrupted {
-            get {
-                return ResourceManager.GetString("StringServerConnectionTemporarilyInterrupted", resourceCulture);
             }
         }
         

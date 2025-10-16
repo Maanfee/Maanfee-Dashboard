@@ -1,7 +1,4 @@
-﻿using Maanfee.Logging.Domain;
-using Maanfee.Web.Core;
-using Microsoft.AspNetCore.SignalR.Client;
-using System.Net.Http.Json;
+﻿using Microsoft.AspNetCore.SignalR.Client;
 
 namespace Maanfee.Logging.Console
 {

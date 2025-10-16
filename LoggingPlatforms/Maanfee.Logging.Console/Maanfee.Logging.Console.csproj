@@ -11,10 +11,10 @@
 		<RunAnalyzers>false</RunAnalyzers>
 		<!--**********************************************-->
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Copyright>Copyright (c) 2023-2024 Maanfee</Copyright>
+		<Copyright>Copyright (c) 2023-2025 Maanfee</Copyright>
 		<Authors>Maanfee Team (MF)</Authors>
 		<Company>Maanfee</Company>
-		<Version>2.9.0</Version>
+		<Version>3.0.0</Version>
 		<RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -27,16 +27,35 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components" Version="9.0.9" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.9" />
-		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="9.0.9" />
+		<PackageReference Include="Microsoft.AspNetCore.Components" Version="9.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="9.0.10" />
 		<PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.2.0" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.9" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.10" />
 	</ItemGroup>
 	
 	<ItemGroup>
 	  <ProjectReference Include="..\..\DashboardAPI\Maanfee.Web.Core\Maanfee.Web.Core.csproj" />
 	  <ProjectReference Include="..\Maanfee.Logging.Domain\Maanfee.Logging.Domain.csproj" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <Compile Update="Resources\Resource.Designer.cs">
+	    <DependentUpon>Resource.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <EmbeddedResource Update="Resources\Resource.fa.resx">
+	    <SubType>Designer</SubType>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Resource.resx">
+	    <SubType>Designer</SubType>
+	    <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 </Project>

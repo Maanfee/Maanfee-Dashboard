@@ -50,7 +50,7 @@ builder.Services.AddLoggingConsole();
 builder.Services.AddScoped<GatewayApi>();
 
 // Lottie
-builder.Services.AddLottie();
+builder.Services.AddMaanfeeLottie();
 
 var host = builder.Build();
 

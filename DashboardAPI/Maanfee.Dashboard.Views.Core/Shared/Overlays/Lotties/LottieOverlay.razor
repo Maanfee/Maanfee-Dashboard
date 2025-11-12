@@ -5,18 +5,7 @@
 @inject LottieService Lottie
 @inject AnimationService AnimationService
 
-<style>
-
-    .LottieContainer {
-        width: 100%;
-        height: 300px;
-        margin: 1rem 0;
-        background: transparent !important;
-    }
-
-</style>
-
-<LottieContainer AnimationJson="@content" OnLoaded="OnLoadingLoaded" @key="SelectedAnimation.FullPath" Class="LottieContainer" />
+<MaanfeeLottie AnimationJson="@content" OnLoaded="OnLoadingLoaded" @key="SelectedAnimation.FullPath" HasController="false" />
 
 @code {
 

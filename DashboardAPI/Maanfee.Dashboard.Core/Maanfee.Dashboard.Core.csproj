@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
 		<TieredPGO>true</TieredPGO>
 		<!--**********************************************-->
@@ -14,7 +14,7 @@
     <Copyright>Copyright (c) 2021-2025 Maanfee</Copyright>
     <Authors>Maanfee Team (MF)</Authors>
 		<Company>Maanfee</Company>
-		<Version>8.202.0</Version>
+		<Version>8.222.0</Version>
 		<PackageIcon>MaanfeeGreen.png</PackageIcon>
 		<RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
@@ -36,11 +36,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Maanfee.Highcharts" Version="1.26.0" />
-		<PackageReference Include="Maanfee.Lottie" Version="1.5.0" />
-		<PackageReference Include="Maanfee.Turnjs" Version="1.10.0" />
-		<PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="9.0.10" />
-		<PackageReference Include="MudBlazor" Version="8.13.0" />
+		<PackageReference Include="Maanfee.Highcharts" Version="1.30.0" />
+		<PackageReference Include="Maanfee.Lottie" Version="2.5.0" />
+		<PackageReference Include="Maanfee.Turnjs" Version="1.20.0" />
+		<PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="10.0.0" />
+		<PackageReference Include="MudBlazor" Version="8.14.0" />
 		<PackageReference Include="EPPlus" Version="8.2.1" />
 		<PackageReference Include="SkiaSharp.Views.Blazor" Version="3.119.1" />
 	</ItemGroup>

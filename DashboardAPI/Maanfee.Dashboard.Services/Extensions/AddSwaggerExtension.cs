@@ -11,19 +11,19 @@ namespace Maanfee.Dashboard.Services.Extensions
             // Register the Swagger generator, defining 1 or more Swagger documents
             Services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.OpenApiInfo
                 {
                     Version = "v1",
                     Title = "Gateaway API",
                     Description = "System Access Web API",
                     TermsOfService = new Uri("https://opensource.org/licenses/MIT"),
-                    Contact = new Microsoft.OpenApi.Models.OpenApiContact
+                    Contact = new Microsoft.OpenApi.OpenApiContact
                     {
                         Name = "Docs.Net.Advanced",
                         Email = string.Empty,
                         Url = new Uri("https://opensource.org/licenses/MIT"),
                     },
-                    License = new Microsoft.OpenApi.Models.OpenApiLicense
+                    License = new Microsoft.OpenApi.OpenApiLicense
                     {
                         Name = "Use under MFL",
                         Url = new Uri("https://opensource.org/licenses/MIT"),

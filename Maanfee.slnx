@@ -1,0 +1,30 @@
+<Solution>
+  <Folder Name="/Dashboard/">
+    <Project Path="Dashboard/Maanfee.Dashboard.Server/Maanfee.Dashboard.Server.csproj" />
+    <Project Path="Dashboard/Maanfee.Dashboard.Views.Base/Maanfee.Dashboard.Views.Base.csproj" />
+    <Project Path="Dashboard/Maanfee.Dashboard.Views/Maanfee.Dashboard.Views.csproj" />
+  </Folder>
+  <Folder Name="/DashboardAPI/">
+    <Project Path="DashboardAPI/Maanfee.Dashboard.Core/Maanfee.Dashboard.Core.csproj" />
+    <Project Path="DashboardAPI/Maanfee.Dashboard.Domain/Maanfee.Dashboard.Domain.csproj" />
+    <Project Path="DashboardAPI/Maanfee.Dashboard.Resources/Maanfee.Dashboard.Resources.csproj" />
+    <Project Path="DashboardAPI/Maanfee.Dashboard.Services/Maanfee.Dashboard.Services.csproj" />
+    <Project Path="DashboardAPI/Maanfee.Dashboard.Views.Core/Maanfee.Dashboard.Views.Core.csproj" />
+    <Project Path="DashboardAPI/Maanfee.Web.Core/Maanfee.Web.Core.csproj" />
+    <Project Path="DashboardAPI/Maanfee.Web.Printing/Maanfee.Web.Printing.csproj" />
+  </Folder>
+  <Folder Name="/Examples/">
+    <Project Path="Examples/Maanfee.Dashboard.Examples.Views/Maanfee.Dashboard.Examples.Views.csproj" />
+  </Folder>
+  <Folder Name="/Gateway/">
+    <Project Path="Gateway/Gateway.Api/Gateway.Api.csproj" />
+  </Folder>
+  <Folder Name="/LoggingPlatforms/">
+    <Project Path="LoggingPlatforms/Maanfee.Logging.Console/Maanfee.Logging.Console.csproj" />
+    <Project Path="LoggingPlatforms/Maanfee.Logging.Domain/Maanfee.Logging.Domain.csproj" />
+    <Project Path="LoggingPlatforms/Maanfee.Logging.Server/Maanfee.Logging.Server.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="README.md" />
+  </Folder>
+</Solution>

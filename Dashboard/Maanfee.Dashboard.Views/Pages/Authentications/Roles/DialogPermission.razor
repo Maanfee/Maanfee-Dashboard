@@ -1,77 +1,56 @@
 ﻿@inherits _BaseView
 
-<MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
-    <MudDialog>
-        <DialogContent>
-            @if (!IsLoaded)
+<MaanfeeDashboardDialog @ref="MDialog" IsLoaded="IsLoaded" Title="@($"{DashboardResource.StringManagePermission} - {RoleName}")" IsRTL="SharedLayoutSettings.IsRTL">
+    <MaanfeeDashboardDialogContent>
+        <MudTabs @ref="tabs" Elevation="25" Rounded Centered ApplyEffectsToContainer AlwaysShowScrollButtons>
+            @foreach (var item in TitleNames)
             {
-                <DashboardOverlay Random="true" />
-            }
-            else
-            {
-                <MudCard Class="mt-2">
-                    <MudPaper Elevation="25">
-                        <MudToolBar Dense>
-                            <MudText Color="Color.Primary">
-                                @DashboardResource.StringManagePermission - @RoleName
-                            </MudText>
+                <MudTabPanel Text="@item.Value" OnClick="@(() => OnSelectedTab(item.Key))">
+                    <MudTable Items="@SubmitRoleClaimViewModels" Dense="false" Bordered Striped Hover
+                              FixedHeader FixedFooter Height="285px">
+                        <ToolBarContent>
+                            <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="SaveAsync" ButtonType="ButtonType.Submit">
+                                @if (IsProcessing)
+                                {
+                                    <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="ms-n1" />
+                                    <MudText Class="ms-2">@DashboardResource.StringProcessing</MudText>
+                                }
+                                else
+                                {
+                                    <MudIcon Icon="@Icons.Material.Filled.Save" Color="Color.Surface" Class="mx-1" />
+                                    <MudText>@DashboardResource.StringSave @item.Value</MudText>
+                                }
+                            </MudButton>
                             <MudSpacer />
-                            <MudTooltip Text="@DashboardResource.StringCancel" Color="Color.Tertiary" Arrow>
-                                <MudIconButton OnClick="Close" Icon="@Icons.Material.Filled.Close" Color="Color.Error" />
-                            </MudTooltip>
-                        </MudToolBar>
-                    </MudPaper>
-                    <MudDivider DividerType="DividerType.FullWidth" />
-                    <MudCardContent>
-                        <MudTabs @ref="tabs" Elevation="25" Rounded Centered ApplyEffectsToContainer AlwaysShowScrollButtons>
-                            @foreach (var item in TitleNames)
-                            {
-                                <MudTabPanel Text="@item.Value" OnClick="@(()=>OnSelectedTab(item.Key))">
-                                    <MudTable Items="@SubmitRoleClaimViewModels" Dense="false" Bordered Striped Hover
-                                              FixedHeader FixedFooter Height="285px">
-                                        <ToolBarContent>
-                                            <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="SaveAsync" ButtonType="ButtonType.Submit">
-                                                @if (IsProcessing)
-                                                {
-                                                    <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="ms-n1" />
-                                                    <MudText Class="ms-2">@DashboardResource.StringProcessing</MudText>
-                                                }
-                                                else
-                                                {
-                                                    <MudIcon Icon="@Icons.Material.Filled.Save" Color="Color.Surface" Class="mx-1" />
-                                                    <MudText>@DashboardResource.StringSave @item.Value</MudText>
-                                                }
-                                            </MudButton>
-                                            <MudSpacer />
-                                        </ToolBarContent>
-                                        <HeaderContent>
-                                            <MudTh Class="column-1x"></MudTh>
-                                            <MudTh>
-                                                <MudTableSortLabel SortBy="new Func<SubmitRoleClaimViewModel, object>(x=>x.ClaimType)">
-                                                    @DashboardResource.StringPermission
-                                                </MudTableSortLabel>
-                                            </MudTh>
-                                            <MudTh>
-                                                <MudTableSortLabel SortBy="new Func<SubmitRoleClaimViewModel, object>(x=>x.Action)">
-                                                    @DashboardResource.StringAction
-                                                </MudTableSortLabel>
-                                            </MudTh>
-                                        </HeaderContent>
-                                        <RowTemplate>
-                                            <MudTd DataLabel="Status">
-                                                <MudCheckBox @bind-Value="@context.IsSelected" Color="Color.Secondary" />
-                                            </MudTd>
-                                            <MudTd DataLabel="ClaimType">@context.ClaimType</MudTd>
-                                            <MudTd DataLabel="Action">@context.Action</MudTd>
-                                        </RowTemplate>
-                                        <PagerContent>
-                                            <MudTablePager PageSizeOptions="new int[]{50, 100}" />
-                                        </PagerContent>
-                                    </MudTable>
-                                </MudTabPanel>
-                            }
+                        </ToolBarContent>
+                        <HeaderContent>
+                            <MudTh Class="column-1x"></MudTh>
+                            <MudTh>
+                                <MudTableSortLabel SortBy="new Func<SubmitRoleClaimViewModel, object>(x => x.ClaimType)">
+                                    @DashboardResource.StringPermission
+                                </MudTableSortLabel>
+                            </MudTh>
+                            <MudTh>
+                                <MudTableSortLabel SortBy="new Func<SubmitRoleClaimViewModel, object>(x => x.Action)">
+                                    @DashboardResource.StringAction
+                                </MudTableSortLabel>
+                            </MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="Status">
+                                <MudCheckBox @bind-Value="@context.IsSelected" Color="Color.Secondary" />
+                            </MudTd>
+                            <MudTd DataLabel="ClaimType">@context.ClaimType</MudTd>
+                            <MudTd DataLabel="Action">@context.Action</MudTd>
+                        </RowTemplate>
+                        <PagerContent>
+                            <MudTablePager PageSizeOptions="new int[] { 50, 100 }" />
+                        </PagerContent>
+                    </MudTable>
+                </MudTabPanel>
+            }
 
-                            @*  @foreach (var item in AA)
+            @*  @foreach (var item in AA)
                         {
                         <tr>
                         <td>
@@ -82,20 +61,13 @@
                         </td>
                         </tr>
                         }*@
-                        </MudTabs>
-                    </MudCardContent>
-                </MudCard>
-            }
-        </DialogContent>
-    </MudDialog>
-</MudRTLProvider>
+        </MudTabs>
+    </MaanfeeDashboardDialogContent>
+</MaanfeeDashboardDialog>
 
 @code {
 
-    [CascadingParameter]
-    public IMudDialogInstance MudDialog { get; set; }
-
-    private void Close() => MudDialog.Close();
+    private MaanfeeDashboardDialog MDialog = new();
 
     // *****************************************************
 

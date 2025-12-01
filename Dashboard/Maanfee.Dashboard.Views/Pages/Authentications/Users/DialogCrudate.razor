@@ -1,180 +1,154 @@
 ﻿@using System.IO;
 @inherits _BaseView
 
-<MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
-    <EditForm OnValidSubmit="OnSubmit" Model="SubmitUserViewModel">
-        <DataAnnotationsValidator />
-        <MudDialog>
-            <DialogContent>
-                @if (!IsLoaded)
-                {
-                    <DashboardOverlay Random="true" />
-                }
-                else
-                {
-                    <MudCard Class="mt-2">
-                        <MudPaper Elevation="25">
-                            <MudToolBar Dense>
-                                <MudText Color="Color.Primary">
-                                    @DashboardResource.StringUser
-                                </MudText>
-                                <MudSpacer />
-                                <MudTooltip Text="@DashboardResource.StringCreate" Color="Color.Tertiary" Arrow>
-                                    <MudIconButton Disabled="@IsProcessing" ButtonType="ButtonType.Submit" Icon="@Icons.Material.Filled.Save" Color="Color.Tertiary">
-                                        @if (IsProcessing)
-                                        {
-                                            <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="ms-n1" />
-                                            <MudText Class="ms-2">@DashboardResource.StringProcessing</MudText>
-                                        }
-                                        else
-                                        {
-                                            <MudIcon Icon="@Icons.Material.Filled.Save" Color="Color.Surface" Class="mx-1" />
-                                            <MudText>@DashboardResource.StringSave</MudText>
-                                        }
-                                    </MudIconButton>
-                                </MudTooltip>
-                                <MudTooltip Text="@DashboardResource.StringCancel" Color="Color.Tertiary" Arrow>
-                                    <MudIconButton OnClick="Close" Icon="@Icons.Material.Filled.Close" Color="Color.Error" />
-                                </MudTooltip>
-                            </MudToolBar>
-                        </MudPaper>
-                        <MudDivider DividerType="DividerType.FullWidth" />
-                        <MudCardContent>
-                            <MudTabs ActivePanelIndexChanged="(TabIndex) => TabIndexChanged(TabIndex)" @ref="Tab" Elevation="2" Rounded ApplyEffectsToContainer PanelClass="pa-2">
-                                <MudTabPanel Text="@DashboardResource.StringPersonalInformation">
-                                    <MudGrid>
-                                        <MudItem md="3">
-                                            <MudTextField @bind-Value="SubmitUserViewModel.UserName" Variant="Variant.Outlined"
-                                                          For="@(() => SubmitUserViewModel.UserName)" Label="@DashboardResource.StringUserName"
-                                                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Person" />
-                                        </MudItem>
-                                        <MudItem md="3">
-                                            <MudTextField @bind-Value="SubmitUserViewModel.Password" Variant="Variant.Outlined"
-                                                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Password"
-                                                          For="@(() => SubmitUserViewModel.Password)" Label="@DashboardResource.StringPassword" />
-                                        </MudItem>
-                                        <MudItem md="3">
-                                            <MudTextField @bind-Value="SubmitUserViewModel.PersonalCode" Variant="Variant.Outlined"
-                                                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Bolt"
-                                                          For="@(() => SubmitUserViewModel.PersonalCode)" Label="@DashboardResource.StringPersonalCode" />
-                                        </MudItem>
-                                        <MudItem md="3">
-                                            <MudTextField @bind-Value="SubmitUserViewModel.FirstName" Variant="Variant.Outlined"
-                                                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Fingerprint"
-                                                          For="@(() => SubmitUserViewModel.FirstName)" Label="@DashboardResource.StringFirstName" />
-                                        </MudItem>
-                                        <MudItem md="3">
-                                            <MudTextField @bind-Value="SubmitUserViewModel.LastName" Variant="Variant.Outlined"
-                                                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Group"
-                                                          For="@(() => SubmitUserViewModel.LastName)" Label="@DashboardResource.StringLastName" />
-                                        </MudItem>
-                                        <MudItem md="3">
-                                            <MudTextField @bind-Value="SubmitUserViewModel.FatherName" Variant="Variant.Outlined"
-                                                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AssignmentInd"
-                                                          For="@(() => SubmitUserViewModel.FatherName)" Label="@DashboardResource.StringFatherName" />
-                                        </MudItem>
-                                        <MudItem md="3">
-                                            <MudTextField @bind-Value="SubmitUserViewModel.NationalCode" Variant="Variant.Outlined"
-                                                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.PersonalInjury"
-                                                          For="@(() => SubmitUserViewModel.NationalCode)" Label="@DashboardResource.StringNationalCode" />
-                                        </MudItem>
-                                        <MudItem md="3">
-                                            <MudTextField @bind-Value="SubmitUserViewModel.PhoneNumber" Variant="Variant.Outlined"
-                                                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Smartphone"
-                                                          For="@(() => SubmitUserViewModel.PhoneNumber)" Label="@DashboardResource.StringPhoneNumber" />
-                                        </MudItem>
-                                        <MudItem md="3">
-                                            <MudSelect T="DropDownGenderViewModel" Label="@DashboardResource.StringGender" Variant="Variant.Outlined"
-                                                       Clearable @bind-Value="SubmitUserViewModel.Gender"
-                                                       For="@(() => SubmitUserViewModel.Gender)">
-                                                @foreach (var item in Genders)
-                                                {
-                                                    <MudSelectItem Value="@item">@item.Sex</MudSelectItem>
-                                                }
-                                            </MudSelect>
-                                        </MudItem>
-                                        <MudItem md="3">
-                                            <MudSelect T="DropDownRoleViewModel" Label="@DashboardResource.StringRole" Variant="Variant.Outlined"
-                                                       Clearable @bind-Value="SubmitUserViewModel.Role"
-                                                       For="@(() => SubmitUserViewModel.Role)">
-                                                @foreach (var item in Roles)
-                                                {
-                                                    <MudSelectItem Value="@item">@item.Name</MudSelectItem>
-                                                }
-                                            </MudSelect>
-                                        </MudItem>
-                                        <MudItem md="6">
+<EditForm OnValidSubmit="OnSubmit" EditContext="@EditContext">
+    <DataAnnotationsValidator />
+    <MaanfeeDashboardDialog @ref="MDialog" IsLoaded="IsLoaded" Title="@DashboardResource.StringUser" IsRTL="SharedLayoutSettings.IsRTL">
+        <MaanfeeDashboardDialogActionContent>
+            <MudTooltip Text="@DashboardResource.StringCreate" Color="Color.Tertiary" Arrow>
+                <MudIconButton id="btn" Disabled="@IsProcessing" ButtonType="ButtonType.Submit" Icon="@Icons.Material.Filled.Save" Color="Color.Tertiary">
+                    @if (IsProcessing)
+                    {
+                        <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="ms-n1" />
+                        <MudText Class="ms-2">@DashboardResource.StringProcessing</MudText>
+                    }
+                    else
+                    {
+                        <MudIcon Icon="@Icons.Material.Filled.Save" Color="Color.Surface" Class="mx-1" />
+                        <MudText>@DashboardResource.StringSave</MudText>
+                    }
+                </MudIconButton>
+            </MudTooltip>
+        </MaanfeeDashboardDialogActionContent>
+        <MaanfeeDashboardDialogContent>
+            <MudTabs ActivePanelIndexChanged="(TabIndex) => TabIndexChanged(TabIndex)" @ref="Tab" Elevation="2" Rounded ApplyEffectsToContainer PanelClass="pa-2">
+                <MudTabPanel Text="@DashboardResource.StringPersonalInformation">
+                    <MudGrid>
+                        <MudItem md="3">
+                            <MudTextField @bind-Value="SubmitUserViewModel.UserName" Variant="Variant.Outlined"
+                                          For="@(() => SubmitUserViewModel.UserName)" Label="@DashboardResource.StringUserName"
+                                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Person" />
+                        </MudItem>
+                        <MudItem md="3">
+                            <MudTextField @bind-Value="SubmitUserViewModel.Password" Variant="Variant.Outlined"
+                                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Password"
+                                          For="@(() => SubmitUserViewModel.Password)" Label="@DashboardResource.StringPassword" />
+                        </MudItem>
+                        <MudItem md="3">
+                            <MudTextField @bind-Value="SubmitUserViewModel.PersonalCode" Variant="Variant.Outlined"
+                                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Bolt"
+                                          For="@(() => SubmitUserViewModel.PersonalCode)" Label="@DashboardResource.StringPersonalCode" />
+                        </MudItem>
+                        <MudItem md="3">
+                            <MudTextField @bind-Value="SubmitUserViewModel.FirstName" Variant="Variant.Outlined"
+                                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Fingerprint"
+                                          For="@(() => SubmitUserViewModel.FirstName)" Label="@DashboardResource.StringFirstName" />
+                        </MudItem>
+                        <MudItem md="3">
+                            <MudTextField @bind-Value="SubmitUserViewModel.LastName" Variant="Variant.Outlined"
+                                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Group"
+                                          For="@(() => SubmitUserViewModel.LastName)" Label="@DashboardResource.StringLastName" />
+                        </MudItem>
+                        <MudItem md="3">
+                            <MudTextField @bind-Value="SubmitUserViewModel.FatherName" Variant="Variant.Outlined"
+                                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AssignmentInd"
+                                          For="@(() => SubmitUserViewModel.FatherName)" Label="@DashboardResource.StringFatherName" />
+                        </MudItem>
+                        <MudItem md="3">
+                            <MudTextField @bind-Value="SubmitUserViewModel.NationalCode" Variant="Variant.Outlined"
+                                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.PersonalInjury"
+                                          For="@(() => SubmitUserViewModel.NationalCode)" Label="@DashboardResource.StringNationalCode" />
+                        </MudItem>
+                        <MudItem md="3">
+                            <MudTextField @bind-Value="SubmitUserViewModel.PhoneNumber" Variant="Variant.Outlined"
+                                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Smartphone"
+                                          For="@(() => SubmitUserViewModel.PhoneNumber)" Label="@DashboardResource.StringPhoneNumber" />
+                        </MudItem>
+                        <MudItem md="3">
+                            <MudSelect T="DropDownGenderViewModel" Label="@DashboardResource.StringGender" Variant="Variant.Outlined"
+                                       Clearable @bind-Value="SubmitUserViewModel.Gender"
+                                       For="@(() => SubmitUserViewModel.Gender)">
+                                @foreach (var item in Genders)
+                                {
+                                    <MudSelectItem Value="@item">@item.Sex</MudSelectItem>
+                                }
+                            </MudSelect>
+                        </MudItem>
+                        <MudItem md="3">
+                            <MudSelect T="DropDownRoleViewModel" Label="@DashboardResource.StringRole" Variant="Variant.Outlined"
+                                       Clearable @bind-Value="SubmitUserViewModel.Role"
+                                       For="@(() => SubmitUserViewModel.Role)">
+                                @foreach (var item in Roles)
+                                {
+                                    <MudSelectItem Value="@item">@item.Name</MudSelectItem>
+                                }
+                            </MudSelect>
+                        </MudItem>
+                        <MudItem md="6">
 
-                                        </MudItem>
-                                        <MudItem md="6">
-                                            <MudSelect Label="@DashboardResource.StringPost" Variant="Variant.Outlined"
-                                                       Clearable MultiSelection="true" SelectAll="true"
-                                                       SelectAllText="@DashboardResource.StringSelectAll"
-                                                       MultiSelectionTextFunc="@(new Func<List<string>, string>(GetDepartmentMultiSelectionText))"
-                                                       @bind-SelectedValues="SubmitUserViewModel.DepartmentValues"
-                                                       @bind-Value="SubmitUserViewModel.IdDepartment"
-                                                       For="@(() => SubmitUserViewModel.IdDepartment)">
-                                                @foreach (var item in Departments)
-                                                {
-                                                    <MudSelectItem Value="@item?.Id">@item?.Title</MudSelectItem>
-                                                }
-                                            </MudSelect>
-                                        </MudItem>
-                                        <MudItem md="6">
-                                            <MudSelect Label="@DashboardResource.StringGroup" Variant="Variant.Outlined"
-                                                       Clearable MultiSelection="true" SelectAll="true"
-                                                       SelectAllText="@DashboardResource.StringSelectAll"
-                                                       MultiSelectionTextFunc="@(new Func<List<string>, string>(GetGroupMultiSelectionText))"
-                                                       @bind-SelectedValues="SubmitUserViewModel.GroupValues"
-                                                       @bind-Value="SubmitUserViewModel.IdGroup"
-                                                       For="@(() => SubmitUserViewModel.IdGroup)">
-                                                @foreach (var item in Groups)
-                                                {
-                                                    <MudSelectItem Value="@item?.Id">@item?.Title</MudSelectItem>
-                                                }
-                                            </MudSelect>
-                                        </MudItem>
-                                    </MudGrid>
-                                </MudTabPanel>
-                                <MudTabPanel Text="@DashboardResource.StringAvatar">
-                                    <MudGrid>
-                                        <MudItem md="12">
-                                            <MudAvatar Style="height:150px; width:150px; display: block;margin-left: auto;margin-right: auto;">
-                                                <MudImage Src="@("data:image/png;base64," + Avatar)" />
-                                            </MudAvatar>
-                                        </MudItem>
-                                        <MudItem md="12">
-                                            <MudStack Justify="@Justify.Center" Row="true" Class="ma-5">
-                                                <InputFile id="fileInput" OnChange="OnInputFileChange" hidden accept=".jpg, .jpeg, .png" />
-                                                <MudButton HtmlTag="label"
-                                                           Variant="Variant.Filled"
-                                                           Color="Color.Primary"
-                                                           StartIcon="@Icons.Material.Filled.CloudUpload" for="fileInput">
-                                                    @DashboardResource.StringUploadFiles
-                                                </MudButton>
-                                                <MudButton Color="Color.Error" OnClick="Delete" Variant="Variant.Filled">
-                                                    <MudIcon Icon="@Icons.Material.Filled.DeleteForever" Color="Color.Surface" Class="mx-1" />
-                                                    @DashboardResource.StringDelete
-                                                </MudButton>
-                                            </MudStack>
-                                        </MudItem>
-                                    </MudGrid>
-                                </MudTabPanel>
-                            </MudTabs>
-                        </MudCardContent>
-                    </MudCard>
-                }
-            </DialogContent>
-        </MudDialog>
-    </EditForm>
-</MudRTLProvider>
+                        </MudItem>
+                        <MudItem md="6">
+                            <MudSelect Label="@DashboardResource.StringPost" Variant="Variant.Outlined"
+                                       Clearable MultiSelection="true" SelectAll="true"
+                                       SelectAllText="@DashboardResource.StringSelectAll"
+                                       MultiSelectionTextFunc="@(new Func<List<string>, string>(GetDepartmentMultiSelectionText))"
+                                       @bind-SelectedValues="SubmitUserViewModel.DepartmentValues"
+                                       @bind-Value="SubmitUserViewModel.IdDepartment"
+                                       For="@(() => SubmitUserViewModel.IdDepartment)">
+                                @foreach (var item in Departments)
+                                {
+                                    <MudSelectItem Value="@item?.Id">@item?.Title</MudSelectItem>
+                                }
+                            </MudSelect>
+                        </MudItem>
+                        <MudItem md="6">
+                            <MudSelect Label="@DashboardResource.StringGroup" Variant="Variant.Outlined"
+                                       Clearable MultiSelection="true" SelectAll="true"
+                                       SelectAllText="@DashboardResource.StringSelectAll"
+                                       MultiSelectionTextFunc="@(new Func<List<string>, string>(GetGroupMultiSelectionText))"
+                                       @bind-SelectedValues="SubmitUserViewModel.GroupValues"
+                                       @bind-Value="SubmitUserViewModel.IdGroup"
+                                       For="@(() => SubmitUserViewModel.IdGroup)">
+                                @foreach (var item in Groups)
+                                {
+                                    <MudSelectItem Value="@item?.Id">@item?.Title</MudSelectItem>
+                                }
+                            </MudSelect>
+                        </MudItem>
+                    </MudGrid>
+                </MudTabPanel>
+                <MudTabPanel Text="@DashboardResource.StringAvatar">
+                    <MudGrid>
+                        <MudItem md="12">
+                            <MudAvatar Style="height:150px; width:150px; display: block;margin-left: auto;margin-right: auto;">
+                                <MudImage Src="@("data:image/png;base64," + Avatar)" />
+                            </MudAvatar>
+                        </MudItem>
+                        <MudItem md="12">
+                            <MudStack Justify="@Justify.Center" Row="true" Class="ma-5">
+                                <InputFile id="fileInput" OnChange="OnInputFileChange" hidden accept=".jpg, .jpeg, .png" />
+                                <MudButton HtmlTag="label"
+                                           Variant="Variant.Filled"
+                                           Color="Color.Primary"
+                                           StartIcon="@Icons.Material.Filled.CloudUpload" for="fileInput">
+                                    @DashboardResource.StringUploadFiles
+                                </MudButton>
+                                <MudButton Color="Color.Error" OnClick="Delete" Variant="Variant.Filled">
+                                    <MudIcon Icon="@Icons.Material.Filled.DeleteForever" Color="Color.Surface" Class="mx-1" />
+                                    @DashboardResource.StringDelete
+                                </MudButton>
+                            </MudStack>
+                        </MudItem>
+                    </MudGrid>
+                </MudTabPanel>
+            </MudTabs>
+        </MaanfeeDashboardDialogContent>
+    </MaanfeeDashboardDialog>
+</EditForm>
 
 @code {
 
-    [CascadingParameter]
-    public IMudDialogInstance MudDialog { get; set; }
-
-    private void Close() => MudDialog.Close();
+    private MaanfeeDashboardDialog MDialog = new();
 
     // *****************************************************
 
@@ -185,18 +159,18 @@
 
     // ***************************************************
 
-    protected MudTabs Tab;
+    private MudTabs Tab { get; set; } = new MudTabs();
 
     // ***************************************************
 
-    private void HandleValidationRequested(object sender, ValidationRequestedEventArgs e)
+    private async Task HandleValidationRequestedAsync(object sender, ValidationRequestedEventArgs e)
     {
         ValidationMessageStore?.Clear();
 
         if (string.IsNullOrEmpty(SubmitUserViewModel.UserName) || string.IsNullOrEmpty(SubmitUserViewModel.Password))
         {
             HasValidationError = true;
-            Tab.ActivatePanel(0);
+            await Tab.ActivatePanelAsync(0);
             //ValidationMessageStore?.Add(() => SubmitUserServiceTypeViewModel.IdUserServiceTypeGroup, string.Format(DashboardResource.ValidationRequired, AppResource.StringRequest));
         }
     }
@@ -206,7 +180,7 @@
         if (TabIndex == 0 && HasValidationError == true)
         {
             await Task.Delay(300);
-            await Dom.QuerySelector("#btn").OnClickAsync();
+            await Dom.QuerySelector("#btn").ClickAsync();
             HasValidationError = false;
         }
     }
@@ -218,7 +192,7 @@
         try
         {
             EditContext = new EditContext(SubmitUserViewModel);
-            EditContext.OnValidationRequested += HandleValidationRequested;
+            EditContext.OnValidationRequested += async (s, e) => await HandleValidationRequestedAsync(s, e);
             EditContext.OnFieldChanged += (s, e) => ValidationMessageStore?.Clear(e.FieldIdentifier);
             ValidationMessageStore = new(EditContext);
 
@@ -303,7 +277,7 @@
                     if (JsonResult.Data != null)
                     {
                         Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
-                        MudDialog.Close(DialogResult.Ok(SubmitUserViewModel));
+                        MDialog.Close(DialogResult.Ok(SubmitUserViewModel));
                     }
                     else
                     {
@@ -324,7 +298,7 @@
                     if (JsonResult.Data != null)
                     {
                         Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
-                        MudDialog.Close(DialogResult.Ok(SubmitUserViewModel));
+                        MDialog.Close(DialogResult.Ok(SubmitUserViewModel));
                     }
                     else
                     {
@@ -356,10 +330,10 @@
         if (Callback.Data != null)
         {
             Genders = Callback.Data.Select(x => new DropDownGenderViewModel
-                {
-                    Id = x.Id,
-                    Sex = x.Sex,
-                }).ToList();
+            {
+                Id = x.Id,
+                Sex = x.Sex,
+            }).ToList();
         }
         else
         {
@@ -373,10 +347,10 @@
         if (Callback.Data != null)
         {
             Roles = Callback.Data.Select(x => new DropDownRoleViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                }).ToList();
+            {
+                Id = x.Id,
+                Name = x.Name,
+            }).ToList();
         }
         else
         {
@@ -395,11 +369,11 @@
         if (Callback.Data != null)
         {
             Parents = Callback.Data.Select(x => new DropDownDepartmentViewModel
-                {
-                    Id = x.Id,
-                    IdParent = x.IdParent,
-                    Title = x.Title,
-                }).ToList();
+            {
+                Id = x.Id,
+                IdParent = x.IdParent,
+                Title = x.Title,
+            }).ToList();
         }
         else
         {
@@ -446,10 +420,10 @@
         if (Callback.Data != null)
         {
             Parents = Callback.Data.Select(x => new DropDownGroupViewModel
-                {
-                    Id = x.Id,
-                    Title = x.Title,
-                }).ToList();
+            {
+                Id = x.Id,
+                Title = x.Title,
+            }).ToList();
         }
         else
         {
@@ -516,7 +490,7 @@
     {
         if (EditContext is not null)
         {
-            EditContext.OnValidationRequested -= HandleValidationRequested;
+            EditContext.OnValidationRequested -= async (s, e) => await HandleValidationRequestedAsync(s, e);
         }
     }
 

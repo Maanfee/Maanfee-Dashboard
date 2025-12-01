@@ -3,10 +3,10 @@ using Maanfee.Dashboard.Views.Base.Extensions;
 using Maanfee.Dashboard.Views.Base.Services;
 using Maanfee.Dashboard.Views.Core.Services;
 using Maanfee.Highcharts;
+using Maanfee.JsInterop;
 using Maanfee.Logging.Console;
 using Maanfee.Lottie;
 using Maanfee.Web.Core;
-using Maanfee.Web.JSInterop;
 using Maanfee.Web.Printing;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -34,9 +34,6 @@ builder.Services.AddHighCharts();
 // Print
 builder.Services.AddScoped<IPrintingService, PrintingService>();
 
-// JsQuery
-builder.Services.AddJsQuery();
-
 // File Download
 builder.Services.AddFileDownload();
 
@@ -51,6 +48,9 @@ builder.Services.AddScoped<GatewayApi>();
 
 // Lottie
 builder.Services.AddMaanfeeLottie();
+
+// JsInterop
+builder.Services.AddMaanfeeJsInterop();
 
 var host = builder.Build();
 

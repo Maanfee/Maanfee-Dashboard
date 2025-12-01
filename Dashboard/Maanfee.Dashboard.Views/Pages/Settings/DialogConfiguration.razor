@@ -1,55 +1,21 @@
 ﻿@inherits _BaseView
-@implements IDisposable
 
-<MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
-    <MudDialog>
-        <DialogContent>
-            @if (!IsLoaded)
-            {
-                <DashboardOverlay Random="true" />
-            }
-            else
-            {
-                <MudCard Class="mt-2">
-                    <MudCardHeader>
-                        <MudText Typo="Typo.button" Color="Color.Primary">
-                            <MudText>@DashboardResource.StringConfiguration</MudText>
-                        </MudText>
-                    </MudCardHeader>
-                    <MudDivider DividerType="DividerType.FullWidth" />
-                    <MudCardContent>
-                        <MudTabs Outlined Position="Position.Start">
-                             <MudTabPanel Text="@DashboardResource.StringStorage" Icon="@Icons.Material.Filled.Storage">
-                                 <MudGrid>
-                                     <MudItem md="4"></MudItem>
-                                     <MudItem md="4">
-                                         <MudButton OnClick="ClearCache" Disabled="@IsStorageButtonDisable"
-                                                    Variant="Variant.Filled" Color="Color.Primary">
-                                             @DashboardResource.StringClearCache
-                                         </MudButton>
-                                     </MudItem>
-                                     <MudItem md="4"></MudItem>
-                                </MudGrid>
-                            </MudTabPanel>
-                        </MudTabs>
-                    </MudCardContent>
-                </MudCard>
-                <MudPaper Class="pa-3 my-2 ActionColor" Elevation="3" Outlined="true" Square="true">
-                    <MudStack Spacing="1" Row="true">
-                        <MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.FreeCancellation" IconColor="Color.Surface">@DashboardResource.StringCancel</MudButton>
-                    </MudStack>
-                </MudPaper>
-            }
-        </DialogContent>
-    </MudDialog>
-</MudRTLProvider>
+<MaanfeeDashboardDialog @ref="MDialog" IsLoaded="IsLoaded" Title="@DashboardResource.StringConfiguration" IsRTL="SharedLayoutSettings.IsRTL">
+    <MaanfeeDashboardDialogContent>
+        <MudTabs Outlined Position="Position.Start">
+            <MudTabPanel Text="@DashboardResource.StringStorage" Icon="@Icons.Material.Filled.Storage" Class="pa-4">
+                <MudButton OnClick="ClearCache" Disabled="@IsStorageButtonDisable"
+                           Variant="Variant.Filled" Color="Color.Primary">
+                    @DashboardResource.StringClearCache
+                </MudButton>
+            </MudTabPanel>
+        </MudTabs>
+    </MaanfeeDashboardDialogContent>
+</MaanfeeDashboardDialog>
 
 @code {
 
-    [CascadingParameter]
-    public IMudDialogInstance MudDialog { get; set; }
-
-    private void Close() => MudDialog.Close();
+    private MaanfeeDashboardDialog MDialog = new();
 
     // *****************************************************
 
@@ -103,7 +69,5 @@
             Snackbar.Add($"{DashboardResource.StringError} : {ex.ToString()}", Severity.Error);
         }
     }
-
-    public async void Dispose() => await Dom.DisposeAsync();
 
 }

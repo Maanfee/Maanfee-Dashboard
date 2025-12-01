@@ -1,7 +1,7 @@
 ﻿using Maanfee.Dashboard.Core;
 using Maanfee.Dashboard.Views.Core.DefaultValues;
 using Maanfee.Dashboard.Views.Core.Services;
-using Maanfee.Web.JSInterop;
+using Maanfee.JsInterop;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
@@ -33,7 +33,7 @@ namespace Maanfee.Dashboard.Views.Core
 
         // JWT
         [Inject]
-        protected LocalStorage LocalStorage { get; set; }
+        protected Maanfee.JsInterop.LocalStorage LocalStorage { get; set; }
 
         // JWT
         [Inject]
@@ -45,8 +45,8 @@ namespace Maanfee.Dashboard.Views.Core
         [Inject]
         protected Fullscreen Fullscreen { get; set; }
 
-        [Inject]
-        protected Screen Screen { get; set; }
+        //[Inject]
+        //protected Screen Screen { get; set; }
 
         [Inject]
         protected TableConfigurationService TableConfiguration { get; set; }

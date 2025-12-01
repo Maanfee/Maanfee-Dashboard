@@ -7,7 +7,6 @@ using Maanfee.Dashboard.Views.Core.Shared.Dialogs;
 using Maanfee.Dashboard.Views.Pages.Authentications;
 using Maanfee.Dashboard.Views.Pages.Settings;
 using Maanfee.Web.Core;
-using Maanfee.Web.JSInterop;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;
@@ -88,13 +87,13 @@ namespace Maanfee.Dashboard.Views.Shared
                 Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
             }
 
-            Fullscreen.OnFullscreenChange += FullscreenChanged;
+            Fullscreen.FullscreenChanged += OnFullscreenChange;
         }
 
-        public void Dispose()
-        {
-            Fullscreen.OnFullscreenChange -= FullscreenChanged;
-        }
+        //public void Dispose()
+        //{
+        //    Fullscreen.OnFullscreenChange -= OnFullscreenChange;
+        //}
 
         // ******************************************************
 
@@ -125,9 +124,12 @@ namespace Maanfee.Dashboard.Views.Shared
             var dialog = await Dialog.ShowAsync<DialogConfiguration>(string.Empty, DialogParameters,
                 new DialogOptions()
                 {
+                    NoHeader = true,
                     MaxWidth = MaxWidth.Medium,
                     Position = DialogPosition.Center,
                     FullWidth = true,
+                    BackgroundClass = "Dialog-Blur",
+                    CloseOnEscapeKey = true,
                 });
         }
 
@@ -177,11 +179,11 @@ namespace Maanfee.Dashboard.Views.Shared
             }
             else
             {
-                await Fullscreen.CloseFullscreenAsync();
+                await Fullscreen.ExitFullscreenAsync();
             }
         }
 
-        private async void FullscreenChanged()
+        private async void OnFullscreenChange(object sender, bool isFullscreen)
         {
             TableHeight = TableConfiguration.SetHeight(SharedLayoutSettings.IsRTL, await Fullscreen.IsFullscreenAsync(), _IsTableScroll);
 
@@ -222,7 +224,8 @@ namespace Maanfee.Dashboard.Views.Shared
                     MaxWidth = MaxWidth.ExtraLarge,
                     FullWidth = true,
                     Position = DialogPosition.Center,
-                    BackgroundClass = "Dialog-Blur"
+                    BackgroundClass = "Dialog-Blur",
+                    CloseOnEscapeKey = true,
                 });
         }
 

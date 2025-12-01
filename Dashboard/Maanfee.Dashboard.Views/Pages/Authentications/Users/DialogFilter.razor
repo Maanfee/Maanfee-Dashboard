@@ -1,61 +1,51 @@
-﻿
-<MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
-    <MudDialog>
-        <DialogContent>
-            <MudCard Class="mt-2">
-                <MudPaper Elevation="3" Class="" Outlined="true" Square="true">
-                    <MudToolBar Dense>
-                        <MudText Typo="Typo.button" Color="Color.Primary">
-                            @DashboardResource.StringSearch
-                        </MudText>
-                        <MudSpacer />
-                        <MudTooltip Text="@DashboardResource.StringSearch" Color="Color.Tertiary" Arrow>
-                            <MudIconButton OnClick="Search" Icon="@Icons.Material.Filled.ManageSearch" Color="Color.Tertiary" />
-                        </MudTooltip>
-                        <MudTooltip Text="@DashboardResource.StringCancel" Color="Color.Tertiary" Arrow>
-                            <MudIconButton OnClick="Close" Icon="@Icons.Material.Filled.Close" Color="Color.Error" />
-                        </MudTooltip>
-                    </MudToolBar>
-                </MudPaper>
-                <MudCardContent>
-                    <MudGrid>
-                        <MudItem md="6">
-                            <MudTextField @bind-Value="FilterViewModel.Name" Variant="Variant.Outlined"
-                                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Title" Clearable
-                                          For="@(() => FilterViewModel.Name)"
-                                          Label="@DashboardResource.StringName" />
-                        </MudItem>
-                        <MudItem md="6">
+﻿@inherits _BaseView
 
-                        </MudItem>
-                        <MudItem md="6">
-                            <MudAutocomplete T="DropDownDepartmentViewModel" Label="@DashboardResource.StringDepartment"
-                                             ResetValueOnEmptyText="true" Clearable MaxItems="null" Variant="Variant.Outlined"
-                                             For="@(() => FilterViewModel.Department)"
-                                             ShowProgressIndicator="true" @bind-Value="FilterViewModel.Department"
-                                             SearchFunc="GetDepartmentsAsync" ToStringFunc="@(e=> e==null?null : $"{e.Title}")" />
-                        </MudItem>
-                    </MudGrid>
-                </MudCardContent>
-            </MudCard>
-        </DialogContent>
-    </MudDialog>
-</MudRTLProvider>
+<MaanfeeDashboardDialog @ref="MDialog" IsLoaded="IsLoaded" Title="@DashboardResource.StringSearch"
+                        IsRTL="SharedLayoutSettings.IsRTL">
+    <MaanfeeDashboardDialogActionContent>
+        <MudTooltip Text="@DashboardResource.StringSearch" Color="Color.Tertiary" Arrow>
+            <MudIconButton OnClick="Search" Icon="@Icons.Material.Filled.ManageSearch" Color="Color.Tertiary" />
+        </MudTooltip>
+    </MaanfeeDashboardDialogActionContent>
+    <MaanfeeDashboardDialogContent>
+        <MudGrid>
+            <MudItem md="6">
+                <MudTextField @bind-Value="FilterViewModel.Name" Variant="Variant.Outlined"
+                              Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Title" Clearable
+                              For="@(() => FilterViewModel.Name)"
+                              Label="@DashboardResource.StringName" />
+            </MudItem>
+            <MudItem md="6">
+
+            </MudItem>
+            <MudItem md="6">
+                <MudAutocomplete T="DropDownDepartmentViewModel" Label="@DashboardResource.StringDepartment"
+                                 ResetValueOnEmptyText="true" Clearable MaxItems="null" Variant="Variant.Outlined"
+                                 For="@(() => FilterViewModel.Department)"
+                                 ShowProgressIndicator="true" @bind-Value="FilterViewModel.Department"
+                                 SearchFunc="GetDepartmentsAsync" ToStringFunc="@(e=> e==null?null : $"{e.Title}")" />
+            </MudItem>
+        </MudGrid>
+    </MaanfeeDashboardDialogContent>
+</MaanfeeDashboardDialog>
 
 @code {
 
-    [CascadingParameter]
-    public IMudDialogInstance MudDialog { get; set; }
-
-    private void Close() => MudDialog.Close();
+    private MaanfeeDashboardDialog MDialog = new();
 
     // *****************************************************
+
+    protected override Task OnInitializedAsync()
+    {
+        IsLoaded = true;
+        return base.OnInitializedAsync();
+    }
 
     private async Task Search()
     {
         await Task.Delay(100);
 
-        MudDialog.Close(DialogResult.Ok(FilterViewModel));
+        MDialog.Close(DialogResult.Ok(FilterViewModel));
     }
 
     [Parameter]

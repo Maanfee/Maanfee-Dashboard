@@ -1,83 +1,60 @@
 ﻿@inherits _BaseView
 
-<MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
-    <EditForm Model="@SubmitChangePasswordViewModel" OnValidSubmit="OnSubmit">
-        <DataAnnotationsValidator />
-        <MudDialog>
-            <DialogContent>
-                @if (!IsLoaded)
-                {
-                    <DashboardOverlay Random="true" />
-                }
-                else
-                {
-                    <MudCard Class="mt-2">
-                        <MudCardHeader>
-                            <MudText Typo="Typo.button" Color="Color.Primary">
-                                <MudText>@DashboardResource.StringChangePassword</MudText>
-                            </MudText>
-                        </MudCardHeader>
-                        <MudDivider DividerType="DividerType.FullWidth" />
-                        <MudCardContent>
-                            <MudTabs Outlined="true" Position="@Position.Start" Rounded="true" Border="true"
-                                     ApplyEffectsToContainer="true" Class="mt-8" PanelClass="pa-6">
-                                <MudTabPanel Text="@DashboardResource.StringChangePassword">
-                                    <MudGrid>
-                                        <MudItem xs="12">
-                                            <MudTextField @bind-Value="SubmitChangePasswordViewModel.CurrentPassword" Variant="Variant.Outlined"
-                                                          For="@(() => SubmitChangePasswordViewModel.CurrentPassword)" Label="@DashboardResource.StringCurrentPassword"
-                                                          InputType="@CurrentPasswordInput" Adornment="Adornment.End" AdornmentIcon="@CurrentPasswordInputIcon"
-                                                          OnAdornmentClick="ToggleCurrentPasswordVisibility" />
-                                        </MudItem>
-                                        <MudItem xs="12" md="6">
-                                            <MudTextField @bind-Value="SubmitChangePasswordViewModel.NewPassword" Variant="Variant.Outlined"
-                                                          For="@(() => SubmitChangePasswordViewModel.NewPassword)" Label="@DashboardResource.StringNewPassword"
-                                                          InputType="@NewPasswordInput" Adornment="Adornment.End" AdornmentIcon="@NewPasswordInputIcon"
-                                                          OnAdornmentClick="ToggleNewPasswordVisibility" />
-                                        </MudItem>
-                                        <MudItem xs="12" md="6">
-                                            <MudTextField @bind-Value="SubmitChangePasswordViewModel.ConfirmNewPassword" Variant="Variant.Outlined"
-                                                          For="@(() => SubmitChangePasswordViewModel.ConfirmNewPassword)" Label="@DashboardResource.StringConfirmNewPassword"
-                                                          InputType="@ConfirmPasswordInput" Adornment="Adornment.End" AdornmentIcon="@ConfirmPasswordInputIcon"
-                                                          OnAdornmentClick="ToggleConfirmPasswordVisibility" />
-                                        </MudItem>
-                                    </MudGrid>
-                                </MudTabPanel>
-                                <MudTabPanel Text="@DashboardResource.StringUserProfile">
+<EditForm Model="@SubmitChangePasswordViewModel" OnValidSubmit="OnSubmit">
+    <DataAnnotationsValidator />
+    <MaanfeeDashboardDialog @ref="MDialog" IsLoaded="IsLoaded" Title="@DashboardResource.StringChangePassword" IsRTL="SharedLayoutSettings.IsRTL">
+        <MaanfeeDashboardDialogActionContent>
+            <MudTooltip Text="@DashboardResource.StringCreate" Color="Color.Tertiary" Arrow>
+                <MudIconButton Disabled="@IsProcessing" ButtonType="ButtonType.Submit" Icon="@Icons.Material.Filled.Save" Color="Color.Tertiary">
+                    @if (IsProcessing)
+                    {
+                        <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="ms-n1" />
+                        <MudText Class="ms-2">@DashboardResource.StringProcessing</MudText>
+                    }
+                    else
+                    {
+                        <MudIcon Icon="@Icons.Material.Filled.Save" Color="Color.Surface" Class="mx-1" />
+                        <MudText>@DashboardResource.StringSave</MudText>
+                    }
+                </MudIconButton>
+            </MudTooltip>
+        </MaanfeeDashboardDialogActionContent>
+        <MaanfeeDashboardDialogContent>
+            <MudTabs Outlined="true" Position="@Position.Start" Rounded="true" Border="true"
+                     ApplyEffectsToContainer="true" PanelClass="pa-2">
+                <MudTabPanel Text="@DashboardResource.StringChangePassword">
+                    <MudGrid>
+                        <MudItem xs="12">
+                            <MudTextField @bind-Value="SubmitChangePasswordViewModel.CurrentPassword" Variant="Variant.Outlined"
+                                          For="@(() => SubmitChangePasswordViewModel.CurrentPassword)" Label="@DashboardResource.StringCurrentPassword"
+                                          InputType="@CurrentPasswordInput" Adornment="Adornment.End" AdornmentIcon="@CurrentPasswordInputIcon"
+                                          OnAdornmentClick="ToggleCurrentPasswordVisibility" />
+                        </MudItem>
+                        <MudItem xs="12" md="6">
+                            <MudTextField @bind-Value="SubmitChangePasswordViewModel.NewPassword" Variant="Variant.Outlined"
+                                          For="@(() => SubmitChangePasswordViewModel.NewPassword)" Label="@DashboardResource.StringNewPassword"
+                                          InputType="@NewPasswordInput" Adornment="Adornment.End" AdornmentIcon="@NewPasswordInputIcon"
+                                          OnAdornmentClick="ToggleNewPasswordVisibility" />
+                        </MudItem>
+                        <MudItem xs="12" md="6">
+                            <MudTextField @bind-Value="SubmitChangePasswordViewModel.ConfirmNewPassword" Variant="Variant.Outlined"
+                                          For="@(() => SubmitChangePasswordViewModel.ConfirmNewPassword)" Label="@DashboardResource.StringConfirmNewPassword"
+                                          InputType="@ConfirmPasswordInput" Adornment="Adornment.End" AdornmentIcon="@ConfirmPasswordInputIcon"
+                                          OnAdornmentClick="ToggleConfirmPasswordVisibility" />
+                        </MudItem>
+                    </MudGrid>
+                </MudTabPanel>
+                <MudTabPanel Text="@DashboardResource.StringUserProfile">
 
-                                </MudTabPanel>
-                            </MudTabs>
-                        </MudCardContent>
-                    </MudCard>
-                    <MudPaper Class="pa-3 my-2 ActionColor" Elevation="3" Outlined="true" Square="true">
-                        <MudStack Spacing="1" Row="true">
-                            <MudButton Disabled="@IsProcessing" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Tertiary">
-                                @if (IsProcessing)
-                                {
-                                    <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="ms-n1" />
-                                    <MudText Class="ms-2">@DashboardResource.StringProcessing</MudText>
-                                }
-                                else
-                                {
-                                    <MudIcon Icon="@Icons.Material.Filled.Save" Color="Color.Surface" Class="mx-1" />
-                                    <MudText>@DashboardResource.StringSave</MudText>
-                                }
-                            </MudButton>
-                            <MudButton OnClick="Close" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.FreeCancellation" IconColor="Color.Surface">@DashboardResource.StringCancel</MudButton>
-                        </MudStack>
-                    </MudPaper>
-                }
-            </DialogContent>
-        </MudDialog>
-    </EditForm>
-</MudRTLProvider>
+                </MudTabPanel>
+            </MudTabs>
+        </MaanfeeDashboardDialogContent>
+    </MaanfeeDashboardDialog>
+</EditForm>
 
 @code {
 
-    [CascadingParameter]
-    public IMudDialogInstance MudDialog { get; set; }
-
-    private void Close() => MudDialog.Close();
+    private MaanfeeDashboardDialog MDialog = new();
 
     // *****************************************************
 

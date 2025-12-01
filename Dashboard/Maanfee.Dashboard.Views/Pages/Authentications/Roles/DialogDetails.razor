@@ -1,53 +1,25 @@
 ﻿@inherits _BaseView
 
-<MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
-    <MudDialog>
-        <DialogContent>
-            @if (!IsLoaded)
-            {
-                <DashboardOverlay Random="true" />
-            }
-            else
-            {
-                <MudCard Class="mt-2">
-                    <MudPaper Elevation="25">
-                        <MudToolBar Dense>
-                            <MudText Color="Color.Primary">
-                                @DashboardResource.StringRole
-                            </MudText>
-                            <MudSpacer />
-                            <MudTooltip Text="@DashboardResource.StringCancel" Color="Color.Tertiary" Arrow>
-                                <MudIconButton OnClick="Close" Icon="@Icons.Material.Filled.Close" Color="Color.Error" />
-                            </MudTooltip>
-                        </MudToolBar>
-                    </MudPaper>
-                    <MudDivider DividerType="DividerType.FullWidth" />
-                    <MudCardContent>
-                        <MudGrid>
-                            <MudItem xs="12" sm="6" md="6">
-                                <MudField Disabled="true" Label="@DashboardResource.StringRole" Variant="Variant.Outlined">
-                                    @Model.Name
-                                </MudField>
-                            </MudItem>
-                            <MudItem xs="12" sm="6" md="6">
-                                <MudField Disabled="true" Label="@DashboardResource.StringNormalizedName" Variant="Variant.Outlined">
-                                    @Model.NormalizedName
-                                </MudField>
-                            </MudItem>
-                        </MudGrid>
-                    </MudCardContent>
-                </MudCard>
-            }
-        </DialogContent>
-    </MudDialog>
-</MudRTLProvider>
+<MaanfeeDashboardDialog @ref="MDialog" IsLoaded="IsLoaded" Title="@DashboardResource.StringRole" IsRTL="SharedLayoutSettings.IsRTL">
+    <MaanfeeDashboardDialogContent>
+        <MudGrid>
+            <MudItem xs="12" sm="6" md="6">
+                <MudField Disabled="true" Label="@DashboardResource.StringRole" Variant="Variant.Outlined">
+                    @Model.Name
+                </MudField>
+            </MudItem>
+            <MudItem xs="12" sm="6" md="6">
+                <MudField Disabled="true" Label="@DashboardResource.StringNormalizedName" Variant="Variant.Outlined">
+                    @Model.NormalizedName
+                </MudField>
+            </MudItem>
+        </MudGrid>
+    </MaanfeeDashboardDialogContent>
+</MaanfeeDashboardDialog>
 
 @code {
 
-    [CascadingParameter]
-    public IMudDialogInstance MudDialog { get; set; }
-
-    private void Close() => MudDialog.Close();
+    private MaanfeeDashboardDialog MDialog = new();
 
     // *****************************************************
 

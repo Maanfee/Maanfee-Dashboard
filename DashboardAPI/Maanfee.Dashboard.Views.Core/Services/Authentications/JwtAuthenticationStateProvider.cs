@@ -1,17 +1,14 @@
 ﻿using Maanfee.Dashboard.Core;
-using Maanfee.Web.JSInterop;
+using Maanfee.JsInterop;
 using Microsoft.AspNetCore.Components.Authorization;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Views.Core.Services
 {
     public class JwtAuthenticationStateProvider : AuthenticationStateProvider
     {
-        public JwtAuthenticationStateProvider(HttpClient httpClient,
-            LocalStorage localStorage)
+        public JwtAuthenticationStateProvider(HttpClient httpClient, LocalStorage localStorage)
         {
             Http = httpClient;
             _anonymous = new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
@@ -21,13 +18,13 @@ namespace Maanfee.Dashboard.Views.Core.Services
 
         private readonly HttpClient Http;
         private readonly AuthenticationState _anonymous;
-        private LocalStorage LocalStorage; 
+        private LocalStorage LocalStorage;
 
         public string JwtTokenStorage { get; set; }
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            if(string.IsNullOrWhiteSpace(JwtTokenStorage))
+            if (string.IsNullOrWhiteSpace(JwtTokenStorage))
             {
                 return _anonymous;
             }

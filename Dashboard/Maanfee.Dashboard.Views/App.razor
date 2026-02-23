@@ -1,11 +1,12 @@
 @using System.Reflection
 
+<MudDialogProvider />
+<MudSnackbarProvider />
+<MudPopoverProvider />
+
 <ErrorView>
-    <MudDialogProvider />
-    <MudSnackbarProvider />
-    <MudPopoverProvider />
     <Router AppAssembly="@typeof(Program).Assembly"
-    AdditionalAssemblies="@LazyLoadedAssemblies" OnNavigateAsync="@OnNavigateAsync">
+            AdditionalAssemblies="@LazyLoadedAssemblies" OnNavigateAsync="@OnNavigateAsync">
         <Found Context="routeData">
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(AdminLayout)">
                 <NotAuthorized>

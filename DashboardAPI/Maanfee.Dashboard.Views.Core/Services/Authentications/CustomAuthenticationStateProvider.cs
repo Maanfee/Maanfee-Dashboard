@@ -1,11 +1,7 @@
 ﻿using Maanfee.Dashboard.Domain.ViewModels;
 using Microsoft.AspNetCore.Components.Authorization;
-using System;
-using System.Linq;
-using System.Net.Http;
 using System.Net.Http.Json;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Views.Core.Services
 {

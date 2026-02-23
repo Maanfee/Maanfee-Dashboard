@@ -34,9 +34,6 @@ builder.Services.AddHighCharts();
 // Print
 builder.Services.AddScoped<IPrintingService, PrintingService>();
 
-// File Download
-builder.Services.AddFileDownload();
-
 // File Upload
 builder.Services.AddScoped<IFilesManagerService, FilesManagerService>();
 

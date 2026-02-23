@@ -59,5 +59,5 @@ export function PrintComponent(id, title) {
         iframe.contentWindow.focus();
         iframe.contentWindow.print();
         document.body.removeChild(iframe);
-    }, 200)
+    }, 200);
 }

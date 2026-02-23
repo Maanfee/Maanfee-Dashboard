@@ -1,13 +1,13 @@
-
+﻿
 <div align="center">
   <picture>
     <img alt="Maanfee" src="SolutionItems/Contents/Logo.png">
   </picture>
   <h2 align="center">
-    Maanfee Dashboard MudBlazor Template
+    Maanfee Dashboard - MudBlazor Template
   </h2>
   <p align="center">
-    Open source solution template for Blazor Web-Assembly  built with MudBlazor
+    Open source solution template for Blazor WebAssembly built with MudBlazor components.
   </p>
   <div>
       <a href="https://github.com/Maanfee/Maanfee-Dashboard/blob/main/LICENSE" target="_blank">
@@ -19,22 +19,22 @@
  </div>
 </div>
 
-## Screenshots 
+## 📸 Screenshots
 ![Screenshots](SolutionItems/Screenshots/Dashboard.png)
 
-## Prerequisites
-- Supported .NET versions
+## 📋 Prerequisites
+- **Supported .NET version:**  
   - [.NET 10.0](https://dotnet.microsoft.com/en-us/download/dotnet/10.0) 
 
-## Development Enviroment
+## 🛠 Development Environment
 - [Microsoft Visual Studio 2026](https://visualstudio.microsoft.com/downloads/) 
 - [.NET 10.0](https://dotnet.microsoft.com/en-us/download/dotnet/10.0) 
 
-## Supported databases
+## 🗃 Supported Databases
 - [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) 
 - [SQLite](https://www.sqlite.org/index.html) 
 
-## How to build solution 
+## 🚀 How to Build the Solution
 ### SQL Server Connection String Configuration
 
 In the `appsettings.json` file of the `Maanfee.Dashboard.Server` and `Maanfee.Logging.Server` projects, set the `SQLServerConnection_DebugMode` connection string as follows:
@@ -66,8 +66,10 @@ Server=your_server_ip;Database=YourDB;User Id=username;Password=password;
 - `User Id/Password`: SQL authentication
 - `MultipleActiveResultSets`: Enable MARS feature
 
-> Note: Always keep connection strings secure and never commit sensitive credentials to version control.
-### Project startup Configuration 
+#### 🔐 Security Note:
+> Always keep connection strings secure and never commit sensitive credentials to version control.
+
+### Configure Startup Projects
 Right click on the solution name and then select 
 "properties->multiple startup projects" then set followings project 
 as startup.
@@ -81,14 +83,13 @@ as startup.
 ### Run solution
 ![image](SolutionItems/Screenshots/VisualStudio.png)
 - Default login credentials
-    - Username : Admin
-    - Password : 123456
-    
-    > **Important**
-As the Maanfee dashboard is under development, please make sure you delete your existing database (SQL Server, SQLite). Also install the latest version of Maanfee dashboard.
+    - Username : `Admin`
+    - Password : `123456`
 
-**Project History Releases**
+> ⚠️ **Important Notice:**
+Maanfee Dashboard is under active development. Before running a new version, please delete any existing database (SQL Server or SQLite) to avoid migration conflicts.
 
+📦 Release History
 - [01-10-08 : Init]()
 
 

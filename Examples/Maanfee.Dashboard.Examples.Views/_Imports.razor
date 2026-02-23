@@ -30,16 +30,6 @@
 @using MudBlazor
 @using Newtonsoft.Json
 
-@*@inject LocalConfiguration LocalConfiguration*@
-@*@inject JwtAuthenticationStateProvider _JwtAuthenticationStateProvider*@
-
-@*
-	@inject IAuthorizationService _authorizationService
-
-	@inject NavigationManager Navigation
-	@inject CustomStateProvider AuthenticationStateProvider
-	*@
-
 @inject AccountStateContainer AccountStateContainer
 @inject HttpClient Http
 @inject IJSRuntime JS
@@ -49,5 +39,4 @@
 
 @inject Maanfee.Web.Printing.IPrintingService PrintingService
 @using Maanfee.JsInterop
-@inject Maanfee.JsInterop.Dom Dom
-@inject Maanfee.Web.Core.FileDownloadService FileDownload
+@inject Maanfee.JsInterop.FileDownload FileDownload

@@ -3,8 +3,8 @@
 
 <EditForm OnValidSubmit="OnSubmit" EditContext="@EditContext">
     <DataAnnotationsValidator />
-    <MaanfeeDashboardDialog @ref="MDialog" IsLoaded="IsLoaded" Title="@DashboardResource.StringUser" IsRTL="SharedLayoutSettings.IsRTL">
-        <MaanfeeDashboardDialogActionContent>
+    <MaanfeeDashboardDialog @ref="MDialog" IsDialogLoaded="IsLoaded" Title="@DashboardResource.StringCreate" DialogContentType="@(this.GetType())">
+        <MaanfeeDashboardDialogHeaderAction>
             <MudTooltip Text="@DashboardResource.StringCreate" Color="Color.Tertiary" Arrow>
                 <MudIconButton id="btn" Disabled="@IsProcessing" ButtonType="ButtonType.Submit" Icon="@Icons.Material.Filled.Save" Color="Color.Tertiary">
                     @if (IsProcessing)
@@ -19,9 +19,9 @@
                     }
                 </MudIconButton>
             </MudTooltip>
-        </MaanfeeDashboardDialogActionContent>
+        </MaanfeeDashboardDialogHeaderAction>
         <MaanfeeDashboardDialogContent>
-            <MudTabs ActivePanelIndexChanged="(TabIndex) => TabIndexChanged(TabIndex)" @ref="Tab" Elevation="2" Rounded ApplyEffectsToContainer PanelClass="pa-2">
+            <MudTabs ActivePanelIndexChanged="(TabIndex) => TabIndexChanged(TabIndex)" @ref="Tab" Elevation="2" Rounded ApplyEffectsToContainer TabPanelsClass="pa-2">
                 <MudTabPanel Text="@DashboardResource.StringPersonalInformation">
                     <MudGrid>
                         <MudItem md="3">
@@ -91,7 +91,7 @@
                             <MudSelect Label="@DashboardResource.StringPost" Variant="Variant.Outlined"
                                        Clearable MultiSelection="true" SelectAll="true"
                                        SelectAllText="@DashboardResource.StringSelectAll"
-                                       MultiSelectionTextFunc="@(new Func<List<string>, string>(GetDepartmentMultiSelectionText))"
+                                       MultiSelectionTextFunc="@(new Func<IReadOnlyList<string>, string>(GetDepartmentMultiSelectionText))"
                                        @bind-SelectedValues="SubmitUserViewModel.DepartmentValues"
                                        @bind-Value="SubmitUserViewModel.IdDepartment"
                                        For="@(() => SubmitUserViewModel.IdDepartment)">
@@ -105,7 +105,7 @@
                             <MudSelect Label="@DashboardResource.StringGroup" Variant="Variant.Outlined"
                                        Clearable MultiSelection="true" SelectAll="true"
                                        SelectAllText="@DashboardResource.StringSelectAll"
-                                       MultiSelectionTextFunc="@(new Func<List<string>, string>(GetGroupMultiSelectionText))"
+                                       MultiSelectionTextFunc="@(new Func<IReadOnlyList<string>, string>(GetGroupMultiSelectionText))"
                                        @bind-SelectedValues="SubmitUserViewModel.GroupValues"
                                        @bind-Value="SubmitUserViewModel.IdGroup"
                                        For="@(() => SubmitUserViewModel.IdGroup)">
@@ -395,7 +395,7 @@
         }
     }
 
-    private string GetDepartmentMultiSelectionText(List<string> SelectedValues)
+    private string GetDepartmentMultiSelectionText(IReadOnlyList<string> SelectedValues)
     {
         var SelectedTexts = Departments.Where(i => SelectedValues.Any(a => i.Id == int.Parse(a))).Select(s => s.Title);
 
@@ -406,7 +406,7 @@
 
     private IEnumerable<DropDownGroupViewModel> Groups = new List<DropDownGroupViewModel>();
 
-    private string GetGroupMultiSelectionText(List<string> SelectedValues)
+    private string GetGroupMultiSelectionText(IReadOnlyList<string> SelectedValues)
     {
         var SelectedTexts = Groups.Where(i => SelectedValues.Any(a => i.Id == int.Parse(a))).Select(s => s.Title);
 

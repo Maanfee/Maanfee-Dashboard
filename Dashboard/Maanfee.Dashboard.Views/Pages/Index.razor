@@ -6,9 +6,11 @@
 
 @inject Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment Environment
 
-<MaanfeeDashboardPage>
-    <MaanfeeDashboardPageHeader PageTitle="@DashboardResource.StringDashboard" />
-
+<MaanfeeDashboardPage PageTitle="@DashboardResource.StringDashboard">
+   
+    <Triangle />
+   @*  <Booklet /> *@
+  
     @*   <p>The application is running in <strong>@Environment.Environment</strong> mode.</p>
     <p><strong>@GetType().Name</strong></p>
     <p><strong>@GetFilePath()</strong></p>
@@ -70,13 +72,13 @@
 
                     var dialog = await Dialog.ShowAsync<Settings.SysReleases.DialogReleaseControl>(string.Empty, DialogParameters,
                                 new DialogOptions()
-                                    {
-                                        NoHeader = true,
-                                        MaxWidth = MaxWidth.Medium,
-                                        FullWidth = true,
-                                        Position = DialogPosition.Center,
-                                        BackdropClick = false,
-                                    });
+                                {
+                                    NoHeader = true,
+                                    MaxWidth = MaxWidth.Medium,
+                                    FullWidth = true,
+                                    Position = DialogPosition.Center,
+                                    BackdropClick = false,
+                                });
                 }
             }
             else

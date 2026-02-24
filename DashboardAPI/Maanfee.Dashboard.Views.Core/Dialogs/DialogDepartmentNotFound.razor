@@ -1,0 +1,29 @@
+﻿@namespace Maanfee.Dashboard.Views.Core
+
+<MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
+	<MudDialog>
+		<TitleContent>
+			<MudText Typo="Typo.h6">
+				<MudIcon Icon="@Icons.Material.Filled.Info" Color="Color.Warning" />
+			</MudText>
+		</TitleContent>
+		<DialogContent>
+			<MudText>
+				@DashboardResource.MessageRoleIsNotDefined
+			</MudText>
+		</DialogContent>
+		<DialogActions>
+			<MudButton OnClick="Cancel" Color="Color.Warning" Variant="Variant.Filled">
+				@DashboardResource.StringCancel
+			</MudButton>
+		</DialogActions>
+	</MudDialog>
+</MudRTLProvider>
+
+@code {
+
+	[CascadingParameter]
+	IMudDialogInstance? MudDialog { get; set; }
+
+	void Cancel() => MudDialog?.Cancel();
+}

@@ -1,8 +1,4 @@
-﻿using Maanfee.Dashboard.Core;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Maanfee.Dashboard.Views.Core.Services
+﻿namespace Maanfee.Dashboard.Views.Core.Services
 {
 	public static class LanguageService
 	{
@@ -45,7 +41,7 @@ namespace Maanfee.Dashboard.Views.Core.Services
 			};
 		}
 
-		public static LanguageModel GetLanguage(string Country)
+		public static LanguageModel? GetLanguage(string Country)
 		{
 			return GetSupportedLanguages().FirstOrDefault(x => x.Country == Country);
 		}

@@ -1,12 +1,12 @@
 ﻿@inherits _BaseView
 
-<MaanfeeDashboardDialog @ref="MDialog" IsLoaded="IsLoaded" Title="@DashboardResource.StringSearch"
-                        IsRTL="SharedLayoutSettings.IsRTL" OnKeyDown="OnKeyDownAsync">
-    <MaanfeeDashboardDialogActionContent>
+<MaanfeeDashboardDialog @ref="MDialog" IsDialogLoaded="@IsLoaded" Title="@DashboardResource.StringSearch"
+                        DialogContentType="@(this.GetType())" OnKeyDown="OnKeyDownAsync">
+    <MaanfeeDashboardDialogHeaderAction>
         <MudTooltip Text="@DashboardResource.StringSearch" Color="Color.Tertiary" Arrow>
             <MudIconButton OnClick="Search" Icon="@Icons.Material.Filled.ManageSearch" Color="Color.Tertiary" />
         </MudTooltip>
-    </MaanfeeDashboardDialogActionContent>
+    </MaanfeeDashboardDialogHeaderAction>
     <MaanfeeDashboardDialogContent>
         <MudGrid>
             <MudItem md="12">

@@ -1,0 +1,62 @@
+﻿@namespace Maanfee.Dashboard.Views.Core
+@inherits _BaseView
+
+<MudSkeleton SkeletonType="SkeletonType.Rectangle" Height="100%" Animation="Animation.Wave" />
+<MudCardContent>
+    <MudSkeleton Width="30%" Height="50px;" />
+    <MudSkeleton Width="80%" Height="35px;" />
+    <MudSkeleton Width="100%" Height="200px;" />
+</MudCardContent>
+<MudCardActions>
+    <MudSkeleton Width="100px" Height="60px" Class="ml-2" />
+    <MudSkeleton Width="100px" Height="60px" Class="ml-3" />
+    <MudSkeleton Width="100px" Height="60px" Class="ml-3" />
+</MudCardActions>
+<MudOverlay Visible="!IsLoaded" DarkBackground="false" Absolute="true" Style="top:5%;">
+    @switch (OverlayType)
+    {
+        case OverlayType.TwoCircleRotation:
+            <TwoCircleRotation />
+            break;
+        case OverlayType.Heart:
+            <Heart />
+            break;
+        case OverlayType.Hive:
+            <Hive />
+            break;
+        case OverlayType.Explorer:
+            <Explorer />
+            break;
+        case OverlayType.Triangle:
+            <Triangle />
+            break;
+        case OverlayType.Booklet:
+            <Booklet />
+            break;
+            default:
+            <TwoCircleRotation />
+            break;
+    }
+</MudOverlay>
+
+@code {
+
+    [Parameter]
+    public OverlayType OverlayType { get; set; } = OverlayType.TwoCircleRotation;
+
+    [Parameter]
+    public bool Random { get; set; } = false;
+
+    protected override void OnInitialized()
+    {
+        if (Random)
+        {
+            var random = new Random();
+            var values = Enum.GetValues(typeof(OverlayType));
+            OverlayType = (OverlayType)values.GetValue(random.Next(values.Length))!;
+        }
+
+        base.OnInitialized();
+    }
+
+}

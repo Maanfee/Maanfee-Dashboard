@@ -1,0 +1,38 @@
+﻿@namespace Maanfee.Dashboard.Views.Core
+@inherits _BaseView
+@* DialogCultureInformation.razor *@
+
+<MaanfeeDashboardDialog @ref="MDialog" Title="@DashboardResource.StringCultureInformation" IsDialogLoaded="@IsLoaded" DialogContentType="@(this.GetType())">
+    <MaanfeeDashboardDialogContent>
+        <p><strong>Current Culture:</strong> @CultureInfo.CurrentCulture.Name</p>
+        <p><strong>Current UI Culture:</strong> @CultureInfo.CurrentUICulture.Name</p>
+        <p><strong>Display UI Name:</strong> @CultureInfo.CurrentUICulture.DisplayName</p>
+        <p><strong>Display Name:</strong> @CultureInfo.CurrentCulture.DisplayName</p>
+        <p><strong>Native Name:</strong> @CultureInfo.CurrentCulture.NativeName</p>
+        <p><strong>English Name:</strong> @CultureInfo.CurrentCulture.EnglishName</p>
+        <p><strong>Two-Letter ISO:</strong> @CultureInfo.CurrentCulture.TwoLetterISOLanguageName</p>
+        <p><strong>Is Right To Left:</strong> @CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft</p>
+        <p><strong>Is Right To Left Shared:</strong> @SharedLayoutSettings.IsRTL</p>
+        <p><strong>Invariant Culture:</strong> @CultureInfo.InvariantCulture</p>
+
+        <h4>Test Formatting:</h4>
+        <p>Date: @DateTime.Now.ToString("D")</p>
+        <p>Number: @(1234.56.ToString("C"))</p>
+        <p>Percentage: @(0.75.ToString("P"))</p>
+    </MaanfeeDashboardDialogContent>
+</MaanfeeDashboardDialog>
+
+@code {
+
+    private MaanfeeDashboardDialog MDialog = new();
+
+    // *****************************************************
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        IsLoaded = true;
+    }
+
+}

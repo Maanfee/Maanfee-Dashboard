@@ -2,8 +2,8 @@
 
 <EditForm OnValidSubmit="OnSubmit" Model="SubmitGroupViewModel">
     <DataAnnotationsValidator />
-    <MaanfeeDashboardDialog @ref="MDialog" IsLoaded="IsLoaded" Title="@DashboardResource.StringGroup" IsRTL="SharedLayoutSettings.IsRTL">
-        <MaanfeeDashboardDialogActionContent>
+    <MaanfeeDashboardDialog @ref="MDialog" IsDialogLoaded="@IsLoaded" Title="@DashboardResource.StringCreate" DialogContentType="@(this.GetType())">
+        <MaanfeeDashboardDialogHeaderAction>
             <MudTooltip Text="@DashboardResource.StringCreate" Color="Color.Tertiary" Arrow>
                 <MudIconButton Disabled="@IsProcessing" ButtonType="ButtonType.Submit" Icon="@Icons.Material.Filled.Save" Color="Color.Tertiary">
                     @if (IsProcessing)
@@ -18,7 +18,7 @@
                     }
                 </MudIconButton>
             </MudTooltip>
-        </MaanfeeDashboardDialogActionContent>
+        </MaanfeeDashboardDialogHeaderAction>
         <MaanfeeDashboardDialogContent>
             <MudGrid>
                 <MudItem md="12">

@@ -1,11 +1,10 @@
 ﻿@page "/Departments/DepartmentView"
 @inherits _BaseView
 
-<MaanfeeDashboardPage>
-    <MaanfeeDashboardPageHeader PageTitle="@DashboardResource.StringDepartment" />
+<MaanfeeDashboardPage PageTitle="@DashboardResource.StringDepartment">
     @if (!IsLoaded)
     {
-        <DashboardOverlay Random="true" />
+        <SVGOverlay Random="true" />
     }
     else
     {

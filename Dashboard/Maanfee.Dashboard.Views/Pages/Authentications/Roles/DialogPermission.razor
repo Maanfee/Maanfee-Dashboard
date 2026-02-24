@@ -1,6 +1,6 @@
 ﻿@inherits _BaseView
 
-<MaanfeeDashboardDialog @ref="MDialog" IsLoaded="IsLoaded" Title="@($"{DashboardResource.StringManagePermission} - {RoleName}")" IsRTL="SharedLayoutSettings.IsRTL">
+<MaanfeeDashboardDialog @ref="MDialog" IsDialogLoaded="@IsLoaded" Title="@($"{DashboardResource.StringManagePermission} - {RoleName}")" DialogContentType="@(this.GetType())">
     <MaanfeeDashboardDialogContent>
         <MudTabs @ref="tabs" Elevation="25" Rounded Centered ApplyEffectsToContainer AlwaysShowScrollButtons>
             @foreach (var item in TitleNames)

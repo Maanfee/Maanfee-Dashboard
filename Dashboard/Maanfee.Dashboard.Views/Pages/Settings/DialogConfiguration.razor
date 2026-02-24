@@ -1,6 +1,6 @@
 ﻿@inherits _BaseView
 
-<MaanfeeDashboardDialog @ref="MDialog" IsLoaded="IsLoaded" Title="@DashboardResource.StringConfiguration" IsRTL="SharedLayoutSettings.IsRTL">
+<MaanfeeDashboardDialog @ref="MDialog" IsDialogLoaded="IsLoaded" Title="@DashboardResource.StringConfiguration" DialogContentType="@(this.GetType())">
     <MaanfeeDashboardDialogContent>
         <MudTabs Outlined Position="Position.Start">
             <MudTabPanel Text="@DashboardResource.StringStorage" Icon="@Icons.Material.Filled.Storage" Class="pa-4">

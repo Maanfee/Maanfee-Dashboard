@@ -17,7 +17,8 @@ namespace MudBlazor
         private string? _text;
         private bool _disabled;
         private bool _isChecked, _isSelected, _isServerLoaded;
-        private Converter<T> _converter = new DefaultConverter<T>();
+        private DefaultConverter<T> _converter = new DefaultConverter<T>();
+
         private readonly List<MudTreeViewItemOld<T>> _childItems = new();
 
         protected string Classname =>
@@ -76,7 +77,7 @@ namespace MudBlazor
         [Category(CategoryTypes.TreeView.Behavior)]
         public string? Text
         {
-            get => string.IsNullOrEmpty(_text) ? _converter.Set(Value) : _text;
+            get => string.IsNullOrEmpty(_text) ? Value?.ToString() : _text;
             set => _text = value;
         }
 

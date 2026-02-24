@@ -37,7 +37,7 @@ namespace Maanfee.Dashboard.Domain.ViewModels
 
         public int? IdDepartment { get; set; }
 
-        public IEnumerable<int?> DepartmentValues { get; set; } = new List<int?>();
+        public IReadOnlyCollection<int?> DepartmentValues { get; set; } = new List<int?>();
 
         //[Display(Name = nameof(DashboardResource.StringDepartment), ResourceType = typeof(DashboardResource))]
         //public DropDownDepartmentViewModel Department { get; set; }
@@ -46,7 +46,7 @@ namespace Maanfee.Dashboard.Domain.ViewModels
 
         public int? IdGroup { get; set; }
 
-        public IEnumerable<int?> GroupValues { get; set; } = new List<int?>();
+        public IReadOnlyCollection<int?> GroupValues { get; set; } = new List<int?>();
 
         // **************************************************
 

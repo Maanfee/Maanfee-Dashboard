@@ -1,7 +1,7 @@
 ﻿using Maanfee.Dashboard.Core;
 using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Dashboard.Resources;
-using Maanfee.Dashboard.Views.Base;
+using Maanfee.Dashboard.Views.Core;
 using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;

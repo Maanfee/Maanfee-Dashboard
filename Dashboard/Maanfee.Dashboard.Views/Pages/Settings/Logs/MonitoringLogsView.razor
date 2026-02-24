@@ -1,10 +1,8 @@
 ﻿@page "/Settings/MonitoringLogsView"
 @inherits _BaseView
 
-<MaanfeeDashboardPage>
-    <MaanfeeDashboardPageHeader PageTitle="@Maanfee.Logging.Console.Resources.Resource.StringMonitoringLogs" />
-
-    <MudTabs Elevation="2" Rounded ApplyEffectsToContainer PanelClass="pa-2">
+<MaanfeeDashboardPage PageTitle="@Maanfee.Logging.Console.Resources.Resource.StringMonitoringLogs">
+    <MudTabs Elevation="2" Rounded ApplyEffectsToContainer TabPanelsClass="pa-2">
         <MudTabPanel Text="@Maanfee.Logging.Console.Resources.Resource.StringMonitoringLogs">
             <LogConsole Title="@Maanfee.Logging.Console.Resources.Resource.StringMonitoringLogs" Align="@(SharedLayoutSettings.IsRTL? Align.End: Align.Start)" />
         </MudTabPanel>
@@ -12,5 +10,4 @@
             <ComponentLogHistory Title="@Maanfee.Logging.Console.Resources.Resource.StringLogHistory" />
         </MudTabPanel>
     </MudTabs>
-
 </MaanfeeDashboardPage>

@@ -3,25 +3,21 @@
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <TieredPGO>true</TieredPGO>
+    <Nullable>enable</Nullable>
     <!--**********************************************-->
-    <DebugType>none</DebugType>
-    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
-    <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
-    <RunAnalyzers>false</RunAnalyzers>
+    <ScopedCssEnabled>true</ScopedCssEnabled>
     <!--**********************************************-->
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Copyright>Copyright (c) 2021-2026 Maanfee</Copyright>
     <Authors>Maanfee Team (MF)</Authors>
     <Company>Maanfee</Company>
-    <Version>8.277.0</Version>
+    <Version>8.500.0</Version>
     <PackageIcon>MaanfeeRed.png</PackageIcon>
     <RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <!--**********************************************-->
-    <NoWarn>0108</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

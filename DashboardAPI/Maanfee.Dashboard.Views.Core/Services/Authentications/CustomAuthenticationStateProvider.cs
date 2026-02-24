@@ -12,7 +12,7 @@ namespace Maanfee.Dashboard.Views.Core.Services
             Http = httpClient;
         }
 
-        private CurrentUser _currentUser;
+        private CurrentUser? _currentUser;
         private readonly HttpClient Http;
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
@@ -25,9 +25,9 @@ namespace Maanfee.Dashboard.Views.Core.Services
                 {
                     var claims = new[]
                     {
-                        new Claim(ClaimTypes.Name, _currentUser.UserName),
+                        new Claim(ClaimTypes.Name, _currentUser!.UserName!),
                     }
-                    .Concat(_currentUser.Claims.Select(c => new Claim(c.Key, c.Value)));
+                    .Concat(_currentUser.Claims!.Select(c => new Claim(c.Key, c.Value)));
 
                     identity = new ClaimsIdentity(claims, "Server authentication");
                 }
@@ -42,12 +42,12 @@ namespace Maanfee.Dashboard.Views.Core.Services
 
         private async Task<CurrentUser> GetCurrentUser()
         {
-            if (_currentUser != null && _currentUser.IsAuthenticated)
+            if (_currentUser?.IsAuthenticated == true)
             {
-                return _currentUser;
+                return _currentUser!;
             }
             _currentUser = await Http.GetFromJsonAsync<CurrentUser>("api/Authentications/currentuserinfo");
-            return _currentUser;
+            return _currentUser!;
         }
 
         public async Task Logout()

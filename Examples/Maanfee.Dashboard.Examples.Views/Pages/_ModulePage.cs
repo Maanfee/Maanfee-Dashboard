@@ -1,4 +1,5 @@
-﻿using Maanfee.Dashboard.Views.Base.Pages;
+﻿
+using Maanfee.Dashboard.Views.Core;
 
 namespace Maanfee.Dashboard.Examples.Views.Pages
 {

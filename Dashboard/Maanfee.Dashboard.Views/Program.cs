@@ -1,58 +1,39 @@
 using Maanfee.Dashboard.Views;
-using Maanfee.Dashboard.Views.Base.Extensions;
-using Maanfee.Dashboard.Views.Base.Services;
+using Maanfee.Dashboard.Views.Core;
 using Maanfee.Dashboard.Views.Core.Services;
-using Maanfee.Highcharts;
-using Maanfee.JsInterop;
-using Maanfee.Logging.Console;
-using Maanfee.Lottie;
-using Maanfee.Web.Core;
-using Maanfee.Web.Printing;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Net.Http;
+using System.Globalization;
+using System.Threading.Tasks;
 
-var builder = WebAssemblyHostBuilder.CreateDefault(args).AddClientServices();
+var builder = WebAssemblyHostBuilder.CreateDefault(args).AddDashboardClientServices();
 
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-// ***************************
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-//var HTTP = new HttpClient()
-//{
-//    BaseAddress = new Uri(builder.HostEnvironment.BaseAddress),
-//};
-//builder.Services.AddScoped(sp => HTTP);
-// **************************
-
-// HighCharts
-builder.Services.AddHighCharts();
-
-// Print
-builder.Services.AddScoped<IPrintingService, PrintingService>();
-
-// File Upload
-builder.Services.AddScoped<IFilesManagerService, FilesManagerService>();
-
-// RealTime Logging
-builder.Services.AddLoggingConsole();
-
 // GatewayApi
 builder.Services.AddScoped<GatewayApi>();
-
-// Lottie
-builder.Services.AddMaanfeeLottie();
-
-// JsInterop
-builder.Services.AddMaanfeeJsInterop();
 
 var host = builder.Build();
 
 var Config = host.Services.GetRequiredService<LocalConfigurationService>();
-await Config.GetConfigurationAsync();
-await Config.InitWasmCultureAsync(builder.Services, LanguageService.SupportedCountry.US);
+await Config.InitConfigurationAsync(LanguageManager.SupportedCountry.US);
+await InitCultureAsync(builder.Services);
 
 await host.RunAsync();
+
+async Task InitCultureAsync(IServiceCollection Services)
+{
+    Services.AddLocalization(options =>
+    {
+        options.ResourcesPath = "Resources";
+    });
+
+    var Culture = new CultureInfo(SharedLayoutSettings.CultureCode);
+
+    CultureInfo.DefaultThreadCurrentCulture = Culture;
+    CultureInfo.DefaultThreadCurrentUICulture = Culture;
+    CultureInfo.CurrentCulture = Culture;
+    CultureInfo.CurrentUICulture = Culture;
+}

@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace Maanfee.Dashboard.Services.Extensions
+namespace Maanfee.Dashboard.Services
 {
     public static class AddSwaggerExtension
     {

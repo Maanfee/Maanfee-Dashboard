@@ -1,0 +1,154 @@
+﻿@namespace Maanfee.Dashboard.Views.Core
+@inherits _BaseView
+
+<style>
+
+    .maanfee-theme-box-xs {
+        appearance: none;
+        border-radius: 0.75rem;
+        border: 0;
+        height: 24px;
+        margin-bottom: 0.2rem;
+        margin-inline: 0.2rem;
+        width: 24px;
+    }
+
+    .maanfee-themeColors.active:before, .maanfee-themeColors.active:before {
+        border-color: #fff;
+        border-style: solid;
+        border-width: 0 0 3px 3px;
+        content: "";
+        height: 0.45rem;
+        inset: 50% 0 0 50%;
+        position: absolute;
+        transform-origin: center center;
+        transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+        width: 0.7rem;
+    }
+
+</style>
+
+<CascadingValue Value="this">
+    <MudDrawer Anchor="@(SharedLayoutSettings.IsRTL? Anchor.Left: Anchor.Right)"
+               @bind-Open="ThemingDrawerOpen" Elevation="25" Variant="@DrawerVariant.Temporary" Width="260px"
+               OverlayAutoClose="false" Overlay="false">
+        <div>
+            <MudDrawerHeader Class="align-center">
+                <MudText Typo="Typo.body1">
+                    <b>@DashboardResource.StringTheme</b>
+                </MudText>
+                <MudSpacer />
+                <MudIconButton Color="Color.Default" Size="Size.Small" Icon="@Icons.Material.Filled.Close"
+                               OnClick="@(() => ThemingDrawerOpenChanged.InvokeAsync(false))" />
+            </MudDrawerHeader>
+            <MudDivider />
+            <MudCard Outlined="false" Elevation="0">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <b>
+                            <MudText Typo="Typo.button" Color="Color.Primary">@DashboardResource.StringColor</MudText>
+                        </b>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    @foreach (var color in SupportedThemeColors)
+                    {
+                        <button class="@(color.Value == SharedLayoutSettings.Theme.PaletteLight.Primary ? "maanfee-theme-box-xs maanfee-themeColors active" : "maanfee-theme-box-xs")"
+                                style="@($"background: {color.Value};")" onclick="@(() => UpdateThemePrimaryColor(color, SharedLayoutSettings.SelectedFont?.FontName))"></button>
+                    }
+                </MudCardContent>
+            </MudCard>
+            <MudDivider Class="my-1 mt-1" />
+            <MudCard Outlined="false" Elevation="0">
+                <MudSwitch Color="Color.Primary" @bind-Value="@SharedLayoutSettings.IsFullscreenMode">
+                    <MudText Typo="Typo.caption" Color="Color.Primary">@DashboardResource.StringRunFullscreenMode</MudText>
+                </MudSwitch>
+            </MudCard>
+            <MudDivider Class="my-1 mt-1" />
+            <MudCard Outlined="false" Elevation="0">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <b>
+                            <MudText Typo="Typo.caption" Color="Color.Primary">@DashboardResource.StringFonts</MudText>
+                        </b>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudSelect T="string" Variant="Variant.Outlined" Dense="true"
+                               Value="@GetFont()" ValueChanged="@( x => UpdateThemePrimaryColor(SharedLayoutSettings.Theme.PaletteLight.Primary, x))">
+                        @foreach (var item in MaanfeeTheme.GetSupportedFonts().Where(x => x.IsRTL == SharedLayoutSettings.IsRTL))
+                        {
+                            <MudSelectItem Value="@item.FontName">@item.FontName</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudCardContent>
+            </MudCard>
+            <MudDivider Class="my-1 mt-1" />
+        </div>
+    </MudDrawer>
+</CascadingValue>
+
+@code {
+
+    [EditorRequired][Parameter] public bool ThemingDrawerOpen { get; set; }
+
+    [EditorRequired][Parameter] public EventCallback<bool> ThemingDrawerOpenChanged { get; set; }
+
+    // **************************************
+
+    private static MudColor PrimaryColor = new PaletteLight().Primary;
+
+    private readonly List<MudColor> SupportedThemeColors = new()
+    {
+        PrimaryColor,
+        Colors.Amber.Default,
+        Colors.Blue.Default,
+        Colors.BlueGray.Default,
+        Colors.Brown.Default,
+        Colors.Cyan.Default,
+        Colors.DeepOrange.Default,
+        Colors.DeepPurple.Default,
+        Colors.Gray.Default,
+        Colors.Green.Default,
+        Colors.Indigo.Default,
+        Colors.LightBlue.Default,
+        Colors.LightGreen.Default,
+        Colors.Lime.Default,
+        Colors.Orange.Default,
+        Colors.Pink.Default,
+        Colors.Purple.Default,
+        Colors.Red.Default,
+        Colors.Teal.Default,
+        Colors.Yellow.Default,
+    };
+
+    private async Task UpdateThemePrimaryColor(MudColor color, string? newFont)
+    {
+        PrimaryColor = color;
+        SharedLayoutSettings.SelectedFont = MaanfeeTheme.GetSupportedFonts().FirstOrDefault(x => x.FontName == newFont);
+        SharedLayoutSettings.Theme = MaanfeeTheme.ThemeBuilder(PrimaryColor, SharedLayoutSettings.SelectedFont?.FontName);
+
+        await UserPreferencesChanged.InvokeAsync(SharedLayoutSettings.Theme);
+        // *******************
+        await LocalConfiguration!.SetConfigurationAsync();
+
+        StateHasChanged();
+    }
+
+    [EditorRequired][Parameter] public EventCallback<MudTheme> UserPreferencesChanged { get; set; }
+
+    // **************************************
+
+    private string? GetFont()
+    {
+        if (SharedLayoutSettings.SelectedFont?.IsRTL == SharedLayoutSettings.IsRTL)
+        {
+            return SharedLayoutSettings.SelectedFont.FontName;
+        }
+        else
+        {
+            return MaanfeeTheme.DefaultFont().FontName;
+        }
+    }
+
+}

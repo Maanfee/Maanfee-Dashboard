@@ -32,9 +32,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.*" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.4" />
-	</ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.*" />
+  </ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\LoggingPlatforms\Maanfee.Logging.Console\Maanfee.Logging.Console.csproj" />

@@ -1,9 +1,21 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor.Utilities;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 
 namespace MudBlazor
 {
+    public static class EnumExtensions
+    {
+        public static string ToDescriptionString(this Enum value)
+        {
+            FieldInfo? field = value.GetType().GetField(value.ToString());
+            DescriptionAttribute? attribute = field?.GetCustomAttribute<DescriptionAttribute>();
+            return attribute == null ? value.ToString() : attribute.Description;
+        }
+    }
+
 #nullable enable
     public partial class MudTreeViewOld<T> : MudComponentBase
     {

@@ -1,70 +1,75 @@
 ﻿@namespace Maanfee.Dashboard.Views.Core
+@inherits _BaseView
+@* MaanfeeDashboardDialog.razor *@
 
-<MudRTLProvider RightToLeft="@IsRTL">
+<style>
+    .mud-card-header {
+        padding: 8px 16px 8px 16px !important;
+    }
+
+    .mud-toolbar-gutters {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+</style>
+
+<MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
     <MudDialog OnKeyDown="@OnKeyDown" @attributes="AdditionalAttributes">
         <DialogContent>
-            @if (!IsLoaded)
+            @if (!IsDialogLoaded)
             {
-                <DashboardOverlay Random="true" />
+                <SVGOverlay Random="true" />
             }
             else
             {
-                <MudPaper Elevation="25">
-                    <MudPaper Elevation="25">
-                        <MudToolBar Dense>
-                            <MudText Color="Color.Primary">
-                                @Title
-                            </MudText>
-                            <MudSpacer />
-                            @MaanfeeDashboardDialogActionContent
-                            <MudTooltip Text="@DashboardResource.StringCancel" Color="Color.Tertiary" Arrow>
-                                <MudIconButton OnClick="@(() => Close())" Icon="@Icons.Material.Filled.Close" Color="Color.Error" />
-                            </MudTooltip>
-                        </MudToolBar>
-                    </MudPaper>
+                <MudCard Outlined="true" Square="true" Class="mt-4 mb-4">
+                    <MudCardHeader>
+                        <CardHeaderAvatar>
+                            <MudAvatar Color="Color.Secondary" Size="Size.Small"></MudAvatar>
+                        </CardHeaderAvatar>
+                        <CardHeaderContent>
+                            @if (MaanfeeDashboardDialogHeaderContent != null)
+                            {
+                                @MaanfeeDashboardDialogHeaderContent
+                            }
+                            else
+                            {
+                                <MudText Color="Color.Primary">
+                                    @Title
+                                </MudText>
+                            }
+                        </CardHeaderContent>
+                        <CardHeaderActions>
+                            <MudToolBar Dense WrapContent="true" Gutters="true">
+                                <MudChip T="TimeSpan" Icon="@Icons.Material.Filled.Alarm" Color="Color.Error" Class="mt-2" Style="font-size:10px;">
+                                    @LoadingTime
+                                </MudChip>
+                                @if (MaanfeeDashboardDialogHeaderAction != null)
+                                {
+                                    @MaanfeeDashboardDialogHeaderAction
+                                }
+                                <MudTooltip Text="@DashboardResource.StringInformation" Color="Color.Tertiary" Arrow>
+                                    <MudIconButton OnClick="OpenInformationDialog" Icon="@Icons.Material.Filled.Settings" Color="Color.Success" />
+                                </MudTooltip>
+                                <MudTooltip Text="@DashboardResource.StringCancel" Color="Color.Tertiary" Arrow>
+                                    <MudIconButton OnClick="@(() => Close())" Icon="@Icons.Material.Filled.Close" Color="Color.Error" />
+                                </MudTooltip>
+                            </MudToolBar>
+                        </CardHeaderActions>
+                    </MudCardHeader>
                     <MudDivider DividerType="DividerType.FullWidth" />
                     <MudCardContent>
                         @MaanfeeDashboardDialogContent
                     </MudCardContent>
-                </MudPaper>
+                    <MudDivider DividerType="DividerType.FullWidth" />
+                    <MudCardActions>
+                        @if (MaanfeeDashboardDialogActionContent != null)
+                        {
+                            @MaanfeeDashboardDialogActionContent
+                        }
+                    </MudCardActions>
+                </MudCard>
             }
         </DialogContent>
     </MudDialog>
 </MudRTLProvider>
-
-@code {
-
-    [CascadingParameter]
-    public IMudDialogInstance MudDialog { get; set; }
-
-    public void Close() => MudDialog?.Close();
-
-    public void Close(DialogResult result) => MudDialog?.Close(result);
-
-    // ***************************************************
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object> AdditionalAttributes { get; set; }
-
-    [Parameter]
-    public RenderFragment MaanfeeDashboardDialogContent { get; set; }
-
-    [Parameter]
-    public bool IsLoaded { get; set; } = true;
-
-    [Parameter]
-    public bool IsRTL { get; set; } = true;
-
-    // ********************* Title *********************
-
-    [Parameter]
-    public string Title { get; set; }
-
-    [Parameter]
-    public RenderFragment MaanfeeDashboardDialogActionContent { get; set; }
-
-    // ********************* Events *********************
-
-    [Parameter]
-    public EventCallback<KeyboardEventArgs> OnKeyDown { get; set; }
-}

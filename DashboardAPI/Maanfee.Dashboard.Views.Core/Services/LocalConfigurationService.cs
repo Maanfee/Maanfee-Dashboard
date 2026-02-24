@@ -1,133 +1,73 @@
-﻿using Maanfee.Dashboard.Core;
-using Maanfee.Dashboard.Views.Core.DefaultValues;
-using Maanfee.JsInterop;
-//using Microsoft.AspNetCore.Builder;
-//using Microsoft.AspNetCore.Localization;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Maanfee.JsInterop;
 using MudBlazor;
-using System.Globalization;
 
-namespace Maanfee.Dashboard.Views.Core.Services
+namespace Maanfee.Dashboard.Views.Core
 {
     public class LocalConfigurationService
-	{
-		public LocalConfigurationService(LocalStorage localStorage)
-		{
-			LocalStorage = localStorage;
-		}
+    {
+        public LocalConfigurationService(LocalStorage localStorage)
+        {
+            LocalStorage = localStorage;
+        }
 
-		public LocalStorage LocalStorage;
+        public LocalStorage LocalStorage;
+        private const string ConfigurationStoredName = "ConfigurationStorage";
 
-		private async Task<CultureInfo> CultureConfigurationAsync(string DefaultLanguage)
-		{
-			CultureInfo Culture;
+        public async Task InitConfigurationAsync(LanguageManager.SupportedCountry DefaultLanguage)
+        {
+            var StoredConfiguration = await LocalStorage.GetAsync<LayoutSettings>(ConfigurationStoredName);
+            if (StoredConfiguration == null)
+            {
+                LayoutSettings LayoutSettings = CreateDefaultConfiguration(LanguageManager.GetCultureCode(DefaultLanguage));
+                await LocalStorage.SetAsync<LayoutSettings>(ConfigurationStoredName, LayoutSettings);
 
-			var CultureStorage = await LocalStorage.GetAsync<LanguageModel>(StorageDefaultValue.CultureStorage);
-			if (CultureStorage != null)
-			{
-				Culture = new CultureInfo(CultureStorage.Code);
-			}
-			else
-			{
-				var DefaultLanguageModel = LanguageService.GetLanguage(DefaultLanguage);
+                SharedLayoutSettings.IsDarkMode = LayoutSettings.IsDarkMode;
+                SharedLayoutSettings.IsRTL = LayoutSettings.IsRTL;
+                SharedLayoutSettings.CurrentVersion = LayoutSettings.CurrentVersion;
+                SharedLayoutSettings.IsFullscreenMode = LayoutSettings.IsFullscreenMode;
+                SharedLayoutSettings.CultureCode = LayoutSettings.CultureCode;
+                SharedLayoutSettings.Theme = LayoutSettings.Theme;
+                SharedLayoutSettings.SelectedFont = LayoutSettings.SelectedFont;
+            }
+            else
+            {
+                SharedLayoutSettings.IsDarkMode = StoredConfiguration.IsDarkMode;
+                SharedLayoutSettings.IsRTL = StoredConfiguration.IsRTL;
+                SharedLayoutSettings.CurrentVersion = StoredConfiguration.CurrentVersion;
+                SharedLayoutSettings.IsFullscreenMode = StoredConfiguration.IsFullscreenMode;
+                SharedLayoutSettings.CultureCode = StoredConfiguration.CultureCode;
+                SharedLayoutSettings.Theme = StoredConfiguration.Theme;
+                SharedLayoutSettings.SelectedFont = StoredConfiguration.SelectedFont;
+            }
+        }
 
-				Culture = new CultureInfo(DefaultLanguageModel.Code);
-				await LocalStorage.SetAsync<LanguageModel>(StorageDefaultValue.CultureStorage, DefaultLanguageModel);
-			}
+        public async Task SetConfigurationAsync()
+        {
+            await LocalStorage.SetAsync<LayoutSettings>(ConfigurationStoredName, new LayoutSettings()
+            {
+                IsDarkMode = SharedLayoutSettings.IsDarkMode,
+                IsRTL = SharedLayoutSettings.IsRTL,
+                CurrentVersion = SharedLayoutSettings.CurrentVersion,
+                IsFullscreenMode = SharedLayoutSettings.IsFullscreenMode,
+                CultureCode = SharedLayoutSettings.CultureCode,
+                Theme = SharedLayoutSettings.Theme,
+                SelectedFont = SharedLayoutSettings.SelectedFont,
+            });
+        }
 
-			return Culture;
-		}
+        private LayoutSettings CreateDefaultConfiguration(string DefaultLanguageCode)
+        {
+            return new LayoutSettings
+            {
+                IsDarkMode = false,
+                IsRTL = false,
+                CurrentVersion = string.Empty,
+                IsFullscreenMode = false,
+                CultureCode = DefaultLanguageCode,
+                Theme = MaanfeeTheme.ThemeBuilder(new PaletteLight().Primary, MaanfeeTheme.DefaultFont().FontName),
+                SelectedFont = MaanfeeTheme.DefaultFont(),
+            };
+        }
 
-		#region - Configuration -
-
-		public async Task GetConfigurationAsync()
-		{
-			var LayoutSettings = new LayoutSettings()
-			{
-				IsDarkMode = false,
-				IsRTL = false,
-				ThemeColor = new PaletteLight().Primary.Value,
-				CurrentVersion = string.Empty,
-				IsFullscreenMode = false,
-			};
-			var ConfigurationModel = await LocalStorage.GetAsync<LayoutSettings>(StorageDefaultValue.ConfigurationStorage);
-			if (ConfigurationModel == null)
-			{
-				await LocalStorage.SetAsync<LayoutSettings>(StorageDefaultValue.ConfigurationStorage, LayoutSettings);
-
-				SharedLayoutSettings.IsDarkMode = LayoutSettings.IsDarkMode;
-				SharedLayoutSettings.IsRTL = LayoutSettings.IsRTL;
-				SharedLayoutSettings.ThemeColor = new PaletteLight().Primary.Value;
-				SharedLayoutSettings.CurrentVersion = LayoutSettings.CurrentVersion;
-				SharedLayoutSettings.IsFullscreenMode = LayoutSettings.IsFullscreenMode;
-			}
-			else
-			{
-				SharedLayoutSettings.IsDarkMode = ConfigurationModel.IsDarkMode;
-				SharedLayoutSettings.IsRTL = ConfigurationModel.IsRTL;
-				SharedLayoutSettings.ThemeColor = ConfigurationModel.ThemeColor;
-				SharedLayoutSettings.CurrentVersion = ConfigurationModel.CurrentVersion;
-				SharedLayoutSettings.IsFullscreenMode = ConfigurationModel.IsFullscreenMode;
-			}
-		}
-
-		public async Task SetConfigurationAsync()
-		{
-			var LayoutSettings = new LayoutSettings()
-			{
-				IsDarkMode = SharedLayoutSettings.IsDarkMode,
-				IsRTL = SharedLayoutSettings.IsRTL,
-				ThemeColor = SharedLayoutSettings.ThemeColor,
-				CurrentVersion = SharedLayoutSettings.CurrentVersion,
-				IsFullscreenMode = SharedLayoutSettings.IsFullscreenMode,
-			};
-			await LocalStorage.SetAsync<LayoutSettings>(StorageDefaultValue.ConfigurationStorage, LayoutSettings);
-		}
-
-		#endregion
-
-		// *********************** 
-
-		public async Task InitWasmCultureAsync(IServiceCollection Services, LanguageService.SupportedCountry DefaultLanguage)
-		{
-			Services.AddLocalization(options =>
-			{
-				options.ResourcesPath = "Resources";
-			});
-
-			var Culture = await CultureConfigurationAsync(LanguageService.GetCountryName(DefaultLanguage));
-
-			CultureInfo.DefaultThreadCurrentCulture = Culture;
-			CultureInfo.DefaultThreadCurrentUICulture = Culture;
-			CultureInfo.CurrentCulture = Culture;
-			CultureInfo.CurrentUICulture = Culture;
-		}
-
-		//public static void InitServerCultureAsync(IApplicationBuilder app)
-		//{
-		//	//using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-		//	//{
-		//	//    var LocalConfiguration = scope.ServiceProvider.GetService<LocalConfiguration>();
-		//	//    if (LocalConfiguration != null)
-		//	//    {
-		//	//    }
-		//	//}
-
-		//	var Culture = new CultureInfo("fa-IR");
-		//	//var Culture = new CultureInfo("en-US");
-
-		//	app.UseRequestLocalization(new RequestLocalizationOptions
-		//	{
-		//		DefaultRequestCulture = new RequestCulture(Culture),
-		//		SupportedCultures = new List<CultureInfo> { Culture, },
-		//		SupportedUICultures = new List<CultureInfo> { Culture, },
-		//		RequestCultureProviders = new List<IRequestCultureProvider>
-		//		{
-		//			new QueryStringRequestCultureProvider(),
-		//			new CookieRequestCultureProvider()
-		//		},
-		//	});
-		//}
-
-	}
+    }
 }

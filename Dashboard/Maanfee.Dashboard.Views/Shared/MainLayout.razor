@@ -1,8 +1,7 @@
-﻿@inherits _BaseComponentView
+﻿@inherits _BaseLayout
 
 <MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
-    <MudThemeProvider Theme="CurrentTheme" IsDarkMode="@SharedLayoutSettings.IsDarkMode" />
-
+    <MudThemeProvider Theme="@SharedLayoutSettings.Theme" IsDarkMode="@SharedLayoutSettings.IsDarkMode" />
     <style>
 
         .Login-Logo1 {

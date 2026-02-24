@@ -2,9 +2,7 @@
 @layout MainLayout
 @attribute [AllowAnonymous]
 
-<MaanfeeDashboardPage>
-    <MaanfeeDashboardPageHeader PageTitle="@DashboardResource.StringSignin" />
-
+<MaanfeeDashboardPage PageTitle="@DashboardResource.StringSignin">
     <EditForm OnValidSubmit="OnSubmit" Model="LoginViewModelSubmit">
         <DataAnnotationsValidator />
         <MudGrid>
@@ -56,12 +54,12 @@
                 @* <MudLink Href="/recover">@AppResource.StringForgotPassword</MudLink> *@
             </MudItem>
             <MudItem xs="12" Class="d-flex justify-center">
-             @*   <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" Style="width: 100%;">
+                @*   <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" Style="width: 100%;">
                     @DashboardResource.StringSignin
                     <MudIcon Icon="@Icons.Material.Filled.Fingerprint" />
                 </MudButton>*@
-                <MudButton Disabled="@IsProcessing" ButtonType="ButtonType.Submit" Variant="Variant.Filled" 
-                        FullWidth="true" Color="Color.Primary">
+                <MudButton Disabled="@IsProcessing" ButtonType="ButtonType.Submit" Variant="Variant.Filled"
+                           FullWidth="true" Color="Color.Primary">
                     @if (IsProcessing)
                     {
                         <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="ms-n1" />

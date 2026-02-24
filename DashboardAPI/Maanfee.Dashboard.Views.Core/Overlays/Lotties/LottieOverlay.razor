@@ -1,0 +1,67 @@
+﻿@namespace Maanfee.Dashboard.Views.Core
+@inherits _BaseView
+@using Maanfee.Lottie;
+@using Microsoft.AspNetCore.Components
+@inject LottieService Lottie
+@inject AnimationService AnimationService
+
+<MaanfeeLottie AnimationJson="@content" OnLoaded="OnLoadingLoaded" @key="SelectedAnimation.FullPath" HasController="false" />
+
+@code {
+
+    protected override async Task OnInitializedAsync()
+    {
+        AvailableAnimations = AnimationService.GetAvailableAnimations();
+        await Task.Delay(100);
+        await RandomAnimation();
+    }
+
+    private AnimationInfo SelectedAnimation = new();
+
+    private List<AnimationInfo> AvailableAnimations = new();
+
+    private string content = string.Empty;
+
+    private async Task OnAnimationSelected(ChangeEventArgs e)
+    {
+        var fullPath = e.Value?.ToString();
+        if (!string.IsNullOrEmpty(fullPath))
+        {
+            var selectedAnimation = AvailableAnimations.FirstOrDefault(a => a.FullPath == fullPath);
+            if (selectedAnimation != null)
+            {
+                await LoadAnimation(selectedAnimation);
+            }
+        }
+    }
+
+    private async Task LoadAnimation(AnimationInfo animationInfo)
+    {
+        content = await AnimationService.GetAnimationContentAsync(animationInfo.Name);
+        SelectedAnimation = animationInfo;
+        StateHasChanged();
+    }
+
+    private void OnLoadingLoaded()
+    {
+        Console.WriteLine("Loading animation loaded!");
+    }
+
+    private Random random = new Random();
+
+    private async Task RandomAnimation()
+    {
+        if (AvailableAnimations == null || !AvailableAnimations.Any())
+            return;
+
+        var availableOptions = AvailableAnimations
+            .Where(anim => anim.Name != SelectedAnimation?.Name)
+            .ToList();
+
+        if (!availableOptions.Any())
+            availableOptions = AvailableAnimations.ToList();
+
+        var randomIndex = random.Next(availableOptions.Count);
+        await LoadAnimation(availableOptions[randomIndex]);
+    }
+}

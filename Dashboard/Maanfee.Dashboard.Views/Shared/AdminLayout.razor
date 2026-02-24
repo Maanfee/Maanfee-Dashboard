@@ -1,4 +1,4 @@
-﻿@inherits _BaseComponentView
+﻿@inherits _BaseLayout
 
 @if (SharedLayoutSettings.IsRTL)
 {
@@ -10,7 +10,7 @@
 }
 
 <MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL" Class="@IsVisible">
-    <MudThemeProvider Theme="CurrentTheme" IsDarkMode="@SharedLayoutSettings.IsDarkMode" />
+    <MudThemeProvider Theme="@SharedLayoutSettings.Theme" IsDarkMode="@SharedLayoutSettings.IsDarkMode" />
     <AuthorizeView>
         <NotAuthorized>
             @*<MainLayout />*@
@@ -45,7 +45,7 @@
                     </MudHidden>
                     @* ********************************* *@
                     <MudMenu AnchorOrigin="Origin.BottomCenter" Dense="true" Class="mt-1 ml-4">
-                        <ActivatorContent>
+                        <ActivatorContent Context="menuContext">
                             <MudAvatar Style="height:50px; width:50px;">
                                 <MudImage Src="@AccountStateContainer.Avatar" />
                             </MudAvatar>

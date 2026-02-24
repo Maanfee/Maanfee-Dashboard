@@ -20,7 +20,7 @@ namespace Maanfee.Dashboard.Views.Core.Services
         private readonly AuthenticationState _anonymous;
         private LocalStorage LocalStorage;
 
-        public string JwtTokenStorage { get; set; }
+        public string? JwtTokenStorage { get; set; }
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {

@@ -1,16 +1,12 @@
-﻿using Maanfee.Dashboard.Core;
-using Maanfee.Dashboard.Domain.Entities;
+﻿using Maanfee.Dashboard.Domain.Entities;
 using Maanfee.Dashboard.Resources;
 using Maanfee.Dashboard.Views.Core;
-using Maanfee.Dashboard.Views.Core.DefaultValues;
-using Maanfee.Dashboard.Views.Core.Shared.Dialogs;
 using Maanfee.Dashboard.Views.Pages.Authentications;
 using Maanfee.Dashboard.Views.Pages.Settings;
 using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;
-using MudBlazor.Utilities;
 using System;
 using System.Linq;
 using System.Net.Http.Json;
@@ -18,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Views.Shared
 {
-    public partial class AdminLayout : _BaseComponentView, IDisposable
+    public partial class AdminLayout : _BaseLayout, IDisposable
     {
         [CascadingParameter]
         private Task<AuthenticationState> AuthenticationState { get; set; }
@@ -157,18 +153,16 @@ namespace Maanfee.Dashboard.Views.Shared
 
         private async Task ToggleDirection()
         {
-            if (LanguageModel.IsRTL)
+            if (SharedLayoutSettings.IsRTL)
             {
-                LanguageModel.IsRTL = false;
+                SharedLayoutSettings.IsRTL = false;
             }
             else
             {
-                LanguageModel.IsRTL = true;
+                SharedLayoutSettings.IsRTL = true;
             }
 
-            SharedLayoutSettings.IsRTL = LanguageModel.IsRTL;
-
-            await LocalStorage.SetAsync<LanguageModel>(StorageDefaultValue.CultureStorage, LanguageModel);
+            await LocalConfiguration!.SetConfigurationAsync();
         }
 
         private async Task ToggleFullscrren(bool Toggled)
@@ -204,9 +198,9 @@ namespace Maanfee.Dashboard.Views.Shared
             }
         }
 
-        private void UpdateUserPreferences(MudColor Color)
+        private async Task UpdateUserPreferences(MudTheme Theme)
         {
-            CurrentTheme = MaanfeeTheme.ThemeBuilder(SharedLayoutSettings.IsRTL, SharedLayoutSettings.IsDarkMode, Color);
+            await InvokeAsync(StateHasChanged);
         }
 
         // ******************************************************

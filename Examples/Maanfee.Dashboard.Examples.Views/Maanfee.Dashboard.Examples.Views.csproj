@@ -12,8 +12,8 @@
 		<NoWarn>0108</NoWarn>
 	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Dashboard\Maanfee.Dashboard.Views.Base\Maanfee.Dashboard.Views.Base.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\DashboardAPI\Maanfee.Dashboard.Views.Core\Maanfee.Dashboard.Views.Core.csproj" />
+	</ItemGroup>
 
 </Project>

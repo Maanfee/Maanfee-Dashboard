@@ -71,7 +71,7 @@ namespace Maanfee.Dashboard.Views.Core.Services
             }
         }
 
-        public event Action OnChange;
+        public event Action? OnChange;
 
         private void NotifyStateChanged() => OnChange?.Invoke();
     }

@@ -9,26 +9,20 @@
 @using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.JSInterop
 @using Microsoft.Extensions.Localization
+@using System.Globalization
 
 @using Maanfee.Dashboard.Core
 @using Maanfee.Dashboard.Resources
 
 @using Maanfee.Dashboard.Views.Core
-@using Maanfee.Dashboard.Views.Core.Shared
 @using Maanfee.Dashboard.Views.Core.Services
-@using Maanfee.Dashboard.Views.Core.DefaultValues
-@using Maanfee.Dashboard.Views.Core.Shared.Dialogs
 
 @using MudBlazor
+@using MudBlazor.Utilities
 
-@inject NavigationManager Navigation
-@inject CustomAuthenticationStateProvider AuthenticationStateProvider
-@*@inject IJSRuntime JS*@
-@inject AccountStateContainer AccountStateContainer
-@*@inject HttpClient Http*@
+@inject NavigationManager? Navigation
+@inject CustomAuthenticationStateProvider? AuthenticationStateProvider
+@inject AccountStateContainer? AccountStateContainer
 
-@*@inject IDialogService Dialog*@
-@*@inject ISnackbar Snackbar*@
-
-@inject LocalConfigurationService LocalConfiguration
-@inject Maanfee.JsInterop.LocalStorage LocalStorage
+@inject LocalConfigurationService? LocalConfiguration
+@inject Maanfee.JsInterop.LocalStorage? LocalStorage

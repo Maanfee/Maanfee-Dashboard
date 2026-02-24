@@ -19,7 +19,7 @@ namespace Maanfee.Dashboard.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class DashboardResource {
@@ -556,6 +556,15 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Culture Information.
+        /// </summary>
+        public static string StringCultureInformation {
+            get {
+                return ResourceManager.GetString("StringCultureInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current password.
         /// </summary>
         public static string StringCurrentPassword {
@@ -745,6 +754,15 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fonts.
+        /// </summary>
+        public static string StringFonts {
+            get {
+                return ResourceManager.GetString("StringFonts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forgot password?.
         /// </summary>
         public static string StringForgotPassword {
@@ -804,6 +822,15 @@ namespace Maanfee.Dashboard.Resources {
         public static string StringInfoFormat {
             get {
                 return ResourceManager.GetString("StringInfoFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Information.
+        /// </summary>
+        public static string StringInformation {
+            get {
+                return ResourceManager.GetString("StringInformation", resourceCulture);
             }
         }
         

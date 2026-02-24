@@ -1,19 +1,60 @@
 ﻿
 @font-face {
     font-family: 'BYekan';
-    src: url(../fonts/BYekan/BYekan.eot?#) format('eot'), /* IE6â€“۸ */
-    url(../fonts/BYekan/BYekan.woff) format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
-    url(../fonts/BYekan/BYekan.ttf) format('truetype'); /* Saf3â€”۵, Chrome4+, FF3.5, Opera 10+ */
+    src: url(../Fonts/RTL/BYekan/BYekan.eot?#) format('eot'), /* IE6â€“۸ */
+    url(../Fonts/RTL/BYekan/BYekan.woff) format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+    url(../Fonts/RTL/BYekan/BYekan.ttf) format('truetype'); /* Saf3â€”۵, Chrome4+, FF3.5, Opera 10+ */
 }
 
-/*
 @font-face {
     font-family: 'IranNastaliq';
-    src: url('../fonts/IranNastaliq/IranNastaliq.ttf') format('truetype');
+    src: url('../Fonts/RTL/IranNastaliq/IranNastaliq.ttf') format('truetype');
 }
-*/
 
-/*body {*/
-  /*  font-family: BYekan, Tahoma, Arial, Helvetica, sans-serif !important;*/
-    /*font-family: P tahoma,Tahoma, Arial, Helvetica, sans-serif !important;*/ /*Added Tahoma font is added*/
-/*}*/
+@font-face {
+    font-family: 'BZiba';
+    src: url('../Fonts/RTL/BZiba/BZiba.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'IranSans';
+    src: url('../Fonts/RTL/IranSans/IranSans.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Titr';
+    src: url('../Fonts/RTL/Titr/Titr.ttf') format('truetype');
+}
+
+/* ************************************ */
+
+@font-face {
+    font-family: 'Segoe UI';
+    src: local('Segoe UI');
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 300;
+    font-stretch: 100%;
+    font-display: swap;
+    src: url('../Fonts/LTR/Roboto/Roboto.woff2') format('woff2');
+    unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+
+@font-face {
+    font-family: 'PlaywriteNZBasic';
+    src: url('../Fonts/LTR/PlaywriteNZBasic/PlaywriteNZBasic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Playball';
+    src: url('../Fonts/LTR/Playball/Playball.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'OpenSans';
+    src: url('../Fonts/LTR/OpenSans/OpenSans.ttf') format('truetype');
+}
+

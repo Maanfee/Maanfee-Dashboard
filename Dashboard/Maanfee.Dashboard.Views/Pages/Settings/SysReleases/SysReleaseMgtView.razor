@@ -2,8 +2,7 @@
 @inherits _BaseView
 @using TableViewModel = Maanfee.Dashboard.Domain.ViewModels.GetReleaseViewModel
 
-<MaanfeeDashboardPage>
-    <MaanfeeDashboardPageHeader PageTitle="@DashboardResource.StringRelease" />
+<MaanfeeDashboardPage PageTitle="@DashboardResource.StringRelease">
     <MudPaper>
         <MudToolBar>
             <MudText Color="Color.Primary">
@@ -67,13 +66,13 @@
                     </MudTd>
                     <MudTd>
                         <MudTooltip Text="@DashboardResource.StringDetails" Color="Color.Tertiary" Arrow>
-                            <MudIconButton OnClick="()=>OpenDetailsDialog(context.Id)" Icon="@Icons.Material.Filled.Details" Color="Color.Primary" Size="Size.Small"></MudIconButton>
+                            <MudIconButton OnClick="() => OpenDetailsDialog(context.Id)" Icon="@Icons.Material.Filled.Details" Color="Color.Primary" Size="Size.Small"></MudIconButton>
                         </MudTooltip>
                         <MudTooltip Text="@DashboardResource.StringEdit" Color="Color.Tertiary" Arrow>
-                            <MudIconButton OnClick="()=>OpenCrudateDialog(context.Id)" Icon="@Icons.Material.Filled.Edit" Color="Color.Success" Size="Size.Small"></MudIconButton>
+                            <MudIconButton OnClick="() => OpenCrudateDialog(context.Id)" Icon="@Icons.Material.Filled.Edit" Color="Color.Success" Size="Size.Small"></MudIconButton>
                         </MudTooltip>
                         <MudTooltip Text="@DashboardResource.StringDelete" Color="Color.Tertiary" Arrow>
-                            <MudIconButton OnClick="()=>OpenDeleteDialog(context.Id)" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"></MudIconButton>
+                            <MudIconButton OnClick="() => OpenDeleteDialog(context.Id)" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"></MudIconButton>
                         </MudTooltip>
                     </MudTd>
                 </RowTemplate>

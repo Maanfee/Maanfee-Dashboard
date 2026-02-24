@@ -1,0 +1,16 @@
+﻿@namespace Maanfee.Dashboard.Views.Core
+@inherits _BaseView
+
+<MudOverlay Visible="!IsLoaded" DarkBackground="false" AutoClose="true" Style="@($"top:{Top}%;left:{Left}%;")" >
+	<MudProgressCircular Color="Color.Secondary" Indeterminate="true" Size="Size.Large" />
+</MudOverlay>
+
+@code {
+
+	[Parameter]
+	public string Top { get; set; } = "0";
+
+	[Parameter]
+	public string Left { get; set; } = "0";
+
+}

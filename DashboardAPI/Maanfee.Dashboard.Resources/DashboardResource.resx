@@ -645,4 +645,13 @@
   <data name="StringAllItemsText" xml:space="preserve">
     <value>All</value>
   </data>
+  <data name="StringCultureInformation" xml:space="preserve">
+    <value>Culture Information</value>
+  </data>
+  <data name="StringFonts" xml:space="preserve">
+    <value>Fonts</value>
+  </data>
+  <data name="StringInformation" xml:space="preserve">
+    <value>Information</value>
+  </data>
 </root>

@@ -43,15 +43,15 @@
     public Color Color { get; set; }
 
     [Parameter]
-    public string ChartClass { get; set; }
+    public string? ChartClass { get; set; }
 
-    private string chartClass;
-
-    [Parameter]
-    public string Icon { get; set; }
+    private string? chartClass;
 
     [Parameter]
-    public string Description { get; set; }
+    public string? Icon { get; set; }
+
+    [Parameter]
+    public string? Description { get; set; }
 
     protected override void OnParametersSet()
     {

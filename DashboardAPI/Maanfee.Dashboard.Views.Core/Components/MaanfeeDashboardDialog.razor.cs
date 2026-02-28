@@ -16,25 +16,29 @@ namespace Maanfee.Dashboard.Views.Core
             StopTimer();
         }
 
-        // ********************* Timer *********************
+        #region - Timer -
 
         private Stopwatch _stopwatch = new Stopwatch();
         private string LoadingTime = "00:00:000";
 
-        public void StartTimer() => _stopwatch.Start();
-        
-        public void StopTimer()
+        private void StartTimer() => _stopwatch.Start();
+
+        private void StopTimer()
         {
             _stopwatch.Stop();
-            LoadingTime = TimeSpan.FromSeconds(_stopwatch.ElapsedMilliseconds).ToString(@"mm\:ss");
+            LoadingTime = FormatTime(_stopwatch.Elapsed);
         }
 
-        public void ResetTimer() => _stopwatch.Reset();
+        private void ResetTimer() => _stopwatch.Reset();
 
-        // ***************************************************
+        private string FormatTime(TimeSpan timeSpan)
+        {
+            return $"{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}:{timeSpan.Milliseconds:D3}";
+        }
 
-        [Parameter]
-        public Type? DialogContentType { get; set; }
+        #endregion
+
+        #region - Dialog -
 
         [CascadingParameter]
         public IMudDialogInstance? MudDialog { get; set; }
@@ -43,7 +47,12 @@ namespace Maanfee.Dashboard.Views.Core
 
         public void Close(DialogResult result) => MudDialog?.Close(result);
 
+        #endregion
+
         // ***************************************************
+
+        [Parameter]
+        public Type? DialogContentType { get; set; }
 
         [Parameter(CaptureUnmatchedValues = true)]
         public Dictionary<string, object>? AdditionalAttributes { get; set; }

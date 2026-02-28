@@ -18,8 +18,8 @@
         <Authorized>
             <MudLayout>
                 <MudAppBar Elevation="25">
-                    <MudIcon Icon="@Icons.Custom.Brands.MicrosoftVisualStudio" Size="Size.Large" />
-                    <MudText Typo="Typo.h6" Class="ml-4">&nbsp;@ApplicationResource.StringApplicationName</MudText>
+                    @* <MudIcon Icon="@Icons.Custom.Brands.MicrosoftVisualStudio" Size="Size.Large" /> *@
+                    <MudText Typo="Typo.h6" Class="ml-2">&nbsp;@ApplicationResource.StringApplicationName</MudText>
                     <MudToolBar Gutters="false">
                         <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" OnClick="@(() => DrawerOpen = !DrawerOpen)" Class="ml-3" />
                     </MudToolBar>
@@ -73,9 +73,6 @@
                             ThemingDrawerOpen="IshemingDrawerOpen" ThemingDrawerOpenChanged="ThemingDrawerOpenChangedHandler" />
                 <ThemesButton OnClick="@(() => IshemingDrawerOpen = true)" />
                 @*************************************@
-                @* <MudAppBar  DisableGutters="true" Bottom="true" Fixed="true" Color="Color.Primary" Elevation="1">
-
-                </MudAppBar>*@
             </MudLayout>
         </Authorized>
     </AuthorizeView>

@@ -29,19 +29,7 @@
 @using Maanfee.Dashboard.Views.Core.Services
 @using MudBlazor
 
-@inject NavigationManager Navigation
-@inject CustomAuthenticationStateProvider AuthenticationStateProvider
-@inject IJSRuntime JS
-@inject AccountStateContainer AccountStateContainer
 @inject UrlStateContainer UrlStateContainer
-@inject HttpClient Http
-
-@inject IDialogService Dialog
-@inject ISnackbar Snackbar
-
-@inject LocalConfigurationService LocalConfiguration
-
-@inject IAuthorizationService AuthorizationService
 
 @using Maanfee.Dashboard.Domain.Entities
 @using Maanfee.Dashboard.Domain.ViewModels
@@ -49,11 +37,6 @@
 @inject Maanfee.Web.Printing.IPrintingService PrintingService
 @using Maanfee.JsInterop
 @inject Maanfee.JsInterop.Dom Dom
-@inject Maanfee.JsInterop.LocalStorage LocalStorage
-@inject Maanfee.JsInterop.Fullscreen Fullscreen
-@* @inject Maanfee.Web.JSInterop.History History *@
-
-@inject Maanfee.JsInterop.FileDownload FileDownload
 
 @using Maanfee.Highcharts;
 @inject Chart Chart
@@ -62,4 +45,3 @@
 @inject HubConnection LoggingHubConnection
 @inject LoggingInitializer LoggingInitializer
 
-@inject GatewayApi GatewayApi

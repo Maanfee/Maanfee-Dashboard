@@ -88,13 +88,10 @@ app.UseRequestLocalization(options =>
 app.UseDashboardDatabaseConfigurations();
 app.UseDashboardAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapRazorPages();
-    endpoints.MapControllers();
-    endpoints.MapFallbackToFile("index.html");
-    endpoints.MapHub<LoggingHub>($"/{HubName.Name}");
-});
+app.MapRazorPages();
+app.MapControllers();
+app.MapFallbackToFile("index.html");
+app.MapHub<LoggingHub>($"/{HubName.Name}");
 
 app.Run();
 

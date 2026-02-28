@@ -29,35 +29,35 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         {
         }
 
-        // Used : Departments->Index
-        [HttpGet("Index")]
-        // GET: api/Departments/Index
-        public async Task<CallbackResult<HashSet<Department>>> Index()
-        {
-            try
-            {
-                await Task.Delay(10);
-                var list = db_SQLServer.Departments.ToHashSet();
+        //// Used : Departments->Index
+        //[HttpGet("Index")]
+        //// GET: api/Departments/Index
+        //public async Task<CallbackResult<List<Department>>> Index()
+        //{
+        //    try
+        //    {
+        //        var list = db_SQLServer.Departments.AsNoTracking().ToList();
 
-                HashSet<Department> Departments = new HashSet<Department>();
+        //        List<Department> Departments = new List<Department>();
 
-                foreach (var item in list)
-                {
-                    if (item.IdParent == null)
-                    {
-                        Departments.Add(item);
-                    }
-                }
+        //        foreach (var item in list)
+        //        {
+        //            if (item.IdParent == null)
+        //            {
+        //                Departments.Add(item);
+        //            }
+        //        }
 
-                return new CallbackResult<HashSet<Department>>(Departments, null);
-            }
-            catch (Exception ex)
-            {
-                return new CallbackResult<HashSet<Department>>(null, new ExceptionError(ex.Message));
-            }
-        }
+        //        return new CallbackResult<List<Department>>(Departments, null);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return new CallbackResult<List<Department>>(null, new ExceptionError(ex.Message));
+        //    }
+        //}
 
-        // Used : Departments->GetDepartments
+        // Used : Departments->GetDepartments 
+        
         [HttpGet("GetDepartments")]
         // GET: api/Departments/GetDepartments?value=
         public async Task<CallbackResult<List<Department>>> GetDepartments(string value)
@@ -70,6 +70,26 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                     return new CallbackResult<List<Department>>(list, null);
 
                 list = list.Where(x => x.Title.Contains(value, StringComparison.InvariantCultureIgnoreCase)).ToList();
+
+                return new CallbackResult<List<Department>>(list, null);
+            }
+            catch (Exception ex)
+            {
+                return new CallbackResult<List<Department>>(null, new ExceptionError(ex.Message));
+            }
+        }
+
+        // Used : Departments->GetChildDepartments 
+        [HttpGet("GetChildDepartments/{Id}")]
+        // GET: api/Departments/GetChildDepartments?Id=
+        public async Task<CallbackResult<List<Department>>> GetChildDepartments(int? Id)
+        {
+            try
+            {
+                var list = await db_SQLServer.Departments
+                    .AsNoTracking()
+                    .OrderBy(x => x.Title)
+                    .ToListAsync();
 
                 return new CallbackResult<List<Department>>(list, null);
             }

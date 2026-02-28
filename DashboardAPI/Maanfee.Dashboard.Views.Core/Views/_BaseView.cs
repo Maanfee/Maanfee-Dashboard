@@ -1,6 +1,5 @@
 ﻿using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Dashboard.Resources;
-using Maanfee.Dashboard.Views.Core;
 using Maanfee.Dashboard.Views.Core.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -17,13 +16,7 @@ namespace Maanfee.Dashboard.Views.Core
 
         // *****************************************
 
-        #region - Authentication -
-
-        [CascadingParameter]
-        protected Task<AuthenticationState>? AuthenticationState { get; set; }
-
-        [Inject]
-        protected AuthenticationStateProvider? AuthenticationStateProvider { get; set; }
+        #region - Permission -
 
         protected ClaimsPrincipal? PermissionCurrentUser { get; set; }
 

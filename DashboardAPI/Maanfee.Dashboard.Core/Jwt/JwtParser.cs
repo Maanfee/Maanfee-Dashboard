@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Text.Json;
 
 namespace Maanfee.Dashboard.Core
@@ -17,7 +14,7 @@ namespace Maanfee.Dashboard.Core
 
             var keyValuePairs = JsonSerializer.Deserialize<Dictionary<string, object>>(jsonBytes);
 
-            claims.AddRange(keyValuePairs.Select(kvp => new Claim(kvp.Key, kvp.Value.ToString())));
+            claims.AddRange(keyValuePairs!.Select(kvp => new Claim(kvp.Key, kvp.Value?.ToString() ?? string.Empty)));
 
             return claims;
         }

@@ -5,12 +5,7 @@ using Maanfee.Dashboard.Resources;
 using Maanfee.Dashboard.Views.Core;
 using Maanfee.Web.Core;
 using MudBlazor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Json;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
 {
@@ -43,7 +38,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
 
                 CanDelete = await PermissionService.IsAuthorizeAsync(PermissionDefaultValue.Department.Delete, AuthenticationState,
                       AuthorizationService, Navigation);
-                 
+                            
                 SelectedValue = null;
 
                 await ResetAsync();
@@ -56,6 +51,97 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
 
             IsLoaded = true;
         }
+
+        #region - Tree Builder -
+
+        //private MudTreeView<Department> TreeView;
+
+        private List<TreeItemData<Department>> TreeItems { get; set; } = new();
+
+        private async Task BuildTreeAsync()
+        {
+            TreeItems = await BuildTreeItems(null);
+        }
+
+        private Task<List<TreeItemData<Department>>> BuildTreeItems(int? parentId)
+        {
+            var items = new List<TreeItemData<Department>>();
+
+            var departments = Departments.Where(d => d.IdParent == parentId).ToList();
+
+            foreach (var dept in departments)
+            {
+                var treeItem = new TreeItemData<Department>
+                {
+                    Value = dept,
+                    Text = dept.Title,
+                    Expandable = Departments.Any(child => child.IdParent == dept.Id),
+                    Icon = Icons.Material.Filled.Groups,
+                    Children = new List<TreeItemData<Department>>()
+                };
+
+                // به صورت بازگشتی فرزندان را هم اضافه کن
+                if (treeItem.Expandable)
+                {
+                    treeItem.Children = BuildTreeItems(dept.Id).Result;
+                }
+
+                items.Add(treeItem);
+            }
+
+            return Task.FromResult(items);
+        }
+
+        public async Task<IReadOnlyCollection<TreeItemData<Department>>> LoadServerData(Department parentValue)
+        {
+            try
+            {
+                if (parentValue == null)
+                {
+                    // بارگذاری ریشه‌ها
+                    var roots = Departments.Where(d => d.IdParent == null).ToList();
+                    return roots.Select(d => new TreeItemData<Department>
+                    {
+                        Value = d,
+                        Text = d.Title,
+                        Expandable = Departments.Any(child => child.IdParent == d.Id),
+                        Children = new List<TreeItemData<Department>>()
+                    }).ToList().AsReadOnly();
+                }
+                else
+                {
+                    // بارگذاری فرزندان یک والد خاص
+                    var children = Departments.Where(d => d.IdParent == parentValue.Id).ToList();
+                    return children.Select(d => new TreeItemData<Department>
+                    {
+                        Value = d,
+                        Text = d.Title,
+                        Expandable = Departments.Any(child => child.IdParent == d.Id),
+                        Children = new List<TreeItemData<Department>>()
+                    }).ToList().AsReadOnly();
+                }
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add($"{ex.Message}", Severity.Error);
+                return new List<TreeItemData<Department>>().AsReadOnly();
+            }
+        }
+
+        #endregion
+
+        #region - Search -
+
+        //private string SearchPhrase;
+
+        //private async void OnTextChanged(string searchPhrase)
+        //{
+        //    SearchPhrase = searchPhrase;
+        //    Departments = Departments.Where(d => d.Title.Contains(SearchPhrase, StringComparison.OrdinalIgnoreCase)).ToList();
+        //    await BuildTreeAsync();
+        //}
+
+        #endregion
 
         private async Task OnSubmit()
         {
@@ -127,11 +213,11 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
 
 		#endregion
 
-		private HashSet<Department> Departments = new();
+		private List<Department> Departments = new();
 
 		private async Task GetDepartmentsAsync()
 		{
-			var Callback = await Http.GetFromJsonAsync<CallbackResult<HashSet<Department>>>($"api/Departments/Index");
+			var Callback = await Http.GetFromJsonAsync<CallbackResult<List<Department>>>($"api/Departments/GetDepartments");
 			if (Callback.Data != null)
 			{
 				Departments = Callback.Data;
@@ -145,6 +231,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
 		private async Task ResetAsync()
         {
             await GetDepartmentsAsync();
+            await BuildTreeAsync();
             await GetParentsAsync(string.Empty, new CancellationTokenSource().Token);
 
             SubmitDepartmentViewModel.Id = null;

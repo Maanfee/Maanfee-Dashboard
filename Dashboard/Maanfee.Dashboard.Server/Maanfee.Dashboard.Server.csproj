@@ -3,12 +3,8 @@
 	<PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ServerGarbageCollection>true</ServerGarbageCollection>
-		<TieredPGO>true</TieredPGO>
-		<!--**********************************************-->
-		<DebugType>none</DebugType>
-		<RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
-		<RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
-		<RunAnalyzers>false</RunAnalyzers>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
 		<!--**********************************************-->
 	</PropertyGroup>
 
@@ -17,10 +13,6 @@
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.4" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.3" />
 	</ItemGroup>
-
-	<!--<ItemGroup>
-		<PackageReference Include="Maanfee.Dashboard.Services" Version="6.13.13" />
-	</ItemGroup>-->
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\DashboardAPI\Maanfee.Dashboard.Services\Maanfee.Dashboard.Services.csproj" />

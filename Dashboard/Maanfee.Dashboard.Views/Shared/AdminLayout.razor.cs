@@ -4,21 +4,13 @@ using Maanfee.Dashboard.Views.Core;
 using Maanfee.Dashboard.Views.Pages.Authentications;
 using Maanfee.Dashboard.Views.Pages.Settings;
 using Maanfee.Web.Core;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;
-using System;
-using System.Linq;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Views.Shared
 {
     public partial class AdminLayout : _BaseLayout, IDisposable
     {
-        [CascadingParameter]
-        private Task<AuthenticationState> AuthenticationState { get; set; }
-
         public string IsVisible = "d-none";
 
         protected override async Task OnInitializedAsync()
@@ -35,11 +27,6 @@ namespace Maanfee.Dashboard.Views.Shared
                 }
                 else
                 {
-                    if (SharedLayoutSettings.IsFullscreenMode)
-                    {
-                        await Fullscreen.ToggleFullscreenAsync();
-                    }
-
                     var username = State.Name;
                     var Callback = await Http.GetFromJsonAsync<CallbackResult<ApplicationUser>>($"/api/Users/GetUserByUserName/{username}");
 
@@ -83,12 +70,16 @@ namespace Maanfee.Dashboard.Views.Shared
                 Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
             }
 
+            if (SharedLayoutSettings.IsFullscreenMode)
+            {
+                await Fullscreen.RequestFullscreenAsync();
+            }
             Fullscreen.FullscreenChanged += OnFullscreenChange;
         }
 
         //public void Dispose()
         //{
-        //    Fullscreen.OnFullscreenChange -= OnFullscreenChange;
+        //    Fullscreen.FullscreenChanged -= OnFullscreenChange;
         //}
 
         // ******************************************************

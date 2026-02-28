@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace Maanfee.Dashboard.Core
+﻿namespace Maanfee.Dashboard.Core
 {
     public static class StringFormatExtenstion
     {

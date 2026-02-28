@@ -1,46 +1,44 @@
 ﻿@namespace Maanfee.Dashboard.Views.Core
 @* InformationDialog.razor *@
 
-<MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
-    <MudDialog>
-        <DialogContent>
-            <MudCard Outlined="true" Square="true" Class="mt-4 mb-4">
-                <MudCardHeader>
-                    <CardHeaderContent>
-                        <MudText Color="Color.Primary">
-                            @DashboardResource.StringInformation
-                        </MudText>
-                    </CardHeaderContent>
-                    <CardHeaderActions>
-                        <MudToolBar Dense WrapContent="true" Gutters="true">
-                            <MudTooltip Text="@DashboardResource.StringCancel" Color="Color.Tertiary" Arrow>
-                                <MudIconButton OnClick="@(() => Close())" Icon="@Icons.Material.Filled.Close" Color="Color.Error" Class="mt-2" />
-                            </MudTooltip>
-                        </MudToolBar>
-                    </CardHeaderActions>
-                </MudCardHeader>
-                <MudDivider DividerType="DividerType.FullWidth" />
-                <MudCardContent>
-                    <MudStack Spacing="3">
-                        <p>
-                            <MudText Typo="Typo.button" Color="Color.Primary">Name:</MudText>
-                            <MudText Typo="Typo.caption"> @DialogContentType?.Name</MudText>
-                        </p>
-                        <p>
-                            <MudText Typo="Typo.button" Color="Color.Primary">FullName:</MudText>
-                            <MudText Typo="Typo.caption"> @DialogContentType?.FullName</MudText>
-                        </p>
-                        <p>
-                            <MudText Typo="Typo.button" Color="Color.Primary">Namespace:</MudText>
-                            <MudText Typo="Typo.caption"> @DialogContentType?.Namespace</MudText>
-                        </p>
-                    </MudStack>
-                </MudCardContent>
-                <MudDivider DividerType="DividerType.FullWidth" />
-            </MudCard>
-        </DialogContent>
-    </MudDialog>
-</MudRTLProvider>
+<MudDialog>
+    <DialogContent>
+        <MudCard Outlined="true" Square="true" Class="mt-4 mb-4">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Color="Color.Primary">
+                        @DashboardResource.StringInformation
+                    </MudText>
+                </CardHeaderContent>
+                <CardHeaderActions>
+                    <MudToolBar Dense WrapContent="true" Gutters="true">
+                        <MudTooltip Text="@DashboardResource.StringCancel" Color="Color.Tertiary" Arrow>
+                            <MudIconButton OnClick="@(() => Close())" Icon="@Icons.Material.Filled.Close" Color="Color.Error" Class="mt-2" />
+                        </MudTooltip>
+                    </MudToolBar>
+                </CardHeaderActions>
+            </MudCardHeader>
+            <MudDivider DividerType="DividerType.FullWidth" />
+            <MudCardContent>
+                <MudStack Spacing="3" AlignItems="@(SharedLayoutSettings.IsRTL ? AlignItems.End : AlignItems.Start)">
+                    <p>
+                        <MudText Typo="Typo.button" Color="Color.Primary">Name</MudText>
+                        <MudText Typo="Typo.caption"> @DialogContentType?.Name</MudText>
+                    </p>
+                    <p>
+                        <MudText Typo="Typo.button" Color="Color.Primary">FullName</MudText>
+                        <MudText Typo="Typo.caption"> @DialogContentType?.FullName</MudText>
+                    </p>
+                    <p>
+                        <MudText Typo="Typo.button" Color="Color.Primary">Namespace</MudText>
+                        <MudText Typo="Typo.caption"> @DialogContentType?.Namespace</MudText>
+                    </p>
+                </MudStack>
+            </MudCardContent>
+            <MudDivider DividerType="DividerType.FullWidth" />
+        </MudCard>
+    </DialogContent>
+</MudDialog>
 
 @code {
 

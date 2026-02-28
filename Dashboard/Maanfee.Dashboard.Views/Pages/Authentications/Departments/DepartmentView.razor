@@ -86,16 +86,33 @@
                     <MudItem md="6" xs="6">
                         <MudCard>
                             <MudCardHeader>
-                                <MudText Color="Color.Error">@DashboardResource.StringOrganizationalChart</MudText>
+                                <CardHeaderContent>
+                                    <MudText Color="Color.Error">@DashboardResource.StringOrganizationalChart</MudText>
+                                </CardHeaderContent>
+                             @*    <CardHeaderActions>
+                                    <MudTextField T="string" Label="@DashboardResource.StringSearch" Immediate="true"
+                                                  AdornmentIcon="@Icons.Material.Filled.Search" Clearable="true"
+                                                  Variant="Variant.Outlined" Adornment="Adornment.Start"
+                                                  TextChanged="OnTextChanged" />
+                                </CardHeaderActions> *@
                             </MudCardHeader>
+                            <MudDivider DividerType="DividerType.FullWidth" />
                             <MudCardContent>
-                                @*@bind-SelectedValues="SelectedValues" @bind-ActivatedValue="ActivatedValue" *@
-                                <MudTreeViewOld Items="Departments" Hover="true" Color="Color.Tertiary" @bind-SelectedValue="SelectedValue">
+                                <MudTreeView ServerData="@LoadServerData" Items="@TreeItems" T="Department"
+                                             Hover="true" Color="Color.Tertiary" @bind-SelectedValue="SelectedValue">
                                     <ItemTemplate>
-                                        <MudTreeViewItemOld Items="@context.Department1" Expanded="true"
-                                                            Value="@context" Text="@context.Title" EndTextTypo="@Typo.caption" />
+                                        <MudTreeViewItem T="Department"
+                                                         IconColor="Color.Primary"
+                                                         ExpandButtonIconColor="Color.Primary"
+                                                         Value="@context.Value"
+                                                         Text="@context.Text"
+                                                         Items="@context.Children"
+                                                         @bind-Expanded="@context.Expanded"
+                                                         CanExpand="@context.Expandable"
+                                                         Icon="@context.Icon"
+                                                         LoadingIconColor="Color.Primary" />
                                     </ItemTemplate>
-                                </MudTreeViewOld>
+                                </MudTreeView>
                             </MudCardContent>
                         </MudCard>
                     </MudItem>
@@ -104,4 +121,3 @@
         </MudCard>
     }
 </MaanfeeDashboardPage>
-

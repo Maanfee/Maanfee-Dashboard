@@ -8,14 +8,13 @@ using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Views.Pages.Authentications
 {
-    public partial class Login
+    public partial class Login 
     {
         private bool PasswordVisibility;
         private InputType PasswordInput = InputType.Password;
         private string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
 
         private LoginViewModel LoginViewModelSubmit = new();
-        private bool IsProcessing = false;
 
         protected override async Task OnInitializedAsync()
         {

@@ -3,17 +3,17 @@
 	<PropertyGroup>
 		<!--<RunAOTCompilation>true</RunAOTCompilation>-->
     <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
+    <StaticWebAssetProjectMode>Default</StaticWebAssetProjectMode>
+    <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
     <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
-		<TieredPGO>true</TieredPGO>
+    <!--**********************************************-->
+    <TieredPGO>true</TieredPGO>
 		<WasmEnableSIMD>false</WasmEnableSIMD>
 		<!--**********************************************-->
-		<DebugType>none</DebugType>
-		<RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
-		<RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
-		<RunAnalyzers>false</RunAnalyzers>
-		<!--**********************************************-->
-		<NoWarn>0108</NoWarn>
-	</PropertyGroup>
+    <NoWarn>$(NoWarn);WASM0001</NoWarn>
+  </PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.3" />

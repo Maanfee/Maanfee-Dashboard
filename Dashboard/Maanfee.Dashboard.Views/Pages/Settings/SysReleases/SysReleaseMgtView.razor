@@ -25,7 +25,7 @@
         <MudCardActions>
             <MudTable ServerData="ServerData" @ref="Table"
                       Dense="@_IsTableDense" Bordered Striped Hover Virtualize FixedFooter Loading="@IsTableLoading"
-                      FixedHeader="@_IsTableFixedHeader" Height="@TableHeight">
+                      FixedHeader="@_IsTableFixedHeader" Height="@(_IsTableScroll? TableHeight : "100%")">
                 <HeaderContent>
                     <MudTh Class="column-1x"><MudText Align="Align.Center">#</MudText></MudTh>
                     <MudTh><MudTableSortLabel SortLabel="Version" T="TableViewModel">@DashboardResource.StringVersion</MudTableSortLabel></MudTh>
@@ -34,17 +34,17 @@
                     <MudTh Class="column-3x">
                         <MudText Align="Align.Left">
                             <MudMenu Icon="@Icons.Material.Filled.MoreVert" Color="Color.Secondary">
-                                <MudMenuItem OnClick="@(() => _IsTableDense = _IsTableDense ? false : true)">
+                                <MudMenuItem>
                                     <MudSwitch @bind-Value="@_IsTableDense" Color="Color.Secondary">
                                         @DashboardResource.StringDense
                                     </MudSwitch>
                                 </MudMenuItem>
-                                <MudMenuItem OnClick="@(() => _IsTableFixedHeader = _IsTableFixedHeader ? false : true)">
+                                <MudMenuItem>
                                     <MudSwitch @bind-Value="@_IsTableFixedHeader" Color="Color.Primary">
                                         @DashboardResource.StringFixedHeader
                                     </MudSwitch>
                                 </MudMenuItem>
-                                <MudMenuItem OnClick="@(() => OnScrollChanged())">
+                                <MudMenuItem>
                                     <MudSwitch @bind-Value="@_IsTableScroll" Color="Color.Tertiary">
                                         @DashboardResource.StringScroll
                                     </MudSwitch>

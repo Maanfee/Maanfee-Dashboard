@@ -2,7 +2,7 @@
 
 <EditForm Model="@SubmitChangePasswordViewModel" OnValidSubmit="OnSubmit">
     <DataAnnotationsValidator />
-    <MaanfeeDashboardDialog @ref="MDialog" IsLoaded="IsLoaded" Title="@DashboardResource.StringChangePassword" IsRTL="SharedLayoutSettings.IsRTL">
+    <MaanfeeDashboardDialog @ref="MDialog" IsDialogLoaded="IsLoaded" Title="@DashboardResource.StringChangePassword" DialogContentType="@(this.GetType())">
         <MaanfeeDashboardDialogActionContent>
             <MudTooltip Text="@DashboardResource.StringCreate" Color="Color.Tertiary" Arrow>
                 <MudIconButton Disabled="@IsProcessing" ButtonType="ButtonType.Submit" Icon="@Icons.Material.Filled.Save" Color="Color.Tertiary">
@@ -21,7 +21,7 @@
         </MaanfeeDashboardDialogActionContent>
         <MaanfeeDashboardDialogContent>
             <MudTabs Outlined="true" Position="@Position.Start" Rounded="true" Border="true"
-                     ApplyEffectsToContainer="true" PanelClass="pa-2">
+                     ApplyEffectsToContainer="true" TabPanelsClass="pa-2">
                 <MudTabPanel Text="@DashboardResource.StringChangePassword">
                     <MudGrid>
                         <MudItem xs="12">

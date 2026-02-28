@@ -1,6 +1,8 @@
 ﻿using Maanfee.Dashboard.Views.Core.Services;
 using Maanfee.JsInterop;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
 using System.Globalization;
@@ -8,7 +10,7 @@ using System.Reflection;
 
 namespace Maanfee.Dashboard.Views.Core
 {
-    public class _BaseLayout : LayoutComponentBase, IDisposable
+    public partial class _BaseLayout : LayoutComponentBase, IDisposable
     {
         [Inject]
         protected HttpClient? Http { get; set; }
@@ -16,8 +18,22 @@ namespace Maanfee.Dashboard.Views.Core
         [Inject]
         protected NavigationManager? Navigation { get; set; }
 
+        #region - Authentication -
+
         [Inject]
         protected AccountStateContainer? AccountStateContainer { get; set; }
+
+        [Inject]
+        protected IAuthorizationService? AuthorizationService { get; set; }
+
+
+        [CascadingParameter]
+        protected Task<AuthenticationState>? AuthenticationState { get; set; }
+
+        #endregion
+
+        [Inject]
+        protected CustomAuthenticationStateProvider? AuthenticationStateProvider { get; set; }
 
         // JWT
         [Inject]
@@ -37,7 +53,7 @@ namespace Maanfee.Dashboard.Views.Core
         [Inject]
         protected Fullscreen? Fullscreen { get; set; }
 
-        [Inject]
+        [Inject] 
         protected TableConfigurationService? TableConfiguration { get; set; }
 
         // *****************************************

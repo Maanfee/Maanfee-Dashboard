@@ -4,21 +4,133 @@
 
 <MaanfeeDashboardDialog @ref="MDialog" Title="@DashboardResource.StringCultureInformation" IsDialogLoaded="@IsLoaded" DialogContentType="@(this.GetType())">
     <MaanfeeDashboardDialogContent>
-        <p><strong>Current Culture:</strong> @CultureInfo.CurrentCulture.Name</p>
-        <p><strong>Current UI Culture:</strong> @CultureInfo.CurrentUICulture.Name</p>
-        <p><strong>Display UI Name:</strong> @CultureInfo.CurrentUICulture.DisplayName</p>
-        <p><strong>Display Name:</strong> @CultureInfo.CurrentCulture.DisplayName</p>
-        <p><strong>Native Name:</strong> @CultureInfo.CurrentCulture.NativeName</p>
-        <p><strong>English Name:</strong> @CultureInfo.CurrentCulture.EnglishName</p>
-        <p><strong>Two-Letter ISO:</strong> @CultureInfo.CurrentCulture.TwoLetterISOLanguageName</p>
-        <p><strong>Is Right To Left:</strong> @CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft</p>
-        <p><strong>Is Right To Left Shared:</strong> @SharedLayoutSettings.IsRTL</p>
-        <p><strong>Invariant Culture:</strong> @CultureInfo.InvariantCulture</p>
-
-        <h4>Test Formatting:</h4>
-        <p>Date: @DateTime.Now.ToString("D")</p>
-        <p>Number: @(1234.56.ToString("C"))</p>
-        <p>Percentage: @(0.75.ToString("P"))</p>
+        <MudStack Spacing="3" AlignItems="@(SharedLayoutSettings.IsRTL? AlignItems.End: AlignItems.Start)">
+            <p>
+                <MudText Typo="Typo.button" Color="Color.Primary">Current Culture</MudText>
+                <MudText Typo="Typo.caption"> @CultureInfo.CurrentCulture.Name</MudText>
+            </p>
+            <p>
+                <MudText Typo="Typo.button" Color="Color.Primary">Current UI Culture</MudText>
+                <MudText Typo="Typo.caption">@CultureInfo.CurrentUICulture.Name</MudText>
+            </p>
+            <p>
+                @if (SharedLayoutSettings.IsRTL)
+                {
+                    <MudText Typo="Typo.caption">@CultureInfo.CurrentUICulture.DisplayName</MudText>
+                    <MudText Typo="Typo.button" Color="Color.Primary">Display UI Name</MudText>
+                }
+                else
+                {
+                    <MudText Typo="Typo.button" Color="Color.Primary">Display UI Name</MudText>
+                    <MudText Typo="Typo.caption">@CultureInfo.CurrentUICulture.DisplayName</MudText>
+                }
+            </p>
+            <p>
+                @if (SharedLayoutSettings.IsRTL)
+                {
+                    <MudText Typo="Typo.caption">@CultureInfo.CurrentCulture.DisplayName</MudText>
+                    <MudText Typo="Typo.button" Color="Color.Primary">Display Name</MudText>
+                }
+                else
+                {
+                    <MudText Typo="Typo.button" Color="Color.Primary">Display Name</MudText>
+                    <MudText Typo="Typo.caption">@CultureInfo.CurrentCulture.DisplayName</MudText>
+                }
+            </p>
+              <p>
+                @if (SharedLayoutSettings.IsRTL)
+                {
+                    <MudText Typo="Typo.caption">@CultureInfo.CurrentCulture.NativeName</MudText>
+                    <MudText Typo="Typo.button" Color="Color.Primary">Native Name</MudText>
+                }
+                else
+                {
+                    <MudText Typo="Typo.button" Color="Color.Primary">Native Name</MudText>
+                    <MudText Typo="Typo.caption">@CultureInfo.CurrentCulture.NativeName</MudText>
+                }
+            </p>
+              <p>
+                <MudText Typo="Typo.button" Color="Color.Primary">English Name</MudText>
+                <MudText Typo="Typo.caption">@CultureInfo.CurrentCulture.EnglishName</MudText>
+            </p>
+              <p>
+                <MudText Typo="Typo.button" Color="Color.Primary" Align="@(SharedLayoutSettings.IsRTL? Align.Right: Align.Left)">
+                    Two-Letter ISO
+                </MudText>
+                <MudText Typo="Typo.caption" Align="@(SharedLayoutSettings.IsRTL? Align.Right: Align.Left)">
+                    @CultureInfo.CurrentCulture.TwoLetterISOLanguageName
+                </MudText>
+            </p>
+             <p>
+                <MudText Typo="Typo.button" Color="Color.Primary" Align="Align.Left">
+                    Is Right To Left
+                </MudText>
+                <MudText Typo="Typo.caption" Align="Align.Left">
+                    @CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft
+                </MudText>
+            </p>
+            <MudDivider DividerType="DividerType.FullWidth" />
+            <MudStack Row="true">
+                @if (SharedLayoutSettings.IsRTL)
+                {
+                    <MudText Typo="Typo.caption">
+                        @DateTime.Now.ToString("D")
+                    </MudText>
+                    <MudText Typo="Typo.button" Color="Color.Primary">
+                        Date
+                    </MudText>
+                }
+                else
+                {
+                    <MudText Typo="Typo.button" Color="Color.Primary">
+                        Date
+                    </MudText>
+                    <MudText Typo="Typo.caption">
+                        @DateTime.Now.ToString("D")
+                    </MudText>
+                }
+            </MudStack>
+            <MudStack Row="true">
+                @if (SharedLayoutSettings.IsRTL)
+                {
+                    <MudText Typo="Typo.caption">
+                        @(1234.56.ToString("C"))
+                    </MudText>
+                    <MudText Typo="Typo.button" Color="Color.Primary">
+                        Number
+                    </MudText>
+                }
+                else
+                {
+                    <MudText Typo="Typo.button" Color="Color.Primary">
+                        Number
+                    </MudText>
+                    <MudText Typo="Typo.caption">
+                        @(1234.56.ToString("C"))
+                    </MudText>
+                }
+            </MudStack>
+            <MudStack Row="true">
+                @if (SharedLayoutSettings.IsRTL)
+                {
+                    <MudText Typo="Typo.caption">
+                        @(0.75.ToString("P"))
+                    </MudText>
+                    <MudText Typo="Typo.button" Color="Color.Primary">
+                        Percentage
+                    </MudText>
+                }
+                else
+                {
+                    <MudText Typo="Typo.button" Color="Color.Primary">
+                        Percentage
+                    </MudText>
+                    <MudText Typo="Typo.caption">
+                        @(0.75.ToString("P"))
+                    </MudText>
+                }
+            </MudStack>
+        </MudStack>
     </MaanfeeDashboardDialogContent>
 </MaanfeeDashboardDialog>
 
@@ -31,6 +143,7 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
+        await Task.Delay(500);
 
         IsLoaded = true;
     }

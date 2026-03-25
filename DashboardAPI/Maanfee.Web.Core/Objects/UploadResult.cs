@@ -5,15 +5,15 @@
     {
         public int ErrorCode { get; set; }
 
-        public string SuccessMessage { get; set; }
+        public string? SuccessMessage { get; set; }
 
-        public string ErrorMessage { get; set; }
+        public string? ErrorMessage { get; set; }
 
         public bool Uploaded { get; set; }
 
-        public string FileName { get; set; }
+        public string? FileName { get; set; }
 
-        public string StoredFileName { get; set; }
+        public string? StoredFileName { get; set; }
     }
 
     public class UploadResult<T>
@@ -28,17 +28,17 @@
 
         public int ErrorCode { get; set; }
 
-        public string SuccessMessage { get; set; }
+        public string? SuccessMessage { get; set; }
 
-        public string ErrorMessage { get; set; }
+        public string? ErrorMessage { get; set; }
 
         public bool Uploaded { get; set; }
 
-        public string FileName { get; set; }
+        public string? FileName { get; set; }
 
-        public string StoredFileName { get; set; }
+        public string? StoredFileName { get; set; }
 
-        public T Data { get; set; }
+        public T? Data { get; set; }
 
 
         //public static UploadResult CreateFrom(UploadResult source)

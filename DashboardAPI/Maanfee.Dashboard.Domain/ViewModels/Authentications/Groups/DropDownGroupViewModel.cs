@@ -9,6 +9,6 @@ namespace Maanfee.Dashboard.Domain.ViewModels
 
         [Display(Name = nameof(DashboardResource.StringTitle), ResourceType = typeof(DashboardResource))]
         [StringLength(150, MinimumLength = 2, ErrorMessageResourceName = nameof(DashboardResource.ValidationStringLength), ErrorMessageResourceType = typeof(DashboardResource))]
-        public string Title { get; set; }
+        public string? Title { get; set; }
     }
 }

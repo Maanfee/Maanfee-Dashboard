@@ -109,6 +109,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                     .Include(x => x.ApplicationUser)
                     .Where(x => x.IdDepartment == IdDepartment)
                     .Select(x => x.ApplicationUser)
+                    .Where(x => x != null)
                     .ToListAsync();
 
                 if (!string.IsNullOrEmpty(Value))

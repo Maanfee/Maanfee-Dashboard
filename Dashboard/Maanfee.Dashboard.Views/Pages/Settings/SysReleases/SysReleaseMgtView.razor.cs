@@ -6,12 +6,7 @@ using Maanfee.Dashboard.Views.Core;
 using Maanfee.Web.Core;
 using MudBlazor;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Json;
-using System.Threading;
-using System.Threading.Tasks;
 using FilterViewModel = Maanfee.Dashboard.Domain.ViewModels.FilterReleaseViewModel;
 using TableViewModel = Maanfee.Dashboard.Domain.ViewModels.GetReleaseViewModel;
 
@@ -254,6 +249,31 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
         }
 
         #endregion
-    
+
+        #region - Row Click -
+
+        private async Task RowClickEvent(TableRowClickEventArgs<TableViewModel> TableRowClickEventArgs)
+        {
+            // Snackbar.Add(TableRowClickEventArgs.Item.Name, Severity.Error);
+            if (TableRowClickEventArgs.MouseEventArgs.Detail == 2)
+            {
+                await OpenDetailsDialog(TableRowClickEventArgs.Item.Id);
+            }
+        }
+
+        private string TableRowClass(TableViewModel element, int rowNumber)
+        {
+            if (Table.SelectedItem != null && Table.SelectedItem.Id.Equals(element.Id))
+            {
+                return "TableRowSelected";
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+        #endregion
+
     }
 }

@@ -1,20 +1,13 @@
 ﻿using Maanfee.Dashboard.Resources;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Maanfee.Dashboard.Domain.Entities
 {
     public class UserGroup
     {
         [Key]
-        public string Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         // ******************************************************************
 
@@ -22,15 +15,15 @@ namespace Maanfee.Dashboard.Domain.Entities
         public int IdGroup { get; set; }
 
         [ForeignKey("IdGroup")]
-        public virtual Group Group { get; set; }
+        public virtual Group? Group { get; set; }
 
         // ******************************************************************
 
         [Display(Name = nameof(DashboardResource.StringUser), ResourceType = typeof(DashboardResource))]
-        public string IdApplicationUser { get; set; }
+        public string? IdApplicationUser { get; set; }
 
         [ForeignKey("IdApplicationUser")]
-        public virtual ApplicationUser ApplicationUser { get; set; }
+        public virtual ApplicationUser? ApplicationUser { get; set; }
 
         // ******************************************************************
 

@@ -2,8 +2,8 @@
 {
 	public class FilterUserViewModel
 	{
-        public string Name { get; set; }
+        public string? Name { get; set; }
         
-		public DropDownDepartmentViewModel Department { get; set; }
+		public DropDownDepartmentViewModel? Department { get; set; }
 	}
 }

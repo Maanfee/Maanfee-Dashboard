@@ -6,6 +6,6 @@ namespace Maanfee.Dashboard.Domain.ViewModels
 	public class FilterRoleViewModel
 	{
 		[Display(Name = nameof(DashboardResource.StringRole), ResourceType = typeof(DashboardResource))]
-		public virtual string Role { get; set; }
+		public virtual string? Role { get; set; }
 	}
 }

@@ -5,15 +5,9 @@ using Maanfee.Dashboard.Views.Core;
 using Maanfee.Logging.Domain;
 using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR.Client;
 using MudBlazor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Json;
-using System.Threading;
-using System.Threading.Tasks;
 using FilterViewModel = Maanfee.Dashboard.Domain.ViewModels.FilterRoleViewModel;
 using TableViewModel = Maanfee.Dashboard.Domain.ViewModels.GetRoleViewModel;
 
@@ -89,7 +83,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
                 var PostResult = await Http.PostAsJsonAsync($"api/Roles/PaginationIndex", TableState, token);
                 if (PostResult.IsSuccessStatusCode)
                 {
-                    var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<PaginatedListViewModel<IdentityRole>>>();
+                    var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<PaginatedListViewModel<TableViewModel>>>();
 
                     Data = JsonResult.Data.List.AsEnumerable().Select((data, index) => new TableViewModel
                     {
@@ -248,7 +242,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
                     var DeleteResult = await Http.DeleteAsync($"api/Roles/Delete/{Id}");
                     if (DeleteResult.IsSuccessStatusCode)
                     {
-                        var JsonResult = await DeleteResult.Content.ReadFromJsonAsync<CallbackResult<IdentityRole>>();
+                        var JsonResult = await DeleteResult.Content.ReadFromJsonAsync<CallbackResult<TableViewModel>>();
                         if (JsonResult.Data != null)
                         {
                             Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageDeletedSuccessfully, Severity.Success);
@@ -294,5 +288,31 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
         }
 
         #endregion
+
+        #region - Row Click -
+
+        private async Task RowClickEvent(TableRowClickEventArgs<TableViewModel> TableRowClickEventArgs)
+        {
+            // Snackbar.Add(TableRowClickEventArgs.Item.Name, Severity.Error);
+            if (TableRowClickEventArgs.MouseEventArgs.Detail == 2)
+            {
+                await OpenDetailsDialog(TableRowClickEventArgs.Item.Id);
+            }
+        }
+
+        private string TableRowClass(TableViewModel element, int rowNumber)
+        {
+            if (Table.SelectedItem != null && Table.SelectedItem.Id.Equals(element.Id))
+            {
+                return "TableRowSelected";
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+        #endregion
+
     }
 }

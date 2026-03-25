@@ -1,5 +1,4 @@
 ﻿using Maanfee.Dashboard.Domain.Entities;
-using Maanfee.Dashboard.Domain.Entities.Communications;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -38,7 +37,6 @@ namespace Maanfee.Dashboard.Domain.DAL
 
         #region - Communications -
 
-        public DbSet<ChatMessage> ChatMessages { get; set; }
 
         #endregion
 
@@ -288,18 +286,6 @@ namespace Maanfee.Dashboard.Domain.DAL
             modelBuilder.Entity<UserGroup>().ToTable("UserGroup")
                 .HasIndex(p => new { p.IdApplicationUser, p.IdGroup })
                 .IsUnique(true);
-
-            #endregion
-
-            #region - Communications -
-
-            modelBuilder.Entity<ChatMessage>(e =>
-            {
-                e.ToTable("ChatMessage");
-                e.Property(c => c.Id).HasColumnType("nvarchar(450)").ValueGeneratedOnAdd();
-                e.HasOne(d => d.FromUser).WithMany(p => p.ChatMessagesFromUsers).HasForeignKey(d => d.IdFromUser).OnDelete(DeleteBehavior.ClientSetNull);
-                e.HasOne(d => d.ToUser).WithMany(p => p.ChatMessagesToUsers).HasForeignKey(d => d.IdToUser).OnDelete(DeleteBehavior.ClientSetNull);
-            });
 
             #endregion
 

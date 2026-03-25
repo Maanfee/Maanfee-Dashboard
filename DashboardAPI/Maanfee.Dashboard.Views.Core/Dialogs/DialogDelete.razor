@@ -4,6 +4,7 @@
     <MudDialog>
         <DialogContent>
             <MudAlert Severity="Severity.Error">@DashboardResource.StringAreYouSureToDeleteThisItem</MudAlert>
+            <MudDivider DividerType="DividerType.FullWidth" />
         </DialogContent>
         <DialogActions>
             <MudButton OnClick="Delete" Variant="Variant.Filled" Color="Color.Error" StartIcon="@Icons.Material.Filled.Delete" IconColor="Color.Surface">@DashboardResource.StringDelete</MudButton>
@@ -16,6 +17,8 @@
 
     [CascadingParameter]
     public IMudDialogInstance? MudDialog { get; set; }
+
+    // ***************************************************
 
     private void Close() => MudDialog?.Cancel();
     private void Delete() => MudDialog?.Close(DialogResult.Ok(true));

@@ -4,7 +4,7 @@
 
 <MaanfeeDashboardDialog @ref="MDialog" Title="@DashboardResource.StringCultureInformation" IsDialogLoaded="@IsLoaded" DialogContentType="@(this.GetType())">
     <MaanfeeDashboardDialogContent>
-        <MudStack Spacing="3" AlignItems="@(SharedLayoutSettings.IsRTL? AlignItems.End: AlignItems.Start)">
+        <MudStack Spacing="2" AlignItems="@(SharedLayoutSettings.IsRTL? AlignItems.End: AlignItems.Start)">
             <p>
                 <MudText Typo="Typo.button" Color="Color.Primary">Current Culture</MudText>
                 <MudText Typo="Typo.caption"> @CultureInfo.CurrentCulture.Name</MudText>

@@ -25,13 +25,14 @@
         <MudCardActions>
             <MudTable ServerData="ServerData" @ref="Table"
                       Dense="@_IsTableDense" Bordered Striped Hover Virtualize FixedFooter Loading="@IsTableLoading"
-                      FixedHeader="@_IsTableFixedHeader" Height="@(_IsTableScroll? TableHeight : "100%")">
+                      FixedHeader="@_IsTableFixedHeader" Height="@(_IsTableScroll? TableHeight : "100%")"
+                      RowClassFunc="TableRowClass" OnRowClick="RowClickEvent" T="TableViewModel">
                 <HeaderContent>
                     <MudTh Class="column-1x">#</MudTh>
                     <MudTh><MudTableSortLabel SortLabel="Name" T="TableViewModel">@DashboardResource.StringRole</MudTableSortLabel></MudTh>
                     <MudTh><MudTableSortLabel SortLabel="NormalizedName" T="TableViewModel">@DashboardResource.StringNormalizedName</MudTableSortLabel></MudTh>
                     <MudTh Class="column-4x">
-                        <MudText Align="Align.Left">
+                        <MudStack AlignItems="AlignItems.Center">
                             <MudMenu Icon="@Icons.Material.Filled.MoreVert" Color="Color.Secondary">
                                 <MudMenuItem>
                                     <MudSwitch @bind-Value="@_IsTableDense" Color="Color.Secondary">
@@ -49,11 +50,11 @@
                                     </MudSwitch>
                                 </MudMenuItem>
                             </MudMenu>
-                        </MudText>
+                        </MudStack>
                     </MudTh>
                 </HeaderContent>
                 <RowTemplate>
-                    <MudTd Class="mud-text-align-center">@context.RowNum</MudTd>
+                    <MudTd Style="color: var(--mud-palette-primary);">@context.RowNum</MudTd>
                     <MudTd>@context.Name</MudTd>
                     <MudTd>@context.NormalizedName</MudTd>
                     <MudTd>

@@ -5,7 +5,8 @@
     <ServerGarbageCollection>true</ServerGarbageCollection>
     <ImplicitUsings>enable</ImplicitUsings>
     <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
-		<!--**********************************************-->
+    <TieredPGO>true</TieredPGO>
+    <!--**********************************************-->
 	</PropertyGroup>
 
 	<ItemGroup>

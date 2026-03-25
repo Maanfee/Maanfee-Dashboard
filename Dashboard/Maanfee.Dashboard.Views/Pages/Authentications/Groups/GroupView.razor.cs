@@ -5,12 +5,7 @@ using Maanfee.Dashboard.Resources;
 using Maanfee.Dashboard.Views.Core;
 using Maanfee.Web.Core;
 using MudBlazor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Json;
-using System.Threading;
-using System.Threading.Tasks;
 using FilterViewModel = Maanfee.Dashboard.Domain.ViewModels.FilterGroupViewModel;
 using TableViewModel = Maanfee.Dashboard.Domain.ViewModels.GetGroupViewModel;
 
@@ -65,7 +60,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
                 var PostResult = await Http.PostAsJsonAsync($"api/Groups/PaginationIndex", TableState, token);
                 if (PostResult.IsSuccessStatusCode)
                 {
-                    var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<PaginatedListViewModel<Group>>>();
+                    var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<PaginatedListViewModel<TableViewModel>>>();
 
                     Data = JsonResult.Data.List.AsEnumerable().Select((data, index) => new TableViewModel
                     {
@@ -243,6 +238,31 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
                 {
                     Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
                 }
+            }
+        }
+
+        #endregion
+
+        #region - Row Click -
+
+        private async Task RowClickEvent(TableRowClickEventArgs<TableViewModel> TableRowClickEventArgs)
+        {
+            // Snackbar.Add(TableRowClickEventArgs.Item.Name, Severity.Error);
+            if (TableRowClickEventArgs.MouseEventArgs.Detail == 2)
+            {
+                await OpenDetailsDialog(TableRowClickEventArgs.Item.Id);
+            }
+        }
+
+        private string TableRowClass(TableViewModel element, int rowNumber)
+        {
+            if (Table.SelectedItem != null && Table.SelectedItem.Id.Equals(element.Id))
+            {
+                return "TableRowSelected";
+            }
+            else
+            {
+                return string.Empty;
             }
         }
 

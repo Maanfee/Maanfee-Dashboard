@@ -1,5 +1,4 @@
 ﻿using Maanfee.Dashboard.Resources;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Maanfee.Dashboard.Domain.ViewModels
@@ -8,10 +7,10 @@ namespace Maanfee.Dashboard.Domain.ViewModels
 	{
 		[Display(Name = "#")]
 		public virtual int RowNum { get; set; }
-		public virtual string Id { get; set; }
+		public virtual string? Id { get; set; }
 
 		[Display(Name = nameof(DashboardResource.StringVersion), ResourceType = typeof(DashboardResource))]
-		public string Version { get; set; }
+		public string? Version { get; set; }
 
 		[Display(Name = nameof(DashboardResource.StringDate), ResourceType = typeof(DashboardResource))]
 		public Nullable<DateTime> ReleaseDate { get; set; }

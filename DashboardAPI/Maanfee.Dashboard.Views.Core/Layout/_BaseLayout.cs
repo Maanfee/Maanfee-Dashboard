@@ -94,17 +94,6 @@ namespace Maanfee.Dashboard.Views.Core
 
         public static string TableHeight { get; set; } = TableConfigurationService.InitTableHeight;
 
-        public static string TableHeightLarge { get; set; } = TableConfigurationService.InitTableHeightLarge;
-
-        protected async void OnScrollChanged()
-        {
-            _IsTableScroll = _IsTableScroll ? false : true;
-
-            TableHeight = TableConfiguration!.SetHeight(SharedLayoutSettings.IsRTL, await Fullscreen!.IsFullscreenAsync(), _IsTableScroll);
-
-            StateHasChanged();
-        }
-
         #endregion
 
         #region - Snackbar Config -

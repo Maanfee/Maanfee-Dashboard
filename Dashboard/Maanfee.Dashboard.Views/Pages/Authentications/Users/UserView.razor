@@ -1,5 +1,6 @@
 ﻿@page "/Users/UserView"
 @inherits _BaseView
+@using TableViewModel = Domain.ViewModels.GetUserViewModel;
 
 <MaanfeeDashboardPage PageTitle="@DashboardResource.StringUser">
     <MudPaper>
@@ -24,7 +25,8 @@
         <MudCardActions>
             <MudTable ServerData="ServerData" @ref="Table"
                       Dense="@_IsTableDense" Bordered Striped Hover Virtualize FixedFooter Loading="@IsTableLoading"
-                      FixedHeader="@_IsTableFixedHeader" Height="@(_IsTableScroll? TableHeight : "100%")">
+                      FixedHeader="@_IsTableFixedHeader" Height="@(_IsTableScroll? TableHeight : "100%")"
+                      RowClassFunc="TableRowClass" OnRowClick="RowClickEvent" T="TableViewModel">
                 <HeaderContent>
                     <MudTh Class="column-1x">#</MudTh>
                     <MudTh Class="column-1x"></MudTh>
@@ -34,7 +36,7 @@
                     <MudTh><MudTableSortLabel SortLabel="RoleName" T="GetUserViewModel">@DashboardResource.StringRole</MudTableSortLabel></MudTh>
                     <MudTh>@DashboardResource.StringPost</MudTh>
                     <MudTh Class="column-3x">
-                        <MudText Align="Align.Left">
+                        <MudStack AlignItems="AlignItems.Center">
                             <MudMenu Icon="@Icons.Material.Filled.MoreVert" Color="Color.Secondary">
                                 <MudMenuItem>
                                     <MudSwitch @bind-Value="@_IsTableDense" Color="Color.Secondary">
@@ -52,11 +54,11 @@
                                     </MudSwitch>
                                 </MudMenuItem>
                             </MudMenu>
-                        </MudText>
+                        </MudStack>
                     </MudTh>
                 </HeaderContent>
                 <RowTemplate>
-                    <MudTd Class="mud-text-align-center">@context.RowNum</MudTd>
+                    <MudTd Style="color: var(--mud-palette-primary);">@context.RowNum</MudTd>
                     <MudTd>
                         <MudAvatar Size="Size.Medium">
                             <MudImage Src="@("data:image/png;base64," + Convert.ToBase64String(context.Avatar))" />
@@ -94,5 +96,4 @@
             </MudTable>
         </MudCardActions>
     </MudCard>
-
 </MaanfeeDashboardPage>

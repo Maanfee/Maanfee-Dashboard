@@ -28,7 +28,7 @@
 
     public class Error
     {
-        public Error(ErrorCode? code, string message, object data = null)
+        public Error(ErrorCode? code, string? message, object? data = null)
         {
             Code = code;
             Message = message;
@@ -37,33 +37,33 @@
 
         public ErrorCode? Code { get; set; }
 
-        public string Message { get; set; }
+        public string? Message { get; set; }
 
-        public object Data { get; set; }
+        public object? Data { get; set; }
 
         public override string ToString()
         {
-            return $"Error {(int)Code} {Code}: {Message}";
+            return $"Error {(Code.HasValue ? $"{(int)Code.Value} {Code.Value}" : "Unknown")}: {Message}";
         }
     }
 
     public class ExceptionError : Error
     {
-        public ExceptionError(string message, object data = null) : base(ErrorCode.SystemError, message, data) { }
+        public ExceptionError(string? message, object? data = null) : base(ErrorCode.SystemError, message, data) { }
     }
 
     public class DuplicateError : Error
     {
-        public DuplicateError(string message, object data = null) : base(ErrorCode.DuplicateError, message, data) { }
+        public DuplicateError(string? message, object? data = null) : base(ErrorCode.DuplicateError, message, data) { }
     }
 
     public class PrimaryKeyConstraintError : Error
     {
-        public PrimaryKeyConstraintError(string message, object data = null) : base(ErrorCode.PrimaryKeyConstraint, message, data) { }
+        public PrimaryKeyConstraintError(string? message, object? data = null) : base(ErrorCode.PrimaryKeyConstraint, message, data) { }
     }
 
     public class DeleteError : Error
     {
-        public DeleteError(string message, object data = null) : base(ErrorCode.DeleteError, message, data) { }
+        public DeleteError(string? message, object? data = null) : base(ErrorCode.DeleteError, message, data) { }
     }
 }

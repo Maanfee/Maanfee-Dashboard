@@ -32,11 +32,11 @@
 	[Parameter]
 	public Color SubmitButtonColor { get; set; }
 
-	async Task Submit()
+	private async Task Submit()
 	{
 		await AuthenticationStateProvider!.Logout();
-		Navigation?.NavigateTo("/login");
 		MudDialog?.Close(DialogResult.Ok(true));
+		Navigation?.NavigateTo("/login");
 	}
 
 	private void Close() => MudDialog?.Cancel();

@@ -92,7 +92,7 @@ namespace Maanfee.Dashboard.Views.Core
             await Dialog!.ShowAsync<DialogInformation>(string.Empty, DialogParameters, new DialogOptions()
             {
                 NoHeader = true,
-                MaxWidth = MaxWidth.Small,
+                MaxWidth = MaxWidth.Medium,
                 FullWidth = true,
                 Position = DialogPosition.Center,
                 BackgroundClass = "Dialog-Blur",

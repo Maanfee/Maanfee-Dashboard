@@ -4,23 +4,32 @@
     <MaanfeeDashboardDialogContent>
         <MudGrid>
             <MudItem xs="12" sm="4" md="3">
-                <MudCard Elevation="25">
+                <MudCard Elevation="4" Outlined="true" Square="true">
+                    <MudCardHeader>
+                        <CardHeaderContent>
+                            <MudText>@DashboardResource.StringAvatar</MudText>
+                        </CardHeaderContent>
+                    </MudCardHeader>
                     <MudCardContent>
-                        <div class="d-flex justify-center mb-4">
-                            <MudAvatar Class="ma-2" Style="height:150px; width:150px;">
-                                <MudImage Src="@StringAvatar" />
-                            </MudAvatar>
-                        </div>
-                        <MudText Typo="Typo.h6" Align="Align.Center">@Model?.UserName</MudText>
-                        <MudText Typo="Typo.h6" Align="Align.Center" Color="Color.Primary">
-                            @Model?.RoleName
-                        </MudText>
-                        <MudText Typo="Typo.h6" Align="Align.Center">@Model?.PersonalCode</MudText>
+                        <MudGrid>
+                            <MudItem xs="12" md="12">
+                                <div class="d-flex justify-center mb-1">
+                                    <MudAvatar Class="ma-1" Style="height:145px; width:145px;">
+                                        <MudImage Src="@StringAvatar" />
+                                    </MudAvatar>
+                                </div>
+                                <MudText Typo="Typo.h6" Align="Align.Center">@Model?.UserName</MudText>
+                                <MudText Typo="Typo.h6" Align="Align.Center" Color="Color.Primary">
+                                    @Model?.RoleName
+                                </MudText>
+                                <MudText Typo="Typo.h6" Align="Align.Center">@Model?.PersonalCode</MudText>
+                            </MudItem>
+                        </MudGrid>
                     </MudCardContent>
                 </MudCard>
             </MudItem>
             <MudItem xs="12" sm="8" md="9">
-                <MudCard Elevation="25">
+                <MudCard Elevation="4" Outlined="true" Square="true">
                     <MudCardHeader>
                         <CardHeaderContent>
                             <MudText>@DashboardResource.StringPersonalInformation</MudText>
@@ -102,6 +111,8 @@
 
     protected override async Task OnInitializedAsync()
     {
+        await base.OnInitializedAsync();
+
         IsLoaded = false;
 
         try

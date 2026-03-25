@@ -7,20 +7,16 @@ using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR.Client;
 using MudBlazor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Json;
-using System.Threading;
-using System.Threading.Tasks;
 using FilterViewModel = Maanfee.Dashboard.Domain.ViewModels.FilterUserViewModel;
+using TableViewModel = Maanfee.Dashboard.Domain.ViewModels.GetUserViewModel;
 
 namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 {
     public partial class UserView
     {
-        private IEnumerable<GetUserViewModel> Data = new List<GetUserViewModel>();
-        private MudTable<GetUserViewModel> Table = new();
+        private IEnumerable<TableViewModel> Data = new List<TableViewModel>();
+        private MudTable<TableViewModel> Table = new();
         private TableStateViewModel<FilterViewModel> TableState = new();
 
         private bool _PermissionCreate = false;
@@ -68,7 +64,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
             }
         }
 
-        private async Task<TableData<GetUserViewModel>> ServerData(TableState state, CancellationToken token)
+        private async Task<TableData<TableViewModel>> ServerData(TableState state, CancellationToken token)
         {
             try
             {
@@ -94,9 +90,9 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
                 var PostResult = await Http.PostAsJsonAsync($"api/Users/PaginationIndex", TableState, token);
                 if (PostResult.IsSuccessStatusCode)
                 {
-                    var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<PaginatedListViewModel<GetUserViewModel>>>();
+                    var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<PaginatedListViewModel<TableViewModel>>>();
 
-                    Data = JsonResult.Data.List.AsEnumerable().Select((data, index) => new GetUserViewModel
+                    Data = JsonResult.Data.List.AsEnumerable().Select((data, index) => new TableViewModel
                     {
                         RowNum = ((state.Page - 1) * state.PageSize) + (index + 1),
                         Id = data.Id,
@@ -111,7 +107,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
                     IsTableLoading = false;
                     TableState.Dispose();
 
-                    return new TableData<GetUserViewModel>()
+                    return new TableData<TableViewModel>()
                     {
                         TotalItems = JsonResult.Data.TotalPages,
                         Items = Data
@@ -122,7 +118,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
                     Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
                     IsTableLoading = false;
                     TableState.Dispose();
-                    return new TableData<GetUserViewModel>()
+                    return new TableData<TableViewModel>()
                     {
                         Items = Data,
                         TotalItems = 0,
@@ -134,7 +130,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
                 Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
                 IsTableLoading = false;
                 TableState.Dispose();
-                return new TableData<GetUserViewModel>()
+                return new TableData<TableViewModel>()
                 {
                     Items = Data,
                     TotalItems = 0,
@@ -256,7 +252,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
                     var DeleteResult = await Http.DeleteAsync($"api/Authentications/Delete/{Id}");
                     if (DeleteResult.IsSuccessStatusCode)
                     {
-                        var JsonResult = await DeleteResult.Content.ReadFromJsonAsync<CallbackResult<GetUserViewModel>>();
+                        var JsonResult = await DeleteResult.Content.ReadFromJsonAsync<CallbackResult<TableViewModel>>();
                         if (JsonResult.Data != null)
                         {
                             Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageDeletedSuccessfully, Severity.Success);
@@ -276,6 +272,31 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
                 {
                     Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
                 }
+            }
+        }
+
+        #endregion
+
+        #region - Row Click -
+
+        private async Task RowClickEvent(TableRowClickEventArgs<TableViewModel> TableRowClickEventArgs)
+        {
+            // Snackbar.Add(TableRowClickEventArgs.Item.Name, Severity.Error);
+            if (TableRowClickEventArgs.MouseEventArgs.Detail == 2)
+            {
+                await OpenDetailsDialog(TableRowClickEventArgs.Item.Id);
+            }
+        }
+
+        private string TableRowClass(TableViewModel element, int rowNumber)
+        {
+            if (Table.SelectedItem != null && Table.SelectedItem.Id.Equals(element.Id))
+            {
+                return "TableRowSelected";
+            }
+            else
+            {
+                return string.Empty;
             }
         }
 

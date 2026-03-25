@@ -25,14 +25,15 @@
         <MudCardActions>
             <MudTable ServerData="ServerData" @ref="Table"
                       Dense="@_IsTableDense" Bordered Striped Hover Virtualize FixedFooter Loading="@IsTableLoading"
-                      FixedHeader="@_IsTableFixedHeader" Height="@(_IsTableScroll? TableHeight : "100%")">
+                      FixedHeader="@_IsTableFixedHeader" Height="@(_IsTableScroll? TableHeight : "100%")"
+                      RowClassFunc="TableRowClass" OnRowClick="RowClickEvent" T="TableViewModel">
                 <HeaderContent>
-                    <MudTh Class="column-1x"><MudText Align="Align.Center">#</MudText></MudTh>
+                    <MudTh Class="column-1x">#</MudTh>
                     <MudTh><MudTableSortLabel SortLabel="Version" T="TableViewModel">@DashboardResource.StringVersion</MudTableSortLabel></MudTh>
                     <MudTh><MudTableSortLabel SortLabel="Date" T="TableViewModel">@DashboardResource.StringDate</MudTableSortLabel></MudTh>
                     <MudTh><MudTableSortLabel SortLabel="IsActive" T="TableViewModel">@DashboardResource.StringIsActive</MudTableSortLabel></MudTh>
                     <MudTh Class="column-3x">
-                        <MudText Align="Align.Left">
+                        <MudStack AlignItems="AlignItems.Center">
                             <MudMenu Icon="@Icons.Material.Filled.MoreVert" Color="Color.Secondary">
                                 <MudMenuItem>
                                     <MudSwitch @bind-Value="@_IsTableDense" Color="Color.Secondary">
@@ -50,11 +51,11 @@
                                     </MudSwitch>
                                 </MudMenuItem>
                             </MudMenu>
-                        </MudText>
+                        </MudStack>
                     </MudTh>
                 </HeaderContent>
                 <RowTemplate>
-                    <MudTd><MudText Class="text-small-2x" Align="Align.Center">@context.RowNum</MudText></MudTd>
+                    <MudTd Style="color: var(--mud-palette-primary);">@context.RowNum</MudTd>
                     <MudTd>
                         @context?.Version
                     </MudTd>

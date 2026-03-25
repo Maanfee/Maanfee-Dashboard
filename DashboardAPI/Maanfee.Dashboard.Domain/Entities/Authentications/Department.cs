@@ -1,6 +1,4 @@
 ﻿using Maanfee.Dashboard.Resources;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -21,7 +19,7 @@ namespace Maanfee.Dashboard.Domain.Entities
         [Display(Name = nameof(DashboardResource.StringDepartment), ResourceType = typeof(DashboardResource))]
         [StringLength(50, MinimumLength = 2, ErrorMessageResourceName = nameof(DashboardResource.ValidationStringLength), ErrorMessageResourceType = typeof(DashboardResource))]
         [Required(ErrorMessageResourceName = nameof(DashboardResource.ValidationRequired), ErrorMessageResourceType = typeof(DashboardResource))]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
         // ===============================================
 
@@ -29,7 +27,7 @@ namespace Maanfee.Dashboard.Domain.Entities
         public Nullable<int> IdParent { get; set; }
 
         [ForeignKey("IdParent")]
-        public virtual Department Department2 { get; set; }
+        public virtual Department? Department2 { get; set; }
 
         // ===============================================
 

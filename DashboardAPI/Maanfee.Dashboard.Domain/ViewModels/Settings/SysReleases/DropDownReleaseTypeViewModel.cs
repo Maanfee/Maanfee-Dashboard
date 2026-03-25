@@ -8,6 +8,6 @@ namespace Maanfee.Dashboard.Domain.ViewModels
 		public int Id { get; set; }
 
 		[Display(Name = nameof(DashboardResource.StringTitle), ResourceType = typeof(DashboardResource))]
-		public string Title { get; set; }
+		public string? Title { get; set; }
 	}
 }

@@ -5,9 +5,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <!--**********************************************-->
-    <ScopedCssEnabled>true</ScopedCssEnabled>
+    <TieredPGO>true</TieredPGO>
+    <DebugType>none</DebugType>
     <!--**********************************************-->
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <ScopedCssEnabled>true</ScopedCssEnabled>
+    <EnableDefaultScopedCssItems>true</EnableDefaultScopedCssItems>
+    <!--**********************************************-->
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild> 
     <Copyright>Copyright (c) 2021-2026 Maanfee</Copyright>
     <Authors>Maanfee Team (MF)</Authors>
     <Company>Maanfee</Company>
@@ -22,6 +26,7 @@
 
   <ItemGroup>
     <None Include="..\..\LICENSE" Pack="true" Visible="false" PackagePath="" />
+    <None Include="wwwroot\Triangle.css" />
     <None Update="MaanfeeRed.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>

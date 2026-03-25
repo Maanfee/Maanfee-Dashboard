@@ -45,6 +45,8 @@
 
     protected async override Task OnInitializedAsync()
     {
+        await base.OnInitializedAsync();
+
         IsLoaded = false;
 
         try

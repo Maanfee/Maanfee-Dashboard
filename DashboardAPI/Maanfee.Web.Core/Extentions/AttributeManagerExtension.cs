@@ -7,12 +7,12 @@ namespace Maanfee.Web.Core
 {
     public static class AttributeManagerExtension
     {
-        public static DisplayAttribute MaanfeeDisplayAttribute(this MemberInfo MemberInfo)
+        public static DisplayAttribute? MaanfeeDisplayAttribute(this MemberInfo MemberInfo)
         {
             return MemberInfo.GetCustomAttribute<DisplayAttribute>(true) ?? null;
         }
 
-        public static DescriptionAttribute MaanfeeDescriptionAttribute(this MemberInfo MemberInfo)
+        public static DescriptionAttribute? MaanfeeDescriptionAttribute(this MemberInfo MemberInfo)
         {
             return MemberInfo.GetCustomAttribute<DescriptionAttribute>(true) ?? null;
         }

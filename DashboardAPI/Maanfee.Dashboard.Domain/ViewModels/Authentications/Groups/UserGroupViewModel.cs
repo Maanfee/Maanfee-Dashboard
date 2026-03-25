@@ -9,15 +9,15 @@ namespace Maanfee.Dashboard.Domain.ViewModels
         public int IdGroup { get; set; }
 
         [Display(Name = nameof(DashboardResource.StringGroup), ResourceType = typeof(DashboardResource))]
-        public string GroupTitle { get; set; }
+        public string? GroupTitle { get; set; }
 
         [Display(Name = nameof(DashboardResource.StringUser), ResourceType = typeof(DashboardResource))]
-        public string IdApplicationUser { get; set; }
+        public string? IdApplicationUser { get; set; }
 
         [Display(Name = nameof(DashboardResource.StringName), ResourceType = typeof(DashboardResource))]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [Display(Name = nameof(DashboardResource.StringUserName), ResourceType = typeof(DashboardResource))]
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
     }
 }

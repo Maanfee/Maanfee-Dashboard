@@ -5,12 +5,8 @@ using Maanfee.Dashboard.Views.Core;
 using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Json;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 {
@@ -24,6 +20,8 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 
         protected override async Task OnInitializedAsync()
         {
+            await base.OnInitializedAsync();
+
             try
             {
                 await GetTitleNamesAsync();

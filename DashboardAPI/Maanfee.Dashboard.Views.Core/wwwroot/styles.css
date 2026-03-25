@@ -1,0 +1,41 @@
+
+.mud-table-root .mud-table-head .mud-table-cell {
+    text-align: center !important;
+    vertical-align: middle !important;
+    font-size: 0.8em;
+    color: var(--mud-palette-primary);
+    border-top: 1px solid var(--mud-palette-table-lines);
+    border-right: 1px solid var(--mud-palette-table-lines);
+}
+
+.mud-table-root .mud-table-body .mud-table-cell {
+    border-right: 1px solid var(--mud-palette-table-lines);
+    text-align: center !important;
+    vertical-align: middle !important;
+    font-size: 0.7em;
+}
+
+.TableRowSelected {
+     background-color: #8ac6f5 !important;
+   /* background-color: var(--mud-palette-primary) !important;*/
+}
+
+    .TableRowSelected > td {
+        color: white !important;
+    }
+
+        .TableRowSelected > td .mud-input {
+            color: white !important;
+        }
+
+        .TableRowSelected > td p {
+            color: white !important;
+        }
+
+        .TableRowSelected > td .mud-icon-root.mud-svg-icon {
+            color: white !important;
+        }
+
+.Dialog-Blur {
+    backdrop-filter: blur(10px);
+}

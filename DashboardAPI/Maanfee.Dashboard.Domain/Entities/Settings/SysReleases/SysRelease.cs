@@ -1,8 +1,5 @@
 ﻿using Maanfee.Dashboard.Resources;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Maanfee.Dashboard.Domain.Entities
 {
@@ -14,12 +11,12 @@ namespace Maanfee.Dashboard.Domain.Entities
         }
 
         [Key]
-        public string Id { get; set; } 
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         [Display(Name = nameof(DashboardResource.StringReleasedVersions), ResourceType = typeof(DashboardResource))]
 		[StringLength(10, MinimumLength = 1, ErrorMessageResourceName = nameof(DashboardResource.ValidationStringLength), ErrorMessageResourceType = typeof(DashboardResource))]
 		[Required(ErrorMessageResourceName = nameof(DashboardResource.ValidationRequired), ErrorMessageResourceType = typeof(DashboardResource))]
-        public string Version { get; set; }
+        public string? Version { get; set; }
 
         //[Display(Name = nameof(DashboardResource.StringFramework), ResourceType = typeof(DashboardResource))]
         //[StringLength(20, MinimumLength = 2, ErrorMessageResourceName = nameof(DashboardResource.ValidationStringLength), ErrorMessageResourceType = typeof(DashboardResource))]

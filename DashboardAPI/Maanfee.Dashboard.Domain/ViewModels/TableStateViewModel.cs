@@ -6,7 +6,7 @@ namespace Maanfee.Dashboard.Domain.ViewModels
     {
         public TableState state { get; set; } = new();
 
-        public string IdOptional { get; set; }
+        public string? IdOptional { get; set; }
 
         public virtual void Dispose()
         {
@@ -18,7 +18,7 @@ namespace Maanfee.Dashboard.Domain.ViewModels
 
     public class TableStateViewModel<T> : TableStateViewModel, IDisposable
     {
-        public T Filter { get; set; }
+        public T? Filter { get; set; }
 
         public override void Dispose()
         {

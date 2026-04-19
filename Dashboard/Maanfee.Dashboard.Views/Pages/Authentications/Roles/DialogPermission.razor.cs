@@ -61,13 +61,14 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
                 var propertyValue = prop.GetValue(null);
                 if (propertyValue is not null && propertyValue.ToString().Contains(ClassName))
                 {
-                    var RoleClaim = new SubmitRoleClaimViewModel();
-                    RoleClaim.ClaimType = propertyValue.ToString();
                     var Val = prop.MaanfeeDisplayAttribute().Name.MaanfeeGetResourceValue<DashboardResource>();
                     if (string.IsNullOrEmpty(Val))
                     {
                         //Val = prop.MaanfeeDisplayAttribute().Name.MaanfeeGetResourceValue<AppResource>();
                     }
+
+                    var RoleClaim = new SubmitRoleClaimViewModel();
+                    RoleClaim.ClaimType = propertyValue.ToString();
                     RoleClaim.Action = Val;
                     RoleClaim.ClaimValue = PermissionClaimTypes.Permission;
                     RoleClaim.RoleId = IdRole;
@@ -125,11 +126,11 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
             IsProcessing = false;
         }
 
-        private Dictionary<string, string> TitleNames { get; } = new();
+        private Dictionary<string, string> TitleNames { get; } = [];
 
-        private List<SubmitRoleClaimViewModel> SubmitRoleClaimViewModels = new List<SubmitRoleClaimViewModel>();
+        private readonly List<SubmitRoleClaimViewModel> SubmitRoleClaimViewModels = [];
 
-        private List<GetRoleClaimViewModel> GetRoleClaimFromDatabase = new();
+        private List<GetRoleClaimViewModel> GetRoleClaimFromDatabase = [];
 
         private async Task GetRoleClaimViewModelsAsync()
         {

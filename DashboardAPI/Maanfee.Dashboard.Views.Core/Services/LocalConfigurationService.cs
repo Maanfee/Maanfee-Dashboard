@@ -1,5 +1,4 @@
 ﻿using Maanfee.JsInterop;
-using MudBlazor;
 
 namespace Maanfee.Dashboard.Views.Core
 {
@@ -28,6 +27,7 @@ namespace Maanfee.Dashboard.Views.Core
                 SharedLayoutSettings.CultureCode = LayoutSettings.CultureCode;
                 SharedLayoutSettings.Theme = LayoutSettings.Theme;
                 SharedLayoutSettings.SelectedFont = LayoutSettings.SelectedFont;
+                SharedLayoutSettings.RunRandomColor = LayoutSettings.RunRandomColor;
             }
             else
             {
@@ -38,6 +38,15 @@ namespace Maanfee.Dashboard.Views.Core
                 SharedLayoutSettings.CultureCode = StoredConfiguration.CultureCode;
                 SharedLayoutSettings.Theme = StoredConfiguration.Theme;
                 SharedLayoutSettings.SelectedFont = StoredConfiguration.SelectedFont;
+                SharedLayoutSettings.RunRandomColor = StoredConfiguration.RunRandomColor;
+            }
+
+            if (SharedLayoutSettings.RunRandomColor)
+            {
+                var ran = new Random().Next(0, MaanfeeThemeColors.SupportedThemeColors.Count);
+                MaanfeeThemeColors.PrimaryColor = MaanfeeThemeColors.SupportedThemeColors[ran];
+
+                SharedLayoutSettings.Theme = MaanfeeTheme.ThemeBuilder(MaanfeeThemeColors.PrimaryColor, MaanfeeTheme.DefaultFont().FontName);
             }
         }
 
@@ -52,6 +61,7 @@ namespace Maanfee.Dashboard.Views.Core
                 CultureCode = SharedLayoutSettings.CultureCode,
                 Theme = SharedLayoutSettings.Theme,
                 SelectedFont = SharedLayoutSettings.SelectedFont,
+                RunRandomColor = SharedLayoutSettings.RunRandomColor,
             });
         }
 
@@ -64,8 +74,9 @@ namespace Maanfee.Dashboard.Views.Core
                 CurrentVersion = string.Empty,
                 IsFullscreenMode = false,
                 CultureCode = DefaultLanguageCode,
-                Theme = MaanfeeTheme.ThemeBuilder(new PaletteLight().Primary, MaanfeeTheme.DefaultFont().FontName),
+                Theme = MaanfeeTheme.ThemeBuilder(MaanfeeThemeColors.PrimaryColor, MaanfeeTheme.DefaultFont().FontName),
                 SelectedFont = MaanfeeTheme.DefaultFont(),
+                RunRandomColor = true,
             };
         }
 

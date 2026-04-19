@@ -654,4 +654,7 @@
   <data name="StringInformation" xml:space="preserve">
     <value>Information</value>
   </data>
+  <data name="MessageRandomColors" xml:space="preserve">
+    <value>Random colors</value>
+  </data>
 </root>

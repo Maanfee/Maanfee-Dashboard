@@ -16,8 +16,9 @@ namespace Maanfee.Dashboard.Views.Core
 
         public static MudTheme Theme { get; set; } = new MudTheme();
 
-        public static Font? SelectedFont { get; set; } 
+        public static Font? SelectedFont { get; set; }
 
+        public static bool RunRandomColor { get; set; } 
     }
 }
 

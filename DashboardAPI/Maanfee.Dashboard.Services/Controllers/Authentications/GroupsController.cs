@@ -51,7 +51,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
 
                 PaginatedList<Group> PaginatedList;
 
-                IQueryable<Group> Data = db_SQLServer.Groups.AsNoTracking().OrderBy(x => x.Title);
+                IQueryable<Group> Data = db_SQLServer!.Groups.AsNoTracking().OrderBy(x => x.Title);
 
                 switch (TableState.state.SortLabel)
                 {
@@ -64,7 +64,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 {
                     if (!string.IsNullOrEmpty(TableState.Filter.Title))
                     {
-                        Data = Data.Where(p => p.Title.Contains(TableState.Filter.Title));
+                        Data = Data.Where(p => p.Title!.Contains(TableState.Filter.Title));
                     }
                     PaginatedList = await PaginatedList<Group>.CreateAsync(Data, TableState.state.Page, TableState.state.PageSize);
                 }
@@ -92,7 +92,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 {
                     Title = Model.Title,
                 };
-                db_SQLServer.Groups.Add(Group);
+                db_SQLServer!.Groups.Add(Group);
 
                 await db_SQLServer.SaveChangesAsync();
 
@@ -124,7 +124,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                     return new CallbackResult<Group>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));
                 }
 
-                var Model = await db_SQLServer.Groups.AsNoTracking()
+                var Model = await db_SQLServer!.Groups.AsNoTracking()
                     .FirstOrDefaultAsync(x => x.Id == Id);
 
                 return new CallbackResult<Group>(Model, null);
@@ -144,7 +144,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         {
             try
             {
-                var Details = await db_SQLServer.Groups.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Model.Id);
+                var Details = await db_SQLServer!.Groups.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Model.Id);
                 if (Details == null)
                 {
                     return new CallbackResult<SubmitGroupViewModel>(null, new ExceptionError(DashboardResource.MessageChangeIsNotPossible));
@@ -183,7 +183,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                     return new CallbackResult<Group>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));
                 }
 
-                var IdentityRole = await db_SQLServer.Groups.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id);
+                var IdentityRole = await db_SQLServer!.Groups.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id);
                 if (IdentityRole == null)
                 {
                     return new CallbackResult<Group>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));
@@ -202,7 +202,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 }
                 else
                 {
-                    return new CallbackResult<Group>(null, new ExceptionError(ex.InnerException.Message));
+                    return new CallbackResult<Group>(null, new ExceptionError(ex.InnerException!.Message));
                 }
             }
         }
@@ -214,11 +214,11 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         // Used : Groups->GetDropDownGroups
         [HttpGet("GetDropDownGroups")]
         // GET: api/Groups/GetDropDownGroups?value=
-        public async Task<CallbackResult<List<DropDownGroupViewModel>>> GetDropDownGroups(string value)
+        public async Task<CallbackResult<List<DropDownGroupViewModel>>> GetDropDownGroups(string? value)
         {
             try
             {
-                var list = await db_SQLServer.Groups.Select(x => new DropDownGroupViewModel
+                var list = await db_SQLServer!.Groups.Select(x => new DropDownGroupViewModel
                 {
                     Id = x.Id,
                     Title = x.Title,
@@ -227,7 +227,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 if (string.IsNullOrEmpty(value))
                     return new CallbackResult<List<DropDownGroupViewModel>>(list, null);
 
-                list = list.Where(x => x.Title.Contains(value, StringComparison.InvariantCultureIgnoreCase)).ToList();
+                list = list.Where(x => x.Title!.Contains(value, StringComparison.InvariantCultureIgnoreCase)).ToList();
 
                 return new CallbackResult<List<DropDownGroupViewModel>>(list, null);
             }
@@ -244,7 +244,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         {
             try
             {
-                var IdGroup = await db_SQLServer.UserGroups
+                var IdGroup = await db_SQLServer!.UserGroups
                     .Where(x => x.IdApplicationUser == IdUser)
                     .Select(x => x.IdGroup)
                     .ToListAsync();
@@ -256,8 +256,6 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 return new CallbackResult<IEnumerable<int>>(null, new ExceptionError(ex.Message));
             }
         }
-
-
 
         #endregion
 

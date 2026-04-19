@@ -38,7 +38,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
             {
                 PaginatedList<IdentityRole> PaginatedList;
 
-                IQueryable<IdentityRole> Data = db_SQLServer.AspNetRoles.AsNoTracking().OrderBy(x => x.Name);
+                IQueryable<IdentityRole> Data = db_SQLServer!.AspNetRoles.AsNoTracking().OrderBy(x => x.Name);
 
                 switch (TableState.state.SortLabel)
                 {
@@ -54,7 +54,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 {
                     if (!string.IsNullOrEmpty(TableState.Filter.Role))
                     {
-                        Data = Data.Where(p => p.Name.Contains(TableState.Filter.Role));
+                        Data = Data.Where(p => p.Name!.Contains(TableState.Filter.Role));
                     }
                     PaginatedList = await PaginatedList<IdentityRole>.CreateAsync(Data, TableState.state.Page, TableState.state.PageSize);
                 }
@@ -81,9 +81,9 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 var IdentityRole = new IdentityRole
                 {
                     Name = Model.Role,
-                    NormalizedName = Model.Role.ToUpper(),
+                    NormalizedName = Model.Role!.ToUpper(),
                 };
-                db_SQLServer.AspNetRoles.Add(IdentityRole);
+                db_SQLServer!.AspNetRoles.Add(IdentityRole);
 
                 await db_SQLServer.SaveChangesAsync();
 
@@ -115,7 +115,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                     return new CallbackResult<IdentityRole>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));
                 }
 
-                var Model = await db_SQLServer.AspNetRoles.AsNoTracking()
+                var Model = await db_SQLServer!.AspNetRoles.AsNoTracking()
                     .FirstOrDefaultAsync(x => x.Id == Id);
 
                 return new CallbackResult<IdentityRole>(Model, null);
@@ -140,14 +140,14 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                     return new CallbackResult<IdentityRole>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));
                 }
 
-                var IdentityRole = await db_SQLServer.AspNetRoles.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Model.Id);
+                var IdentityRole = await db_SQLServer!.AspNetRoles.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Model.Id);
                 if (IdentityRole == null)
                 {
                     return new CallbackResult<IdentityRole>(null, new ExceptionError(DashboardResource.MessageChangeIsNotPossible));
                 }
 
                 IdentityRole.Name = Model.Role;
-                IdentityRole.NormalizedName = Model.Role.ToUpper();
+                IdentityRole.NormalizedName = Model.Role!.ToUpper();
 
                 //db_SQLServer.Entry(IdentityRole).State = EntityState.Modified;
                 db_SQLServer.AspNetRoles.Update(IdentityRole);
@@ -180,7 +180,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                     return new CallbackResult<IdentityRole>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));
                 }
 
-                var IdentityRole = await db_SQLServer.AspNetRoles.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id);
+                var IdentityRole = await db_SQLServer!.AspNetRoles.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id);
                 if (IdentityRole == null)
                 {
                     return new CallbackResult<IdentityRole>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));
@@ -199,7 +199,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 }
                 else
                 {
-                    return new CallbackResult<IdentityRole>(null, new ExceptionError(ex.InnerException.Message));
+                    return new CallbackResult<IdentityRole>(null, new ExceptionError(ex.InnerException!.Message));
                 }
             }
         }
@@ -213,7 +213,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         {
             try
             {
-                var list = await db_SQLServer.AspNetRoles.AsNoTracking()
+                var list = await db_SQLServer!.AspNetRoles.AsNoTracking()
                     .Select(x => new GetRoleViewModel
                     {
                         Id = x.Id,

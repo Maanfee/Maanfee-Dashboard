@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Maanfee.Dashboard.Views.Core.Services
+﻿namespace Maanfee.Dashboard.Views.Core.Services
 {
     public class AccountStateContainer
     {

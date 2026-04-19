@@ -1,5 +1,4 @@
 ﻿using Maanfee.Dashboard.Domain.DAL;
-using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Logging.Console;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR.Client;
@@ -9,12 +8,12 @@ namespace Maanfee.Dashboard.Services.Controllers
 {
     public class _BaseController<T> : ControllerBase
     {
-        public _BaseController(_BaseContext_SQLServer context
-            , CommonService commonService
-            , HttpClient http
-            , ILogger<T> logger
+        public _BaseController(_BaseContext_SQLServer? context
+            , CommonService? commonService
+            , HttpClient? http
+            , ILogger<T>? logger
             , LoggingInitializer loggingInitializer
-            , HubConnection loggingHubConnection)
+            , HubConnection? loggingHubConnection)
         {
             try
             {
@@ -32,21 +31,21 @@ namespace Maanfee.Dashboard.Services.Controllers
             }
             catch (Exception ex)
             {
-                Logger.LogError(ex.Message, ex);
+                Logger!.LogError(ex.Message, ex);
             }
         }
 
-        protected readonly _BaseContext_SQLServer db_SQLServer;
+        protected readonly _BaseContext_SQLServer? db_SQLServer;
 
-        protected readonly CommonService CommonService;
+        protected readonly CommonService? CommonService;
 
-        protected HttpClient Http;
+        protected HttpClient? Http;
 
-        protected readonly ILogger<T> Logger;
+        protected readonly ILogger<T>? Logger;
 
-        protected HubConnection LoggingHubConnection;
+        protected HubConnection? LoggingHubConnection;
 
-        protected LoggingInitializer LoggingInitializer;
+        protected LoggingInitializer? LoggingInitializer;
 
         // ********************************************************
     }

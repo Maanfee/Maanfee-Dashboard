@@ -2,9 +2,6 @@
 using Maanfee.Dashboard.Domain.Entities;
 using Maanfee.Dashboard.Domain.ViewModels;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Maanfee.Dashboard.Services
 {
@@ -41,9 +38,9 @@ namespace Maanfee.Dashboard.Services
                     Name = x.Name,
                     UserName = x.UserName,
                     PersonalCode = x.PersonalCode,
-                    RoleName = db_SQLServer.AspNetRoles.FirstOrDefault(a => a.Id == (db_SQLServer.AspNetUserRoles.FirstOrDefault(z => z.UserId == x.Id)).RoleId).Name ?? "-",
+                    RoleName = db_SQLServer.AspNetRoles.FirstOrDefault(a => a.Id == (db_SQLServer.AspNetUserRoles.FirstOrDefault(z => z.UserId == x.Id))!.RoleId)!.Name ?? "-",
                     Avatar = x.Avatar,
-                    UserDepartmentsTitle = string.Join(" , ", x.UserDepartments.Select(x => x.Department.Title)),
+                    UserDepartmentsTitle = string.Join(" , ", x.UserDepartments.Select(x => x.Department!.Title)),
                     UserDepartments = x.UserDepartments,
                 });
 
@@ -60,7 +57,7 @@ namespace Maanfee.Dashboard.Services
                     Name = x.Name,
                     UserName = x.UserName,
                     PersonalCode = x.PersonalCode,
-                    RoleName = db_SQLServer.AspNetRoles.FirstOrDefault(a => a.Id == (db_SQLServer.AspNetUserRoles.FirstOrDefault(z => z.UserId == x.Id)).RoleId).Name ?? "-",
+                    RoleName = db_SQLServer.AspNetRoles.FirstOrDefault(a => a.Id == (db_SQLServer.AspNetUserRoles.FirstOrDefault(z => z.UserId == x.Id))!.RoleId)!.Name ?? "-",
                     Avatar = x.Avatar,
                 }).ToListAsync();
 

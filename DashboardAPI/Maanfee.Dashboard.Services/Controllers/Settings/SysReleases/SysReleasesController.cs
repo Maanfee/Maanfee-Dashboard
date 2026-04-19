@@ -128,7 +128,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Settings.SysReleases
                         db_SQLite.SysReleaseFeatures.Add(
                             new SysReleaseFeature
                             {
-                                Id = item.Id,
+                                Id = item.Id!,
                                 IdSysRelease = SysRelease.Id,
                                 IdSysReleaseType = item.IdSysReleaseType,
                                 Comment = item.Comment,
@@ -153,7 +153,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Settings.SysReleases
                 }
                 else
                 {
-                    return new CallbackResult<SubmitReleaseViewModel>(null, new ExceptionError(ex.InnerException.Message));
+                    return new CallbackResult<SubmitReleaseViewModel>(null, new ExceptionError(ex.InnerException!.Message));
                 }
             }
         }
@@ -168,7 +168,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Settings.SysReleases
             try
             {
                 var SysRelease = await db_SQLite.SysReleases.FirstOrDefaultAsync(x => x.Id == Model.Id);
-                SysRelease.Version = Model.Version;
+                SysRelease!.Version = Model.Version;
                 SysRelease.IsActive = Model.IsActive;
                 SysRelease.ReleaseDate = Model.ReleaseDate;
 
@@ -208,7 +208,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Settings.SysReleases
                 }
                 else
                 {
-                    return new CallbackResult<SubmitReleaseViewModel>(null, new ExceptionError(ex.InnerException.Message));
+                    return new CallbackResult<SubmitReleaseViewModel>(null, new ExceptionError(ex.InnerException!.Message));
                 }
             }
         }
@@ -260,7 +260,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Settings.SysReleases
                 }
                 else
                 {
-                    return new CallbackResult<SysRelease>(null, new ExceptionError(ex.InnerException.Message));
+                    return new CallbackResult<SysRelease>(null, new ExceptionError(ex.InnerException!.Message));
                 }
             }
         }

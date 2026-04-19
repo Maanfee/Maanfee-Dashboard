@@ -196,6 +196,15 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Random colors.
+        /// </summary>
+        public static string MessageRandomColors {
+            get {
+                return ResourceManager.GetString("MessageRandomColors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Considering that the role is not defined for the user, it is not possible to use some parts of the system..
         /// </summary>
         public static string MessageRoleIsNotDefined {

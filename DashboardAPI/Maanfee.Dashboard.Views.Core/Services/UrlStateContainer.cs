@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Maanfee.Dashboard.Views.Core.Services
+﻿namespace Maanfee.Dashboard.Views.Core.Services
 {
 	public class UrlStateContainer
 	{

@@ -32,7 +32,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Providers
         {
             try
             {
-                var users = await CommonService.GetUsers()
+                var users = await CommonService!.GetUsers()
                     .Include(x => x.Gender)
                     .Include(x => x.UserDepartments)
                     .Select(x => new GetUserViewModel
@@ -44,13 +44,13 @@ namespace Maanfee.Dashboard.Services.Controllers.Providers
                         Name = x.Name,
                         Avatar = x.Avatar,
                         FatherName = x.FatherName,
-                        UserDepartmentsTitle = string.Join(" , ", x.UserDepartments.Select(x => x.Department.Title)),
+                        UserDepartmentsTitle = string.Join(" , ", x.UserDepartments.Select(x => x.Department!.Title)),
                         Gender = x.Gender,
-                        Role = db_SQLServer.AspNetRoles.FirstOrDefault(a => a.Id == (db_SQLServer.AspNetUserRoles.FirstOrDefault(z => z.UserId == x.Id)).RoleId),
+                        Role = db_SQLServer!.AspNetRoles.FirstOrDefault(a => a.Id == (db_SQLServer.AspNetUserRoles.FirstOrDefault(z => z.UserId == x.Id))!.RoleId),
                         NationalCode = x.NationalCode,
                         PhoneNumber = x.PhoneNumber,
                         PersonalCode = x.PersonalCode,
-                        RoleName = db_SQLServer.AspNetRoles.FirstOrDefault(a => a.Id == (db_SQLServer.AspNetUserRoles.FirstOrDefault(z => z.UserId == x.Id)).RoleId).Name ?? "-",
+                        RoleName = db_SQLServer.AspNetRoles.FirstOrDefault(a => a.Id == (db_SQLServer.AspNetUserRoles.FirstOrDefault(z => z.UserId == x.Id))!.RoleId)!.Name ?? "-",
                         UserName = x.UserName,
                     }).ToListAsync();
 

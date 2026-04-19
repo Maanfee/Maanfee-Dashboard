@@ -16,17 +16,14 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
     [ApiController]
     [Authorize]
     [ApiExplorerSettings(IgnoreApi = true)]
-    public class RoleClaimController : _BaseController<RoleClaimController>
+    public class RoleClaimController(_BaseContext_SQLServer context,
+        CommonService commonService,
+        HttpClient http,
+        ILogger<RoleClaimController> logger,
+        LoggingInitializer loggingInitializer,
+        HubConnection loggingHubConnection) : _BaseController<RoleClaimController>(context,
+            commonService, http, logger, loggingInitializer, loggingHubConnection)
     {
-        public RoleClaimController(_BaseContext_SQLServer context
-         , CommonService CommonService
-         , HttpClient http
-         , ILogger<RoleClaimController> logger
-         , LoggingInitializer loggingInitializer
-         , HubConnection loggingHubConnection
-         ) : base(context, CommonService, http, logger, loggingInitializer, loggingHubConnection)
-        {
-        }
 
         [HttpGet("GetRoleClaims")]
         // GET: api/RoleClaim/GetRoleClaims?IdRole=
@@ -39,7 +36,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                     return new CallbackResult<IList<GetRoleClaimViewModel>>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));
                 }
 
-                var Role = await db_SQLServer.AspNetRoles.AsNoTracking().FirstOrDefaultAsync(x => x.Id == IdRole);
+                var Role = await db_SQLServer!.AspNetRoles.AsNoTracking().FirstOrDefaultAsync(x => x.Id == IdRole);
                 if (Role == null)
                 {
                     return new CallbackResult<IList<GetRoleClaimViewModel>>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));
@@ -89,12 +86,12 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                         ClaimType = x.ClaimType,
                         ClaimValue = x.ClaimValue,
                         Id = x.Id,
-                        RoleId = x.RoleId,
+                        RoleId = x.RoleId!,
                     });
 
                 if (AddRoleClaims.Any())
                 {
-                    db_SQLServer.RoleClaims.AddRange(AddRoleClaims);
+                    db_SQLServer!.RoleClaims.AddRange(AddRoleClaims);
                 }
 
                 var RemoveRoleClaims = Models.Where(z => z.Id > 0 && !z.IsSelected)
@@ -103,15 +100,15 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                         ClaimType = x.ClaimType,
                         ClaimValue = x.ClaimValue,
                         Id = x.Id,
-                        RoleId = x.RoleId,
+                        RoleId = x.RoleId!,
                     });
 
                 if (RemoveRoleClaims.Any())
                 {
-                    db_SQLServer.RoleClaims.RemoveRange(RemoveRoleClaims);
+                    db_SQLServer!.RoleClaims.RemoveRange(RemoveRoleClaims);
                 }
 
-                await db_SQLServer.SaveChangesAsync();
+                await db_SQLServer!.SaveChangesAsync();
 
                 return new CallbackResult<IList<SubmitRoleClaimViewModel>>(Models, null);
             }

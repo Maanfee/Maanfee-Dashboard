@@ -3,9 +3,6 @@ using Maanfee.Dashboard.Domain.DAL;
 using Maanfee.Dashboard.Domain.DefaultValues;
 using Maanfee.Dashboard.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Maanfee.Dashboard.Services
 {
@@ -198,13 +195,13 @@ namespace Maanfee.Dashboard.Services
                 {
                     new IdentityUserRole<string>
                     {
-                        UserId = Maandee.Id,
-                        RoleId = DeveloperRole.Id
+                        UserId = Maandee!.Id,
+                        RoleId = DeveloperRole!.Id
                     },
                     new IdentityUserRole<string>
                     {
-                        UserId = AdminUser.Id,
-                        RoleId = AdminRole.Id
+                        UserId = AdminUser!.Id,
+                        RoleId = AdminRole!.Id
                     },
                 };
                 AspNetUserRoles.ForEach(s => context.AspNetUserRoles.Add(s));

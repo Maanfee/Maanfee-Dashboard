@@ -60,16 +60,16 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         
         [HttpGet("GetDepartments")]
         // GET: api/Departments/GetDepartments?value=
-        public async Task<CallbackResult<List<Department>>> GetDepartments(string value)
+        public async Task<CallbackResult<List<Department>>> GetDepartments(string? value)
         {
             try
             {
-                var list = await db_SQLServer.Departments.AsNoTracking().ToListAsync();
+                var list = await db_SQLServer!.Departments.AsNoTracking().ToListAsync();
 
                 if (string.IsNullOrEmpty(value))
                     return new CallbackResult<List<Department>>(list, null);
 
-                list = list.Where(x => x.Title.Contains(value, StringComparison.InvariantCultureIgnoreCase)).ToList();
+                list = list.Where(x => x.Title!.Contains(value, StringComparison.InvariantCultureIgnoreCase)).ToList();
 
                 return new CallbackResult<List<Department>>(list, null);
             }
@@ -86,7 +86,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         {
             try
             {
-                var list = await db_SQLServer.Departments
+                var list = await db_SQLServer!.Departments
                     .AsNoTracking()
                     .OrderBy(x => x.Title)
                     .ToListAsync();
@@ -104,11 +104,11 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         // Used : Departments->GetDropDownDepartments
         [HttpGet("GetDropDownDepartments")]
         // GET: api/Departments/GetDropDownDepartments?value=
-        public async Task<CallbackResult<List<DropDownDepartmentViewModel>>> GetDropDownDepartments(string value)
+        public async Task<CallbackResult<List<DropDownDepartmentViewModel>>> GetDropDownDepartments(string? value)
         {
             try
             {
-                var list = await db_SQLServer.Departments.Select(x => new DropDownDepartmentViewModel
+                var list = await db_SQLServer!.Departments.Select(x => new DropDownDepartmentViewModel
                 {
                     Id = x.Id,
                     IdParent = x.IdParent,
@@ -118,7 +118,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 if (string.IsNullOrEmpty(value))
                     return new CallbackResult<List<DropDownDepartmentViewModel>>(list, null);
 
-                list = list.Where(x => x.Title.Contains(value, StringComparison.InvariantCultureIgnoreCase)).ToList();
+                list = list.Where(x => x.Title!.Contains(value, StringComparison.InvariantCultureIgnoreCase)).ToList();
 
                 return new CallbackResult<List<DropDownDepartmentViewModel>>(list, null);
             }
@@ -135,7 +135,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         {
             try
             {
-                var IdDepartments = await db_SQLServer.UserDepartments
+                var IdDepartments = await db_SQLServer!.UserDepartments
                     .Where(x => x.IdApplicationUser == IdUser)
                     .Select(x => x.IdDepartment)
                     .ToListAsync();
@@ -157,7 +157,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         {
             try
             {
-                var IdDepartments = await db_SQLServer.UserDepartments.AsNoTracking()
+                var IdDepartments = await db_SQLServer!.UserDepartments.AsNoTracking()
                     .Include(x => x.Department)
                     .Where(x => x.IdApplicationUser == IdUser)
                     .ToListAsync();
@@ -191,7 +191,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
 
                     // ********* PK *********
                     int PK = 1;
-                    var dep = await db_SQLServer.Departments.ToListAsync();
+                    var dep = await db_SQLServer!.Departments.ToListAsync();
                     if (dep.Any())
                     {
                         PK = dep.Max(x => x.Id);
@@ -211,7 +211,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                         }
                     }
 
-                    Department = await db_SQLServer.Departments.FirstOrDefaultAsync(x => x.Id == Model.Id);
+                    Department = await db_SQLServer!.Departments.FirstOrDefaultAsync(x => x.Id == Model.Id);
                     if (Department == null)
                     {
                         return new CallbackResult<Department>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));
@@ -251,7 +251,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                     return new CallbackResult<Department>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));
                 }
 
-                var Department = await db_SQLServer.Departments.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id);
+                var Department = await db_SQLServer!.Departments.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id);
                 if (Department == null)
                 {
                     return new CallbackResult<Department>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));
@@ -270,7 +270,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 }
                 else
                 {
-                    return new CallbackResult<Department>(null, new ExceptionError(ex.InnerException.Message));
+                    return new CallbackResult<Department>(null, new ExceptionError(ex.InnerException!.Message));
                 }
             }
         }

@@ -46,12 +46,12 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginViewModel request)
         {
-            var user = await UserManager.FindByNameAsync(request.UserName);
+            var user = await UserManager.FindByNameAsync(request.UserName!);
             if (user == null)
             {
                 return BadRequest(DashboardResource.MessageItemAlreadyTaken);
             }
-            var SingInResult = await SignInManager.CheckPasswordSignInAsync(user, request.Password, false);
+            var SingInResult = await SignInManager.CheckPasswordSignInAsync(user, request.Password!, false);
             if (!SingInResult.Succeeded)
             {
                 return BadRequest(DashboardResource.MessageInvalidUsername);
@@ -66,8 +66,8 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
             var CustomClaims = new[]
             {
                 new Claim("Id", user.Id),
-                new Claim("Name", user.Name),
-                new Claim("UserName", user.UserName),
+                new Claim("Name", user.Name!),
+                new Claim("UserName", user.UserName!),
             };
 
             //await SignInManager.SignInAsync(user, request.RememberMe, CustomClaims);
@@ -110,7 +110,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
 
             #endregion
 
-            var result = await UserManager.CreateAsync(user, RegisterViewModel.Password);
+            var result = await UserManager.CreateAsync(user, RegisterViewModel.Password!);
             if (!result.Succeeded)
             {
                 return BadRequest(result.Errors.FirstOrDefault()?.Description);
@@ -126,7 +126,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                     var Role = await RolesManager.FindByNameAsync(UserRoleDefaultValue.User);
                     if (Role != null)
                     {
-                        await UserManager.AddToRoleAsync(user, Role.Name);
+                        await UserManager.AddToRoleAsync(user, Role.Name!);
                     }
                 }
                 else
@@ -147,14 +147,14 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         [HttpPost("ResetPassword")]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel ResetPasswordViewModel)
         {
-            var user = await db_SQLServer.ApplicationUsers.FirstOrDefaultAsync(x => x.Password == ResetPasswordViewModel.Password);
+            var user = await db_SQLServer!.ApplicationUsers.FirstOrDefaultAsync(x => x.Password == ResetPasswordViewModel.Password);
             if (user == null)
             {
                 return BadRequest("Invalid phrase");
             }
 
             var currentpassword = user.Password;
-            var result = await UserManager.ChangePasswordAsync(user, currentpassword, ResetPasswordViewModel.Password);
+            var result = await UserManager.ChangePasswordAsync(user, currentpassword!, ResetPasswordViewModel.Password!);
             if (!result.Succeeded)
             {
                 return BadRequest(result.Errors.FirstOrDefault()?.Description);
@@ -190,7 +190,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         {
             return new CurrentUser
             {
-                IsAuthenticated = User.Identity.IsAuthenticated,
+                IsAuthenticated = User.Identity!.IsAuthenticated,
                 UserName = User.Identity.Name,
                 Claims = User.Claims.ToDictionary(c => c.Type, c => c.Value)
             };
@@ -202,7 +202,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         [HttpPost("Create")]
         public async Task<CallbackResult<ApplicationUser>> Create(SubmitUserViewModel Model)
         {
-            var SQLTransaction = db_SQLServer.Database.BeginTransaction();
+            var SQLTransaction = db_SQLServer!.Database.BeginTransaction();
 
             try
             {
@@ -242,7 +242,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                     {
                         Id = Guid.NewGuid().ToString(),
                         IdApplicationUser = user.Id,
-                        IdDepartment = item.Value,
+                        IdDepartment = item!.Value,
                     });
                 }
 
@@ -256,7 +256,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                     {
                         Id = Guid.NewGuid().ToString(),
                         IdApplicationUser = user.Id,
-                        IdGroup = item.Value,
+                        IdGroup = item!.Value,
                     });
                 }
 
@@ -264,14 +264,14 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
 
                 //*************************************
 
-                var result = await UserManager.CreateAsync(user, Model.Password); // password
+                var result = await UserManager.CreateAsync(user, Model.Password!); // password
                 if (!result.Succeeded)
                 {
-                    if (result.Errors.FirstOrDefault().Description.Contains("is already taken"))
+                    if (result.Errors.FirstOrDefault()!.Description.Contains("is already taken"))
                     {
                         return new CallbackResult<ApplicationUser>(null, new Error(ErrorCode.ItemAlreadyTaken, DashboardResource.MessageItemAlreadyTaken));
                     }
-                    if (result.Errors.FirstOrDefault().Description.Contains("is invalid, can only contain letters or digits"))
+                    if (result.Errors.FirstOrDefault()!.Description.Contains("is invalid, can only contain letters or digits"))
                     {
                         return new CallbackResult<ApplicationUser>(null, new Error(ErrorCode.InvalidUserName, DashboardResource.MessageInvalidUsername));
                     }
@@ -284,18 +284,18 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 {
                     if (Model.Role != null)
                     {
-                        bool IsRoleExists = await RolesManager.RoleExistsAsync(Model.Role.Name);
+                        bool IsRoleExists = await RolesManager.RoleExistsAsync(Model.Role.Name!);
                         if (IsRoleExists)
                         {
-                            var Role = await RolesManager.FindByNameAsync(Model.Role.Name);
+                            var Role = await RolesManager.FindByNameAsync(Model.Role.Name!);
                             if (Role != null)
                             {
-                                await UserManager.AddToRoleAsync(user, Role.Name);
+                                await UserManager.AddToRoleAsync(user, Role.Name!);
                             }
                         }
                         else
                         {
-                            await RolesManager.CreateAsync(new IdentityRole(Model.Role.Name));
+                            await RolesManager.CreateAsync(new IdentityRole(Model.Role.Name!));
                         }
                     }
                     else
@@ -306,7 +306,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                             var Role = await RolesManager.FindByNameAsync(UserRoleDefaultValue.User);
                             if (Role != null)
                             {
-                                await UserManager.AddToRoleAsync(user, Role.Name);
+                                await UserManager.AddToRoleAsync(user, Role.Name!);
                             }
                         }
                         IsRoleExists = await RolesManager.RoleExistsAsync("کاربر");
@@ -315,7 +315,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                             var Role = await RolesManager.FindByNameAsync("کاربر");
                             if (Role != null)
                             {
-                                await UserManager.AddToRoleAsync(user, Role.Name);
+                                await UserManager.AddToRoleAsync(user, Role.Name!);
                             }
                         }
                     }
@@ -336,7 +336,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 }
                 else
                 {
-                    return new CallbackResult<ApplicationUser>(null, new ExceptionError(ex.InnerException.ToString()));
+                    return new CallbackResult<ApplicationUser>(null, new ExceptionError(ex.InnerException!.ToString()));
                 }
             }
         }
@@ -345,11 +345,11 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         [HttpPut("Edit")]
         public async Task<CallbackResult<ApplicationUser>> Edit(SubmitUserViewModel Model)
         {
-            var SQLTransaction = db_SQLServer.Database.BeginTransaction();
+            var SQLTransaction = db_SQLServer!.Database.BeginTransaction();
 
             try
             {
-                var user = await UserManager.FindByIdAsync(Model.Id);
+                var user = await UserManager.FindByIdAsync(Model.Id!);
                 if (user == null)
                 {
                     return new CallbackResult<ApplicationUser>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));
@@ -384,7 +384,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                     {
                         Id = Guid.NewGuid().ToString(),
                         IdApplicationUser = user.Id,
-                        IdDepartment = x.Value,
+                        IdDepartment = x!.Value,
                     });
 
                     db_SQLServer.RemoveRange(StoredUserDepartments.Except(AvailableUserDepartments));
@@ -408,7 +408,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                     {
                         Id = Guid.NewGuid().ToString(),
                         IdApplicationUser = user.Id,
-                        IdGroup = x.Value,
+                        IdGroup = x!.Value,
                     });
 
                     db_SQLServer.RemoveRange(StoredUserGroups.Except(AvailableUserGroups));
@@ -426,11 +426,11 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 var result = await UserManager.UpdateAsync(user);
                 if (!result.Succeeded)
                 {
-                    if (result.Errors.FirstOrDefault().Description.Contains("is already taken"))
+                    if (result.Errors.FirstOrDefault()!.Description.Contains("is already taken"))
                     {
                         return new CallbackResult<ApplicationUser>(null, new Error(ErrorCode.ItemAlreadyTaken, DashboardResource.MessageItemAlreadyTaken));
                     }
-                    if (result.Errors.FirstOrDefault().Description.Contains("is invalid, can only contain letters or digits"))
+                    if (result.Errors.FirstOrDefault()!.Description.Contains("is invalid, can only contain letters or digits"))
                     {
                         return new CallbackResult<ApplicationUser>(null, new Error(ErrorCode.InvalidUserName, DashboardResource.MessageInvalidUsername));
                     }
@@ -443,10 +443,10 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 {
                     if (Model.Role != null)
                     {
-                        bool IsRoleExists = await RolesManager.RoleExistsAsync(Model.Role.Name);
+                        bool IsRoleExists = await RolesManager.RoleExistsAsync(Model.Role.Name!);
                         if (IsRoleExists)
                         {
-                            var Role = await RolesManager.FindByNameAsync(Model.Role.Name);
+                            var Role = await RolesManager.FindByNameAsync(Model.Role.Name!);
                             if (Role != null)
                             {
                                 var ExistingRole = await db_SQLServer.AspNetUserRoles
@@ -457,7 +457,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                                     await db_SQLServer.SaveChangesAsync();
                                 }
 
-                                await UserManager.AddToRoleAsync(user, Role.Name);
+                                await UserManager.AddToRoleAsync(user, Role.Name!);
                             }
                         }
                         // برای آپدیت لازم نیست
@@ -504,7 +504,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 }
                 else
                 {
-                    return new CallbackResult<ApplicationUser>(null, new ExceptionError(ex.InnerException.ToString()));
+                    return new CallbackResult<ApplicationUser>(null, new ExceptionError(ex.InnerException!.ToString()));
                 }
             }
         }
@@ -524,13 +524,13 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 var result = await UserManager.DeleteAsync(user);
                 if (!result.Succeeded)
                 {
-                    if (result.Errors.FirstOrDefault().Description.Contains("The DELETE statement conflicted with the SAME TABLE REFERENCE constraint"))
+                    if (result.Errors.FirstOrDefault()!.Description.Contains("The DELETE statement conflicted with the SAME TABLE REFERENCE constraint"))
                     {
                         return new CallbackResult<ApplicationUser>(null, new DeleteError(DashboardResource.MessageDeleteConstraint));
                     }
                     else
                     {
-                        return new CallbackResult<ApplicationUser>(null, new ExceptionError(result.Errors.FirstOrDefault().Description));
+                        return new CallbackResult<ApplicationUser>(null, new ExceptionError(result.Errors.FirstOrDefault()!.Description));
                     }
                 }
 
@@ -544,7 +544,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 }
                 else
                 {
-                    return new CallbackResult<ApplicationUser>(null, new ExceptionError(ex.InnerException.Message));
+                    return new CallbackResult<ApplicationUser>(null, new ExceptionError(ex.InnerException!.Message));
                 }
             }
         }
@@ -553,14 +553,14 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         [HttpPost("ChangePassword")]
         public async Task<IActionResult> ChangePassword(SubmitChangePasswordViewModel Model)
         {
-            var user = await db_SQLServer.ApplicationUsers
-                .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name && x.Password == Model.CurrentPassword);
+            var user = await db_SQLServer!.ApplicationUsers
+                .FirstOrDefaultAsync(x => x.UserName == User.Identity!.Name && x.Password == Model.CurrentPassword);
             if (user == null)
             {
                 return BadRequest(DashboardResource.MessageUserIsNotExsist);
             }
 
-            var result = await UserManager.ChangePasswordAsync(user, user.Password, Model.NewPassword);
+            var result = await UserManager.ChangePasswordAsync(user, user.Password!, Model.NewPassword!);
             if (!result.Succeeded)
             {
                 return BadRequest(result.Errors.FirstOrDefault()?.Description);
@@ -575,7 +575,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.InnerException.Message);
+                return BadRequest(ex.InnerException!.Message);
             }
 
             return Ok();

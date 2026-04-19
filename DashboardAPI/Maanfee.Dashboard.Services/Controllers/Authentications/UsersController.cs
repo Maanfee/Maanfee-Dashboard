@@ -38,7 +38,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         {
             try
             {
-                var user = await CommonService.GetUsers()
+                var user = await CommonService!.GetUsers()
                     .Include(x => x.Gender)
                     .Include(x => x.UserDepartments).ThenInclude(x => x.Department)
                     .Include(x => x.UserGroups).ThenInclude(x => x.Group)
@@ -52,15 +52,15 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                         Name = x.Name,
                         Avatar = x.Avatar,
                         FatherName = x.FatherName,
-                        UserDepartmentsTitle = string.Join(" , ", x.UserDepartments.Select(x => x.Department.Title)),
+                        UserDepartmentsTitle = string.Join(" , ", x.UserDepartments.Select(x => x.Department!.Title)),
                         Gender = x.Gender,
-                        Role = db_SQLServer.AspNetRoles.FirstOrDefault(a => a.Id == (db_SQLServer.AspNetUserRoles.FirstOrDefault(z => z.UserId == x.Id)).RoleId),
+                        Role = db_SQLServer!.AspNetRoles.FirstOrDefault(a => a.Id == (db_SQLServer.AspNetUserRoles.FirstOrDefault(z => z.UserId == x.Id))!.RoleId),
                         NationalCode = x.NationalCode,
                         PhoneNumber = x.PhoneNumber,
                         PersonalCode = x.PersonalCode,
-                        RoleName = db_SQLServer.AspNetRoles.FirstOrDefault(a => a.Id == (db_SQLServer.AspNetUserRoles.FirstOrDefault(z => z.UserId == x.Id)).RoleId).Name ?? "-",
+                        RoleName = db_SQLServer.AspNetRoles.FirstOrDefault(a => a.Id == (db_SQLServer.AspNetUserRoles.FirstOrDefault(z => z.UserId == x.Id))!.RoleId)!.Name ?? "-",
                         UserName = x.UserName,
-                        UserGroupTitle = string.Join(" , ", x.UserGroups.Select(x => x.Group.Title)),
+                        UserGroupTitle = string.Join(" , ", x.UserGroups.Select(x => x.Group!.Title)),
                     }).FirstOrDefaultAsync(x => x.Id == Id);
 
                 if (user == null)
@@ -83,7 +83,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         {
             try
             {
-                var user = await CommonService.GetUsers().FirstOrDefaultAsync(x => x.UserName == UserName);
+                var user = await CommonService!.GetUsers().FirstOrDefaultAsync(x => x.UserName == UserName);
 
                 if (user == null)
                 {
@@ -105,16 +105,16 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         {
             try
             {
-                var Users = await db_SQLServer.UserDepartments.AsNoTracking()
+                var Users = await db_SQLServer!.UserDepartments.AsNoTracking()
                     .Include(x => x.ApplicationUser)
                     .Where(x => x.IdDepartment == IdDepartment)
                     .Select(x => x.ApplicationUser)
-                    .Where(x => x != null)
+                    .Select(x => x!)
                     .ToListAsync();
 
                 if (!string.IsNullOrEmpty(Value))
                 {
-                    Users = Users.Where(x => x.Name.Contains(Value)).ToList();
+                    Users = Users.Where(x => x.Name!.Contains(Value)).ToList();
                 }
 
                 return new CallbackResult<IEnumerable<ApplicationUser>>(Users, null);
@@ -134,16 +134,16 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         {
             try
             {
-                var Users = await db_SQLServer.UserGroups.AsNoTracking()
+                var Users = await db_SQLServer!.UserGroups.AsNoTracking()
                     .Include(x => x.ApplicationUser)
                     .Include(x => x.Group)
                     .Where(x => x.IdGroup == IdGroup)
                     .Select(x => new UserGroupViewModel
                     {
-                        GroupTitle = x.Group.Title,
+                        GroupTitle = x.Group!.Title,
                         IdGroup = x.IdGroup,
                         IdApplicationUser = x.IdApplicationUser,
-                        Name = x.ApplicationUser.Name,
+                        Name = x.ApplicationUser!.Name,
                         UserName = x.ApplicationUser.UserName,
                     }).ToListAsync();
 
@@ -166,10 +166,10 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
             {
                 if (!string.IsNullOrEmpty(Name))
                 {
-                    return new CallbackResult<IEnumerable<GetUserViewModel>>(CommonService.GetVirtualUsers().Where(x => x.Name.Contains(Name)), null);
+                    return new CallbackResult<IEnumerable<GetUserViewModel>>(CommonService!.GetVirtualUsers().Where(x => x.Name!.Contains(Name)), null);
                 }
 
-                return new CallbackResult<IEnumerable<GetUserViewModel>>(await CommonService.GetVirtualUsersAsync(), null);
+                return new CallbackResult<IEnumerable<GetUserViewModel>>(await CommonService!.GetVirtualUsersAsync(), null);
             }
             catch (Exception ex)
             {
@@ -185,7 +185,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
             {
                 PaginatedList<GetUserViewModel> PaginatedList;
 
-                IQueryable<GetUserViewModel> Data = CommonService.GetQueryableVirtualUsers().OrderBy(x => x.Name);
+                IQueryable<GetUserViewModel> Data = CommonService!.GetQueryableVirtualUsers().OrderBy(x => x.Name);
 
                 switch (TableState.state.SortLabel)
                 {
@@ -207,7 +207,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 {
                     if (!string.IsNullOrEmpty(TableState.Filter.Name))
                     {
-                        Data = Data.Where(x => x.Name.Contains(TableState.Filter.Name));
+                        Data = Data.Where(x => x.Name!.Contains(TableState.Filter.Name));
                     }
                     if (TableState.Filter.Department != null)
                     {
@@ -247,7 +247,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         {
             try
             {
-                var list = await db_SQLServer.Genders.AsNoTracking()
+                var list = await db_SQLServer!.Genders.AsNoTracking()
                     .Select(x => new Gender
                     {
                         Id = x.Id,
@@ -274,19 +274,19 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                     return new CallbackResult<IList<DropDownDepartmentViewModel>>(null, new ExceptionError(DashboardResource.MessageChangeIsNotPossible));
                 }
 
-                var Me = await db_SQLServer.UserDepartments.AsNoTracking()
+                var Me = await db_SQLServer!.UserDepartments.AsNoTracking()
                         .Include(x => x.Department)
-                        .Include(x => x.Department).ThenInclude(x => x.Department1)
-                        .Include(x => x.Department).ThenInclude(x => x.Department2)
+                        .Include(x => x.Department).ThenInclude(x => x!.Department1)
+                        .Include(x => x.Department).ThenInclude(x => x!.Department2)
                         .Where(x => x.IdDepartment == IdDepartment)
                         .FirstOrDefaultAsync();
 
                 var AvailableDepartment = new List<DropDownDepartmentViewModel>();
 
-                if (Me.Department.Department2 != null)
+                if (Me!.Department!.Department2 != null)
                 {
                     // Father
-                    DropDownDepartmentViewModel Father = null;
+                    DropDownDepartmentViewModel? Father = null;
 
                     Father = new DropDownDepartmentViewModel()
                     {
@@ -322,7 +322,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
 
                 if (!string.IsNullOrEmpty(Value))
                 {
-                    AvailableDepartment = AvailableDepartment.Where(x => x.Title.Contains(Value)).ToList();
+                    AvailableDepartment = AvailableDepartment.Where(x => x.Title!.Contains(Value)).ToList();
                 }
 
                 return new CallbackResult<IList<DropDownDepartmentViewModel>>(AvailableDepartment, null);

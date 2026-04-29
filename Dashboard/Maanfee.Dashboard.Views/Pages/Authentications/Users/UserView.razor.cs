@@ -1,6 +1,7 @@
 ﻿using Maanfee.Dashboard.Core;
 using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Dashboard.Resources;
+using Maanfee.Dashboard.Views.Base;
 using Maanfee.Dashboard.Views.Core;
 using Maanfee.Logging.Domain;
 using Maanfee.Web.Core;

@@ -7,7 +7,7 @@ namespace Maanfee.Dashboard.Views.Core
         public LocalConfigurationService(LocalStorage localStorage)
         {
             LocalStorage = localStorage;
-        }
+        } 
 
         public LocalStorage LocalStorage;
         private const string ConfigurationStoredName = "ConfigurationStorage";
@@ -17,7 +17,9 @@ namespace Maanfee.Dashboard.Views.Core
             var StoredConfiguration = await LocalStorage.GetAsync<LayoutSettings>(ConfigurationStoredName);
             if (StoredConfiguration == null)
             {
-                LayoutSettings LayoutSettings = CreateDefaultConfiguration(LanguageManager.GetCultureCode(DefaultLanguage));
+                var cult = LanguageManager.GetCultureCode(DefaultLanguage);
+
+                LayoutSettings LayoutSettings = CreateDefaultConfiguration(cult.CultureCode, cult.IsRTL);
                 await LocalStorage.SetAsync<LayoutSettings>(ConfigurationStoredName, LayoutSettings);
 
                 SharedLayoutSettings.IsDarkMode = LayoutSettings.IsDarkMode;
@@ -65,12 +67,12 @@ namespace Maanfee.Dashboard.Views.Core
             });
         }
 
-        private LayoutSettings CreateDefaultConfiguration(string DefaultLanguageCode)
+        private LayoutSettings CreateDefaultConfiguration(string DefaultLanguageCode, bool IsRTL)
         {
             return new LayoutSettings
             {
                 IsDarkMode = false,
-                IsRTL = false,
+                IsRTL = IsRTL,
                 CurrentVersion = string.Empty,
                 IsFullscreenMode = false,
                 CultureCode = DefaultLanguageCode,

@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/Dashboard/">
     <Project Path="Dashboard/Maanfee.Dashboard.Server/Maanfee.Dashboard.Server.csproj" />
+    <Project Path="Dashboard/Maanfee.Dashboard.Views.Base/Maanfee.Dashboard.Views.Base.csproj" Id="f8a83372-325e-404c-9011-00e780a83a52" />
     <Project Path="Dashboard/Maanfee.Dashboard.Views/Maanfee.Dashboard.Views.csproj" />
   </Folder>
   <Folder Name="/DashboardAPI/">

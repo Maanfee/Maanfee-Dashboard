@@ -2,6 +2,7 @@
 using Maanfee.Dashboard.Domain.Entities;
 using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Dashboard.Resources;
+using Maanfee.Dashboard.Views.Base;
 using Maanfee.Dashboard.Views.Core;
 using Maanfee.Web.Core;
 using MudBlazor;

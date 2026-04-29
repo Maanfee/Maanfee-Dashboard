@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Maanfee.Dashboard.Views.Core
+namespace Maanfee.Dashboard.Views.Base
 {
     public static class PermissionClaimTypes
     {

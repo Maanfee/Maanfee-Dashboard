@@ -1,11 +1,10 @@
 using Maanfee.Dashboard.Views;
+using Maanfee.Dashboard.Views.Base;
 using Maanfee.Dashboard.Views.Core;
 using Maanfee.Dashboard.Views.Core.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;
-using System.Threading.Tasks;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args).AddDashboardClientServices();
 

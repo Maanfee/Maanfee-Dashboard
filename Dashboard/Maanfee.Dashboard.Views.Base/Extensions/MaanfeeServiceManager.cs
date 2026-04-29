@@ -1,4 +1,5 @@
-﻿using Maanfee.Dashboard.Views.Core.Services;
+﻿using Maanfee.Dashboard.Views.Core;
+using Maanfee.Dashboard.Views.Core.Services;
 using Maanfee.Highcharts;
 using Maanfee.JsInterop;
 using Maanfee.Logging.Console;
@@ -14,7 +15,7 @@ using MudBlazor;
 using MudBlazor.Services;
 using System.Reflection;
 
-namespace Maanfee.Dashboard.Views.Core
+namespace Maanfee.Dashboard.Views.Base
 {
     public static class ServiceCollectionExtensions
     {

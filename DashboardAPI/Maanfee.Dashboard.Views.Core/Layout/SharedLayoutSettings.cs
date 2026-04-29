@@ -12,7 +12,7 @@ namespace Maanfee.Dashboard.Views.Core
 
         public static bool IsFullscreenMode { get; set; }
 
-        public static string CultureCode { get; set; } = LanguageManager.GetCultureCode(LanguageManager.SupportedCountry.US);
+        public static string CultureCode { get; set; } = LanguageManager.GetCultureCode(LanguageManager.SupportedCountry.US).CultureCode;
 
         public static MudTheme Theme { get; set; } = new MudTheme();
 

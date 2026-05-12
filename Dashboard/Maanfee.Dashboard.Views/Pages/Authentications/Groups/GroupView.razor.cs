@@ -71,8 +71,6 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
                     }).ToList();
 
                     IsTableLoading = false;
-                    TableState.Dispose();
-
                     return new TableData<TableViewModel>()
                     {
                         TotalItems = JsonResult.Data.TotalPages,
@@ -83,7 +81,6 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
                 {
                     Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
                     IsTableLoading = false;
-                    TableState.Dispose();
                     return new TableData<TableViewModel>()
                     {
                         Items = Data,
@@ -95,7 +92,6 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
             {
                 Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
                 IsTableLoading = false;
-                TableState.Dispose();
                 return new TableData<TableViewModel>()
                 {
                     Items = Data,

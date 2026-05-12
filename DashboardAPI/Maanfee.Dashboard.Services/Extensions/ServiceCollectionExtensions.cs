@@ -1,4 +1,5 @@
-﻿using Maanfee.Dashboard.Domain.DAL;
+﻿using Maanfee.Dashboard.Core;
+using Maanfee.Dashboard.Domain.DAL;
 using Maanfee.Dashboard.Domain.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -103,10 +104,11 @@ namespace Maanfee.Dashboard.Services
                 //// نادیده گرفتن خواص null
                 //options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 
-                //// پشتیبانی از تبدیل Enum به string
-                //options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                // پشتیبانی از تبدیل Enum به string
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+
+                options.JsonSerializerOptions.Converters.Add(new DateRangeJsonConverter());
             });
         }
-
     }
 } 

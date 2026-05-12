@@ -1,10 +1,5 @@
 ﻿namespace Maanfee.Dashboard.Views.Core
 {
-    public partial class SVGOverlay
-    {
-
-    }
-
     public enum OverlayType
     {
         TwoCircleRotation,
@@ -13,6 +8,12 @@
         Explorer,
         Triangle,
         Booklet,
+    }
+
+    public enum MaanfeeDialogOverlayType
+    {
+        SVG = 0,
+        Lottie = 1,
     }
 
 }

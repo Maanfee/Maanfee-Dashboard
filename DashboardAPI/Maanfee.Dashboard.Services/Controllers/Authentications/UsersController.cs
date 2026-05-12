@@ -101,7 +101,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         // Used : 
         [HttpGet("GetUserByIdDepartment")]
         // GET: api/Users/GetUserByIdDepartment?IdDepartment=&Value=
-        public async Task<CallbackResult<IEnumerable<ApplicationUser>>> GetUserByIdDepartment(int IdDepartment, string Value)
+        public async Task<CallbackResult<IEnumerable<ApplicationUser>>> GetUserByIdDepartment(int IdDepartment, string? Value)
         {
             try
             {
@@ -264,8 +264,8 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         }
 
         [HttpGet("GetAvailableDepartmentByIdDepartment")]
-        // GET: api/Users/GetAvailableDepartmentByIdDepartment?IdDepartment=4
-        public async Task<CallbackResult<IList<DropDownDepartmentViewModel>>> GetAvailableDepartmentByIdDepartment(int? IdDepartment, string Value)
+        // GET: api/Users/GetAvailableDepartmentByIdDepartment?IdDepartment=4&Value=
+        public async Task<CallbackResult<IList<DropDownDepartmentViewModel>>> GetAvailableDepartmentByIdDepartment(int? IdDepartment, string? Value)
         {
             try
             {

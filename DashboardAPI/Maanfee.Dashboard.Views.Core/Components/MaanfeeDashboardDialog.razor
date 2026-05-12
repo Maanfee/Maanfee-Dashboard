@@ -18,7 +18,15 @@
         <DialogContent>
             @if (!IsDialogLoaded)
             {
-                <SVGOverlay Random="true" />
+                switch (MaanfeeDialogOverlayType)
+                {
+                    case MaanfeeDialogOverlayType.SVG:
+                        <SVGOverlay Random="true" />
+                        break;
+                    case MaanfeeDialogOverlayType.Lottie:
+                        <LottieOverlay />
+                        break;
+                }
             }
             else
             {

@@ -62,9 +62,9 @@ namespace Maanfee.Dashboard.Views.Base
 
             #region - Services -
 
+            AddLocalStorageConfiguration(builder.Services);
             builder.Services.AddSingleton<AccountStateContainer>();
             builder.Services.AddSingleton<UrlStateContainer>();
-            builder.Services.AddSingleton<LocalConfigurationService>();
             builder.Services.AddSingleton<PermissionService>();
             builder.Services.AddSingleton<TableConfigurationService>();
 
@@ -91,12 +91,17 @@ namespace Maanfee.Dashboard.Views.Base
             return builder;
         }
 
-        //public static IServiceCollection AddDashboardAuthorization(this IServiceCollection Services)
-        //{
+        public static IServiceCollection AddLocalStorageConfiguration(this IServiceCollection Services)
+        {
+            LocalStorage.ConfigureJsonOptions(options =>
+            {
+                options.Converters.Add(new MudColorConverter());
+            });
 
+            Services.AddSingleton<LocalConfigurationService>();
 
-        //    return Services;
-        //}
+            return Services;
+        }
 
         private static void RegisterPermissionClaims(AuthorizationOptions options)
         {
@@ -114,7 +119,6 @@ namespace Maanfee.Dashboard.Views.Base
             }
             //options.AddPolicy(Permission.Setting.View, policy => policy.RequireClaim(ApplicationClaimTypes.Permission));
         }
-
 
     }
 }

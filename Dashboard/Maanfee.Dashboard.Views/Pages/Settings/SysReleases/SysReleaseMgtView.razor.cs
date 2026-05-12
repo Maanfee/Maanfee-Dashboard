@@ -78,7 +78,6 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
                     }).ToList();
 
                     IsTableLoading = false;
-                    TableState.Dispose();
 
                     return new TableData<TableViewModel>()
                     {
@@ -90,7 +89,6 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
                 {
                     Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
                     IsTableLoading = false;
-                    TableState.Dispose();
                     return new TableData<TableViewModel>()
                     {
                         Items = Data,
@@ -102,7 +100,6 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
             {
                 Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
                 IsTableLoading = false;
-                TableState.Dispose();
                 return new TableData<TableViewModel>()
                 {
                     Items = Data,
@@ -122,14 +119,14 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
 
         private async Task OpenSearchDialog()
         {
-            DialogParameters parameters = new DialogParameters();
-            parameters.Add("FilterViewModel", FilterViewModel);
+            DialogParameters Parameters = new DialogParameters();
+            Parameters.Add("FilterViewModel", FilterViewModel);
 
-            var dialog = await Dialog.ShowAsync<DialogFilter>(DashboardResource.StringSearch, parameters,
+            var dialog = await Dialog.ShowAsync<DialogFilter>(DashboardResource.StringSearch, Parameters,
                 new DialogOptions()
                 {
                     NoHeader = true,
-                    MaxWidth = MaxWidth.Small,
+                    MaxWidth = MaxWidth.Medium,
                     Position = DialogPosition.Center,
                     FullWidth = true,
                     CloseOnEscapeKey = true,

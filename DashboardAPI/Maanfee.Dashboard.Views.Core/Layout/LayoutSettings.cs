@@ -2,6 +2,7 @@
 
 namespace Maanfee.Dashboard.Views.Core
 {
+    [Serializable]
     public class LayoutSettings
     {
         public bool IsRTL { get; set; }
@@ -14,6 +15,7 @@ namespace Maanfee.Dashboard.Views.Core
 
         public string CultureCode { get; set; } = LanguageManager.GetCultureCode(LanguageManager.SupportedCountry.US).CultureCode;
 
+        //[JsonIgnore]
         public MudTheme Theme { get; set; } = new MudTheme();
 
         public Font? SelectedFont { get; set; }

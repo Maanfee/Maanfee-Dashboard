@@ -106,7 +106,6 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
                     }).ToList();
 
                     IsTableLoading = false;
-                    TableState.Dispose();
 
                     return new TableData<TableViewModel>()
                     {
@@ -118,7 +117,6 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
                 {
                     Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
                     IsTableLoading = false;
-                    TableState.Dispose();
                     return new TableData<TableViewModel>()
                     {
                         Items = Data,
@@ -130,7 +128,6 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
             {
                 Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
                 IsTableLoading = false;
-                TableState.Dispose();
                 return new TableData<TableViewModel>()
                 {
                     Items = Data,

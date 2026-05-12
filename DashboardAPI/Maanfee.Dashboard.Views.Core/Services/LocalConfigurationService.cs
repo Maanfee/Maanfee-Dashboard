@@ -7,7 +7,7 @@ namespace Maanfee.Dashboard.Views.Core
         public LocalConfigurationService(LocalStorage localStorage)
         {
             LocalStorage = localStorage;
-        } 
+        }
 
         public LocalStorage LocalStorage;
         private const string ConfigurationStoredName = "ConfigurationStorage";

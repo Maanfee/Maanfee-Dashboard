@@ -47,6 +47,8 @@ namespace Maanfee.Dashboard.Views.Core
 
         public void Close(DialogResult result) => MudDialog?.Close(result);
 
+        public void Close<T>(T returnValue) => MudDialog?.Close(returnValue);
+
         #endregion
 
         // ***************************************************
@@ -62,6 +64,9 @@ namespace Maanfee.Dashboard.Views.Core
 
         [Parameter]
         public string? Title { get; set; }
+
+        [Parameter]
+        public MaanfeeDialogOverlayType MaanfeeDialogOverlayType { get; set; } = MaanfeeDialogOverlayType.SVG;
 
         // ***************************************************
 

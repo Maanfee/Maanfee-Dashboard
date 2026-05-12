@@ -6,6 +6,7 @@ using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using MudBlazor;
 
 namespace Maanfee.Dashboard.Services.Controllers.Settings.SysReleases
@@ -16,14 +17,17 @@ namespace Maanfee.Dashboard.Services.Controllers.Settings.SysReleases
     [ApiExplorerSettings(IgnoreApi = true)]
     public class SysReleasesController : ControllerBase
     {
-        public SysReleasesController(_BaseContext_SQLite context, CommonService commonService)
+        public SysReleasesController(_BaseContext_SQLite context, CommonService commonService
+            , ILogger<SysReleasesController>? logger)
         {
             db_SQLite = context;
             CommonService = commonService;
+            Logger = logger;
         }
 
         protected readonly _BaseContext_SQLite db_SQLite;
         protected readonly CommonService CommonService;
+        protected readonly ILogger<SysReleasesController>? Logger;
 
         // Used : 
         [HttpPost("PaginationIndex")]
@@ -56,11 +60,11 @@ namespace Maanfee.Dashboard.Services.Controllers.Settings.SysReleases
                     {
                         Data = Data.Where(p => p.Version == TableState.Filter.Version);
                     }
-                    //if (TableState.Filter.BazdashtDateFrom.HasValue && TableState.Filter.BazdashtDateTo.HasValue)
-                    //{
-                    //    Data = Data.Where(p => p.BazdashtDate.Value.Date >= TableState.Filter.BazdashtDateFrom.Value.Date
-                    //     && p.BazdashtDate.Value.Date <= TableState.Filter.BazdashtDateTo.Value.Date);
-                    //}
+                    if (TableState.Filter.Date!.Start.HasValue && TableState.Filter.Date.End.HasValue)
+                    {
+                        Data = Data.Where(p => p.ReleaseDate >= TableState.Filter.Date.Start &&
+                                p.ReleaseDate <= TableState.Filter.Date.End);
+                    }
 
                     PaginatedList = await PaginatedList<SysRelease>.CreateAsync(Data, TableState.state.Page, TableState.state.PageSize);
                 }

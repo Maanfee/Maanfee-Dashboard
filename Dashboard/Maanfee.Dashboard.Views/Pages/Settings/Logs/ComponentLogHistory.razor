@@ -143,8 +143,6 @@
                 }).ToList();
 
                 IsTableLoading = false;
-                TableState.Dispose();
-
                 return new TableData<GetLogInfo>()
                 {
                     TotalItems = JsonResult.Data.TotalPages,
@@ -155,7 +153,6 @@
             {
                 Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
                 IsTableLoading = false;
-                TableState.Dispose();
                 return new TableData<GetLogInfo>()
                 {
                     Items = Data,
@@ -167,7 +164,6 @@
         {
             Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
             IsTableLoading = false;
-            TableState.Dispose();
             return new TableData<GetLogInfo>()
             {
                 Items = Data,

@@ -18,7 +18,7 @@ namespace Maanfee.Dashboard.Views.Core.Services
                 if (HostEnvironment.IsDevelopment())
                     return "http://localhost:4030/gateway";
                 else
-                    return "http://1.1.1.1:4030/gateway";
+                    return "http://172.17.17.22:4030/gateway";
             }
         }
 

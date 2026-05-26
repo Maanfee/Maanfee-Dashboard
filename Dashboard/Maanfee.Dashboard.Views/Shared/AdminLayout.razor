@@ -44,9 +44,11 @@
                     @* ********************************* *@ 
                     <MudMenu AnchorOrigin="Origin.BottomCenter" Dense="true" Class="mt-1 ml-4">
                         <ActivatorContent Context="menuContext">
-                            <MudAvatar Style="height:50px; width:50px;">
-                                <MudImage Src="@AccountStateContainer.Avatar" />
-                            </MudAvatar>
+                            <div @onclick="@menuContext.ToggleAsync" style="cursor: pointer">
+                                <MudAvatar Style="height:50px; width:50px;">
+                                    <MudImage Src="@AccountStateContainer.Avatar" />
+                                </MudAvatar>
+                            </div>
                         </ActivatorContent>
                         <ChildContent>
                             <ComponentsUserCard Class="mt-n2" />

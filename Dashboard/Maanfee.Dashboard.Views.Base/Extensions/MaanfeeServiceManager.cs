@@ -88,6 +88,9 @@ namespace Maanfee.Dashboard.Views.Base
             // JsInterop
             builder.Services.AddMaanfeeJsInterop();
 
+            // GatewayApi
+            builder.Services.AddScoped<GatewayApi>();
+
             return builder;
         }
 

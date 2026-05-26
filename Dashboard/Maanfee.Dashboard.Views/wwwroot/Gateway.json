@@ -1,0 +1,8 @@
+{
+  "GatewaySettings": {
+    "DebugIP": "127.0.0.1",
+    "DebugPort": "4030",
+    "ReleaseIP": "192.168.1.100",
+    "ReleasePort": "4030"
+  }
+}

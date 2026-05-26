@@ -1,7 +1,6 @@
 using Maanfee.Dashboard.Views;
 using Maanfee.Dashboard.Views.Base;
 using Maanfee.Dashboard.Views.Core;
-using Maanfee.Dashboard.Views.Core.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using System.Globalization;
@@ -10,9 +9,6 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args).AddDashboardClientServi
 
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
-
-// GatewayApi
-builder.Services.AddScoped<GatewayApi>();
 
 var host = builder.Build();
 

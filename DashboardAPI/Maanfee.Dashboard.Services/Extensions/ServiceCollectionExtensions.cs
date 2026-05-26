@@ -98,14 +98,14 @@ namespace Maanfee.Dashboard.Services
                 // حساس نبودن به حروف بزرگ و کوچک
                 options.JsonSerializerOptions.PropertyNameCaseInsensitive = false;
 
-                //// استفاده از CamelCase برای نام خواص
+                // استفاده از CamelCase برای نام خواص
                 //options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
 
-                //// نادیده گرفتن خواص null
+                // نادیده گرفتن خواص null
                 //options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 
                 // پشتیبانی از تبدیل Enum به string
-                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                //options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 
                 options.JsonSerializerOptions.Converters.Add(new DateRangeJsonConverter());
             });

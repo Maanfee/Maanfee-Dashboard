@@ -3,7 +3,6 @@ using Maanfee.Dashboard.Resources;
 using Maanfee.Dashboard.Views.Core.Services;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using System.Net.Http.Json;
 using System.Security.Claims;
 
 namespace Maanfee.Dashboard.Views.Core
@@ -50,6 +49,8 @@ namespace Maanfee.Dashboard.Views.Core
             {
                 AuthenticationState = Task.FromResult(await AuthenticationStateProvider!.GetAuthenticationStateAsync());
                 PermissionCurrentUser = (await AuthenticationState).User;
+
+                await GatewayApi!.InitializeAsync();
 
                 //var ModuleList = await Http!.GetFromJsonAsync<List<ModuleViewModel>>("config.json");
                 //ModuleService.LogServer = ModuleList.FirstOrDefault(x => x.Name == ModuleDefaultValue.LogServer);

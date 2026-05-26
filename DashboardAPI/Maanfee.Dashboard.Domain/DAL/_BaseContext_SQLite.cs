@@ -14,7 +14,7 @@ namespace Maanfee.Dashboard.Domain.DAL
         public virtual DbSet<SysReleaseFeature> SysReleaseFeatures { get; set; }
 
         public virtual DbSet<SysReleaseType> SysReleaseTypes { get; set; }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

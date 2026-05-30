@@ -3,6 +3,7 @@ using Maanfee.Dashboard.Resources;
 using Maanfee.Dashboard.Views.Core.Services;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using MudBlazor.Utilities;
 using System.Security.Claims;
 
 namespace Maanfee.Dashboard.Views.Core
@@ -119,5 +120,15 @@ namespace Maanfee.Dashboard.Views.Core
         protected bool IsTableLoading = true;
 
         // *****************************************
+
+        #region - Hot Keys -
+
+        protected IReadOnlyCollection<JsKeyModifier> Modifiers = [JsKeyModifier.AltLeft];
+        protected JsKey FilterKey = JsKey.F3;
+        protected JsKey CrudateKey = JsKey.KeyN;
+        protected JsKey ReloadKey = JsKey.F5;
+
+        #endregion
+
     }
 }

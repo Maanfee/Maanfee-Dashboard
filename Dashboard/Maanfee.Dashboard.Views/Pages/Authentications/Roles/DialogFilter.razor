@@ -1,7 +1,7 @@
 ﻿@inherits _BaseView
 
 <MaanfeeDashboardDialog @ref="MDialog" IsDialogLoaded="@IsLoaded" Title="@DashboardResource.StringSearch"
-                        DialogContentType="@(this.GetType())" OnKeyDown="OnKeyDownAsync">
+                        DialogContentType="@(this.GetType())">
     <MaanfeeDashboardDialogHeaderAction>
         <MudTooltip Text="@DashboardResource.StringSearch" Color="Color.Tertiary" Arrow>
             <MudIconButton OnClick="Search" Icon="@Icons.Material.Filled.ManageSearch" Color="Color.Tertiary" />
@@ -40,20 +40,5 @@
 
     [Parameter]
     public FilterRoleViewModel FilterViewModel { get; set; } = new();
-
-    #region - Key Events -
-
-    private async Task OnKeyDownAsync(KeyboardEventArgs args)
-    {
-        switch (args.Key)
-        {
-            case "Enter":
-            case "NumpadEnter":
-                await Search();
-                break;
-        }
-    }
-
-    #endregion
 
 }

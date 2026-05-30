@@ -1,29 +1,20 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
-using Ocelot.Values;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // ********************* Ocelot *********************
 builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
+//builder.Configuration.AddJsonFile("ocelot.xxx.json", optional: false, reloadOnChange: true);
+
 builder.Services.AddOcelot(builder.Configuration);
 // **************************************************
 
-// Fixed Self referencing loop detected with type and CaseInsensitive
-builder.Services.AddControllers()
-	.AddNewtonsoftJson(options =>
-	{
-		options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-	})
-	.AddJsonOptions(options =>
-	{
-		options.JsonSerializerOptions.PropertyNameCaseInsensitive = false;
-	});
+// Fixed Self referencing loop detected with type
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+);
 
 var app = builder.Build();
 
@@ -39,24 +30,21 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-//app.MapGet("/", () => "Hello World!");
-app.UseEndpoints(endpoints =>
+// app.MapGet("/", () => "Ocelot API Gateway");
+//app.MapGet("/", async context => await context.Response.WriteAsync("Ocelot API Gateway"));
+
+app.Use(async (context, next) =>
 {
-	endpoints.MapGet("/",
-		async context => { await context.Response.WriteAsync("Ocelot API Gateway"); });
+    if (context.Request.Path == "/")
+    {
+        await context.Response.WriteAsync("Ocelot API Gateway");
+        return;
+    }
+    await next();
 });
-//app.UseEndpoints(endpoints => {
-//    endpoints.MapControllerRoute(
-//        name: "default",
-//        pattern: "{controller=Ping}");
-//});
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=Index}/{id?}"
-//);
 
 // ********************* Ocelot *********************
-app.UseOcelot().Wait();
+await app.UseOcelot();
 // **************************************************
 
 app.Run();

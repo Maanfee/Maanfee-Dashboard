@@ -8,6 +8,7 @@ using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR.Client;
 using MudBlazor;
+using MudBlazor.Utilities;
 using System.Net.Http.Json;
 using FilterViewModel = Maanfee.Dashboard.Domain.ViewModels.FilterUserViewModel;
 using TableViewModel = Maanfee.Dashboard.Domain.ViewModels.GetUserViewModel;
@@ -140,11 +141,11 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
         {
             await Table.ReloadServerData();
         }
-
+              
         #region - Search -
 
         private FilterViewModel FilterViewModel = new();
-
+  
         private async Task OpenSearchDialog()
         {
             DialogParameters DialogParameters = new DialogParameters();

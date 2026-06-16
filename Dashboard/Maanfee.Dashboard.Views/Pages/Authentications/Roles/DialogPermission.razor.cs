@@ -1,13 +1,11 @@
 ﻿using Maanfee.Dashboard.Core;
+using Maanfee.Dashboard.Domain.Entities;
 using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Dashboard.Resources;
-using Maanfee.Dashboard.Views.Base;
-using Maanfee.Dashboard.Views.Core;
 using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System.Net.Http.Json;
-using System.Reflection;
 
 namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 {
@@ -19,117 +17,126 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
         [Parameter]
         public string RoleName { get; set; }
 
+        public const string PermissionClaimValue = "Permission";
+
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
 
             try
             {
-                await GetTitleNamesAsync();
+                SelectedValues = null;
 
-                OnSelectedTab();
+                await GetRoleClaimViewModelsAsync();
+                await GetPermissionsAsync();
+                await BuildTreeAsync();
 
-                IsLoaded = true;
+                SelectedValues = Permissions.Where(i => GetRoleClaimFromDatabase.Any(a => i.FullName == a.ClaimType)).ToList();
             }
             catch (Exception ex)
             {
                 Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
             }
-        }
-
-        private async Task GetTitleNamesAsync()
-        {
-            await GetRoleClaimViewModelsAsync();
-
-            foreach (var cl in typeof(PermissionDefaultValue).MaanfeeGetMembers())
+            finally
             {
-                string Val = cl.MaanfeeDisplayAttribute().Name.MaanfeeGetResourceValue<DashboardResource>();
-                //if(string.IsNullOrEmpty(Val))
-                //{
-                //    Val = cl.MaanfeeDisplayAttribute().Name.MaanfeeGetResourceValue<AppResource>();
-                //}
-                TitleNames.Add(cl.Name, Val);
+                IsLoaded = true;
             }
         }
 
-        private void OnSelectedTab(string ClassName = "Settings")
-        {
-            SubmitRoleClaimViewModels.Clear();
+        private List<Permission> Permissions = new();
 
-            foreach (var prop in typeof(PermissionDefaultValue).GetNestedTypes()
-                          .SelectMany(c => c.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)))
+        private async Task GetPermissionsAsync()
+        {
+            var Callback = await Http.GetFromJsonAsync<CallbackResult<List<Permission>>>($"api/Permissions/GetPermissions");
+            if (Callback.Data != null)
             {
-                var propertyValue = prop.GetValue(null);
-                if (propertyValue is not null && propertyValue.ToString().Contains(ClassName))
+                Permissions = Callback.Data;
+            }
+            else
+            {
+                Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+            }
+        }
+
+        public IReadOnlyCollection<Permission> SelectedValues { get; set; }
+
+        #region - Tree Builder -
+
+        private List<TreeItemData<Permission>> TreeItems { get; set; } = new();
+
+        private async Task BuildTreeAsync()
+        {
+            TreeItems = await BuildTreeItems(null);
+        }
+
+        private Task<List<TreeItemData<Permission>>> BuildTreeItems(string parentId)
+        {
+            var items = new List<TreeItemData<Permission>>();
+
+            var departments = Permissions.Where(d => d.IdParent == parentId).ToList();
+
+            foreach (var dept in departments)
+            {
+                var treeItem = new TreeItemData<Permission>
                 {
-                    var Val = prop.MaanfeeDisplayAttribute().Name.MaanfeeGetResourceValue<DashboardResource>();
-                    if (string.IsNullOrEmpty(Val))
-                    {
-                        //Val = prop.MaanfeeDisplayAttribute().Name.MaanfeeGetResourceValue<AppResource>();
-                    }
+                    Value = dept,
+                    Text = $"{dept.Title} ({dept.DisplayTitle})",
+                    Expandable = Permissions.Any(child => child.IdParent == dept.Id),
+                    Icon = Icons.Material.Filled.Groups,
+                    Children = new List<TreeItemData<Permission>>()
+                };
 
-                    var RoleClaim = new SubmitRoleClaimViewModel();
-                    RoleClaim.ClaimType = propertyValue.ToString();
-                    RoleClaim.Action = Val;
-                    RoleClaim.ClaimValue = PermissionClaimTypes.Permission;
-                    RoleClaim.RoleId = IdRole;
-
-                    var DataFromDb = GetRoleClaimFromDatabase.FirstOrDefault(x => x.ClaimType == propertyValue.ToString());
-                    if (DataFromDb != null)
-                    {
-                        RoleClaim.Id = DataFromDb.Id;
-                        //RoleClaim.RoleId = DataFromDb.RoleId;
-                        RoleClaim.RoleId = IdRole;
-                        RoleClaim.IsSelected = true;
-                    }
-
-                    SubmitRoleClaimViewModels.Add(RoleClaim);
+                // به صورت بازگشتی فرزندان را هم اضافه کن
+                if (treeItem.Expandable)
+                {
+                    treeItem.Children = BuildTreeItems(dept.Id).Result;
                 }
+
+                items.Add(treeItem);
             }
+
+            return Task.FromResult(items);
         }
 
-        private async Task SaveAsync()
+        public async Task<IReadOnlyCollection<TreeItemData<Permission>>> LoadServerData(Permission parentValue)
         {
-            if (IsProcessing)
-                return;
-            IsProcessing = true;
-
             try
             {
-                var PostResult = await Http.PostAsJsonAsync("api/RoleClaim/CreateRange", SubmitRoleClaimViewModels);
-                if (PostResult.IsSuccessStatusCode)
+                if (parentValue == null)
                 {
-                    var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<IList<SubmitRoleClaimViewModel>>>();
-                    if (JsonResult?.Data != null)
+                    // بارگذاری ریشه‌ها
+                    var roots = Permissions.Where(d => d.IdParent == null).ToList();
+                    return roots.Select(d => new TreeItemData<Permission>
                     {
-                        await GetRoleClaimViewModelsAsync();
-                        // عدم ریست شدن و ماندن سر جای قبلی
-                        // *********** Reset ***********
-                        //OnSelectedTab();
-                        //tabs.ActivatePanel(0);
-                        // *****************************
-                        Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
-                    }
-                    else
-                    {
-                        Snackbar.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
-                    }
+                        Value = d,
+                        Text = $"{d.Title} ({d.DisplayTitle})",
+                        Expandable = Permissions.Any(child => child.IdParent == d.Id),
+                        Children = new List<TreeItemData<Permission>>()
+                    }).ToList().AsReadOnly();
                 }
                 else
                 {
-                    Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
+                    // بارگذاری فرزندان یک والد خاص
+                    var children = Permissions.Where(d => d.IdParent == parentValue.Id).ToList();
+                    return children.Select(d => new TreeItemData<Permission>
+                    {
+                        Value = d,
+                        Text = $"{d.Title} ({d.DisplayTitle})",
+                        Expandable = Permissions.Any(child => child.IdParent == d.Id),
+                        Children = new List<TreeItemData<Permission>>()
+                    }).ToList().AsReadOnly();
                 }
             }
             catch (Exception ex)
             {
-                Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+                Snackbar.Add($"{ex.Message}", Severity.Error);
+                return new List<TreeItemData<Permission>>().AsReadOnly();
             }
-            IsProcessing = false;
         }
 
-        private Dictionary<string, string> TitleNames { get; } = [];
+        #endregion
 
-        private readonly List<SubmitRoleClaimViewModel> SubmitRoleClaimViewModels = [];
+        // *******************************
 
         private List<GetRoleClaimViewModel> GetRoleClaimFromDatabase = [];
 
@@ -153,6 +160,59 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
             }
         }
 
-        private MudTabs tabs;
+        // **********************************************
+
+        private List<SubmitRoleClaimViewModel> SubmitModels { get; set; } = [];
+
+        private async Task SaveAsync()
+        {
+            if (IsProcessing)
+                return;
+            IsProcessing = true;
+
+            try
+            {
+                foreach (var item in SelectedValues)
+                {
+                    var RoleClaim = new SubmitRoleClaimViewModel();
+                    RoleClaim.ClaimType = item.FullName;
+                    RoleClaim.ClaimValue = PermissionClaimValue;
+                    RoleClaim.RoleId = IdRole;
+                    RoleClaim.IsSelected = true;
+
+                    SubmitModels.Add(RoleClaim);
+                }
+
+                var PostResult = await Http.PostAsJsonAsync("api/RoleClaim/CreateRange", SubmitModels);
+                if (PostResult.IsSuccessStatusCode)
+                {
+                    var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<IList<SubmitRoleClaimViewModel>>>();
+                    if (JsonResult?.Data != null)
+                    {
+                        await GetRoleClaimViewModelsAsync();
+                        Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
+                    }
+                    else
+                    {
+                        Snackbar.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
+                    }
+                }
+                else
+                {
+                    Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+            }
+            finally
+            {
+                IsProcessing = false;
+                await PermissionStateContainer?.LoadPermissionsAsync(Http, AccountStateContainer.Id);
+                StateHasChanged();
+            }
+        }
+
     }
 }

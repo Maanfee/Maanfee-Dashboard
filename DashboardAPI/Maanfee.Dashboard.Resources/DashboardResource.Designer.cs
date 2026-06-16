@@ -664,6 +664,15 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Display title.
+        /// </summary>
+        public static string StringDisplayTitle {
+            get {
+                return ResourceManager.GetString("StringDisplayTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Documents.
         /// </summary>
         public static string StringDocuments {
@@ -1344,6 +1353,33 @@ namespace Maanfee.Dashboard.Resources {
         public static string StringSettings {
             get {
                 return ResourceManager.GetString("StringSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left Alt + F5.
+        /// </summary>
+        public static string StringShortcutF3 {
+            get {
+                return ResourceManager.GetString("StringShortcutF3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left Alt + F3.
+        /// </summary>
+        public static string StringShortcutF5 {
+            get {
+                return ResourceManager.GetString("StringShortcutF5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left Alt + N.
+        /// </summary>
+        public static string StringShortcutN {
+            get {
+                return ResourceManager.GetString("StringShortcutN", resourceCulture);
             }
         }
         

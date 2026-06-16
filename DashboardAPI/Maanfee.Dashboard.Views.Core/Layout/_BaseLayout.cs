@@ -1,4 +1,5 @@
-﻿using Maanfee.Dashboard.Views.Core.Services;
+﻿using Maanfee.Dashboard.Views.Base;
+using Maanfee.Dashboard.Views.Core.Services;
 using Maanfee.JsInterop;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
@@ -55,6 +56,9 @@ namespace Maanfee.Dashboard.Views.Core
 
         [Inject] 
         protected TableConfigurationService? TableConfiguration { get; set; }
+
+        [Inject]
+        public PermissionStateContainer? PermissionStateContainer { get; set; }
 
         // *****************************************
 

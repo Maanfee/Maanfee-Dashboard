@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using MudBlazor;
 using MudBlazor.Services;
-using System.Reflection;
 
 namespace Maanfee.Dashboard.Views.Base
 {
@@ -49,6 +48,8 @@ namespace Maanfee.Dashboard.Views.Base
 
             #region - Authentication -
 
+            builder.Services.AddSingleton<PermissionStateContainer>();
+
             builder.Services.AddOptions();
             builder.Services.AddAuthorizationCore(options =>
             {
@@ -65,7 +66,6 @@ namespace Maanfee.Dashboard.Views.Base
             AddLocalStorageConfiguration(builder.Services);
             builder.Services.AddSingleton<AccountStateContainer>();
             builder.Services.AddSingleton<UrlStateContainer>();
-            builder.Services.AddSingleton<PermissionService>();
             builder.Services.AddSingleton<TableConfigurationService>();
 
             #endregion
@@ -108,19 +108,41 @@ namespace Maanfee.Dashboard.Views.Base
 
         private static void RegisterPermissionClaims(AuthorizationOptions options)
         {
-            foreach (var prop in typeof(PermissionDefaultValue).GetNestedTypes().SelectMany(c => c.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)))
-            {
-                var propertyValue = prop.GetValue(null);
-                if (propertyValue is not null)
-                {
-                    var policyName = propertyValue.ToString();
-                    if (!string.IsNullOrEmpty(policyName))
-                    {
-                        options.AddPolicy(policyName!, policy => policy.RequireClaim(policyName!, PermissionClaimTypes.Permission));
-                    }
-                }
-            }
-            //options.AddPolicy(Permission.Setting.View, policy => policy.RequireClaim(ApplicationClaimTypes.Permission));
+            //builder.Services.AddScoped<GetCurrentPermissionsService>();
+            //using var TempProvider = builder.Services.BuildServiceProvider();
+            //var GetCurrentPermissionsService = TempProvider.GetRequiredService<GetCurrentPermissionsService>();
+
+            //Task.Run(async () =>
+            //{
+            //    var Permissions = await GetCurrentPermissionsService.GetUserPermissionsAsync();
+
+            //var Permissions = new List<string>
+            //{
+            //     "Permission.Dashboard.Departments",
+            //     "Permission.Departments.Create",
+            //     "Permission.Departments.Delete",
+            //};
+            //if (Permissions.Any())
+            //{
+            //    foreach (var permission in Permissions)
+            //    {
+            //        options.AddPolicy(permission, policy => policy.RequireClaim(permission, PermissionClaimTypes.Permission));
+            //    }
+            //}
+            //});
+
+            //foreach (var prop in typeof(PermissionDefaultValue).GetNestedTypes().SelectMany(c => c.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)))
+            //{
+            //    var propertyValue = prop.GetValue(null);
+            //    if (propertyValue is not null)
+            //    {
+            //        var policyName = propertyValue.ToString();
+            //        if (!string.IsNullOrEmpty(policyName))
+            //        {
+            //            options.AddPolicy(policyName!, policy => policy.RequireClaim(policyName!, PermissionClaimTypes.Permission));
+            //        }
+            //    }
+            //}
         }
 
     }

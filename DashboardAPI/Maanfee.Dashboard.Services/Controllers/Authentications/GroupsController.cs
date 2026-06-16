@@ -137,8 +137,6 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
 
         // Used : Groups->Edit
         [HttpPut("Edit")]
-        // Usage :   var Investment = await Http.PutAsJsonAsync("api/Roles/Edit", item.TrimString());
-        //[HttpPut("{id}")]
         // PUT: api/Groups/Edit/Model
         public async Task<CallbackResult<SubmitGroupViewModel>> Edit(SubmitGroupViewModel Model)
         {
@@ -214,26 +212,26 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         // Used : Groups->GetDropDownGroups
         [HttpGet("GetDropDownGroups")]
         // GET: api/Groups/GetDropDownGroups?value=
-        public async Task<CallbackResult<List<DropDownGroupViewModel>>> GetDropDownGroups(string? value)
+        public async Task<CallbackResult<List<DropDownViewModel<int>>>> GetDropDownGroups(string? value)
         {
             try
             {
-                var list = await db_SQLServer!.Groups.Select(x => new DropDownGroupViewModel
+                var list = await db_SQLServer!.Groups.Select(x => new DropDownViewModel<int>
                 {
                     Id = x.Id,
                     Title = x.Title,
                 }).ToListAsync();
 
                 if (string.IsNullOrEmpty(value))
-                    return new CallbackResult<List<DropDownGroupViewModel>>(list, null);
+                    return new CallbackResult<List<DropDownViewModel<int>>>(list, null);
 
                 list = list.Where(x => x.Title!.Contains(value, StringComparison.InvariantCultureIgnoreCase)).ToList();
 
-                return new CallbackResult<List<DropDownGroupViewModel>>(list, null);
+                return new CallbackResult<List<DropDownViewModel<int>>>(list, null);
             }
             catch (Exception ex)
             {
-                return new CallbackResult<List<DropDownGroupViewModel>>(null, new ExceptionError(ex.Message));
+                return new CallbackResult<List<DropDownViewModel<int>>>(null, new ExceptionError(ex.Message));
             }
         }
 

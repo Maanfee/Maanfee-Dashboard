@@ -14,16 +14,7 @@
     @*<AuthorizeView Roles=@($"{SystemAccessDefaultValue.AccessDeveloper} {SystemAccessDefaultValue.AccessSupervisor} {SystemAccessDefaultValue.AccessAdmin}")>
     <Authorized>*@
 
-    @*	<MudListSubheader Class="mt-2 mb-n2">
-    @DashboardResource.StringCommunications
-    </MudListSubheader>
-    <MudNavGroup Title="@DashboardResource.StringCommunications" Icon="@Icons.Filled.Chat" ExpandIcon="@Icons.Material.Filled.ExpandMore">
-    <MudNavLink Href="/chat">
-    @DashboardResource.StringChat
-    </MudNavLink>
-    </MudNavGroup>*@
-
-    @if (_PermissionDepartments || _PermissionRoles || _PermissionUsers || _PermissionGroups)
+    @if (_PermissionDepartments || _PermissionRoles || _PermissionUsers || _PermissionGroups || _PermissionPermissions)
     {
         <MudListSubheader Class="mt-2 mb-n2">
             @DashboardResource.StringAdministrator
@@ -51,6 +42,12 @@
             {
                 <MudNavLink Href="/Users/UserView">
                     @DashboardResource.StringUser
+                </MudNavLink>
+            }
+            @if (_PermissionPermissions)
+            {
+                <MudNavLink Href="/Permissions/PermissionView">
+                    @DashboardResource.StringPermission
                 </MudNavLink>
             }
         </MudNavGroup>
@@ -95,28 +92,22 @@
 
 @code {
 
-    [CascadingParameter]
-    private Task<AuthenticationState> PermissionAuthenticationState { get; set; }
+    // [CascadingParameter]
+    // private Task<AuthenticationState> PermissionAuthenticationState { get; set; }
 
-    private bool _PermissionRoles = false;
-    private bool _PermissionDepartments = false;
-    private bool _PermissionGroups = false;
-    private bool _PermissionUsers = false;
-    private bool _PermissionPublicSwagger = false;
-    private bool _PermissionReleaseManagement = false;
-    private bool _PermissionMonitoringLogs = false;
+    private bool _PermissionRoles => PermissionStateContainer.HasPermission("Permission.Dashboard.Roles");
+    private bool _PermissionDepartments => PermissionStateContainer.HasPermission("Permission.Dashboard.Departments");
+    private bool _PermissionGroups => PermissionStateContainer.HasPermission("Permission.Dashboard.Groups");
+    private bool _PermissionUsers => PermissionStateContainer.HasPermission("Permission.Dashboard.Users");
+    private bool _PermissionPublicSwagger => PermissionStateContainer.HasPermission("Permission.Dashboard.Settings.Swaggers");
+    private bool _PermissionReleaseManagement => PermissionStateContainer.HasPermission("Permission.Dashboard.Settings.ReleaseManagemen");
+    private bool _PermissionMonitoringLogs => PermissionStateContainer.HasPermission("Permission.Dashboard.Settings.MonitorLogs");
+    private bool _PermissionPermissions => PermissionStateContainer.HasPermission("Permission.Dashboard.Permissions");
 
-    protected override async Task OnParametersSetAsync()
+    // var PermissionCurrentUser = (await PermissionAuthenticationState).User;
+
+    protected override void OnInitialized()
     {
-        var PermissionCurrentUser = (await PermissionAuthenticationState).User;
-
-        _PermissionRoles = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.View)).Succeeded;
-        _PermissionDepartments = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Department.View)).Succeeded;
-        _PermissionGroups = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Group.View)).Succeeded;
-        _PermissionUsers = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.User.View)).Succeeded;
-        _PermissionPublicSwagger = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Setting.Swagger)).Succeeded;
-        _PermissionReleaseManagement = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Setting.ReleaseManagementView)).Succeeded;
-        _PermissionMonitoringLogs = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Setting.MonitorLogs)).Succeeded;
+        PermissionStateContainer?.OnChange += StateHasChanged;
     }
-
 }

@@ -75,12 +75,12 @@
                             </MudSelect>
                         </MudItem>
                         <MudItem md="3">
-                            <MudSelect T="DropDownRoleViewModel" Label="@DashboardResource.StringRole" Variant="Variant.Outlined"
+                            <MudSelect T="DropDownViewModel<string>" Label="@DashboardResource.StringRole" Variant="Variant.Outlined"
                                        Clearable @bind-Value="SubmitUserViewModel.Role"
                                        For="@(() => SubmitUserViewModel.Role)">
                                 @foreach (var item in Roles)
                                 {
-                                    <MudSelectItem Value="@item">@item.Name</MudSelectItem>
+                                    <MudSelectItem Value="@item">@item.Title</MudSelectItem>
                                 }
                             </MudSelect>
                         </MudItem>
@@ -322,8 +322,6 @@
 
     private List<DropDownGenderViewModel> Genders = new();
 
-    private List<DropDownRoleViewModel> Roles = new();
-
     private async Task GetGendersAsync()
     {
         var Callback = await Http.GetFromJsonAsync<CallbackResult<List<Gender>>>($"api/Users/GetGenders");
@@ -341,15 +339,19 @@
         }
     }
 
+    // **************************************
+
+    private List<DropDownViewModel<string>> Roles = new();
+
     private async Task GetRolesAsync()
     {
         var Callback = await Http.GetFromJsonAsync<CallbackResult<List<GetRoleViewModel>>>($"api/Roles/GetRole");
         if (Callback.Data != null)
         {
-            Roles = Callback.Data.Select(x => new DropDownRoleViewModel
+            Roles = Callback.Data.Select(x => new DropDownViewModel<string>
             {
                 Id = x.Id,
-                Name = x.Name,
+                Title = x.Name,
             }).ToList();
         }
         else
@@ -404,7 +406,7 @@
 
     // **************************************
 
-    private IEnumerable<DropDownGroupViewModel> Groups = new List<DropDownGroupViewModel>();
+    private IEnumerable<DropDownViewModel<int>> Groups = new List<DropDownViewModel<int>>();
 
     private string GetGroupMultiSelectionText(IReadOnlyList<string> SelectedValues)
     {
@@ -413,13 +415,13 @@
         return $"{string.Join(" , ", SelectedTexts)}";
     }
 
-    private async Task<IEnumerable<DropDownGroupViewModel>> GetGroupsAsync(string value)
+    private async Task<IEnumerable<DropDownViewModel<int>>> GetGroupsAsync(string value)
     {
-        List<DropDownGroupViewModel> Parents = new();
-        var Callback = await Http.GetFromJsonAsync<CallbackResult<List<DropDownGroupViewModel>>>($"api/Groups/GetDropDownGroups?value={value}");
+        List<DropDownViewModel<int>> Parents = new();
+        var Callback = await Http.GetFromJsonAsync<CallbackResult<List<DropDownViewModel<int>>>>($"api/Groups/GetDropDownGroups?value={value}");
         if (Callback.Data != null)
         {
-            Parents = Callback.Data.Select(x => new DropDownGroupViewModel
+            Parents = Callback.Data.Select(x => new DropDownViewModel<int>
             {
                 Id = x.Id,
                 Title = x.Title,

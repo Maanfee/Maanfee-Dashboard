@@ -9,13 +9,13 @@
                 @DashboardResource.StringGroup
             </MudText>
             <MudSpacer />
-            <MudTooltip Text="@DashboardResource.StringCreate" Color="Color.Tertiary" Arrow>
+            <MudTooltip Text="@($"{DashboardResource.StringCreate} ({DashboardResource.StringShortcutN})")" Color="Color.Tertiary" Arrow>
                 <MudIconButton OnClick="@(() => OpenCrudateDialog(0))" Color="Color.Primary" Icon="@Icons.Material.Outlined.Add" />
             </MudTooltip>
-            <MudTooltip Text="@DashboardResource.StringReload" Color="Color.Tertiary" Arrow>
+            <MudTooltip Text="@($"{DashboardResource.StringReload} ({DashboardResource.StringShortcutF5})")" Color="Color.Tertiary" Arrow>
                 <MudIconButton OnClick="OnReloadData" Icon="@Icons.Material.Outlined.Refresh" Color="Color.Secondary" />
             </MudTooltip>
-            <MudTooltip Text="@DashboardResource.StringSearch" Color="Color.Tertiary" Arrow>
+            <MudTooltip Text="@($"{DashboardResource.StringSearch} ({DashboardResource.StringShortcutF3})")" Color="Color.Tertiary" Arrow>
                 <MudIconButton OnClick="OpenSearchDialog" Icon="@Icons.Material.Filled.ManageSearch" Color="Color.Tertiary" />
             </MudTooltip>
         </MudToolBar>

@@ -12,6 +12,6 @@ namespace Maanfee.Dashboard.Domain.ViewModels
         [Required(ErrorMessageResourceName = nameof(DashboardResource.ValidationRequired), ErrorMessageResourceType = typeof(DashboardResource))]
         public string? Title { get; set; }
 
-        public DropDownDepartmentViewModel Parent { get; set; } = new();
+        public DropDownDepartmentViewModel? Parent { get; set; } = new();
     }
 }

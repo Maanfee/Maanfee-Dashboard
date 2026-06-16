@@ -12,7 +12,7 @@
     <Copyright>Copyright (c) 2021-2026 Maanfee</Copyright>
     <Authors>Maanfee Team (MF)</Authors>
 		<Company>Maanfee</Company>
-		<Version>8.575.1</Version>
+		<Version>8.700.1</Version>
 		<PackageIcon>MaanfeeGreen.png</PackageIcon>
 		<RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
@@ -39,7 +39,7 @@
 		<PackageReference Include="Maanfee.Lottie" Version="2.6.0" />
 		<PackageReference Include="Maanfee.Turnjs" Version="1.22.0" />
 		<PackageReference Include="MudBlazor" Version="9.5.0" />
-		<PackageReference Include="EPPlus" Version="8.5.4" />
+		<PackageReference Include="EPPlus" Version="8.6.0" />
 		<PackageReference Include="SkiaSharp.Views.Blazor" Version="3.119.4" />
 	</ItemGroup>
 

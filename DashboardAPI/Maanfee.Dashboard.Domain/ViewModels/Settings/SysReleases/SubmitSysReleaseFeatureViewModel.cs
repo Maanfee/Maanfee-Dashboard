@@ -12,7 +12,7 @@ namespace Maanfee.Dashboard.Domain.ViewModels
 
 		[Display(Name = nameof(DashboardResource.StringReleaseType), ResourceType = typeof(DashboardResource))]
 		[Required(ErrorMessageResourceName = nameof(DashboardResource.ValidationRequired), ErrorMessageResourceType = typeof(DashboardResource))]
-		public DropDownReleaseTypeViewModel? ReleaseType { get; set; }
+		public DropDownViewModel<int>? ReleaseType { get; set; }
 
 	}
 }

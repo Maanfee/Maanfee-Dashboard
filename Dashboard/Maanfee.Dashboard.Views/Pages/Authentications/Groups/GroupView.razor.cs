@@ -18,14 +18,15 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Groups
         private MudTable<TableViewModel> Table = new();
         private TableStateViewModel<FilterViewModel> TableState = new();
 
+        public const string View = "Permission.Dashboard.Departments";
+
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
 
             try
             {
-                await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.Group.View, AuthenticationState,
-                    AuthorizationService, Navigation);
+                PermissionStateContainer.HasPermissionToDisplayView(View, Navigation);
             }
             catch (Exception ex)
             {

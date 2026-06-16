@@ -35,8 +35,9 @@ namespace Maanfee.Dashboard.Domain.DAL
 
         public virtual DbSet<UserGroup> UserGroups { get; set; }
 
-        #region - Communications -
+        #region - Permissions -
 
+        public virtual DbSet<Permission> Permissions { get; set; }
 
         #endregion
 
@@ -289,6 +290,11 @@ namespace Maanfee.Dashboard.Domain.DAL
 
             #endregion
 
+            #region - Permissions -
+
+            modelBuilder.Entity<Permission>().ToTable("Permission").HasIndex(p => new { p.Title, p.IdParent }).IsUnique(true);
+
+            #endregion
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

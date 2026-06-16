@@ -11,3 +11,16 @@
         </MudTabPanel>
     </MudTabs>
 </MaanfeeDashboardPage>
+
+@code{
+
+    public const string View = "Permission.Dashboard.Settings.MonitorLogs";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        PermissionStateContainer.HasPermissionToDisplayView(View, Navigation);
+    }
+
+}

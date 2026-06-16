@@ -657,4 +657,16 @@
   <data name="MessageRandomColors" xml:space="preserve">
     <value>رنگ های تصادفی</value>
   </data>
+  <data name="StringShortcutF3" xml:space="preserve">
+    <value>Left Alt + F5</value>
+  </data>
+  <data name="StringShortcutF5" xml:space="preserve">
+    <value>Left Alt + F3</value>
+  </data>
+  <data name="StringShortcutN" xml:space="preserve">
+    <value>Left Alt + N</value>
+  </data>
+  <data name="StringDisplayTitle" xml:space="preserve">
+    <value>نمایش عنوان</value>
+  </data>
 </root>

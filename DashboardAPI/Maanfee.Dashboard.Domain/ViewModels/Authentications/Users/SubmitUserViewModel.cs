@@ -30,7 +30,7 @@ namespace Maanfee.Dashboard.Domain.ViewModels
         public DropDownGenderViewModel? Gender { get; set; }
 
         [Display(Name = nameof(DashboardResource.StringRole), ResourceType = typeof(DashboardResource))]
-        public DropDownRoleViewModel? Role { get; set; }
+        public DropDownViewModel<string>? Role { get; set; }
 
         // **************************************************
 

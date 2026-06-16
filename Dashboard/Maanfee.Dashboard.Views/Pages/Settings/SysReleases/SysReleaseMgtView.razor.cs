@@ -19,14 +19,15 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
         private MudTable<TableViewModel> Table = new();
         private TableStateViewModel<FilterViewModel> TableState = new();
 
+        public const string View = "Permission.Dashboard.Settings.ReleaseManagemen";
+
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
 
             try
             {
-                await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.Setting.ReleaseManagementView, AuthenticationState,
-                    AuthorizationService, Navigation);
+                PermissionStateContainer.HasPermissionToDisplayView(View, Navigation);
             }
             catch (Exception ex)
             {

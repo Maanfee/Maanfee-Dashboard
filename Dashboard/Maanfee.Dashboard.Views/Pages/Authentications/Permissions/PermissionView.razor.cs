@@ -2,32 +2,23 @@
 using Maanfee.Dashboard.Domain.Entities;
 using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Dashboard.Resources;
-using Maanfee.Dashboard.Views.Base;
 using Maanfee.Dashboard.Views.Core;
 using Maanfee.Web.Core;
 using MudBlazor;
 using System.Net.Http.Json;
 
-namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
+namespace Maanfee.Dashboard.Views.Pages.Authentications.Permissions
 {
-    public partial class DepartmentView
+    public partial class PermissionView
     {
-        private SubmitDepartmentViewModel SubmitDepartmentViewModel = new();
+        private SubmitPermissionViewModel Model = new();
 
-        //private Department ActivatedValue = new(); 
+        //private Permission ActivatedValue = new(); 
 
-        private Department SelectedValue = new();
-        //private HashSet<Department> SelectedValues { get; set; }
+        private Permission SelectedValue = new();
+        //private HashSet<Permission> SelectedValues { get; set; }
 
-        private bool _PermissionCreate => PermissionStateContainer.HasPermission(Create);
-
-        private bool _PermissionDelete => PermissionStateContainer.HasPermission(Delete);
-
-        public const string View = "Permission.Dashboard.Departments";
-
-        public const string Create = "Permission.Departments.Create";
-
-        public const string Delete = "Permission.Departments.Delete";
+        public const string View = "Permission.Dashboard.Permissions";
 
         protected override async Task OnInitializedAsync()
         {
@@ -57,28 +48,28 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
 
         //private MudTreeView<Department> TreeView;
 
-        private List<TreeItemData<Department>> TreeItems { get; set; } = new();
+        private List<TreeItemData<Permission>> TreeItems { get; set; } = new();
 
         private async Task BuildTreeAsync()
         {
             TreeItems = await BuildTreeItems(null);
         }
 
-        private Task<List<TreeItemData<Department>>> BuildTreeItems(int? parentId)
+        private Task<List<TreeItemData<Permission>>> BuildTreeItems(string parentId)
         {
-            var items = new List<TreeItemData<Department>>();
+            var items = new List<TreeItemData<Permission>>();
 
-            var departments = Departments.Where(d => d.IdParent == parentId).ToList();
+            var permissions = Permissions.Where(d => d.IdParent == parentId).ToList();
 
-            foreach (var dept in departments)
+            foreach (var dept in permissions)
             {
-                var treeItem = new TreeItemData<Department>
+                var treeItem = new TreeItemData<Permission>
                 {
                     Value = dept,
                     Text = dept.Title,
-                    Expandable = Departments.Any(child => child.IdParent == dept.Id),
+                    Expandable = Permissions.Any(child => child.IdParent == dept.Id),
                     Icon = Icons.Material.Filled.Groups,
-                    Children = new List<TreeItemData<Department>>()
+                    Children = new List<TreeItemData<Permission>>()
                 };
 
                 // به صورت بازگشتی فرزندان را هم اضافه کن
@@ -93,39 +84,39 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
             return Task.FromResult(items);
         }
 
-        public async Task<IReadOnlyCollection<TreeItemData<Department>>> LoadServerData(Department parentValue)
+        public async Task<IReadOnlyCollection<TreeItemData<Permission>>> LoadServerData(Permission parentValue)
         {
             try
             {
                 if (parentValue == null)
                 {
                     // بارگذاری ریشه‌ها
-                    var roots = Departments.Where(d => d.IdParent == null).ToList();
-                    return roots.Select(d => new TreeItemData<Department>
+                    var roots = Permissions.Where(d => d.IdParent == null).ToList();
+                    return roots.Select(d => new TreeItemData<Permission>
                     {
                         Value = d,
                         Text = d.Title,
-                        Expandable = Departments.Any(child => child.IdParent == d.Id),
-                        Children = new List<TreeItemData<Department>>()
+                        Expandable = Permissions.Any(child => child.IdParent == d.Id),
+                        Children = new List<TreeItemData<Permission>>()
                     }).ToList().AsReadOnly();
                 }
                 else
                 {
                     // بارگذاری فرزندان یک والد خاص
-                    var children = Departments.Where(d => d.IdParent == parentValue.Id).ToList();
-                    return children.Select(d => new TreeItemData<Department>
+                    var children = Permissions.Where(d => d.IdParent == parentValue.Id).ToList();
+                    return children.Select(d => new TreeItemData<Permission>
                     {
                         Value = d,
                         Text = d.Title,
-                        Expandable = Departments.Any(child => child.IdParent == d.Id),
-                        Children = new List<TreeItemData<Department>>()
+                        Expandable = Permissions.Any(child => child.IdParent == d.Id),
+                        Children = new List<TreeItemData<Permission>>()
                     }).ToList().AsReadOnly();
                 }
             }
             catch (Exception ex)
             {
                 Snackbar.Add($"{ex.Message}", Severity.Error);
-                return new List<TreeItemData<Department>>().AsReadOnly();
+                return new List<TreeItemData<Permission>>().AsReadOnly();
             }
         }
 
@@ -138,7 +129,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
         //private async void OnTextChanged(string searchPhrase)
         //{
         //    SearchPhrase = searchPhrase;
-        //    Departments = Departments.Where(d => d.Title.Contains(SearchPhrase, StringComparison.OrdinalIgnoreCase)).ToList();
+        //    Permissions = Permissions.Where(d => d.Title.Contains(SearchPhrase, StringComparison.OrdinalIgnoreCase)).ToList();
         //    await BuildTreeAsync();
         //}
 
@@ -150,12 +141,14 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
                 return;
             IsProcessing = true;
 
+            Model.FullName = $"Permission.{Model?.Parent?.Name}.{Model.Title}".Replace("..",".");
+
             try
             {
-                var PostResult = await Http.PostAsJsonAsync("api/Departments/CreateOrUpdate", SubmitDepartmentViewModel.TrimStringAndCheckPersianSpecialLetter());
+                var PostResult = await Http.PostAsJsonAsync("api/Permissions/CreateOrUpdate", Model.TrimStringAndCheckPersianSpecialLetter());
                 if (PostResult.IsSuccessStatusCode)
                 {
-                    var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<Department>>();
+                    var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<Permission>>();
                     if (JsonResult?.Data != null)
                     {
                         Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
@@ -193,19 +186,14 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
 
         #region - Combo & Dropdown -
 
-        private List<DropDownDepartmentViewModel> Parents = new();
+        private List<DropDownPermissionViewModel> Parents = new();
 
-        private async Task<IEnumerable<DropDownDepartmentViewModel>> GetParentsAsync(string value, CancellationToken token)
+        private async Task<IEnumerable<DropDownPermissionViewModel>> GetParentsAsync(string value, CancellationToken token)
         {
-            var Callback = await Http.GetFromJsonAsync<CallbackResult<List<DropDownDepartmentViewModel>>>($"api/Departments/GetDropDownDepartments?value={value}", token);
+            var Callback = await Http.GetFromJsonAsync<CallbackResult<List<DropDownPermissionViewModel>>>($"api/Permissions/GetDropDownPermissions?value={value}&", token);
             if (Callback.Data != null)
             {
-                Parents = Callback.Data.Select(x => new DropDownDepartmentViewModel
-                {
-                    Id = x.Id,
-                    IdParent = x.IdParent,
-                    Title = x.Title,
-                }).ToList();
+                Parents = Callback.Data.ToList();
             }
             else
             {
@@ -216,14 +204,14 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
 
         #endregion
 
-        private List<Department> Departments = new();
+        private List<Permission> Permissions = new();
 
-        private async Task GetDepartmentsAsync()
+        private async Task GetPermissionsAsync()
         {
-            var Callback = await Http.GetFromJsonAsync<CallbackResult<List<Department>>>($"api/Departments/GetDepartments");
+            var Callback = await Http.GetFromJsonAsync<CallbackResult<List<Permission>>>($"api/Permissions/GetPermissions");
             if (Callback.Data != null)
             {
-                Departments = Callback.Data;
+                Permissions = Callback.Data;
             }
             else
             {
@@ -233,18 +221,20 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
 
         private async Task ResetAsync()
         {
-            await GetDepartmentsAsync();
+            await GetPermissionsAsync();
             await BuildTreeAsync();
             await GetParentsAsync(string.Empty, new CancellationTokenSource().Token);
 
-            SubmitDepartmentViewModel.Id = null;
-            SubmitDepartmentViewModel.Title = string.Empty;
-            SubmitDepartmentViewModel.Parent = null;
+            Model.Id = null;
+            Model.Title = string.Empty;
+            Model.DisplayTitle = string.Empty;
+            Model.FullName = string.Empty;
+            Model.Parent = null;
         }
 
-        #region - Delete Dialog -
+		#region - Delete Dialog -
 
-        private async Task OpenDeleteDialog()
+		private async Task OpenDeleteDialog()
         {
             DialogParameters parameters = new DialogParameters();
 
@@ -262,10 +252,10 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
             {
                 try
                 {
-                    var DeleteResult = await Http.DeleteAsync($"api/Departments/Delete/{SubmitDepartmentViewModel.Id}");
+                    var DeleteResult = await Http.DeleteAsync($"api/Permissions/Delete/{Model.Id}");
                     if (DeleteResult.IsSuccessStatusCode)
                     {
-                        var JsonResult = await DeleteResult.Content.ReadFromJsonAsync<CallbackResult<Department>>();
+                        var JsonResult = await DeleteResult.Content.ReadFromJsonAsync<CallbackResult<Permission>>();
                         if (JsonResult.Data != null)
                         {
                             Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageDeletedSuccessfully, Severity.Success);

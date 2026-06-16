@@ -39,6 +39,8 @@ namespace Maanfee.Dashboard.Views.Shared
                         AccountStateContainer.PersonalCode = Callback.Data.PersonalCode;
                         AccountStateContainer.IdUserDepartments = Callback.Data.UserDepartments.Select(x => x.IdDepartment).ToList();
 
+                        await PermissionStateContainer.LoadPermissionsAsync(Http, AccountStateContainer.Id);
+
                         Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomRight;
                         Snackbar.Configuration.PreventDuplicates = true;
                         Snackbar.Add($"{DashboardResource.StringWelcome}", Severity.Success);
@@ -74,7 +76,7 @@ namespace Maanfee.Dashboard.Views.Shared
             {
                 await Fullscreen.RequestFullscreenAsync();
             }
-            Fullscreen.FullscreenChanged += OnFullscreenChange;
+            Fullscreen.FullscreenChanged += OnFullscreenChanged;
         }
 
         //public void Dispose()
@@ -168,7 +170,7 @@ namespace Maanfee.Dashboard.Views.Shared
             }
         }
 
-        private async void OnFullscreenChange(object sender, bool isFullscreen)
+        private async void OnFullscreenChanged(object sender, bool isFullscreen)
         {
             TableHeight = TableConfiguration.SetHeight(SharedLayoutSettings.IsRTL, await Fullscreen.IsFullscreenAsync(), _IsTableScroll);
 

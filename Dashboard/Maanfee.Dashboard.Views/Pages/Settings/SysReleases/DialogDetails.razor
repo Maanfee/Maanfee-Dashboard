@@ -18,7 +18,7 @@
                              Color="Color.Primary"></MudCheckBox>
             </MudItem>
             <MudItem md="12">
-                <MudTable Items="@Model.SysReleaseFeatures" FixedHeader FixedFooter Dense Height="350px"
+                <MudTable Items="@Model.SysReleaseFeatures" FixedHeader FixedFooter Dense Height="320px"
                           Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
                     <HeaderContent>
                         <MudTh><MudTableSortLabel SortBy="new Func<SysReleaseFeature, object>(x => x.Comment)">@DashboardResource.StringComment</MudTableSortLabel></MudTh>

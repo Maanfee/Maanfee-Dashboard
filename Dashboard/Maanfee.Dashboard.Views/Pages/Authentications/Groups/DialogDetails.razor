@@ -47,8 +47,10 @@
         {
             Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
         }
-
-        IsLoaded = true;
+        finally
+        {
+            IsLoaded = true;
+        }
     }
 
 }

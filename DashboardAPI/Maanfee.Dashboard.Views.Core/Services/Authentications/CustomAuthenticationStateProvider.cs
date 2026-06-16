@@ -29,7 +29,7 @@ namespace Maanfee.Dashboard.Views.Core.Services
                     }
                     .Concat(_currentUser.Claims!.Select(c => new Claim(c.Key, c.Value)));
 
-                    identity = new ClaimsIdentity(claims, "Server authentication");
+                    identity = new ClaimsIdentity(claims, "Server Authentication");
                 }
             }
             catch (HttpRequestException ex)

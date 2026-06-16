@@ -183,6 +183,145 @@ namespace Maanfee.Dashboard.Services
                 context.SaveChanges();
             }
 
+            if (!context.Permissions.Any())
+            {
+                var Permission = new List<Permission>
+                    {
+                        new Permission
+                        {
+                            Id =  "71b24f9d-9f5f-4311-a9ab-23c6d0e4e382",
+                            Title = "Dashboard",
+                            DisplayTitle = "Dashboard",
+                            FullName = "Permission.Dashboard",
+                            IdParent = null,
+                        },
+                        new Permission
+                        {
+                            Id =  "71b24f9d-9f5f-4311-a9ab-23c6d0e4e300",
+                            Title = "Groups",
+                            DisplayTitle = "Groups",
+                            FullName = "Permission.Dashboard.Groups",
+                            IdParent = "71b24f9d-9f5f-4311-a9ab-23c6d0e4e382",
+                        },
+                        new Permission
+                        {
+                            Id =  "71b24f9d-9f5f-4311-a9ab-23c6d0e4e301",
+                            Title = "Permissions",
+                            DisplayTitle = "Permissions",
+                            FullName = "Permission.Dashboard.Permissions",
+                            IdParent = "71b24f9d-9f5f-4311-a9ab-23c6d0e4e382",
+                        },
+                        new Permission
+                        {
+                            Id =  "71b24f9d-9f5f-4311-a9ab-23c6d0e4e302",
+                            Title = "Users",
+                            DisplayTitle = "Users",
+                            FullName = "Permission.Dashboard.Users",
+                            IdParent = "71b24f9d-9f5f-4311-a9ab-23c6d0e4e382",
+                        },
+                        new Permission
+                        {
+                            Id =  "71b24f9d-9f5f-4311-a9ab-23c6d0e4e303",
+                            Title = "Departments",
+                            DisplayTitle = "Departments",
+                            FullName = "Permission.Dashboard.Departments",
+                            IdParent = "71b24f9d-9f5f-4311-a9ab-23c6d0e4e382",
+                        },
+                        new Permission
+                        {
+                            Id =  "71b24f9d-9f5f-4311-a9ab-23c6d0e4e304",
+                            Title = "Roles",
+                            DisplayTitle = "Roles",
+                            FullName = "Permission.Dashboard.Roles",
+                            IdParent = "71b24f9d-9f5f-4311-a9ab-23c6d0e4e382",
+                        },
+                        new Permission
+                        {
+                            Id =  "71b24f9d-9f5f-4311-a9ab-23c6d0e4e305",
+                            Title = "Settings",
+                            DisplayTitle = "Settings",
+                            FullName = "Permission.Dashboard.Settings",
+                            IdParent = "71b24f9d-9f5f-4311-a9ab-23c6d0e4e382",
+                        },
+                        new Permission
+                        {
+                            Id =  "71b24f9d-9f5f-4311-a9ab-23c6d0e4e400",
+                            Title = "MonitorLogs",
+                            DisplayTitle = "Monitor Logs",
+                            FullName = "Permission.Dashboard.Settings.MonitorLogs",
+                            IdParent = "71b24f9d-9f5f-4311-a9ab-23c6d0e4e305",
+                        },
+                        new Permission
+                        {
+                            Id =  "71b24f9d-9f5f-4311-a9ab-23c6d0e4e401",
+                            Title = "Swaggers",
+                            DisplayTitle = "Swaggers",
+                            FullName = "Permission.Dashboard.Settings.Swaggers",
+                            IdParent = "71b24f9d-9f5f-4311-a9ab-23c6d0e4e305",
+                        },
+                        new Permission
+                        {
+                            Id =  "71b24f9d-9f5f-4311-a9ab-23c6d0e4e402",
+                            Title = "ReleaseManagemen",
+                            DisplayTitle = "Release Managemen",
+                            FullName = "Permission.Dashboard.Settings.ReleaseManagemen",
+                            IdParent = "71b24f9d-9f5f-4311-a9ab-23c6d0e4e305",
+                        },
+                        new Permission
+                        {
+                            Id =  "4439b428-f5d6-450f-ab31-abd4a7060dca",
+                            Title = "View",
+                            DisplayTitle = "View",
+                            FullName = "Permission.Users.View",
+                            IdParent = "71b24f9d-9f5f-4311-a9ab-23c6d0e4e302",
+                        },
+                        new Permission
+                        {
+                            Id =  "478706d1-31ca-42bd-9eec-3c85671bef27",
+                            Title = "Edit",
+                            DisplayTitle = "Edit",
+                            FullName = "Permission.Users.Edit",
+                            IdParent = "71b24f9d-9f5f-4311-a9ab-23c6d0e4e302",
+                        },
+                        new Permission
+                        {
+                            Id =  "b4e75dbc-11f0-4e32-bd55-a01b643a8fdc",
+                            Title = "Delete",
+                            DisplayTitle = "Delete",
+                            FullName = "Permission.Users.Delete",
+                            IdParent = "71b24f9d-9f5f-4311-a9ab-23c6d0e4e302",
+                        },
+                        new Permission
+                        {
+                            Id =  "b9fdf8cd-d801-4272-8459-8fba3e320f11",
+                            Title = "Create",
+                            DisplayTitle = "Create",
+                            FullName = "Permission.Users.Create",
+                            IdParent = "71b24f9d-9f5f-4311-a9ab-23c6d0e4e302",
+                        },
+                        new Permission
+                        {
+                            Id =  "97bfa648-f46e-40fb-b416-28465aed95d9",
+                            Title = "Create",
+                            DisplayTitle = "Create",
+                            FullName = "Permission.Departments.Create",
+                            IdParent = "71b24f9d-9f5f-4311-a9ab-23c6d0e4e303",
+                        },
+                        new Permission
+                        {
+                            Id =  "39c65927-a789-44e5-b0ff-88b28b4bcc0f",
+                            Title = "Delete",
+                            DisplayTitle = "Delete",
+                            FullName = "Permission.Departments.Delete",
+                            IdParent = "71b24f9d-9f5f-4311-a9ab-23c6d0e4e303",
+                        },
+
+                    };
+                Permission.ForEach(s => context.Permissions.Add(s));
+
+                context.SaveChanges();
+            }
+
             if (!context.AspNetUserRoles.Any())
             {
                 var Maandee = context.ApplicationUsers.FirstOrDefault(x => x.UserName == "maanfee");
@@ -212,64 +351,9 @@ namespace Maanfee.Dashboard.Services
             if (!context.AspNetRoleClaims.Any())
             {
                 var IdentityRoleClaims = new List<IdentityRoleClaim<string>>
-                {
-                   
+                {                   
                     #region Developer 
 
-                    new IdentityRoleClaim<string>
-                    {
-                         ClaimType = "Permission.Roles.View",
-                         ClaimValue = "Permission",
-                         RoleId = "05e0986e-b0b0-46e6-a371-33dfa4184fa5",
-                    },
-                    new IdentityRoleClaim<string>
-                    {
-                         ClaimType = "Permission.Roles.Permission",
-                         ClaimValue = "Permission",
-                         RoleId = "05e0986e-b0b0-46e6-a371-33dfa4184fa5",
-                    },
-                    new IdentityRoleClaim<string>
-                    {
-                         ClaimType = "Permission.Roles.Create",
-                         ClaimValue = "Permission",
-                         RoleId = "05e0986e-b0b0-46e6-a371-33dfa4184fa5",
-                    },
-                    new IdentityRoleClaim<string>
-                    {
-                         ClaimType = "Permission.Roles.Edit",
-                         ClaimValue = "Permission",
-                         RoleId = "05e0986e-b0b0-46e6-a371-33dfa4184fa5",
-                    },
-                    new IdentityRoleClaim<string>
-                    {
-                         ClaimType = "Permission.Roles.Delete",
-                         ClaimValue = "Permission",
-                         RoleId = "05e0986e-b0b0-46e6-a371-33dfa4184fa5",
-                    },
-                    new IdentityRoleClaim<string>
-                    {
-                         ClaimType = "Permission.Roles.Details",
-                         ClaimValue = "Permission",
-                         RoleId = "05e0986e-b0b0-46e6-a371-33dfa4184fa5",
-                    },
-                    new IdentityRoleClaim<string>
-                    {
-                         ClaimType = "Permission.Group.View",
-                         ClaimValue = "Permission",
-                         RoleId = "05e0986e-b0b0-46e6-a371-33dfa4184fa5",
-                    },
-                    new IdentityRoleClaim<string>
-                    {
-                         ClaimType = "Permission.Departments.View",
-                         ClaimValue = "Permission",
-                         RoleId = "05e0986e-b0b0-46e6-a371-33dfa4184fa5",
-                    },
-                    new IdentityRoleClaim<string>
-                    {
-                         ClaimType = "Permission.Departments.Create",
-                         ClaimValue = "Permission",
-                         RoleId = "05e0986e-b0b0-46e6-a371-33dfa4184fa5",
-                    },
                     new IdentityRoleClaim<string>
                     {
                          ClaimType = "Permission.Departments.Delete",
@@ -284,13 +368,43 @@ namespace Maanfee.Dashboard.Services
                     },
                     new IdentityRoleClaim<string>
                     {
-                         ClaimType = "Permission.Users.Create",
+                         ClaimType = "Permission.Users.Edit",
                          ClaimValue = "Permission",
                          RoleId = "05e0986e-b0b0-46e6-a371-33dfa4184fa5",
                     },
                     new IdentityRoleClaim<string>
                     {
-                         ClaimType = "Permission.Users.Edit",
+                         ClaimType = "Permission.Dashboard.Groups",
+                         ClaimValue = "Permission",
+                         RoleId = "05e0986e-b0b0-46e6-a371-33dfa4184fa5",
+                    },
+                    new IdentityRoleClaim<string>
+                    {
+                         ClaimType = "Permission.Dashboard.Permissions",
+                         ClaimValue = "Permission",
+                         RoleId = "05e0986e-b0b0-46e6-a371-33dfa4184fa5",
+                    },
+                    new IdentityRoleClaim<string>
+                    {
+                         ClaimType = "Permission.Dashboard.Users",
+                         ClaimValue = "Permission",
+                         RoleId = "05e0986e-b0b0-46e6-a371-33dfa4184fa5",
+                    },
+                    new IdentityRoleClaim<string>
+                    {
+                         ClaimType = "Permission.Dashboard.Departments",
+                         ClaimValue = "Permission",
+                         RoleId = "05e0986e-b0b0-46e6-a371-33dfa4184fa5",
+                    },
+                    new IdentityRoleClaim<string>
+                    {
+                         ClaimType = "Permission.Dashboard.Roles",
+                         ClaimValue = "Permission",
+                         RoleId = "05e0986e-b0b0-46e6-a371-33dfa4184fa5",
+                    },
+                    new IdentityRoleClaim<string>
+                    {
+                         ClaimType = "Permission.Departments.Create",
                          ClaimValue = "Permission",
                          RoleId = "05e0986e-b0b0-46e6-a371-33dfa4184fa5",
                     },
@@ -302,19 +416,37 @@ namespace Maanfee.Dashboard.Services
                     },
                     new IdentityRoleClaim<string>
                     {
-                         ClaimType = "Permission.Settings.View",
+                         ClaimType = "Permission.Users.Create",
                          ClaimValue = "Permission",
                          RoleId = "05e0986e-b0b0-46e6-a371-33dfa4184fa5",
                     },
                     new IdentityRoleClaim<string>
                     {
-                         ClaimType = "Permission.Settings.ReleaseManagementView",
+                         ClaimType = "Permission.Dashboard.Settings.MonitorLogs",
                          ClaimValue = "Permission",
                          RoleId = "05e0986e-b0b0-46e6-a371-33dfa4184fa5",
                     },
                     new IdentityRoleClaim<string>
                     {
-                         ClaimType = "Permission.Settings.SwaggersView",
+                         ClaimType = "Permission.Dashboard.Settings.Swaggers",
+                         ClaimValue = "Permission",
+                         RoleId = "05e0986e-b0b0-46e6-a371-33dfa4184fa5",
+                    },
+                    new IdentityRoleClaim<string>
+                    {
+                         ClaimType = "Permission.Dashboard.Settings.ReleaseManagemen",
+                         ClaimValue = "Permission",
+                         RoleId = "05e0986e-b0b0-46e6-a371-33dfa4184fa5",
+                    },
+                    new IdentityRoleClaim<string>
+                    {
+                         ClaimType = "Permission.Dashboard.Settings",
+                         ClaimValue = "Permission",
+                         RoleId = "05e0986e-b0b0-46e6-a371-33dfa4184fa5",
+                    },
+                    new IdentityRoleClaim<string>
+                    {
+                         ClaimType = "Permission.Dashboard",
                          ClaimValue = "Permission",
                          RoleId = "05e0986e-b0b0-46e6-a371-33dfa4184fa5",
                     },
@@ -322,61 +454,7 @@ namespace Maanfee.Dashboard.Services
                     #endregion
 
                     #region Admin
-
-                    new IdentityRoleClaim<string>
-                    {
-                         ClaimType = "Permission.Roles.View",
-                         ClaimValue = "Permission",
-                         RoleId = "9ea4d1ed-692f-4fa5-8713-5a06de812c0a",
-                    },
-                    new IdentityRoleClaim<string>
-                    { 
-                         ClaimType = "Permission.Roles.Permission",
-                         ClaimValue = "Permission",
-                         RoleId = "9ea4d1ed-692f-4fa5-8713-5a06de812c0a",
-                    },
-                    new IdentityRoleClaim<string>
-                    {
-                         ClaimType = "Permission.Roles.Create",
-                         ClaimValue = "Permission",
-                         RoleId = "9ea4d1ed-692f-4fa5-8713-5a06de812c0a",
-                    },
-                    new IdentityRoleClaim<string>
-                    {
-                         ClaimType = "Permission.Roles.Edit",
-                         ClaimValue = "Permission",
-                         RoleId = "9ea4d1ed-692f-4fa5-8713-5a06de812c0a",
-                    },
-                    new IdentityRoleClaim<string>
-                    {
-                         ClaimType = "Permission.Roles.Delete",
-                         ClaimValue = "Permission",
-                         RoleId = "9ea4d1ed-692f-4fa5-8713-5a06de812c0a",
-                    },
-                    new IdentityRoleClaim<string>
-                    {
-                         ClaimType = "Permission.Roles.Details",
-                         ClaimValue = "Permission",
-                         RoleId = "9ea4d1ed-692f-4fa5-8713-5a06de812c0a",
-                    },
-                    new IdentityRoleClaim<string>
-                    {
-                         ClaimType = "Permission.Group.View",
-                         ClaimValue = "Permission",
-                         RoleId = "9ea4d1ed-692f-4fa5-8713-5a06de812c0a",
-                    },
-                    new IdentityRoleClaim<string>
-                    {
-                         ClaimType = "Permission.Departments.View",
-                         ClaimValue = "Permission",
-                         RoleId = "9ea4d1ed-692f-4fa5-8713-5a06de812c0a",
-                    },
-                    new IdentityRoleClaim<string>
-                    {
-                         ClaimType = "Permission.Departments.Create",
-                         ClaimValue = "Permission",
-                         RoleId = "9ea4d1ed-692f-4fa5-8713-5a06de812c0a",
-                    },
+                                        
                     new IdentityRoleClaim<string>
                     {
                          ClaimType = "Permission.Departments.Delete",
@@ -391,13 +469,43 @@ namespace Maanfee.Dashboard.Services
                     },
                     new IdentityRoleClaim<string>
                     {
-                         ClaimType = "Permission.Users.Create",
+                         ClaimType = "Permission.Users.Edit",
                          ClaimValue = "Permission",
                          RoleId = "9ea4d1ed-692f-4fa5-8713-5a06de812c0a",
                     },
                     new IdentityRoleClaim<string>
                     {
-                         ClaimType = "Permission.Users.Edit",
+                         ClaimType = "Permission.Dashboard.Groups",
+                         ClaimValue = "Permission",
+                         RoleId = "9ea4d1ed-692f-4fa5-8713-5a06de812c0a",
+                    },
+                    new IdentityRoleClaim<string>
+                    {
+                         ClaimType = "Permission.Dashboard.Permissions",
+                         ClaimValue = "Permission",
+                         RoleId = "9ea4d1ed-692f-4fa5-8713-5a06de812c0a",
+                    },
+                    new IdentityRoleClaim<string>
+                    {
+                         ClaimType = "Permission.Dashboard.Users",
+                         ClaimValue = "Permission",
+                         RoleId = "9ea4d1ed-692f-4fa5-8713-5a06de812c0a",
+                    },
+                    new IdentityRoleClaim<string>
+                    {
+                         ClaimType = "Permission.Dashboard.Departments",
+                         ClaimValue = "Permission",
+                         RoleId = "9ea4d1ed-692f-4fa5-8713-5a06de812c0a",
+                    },
+                    new IdentityRoleClaim<string>
+                    {
+                         ClaimType = "Permission.Dashboard.Roles",
+                         ClaimValue = "Permission",
+                         RoleId = "9ea4d1ed-692f-4fa5-8713-5a06de812c0a",
+                    },
+                    new IdentityRoleClaim<string>
+                    {
+                         ClaimType = "Permission.Departments.Create",
                          ClaimValue = "Permission",
                          RoleId = "9ea4d1ed-692f-4fa5-8713-5a06de812c0a",
                     },
@@ -407,27 +515,44 @@ namespace Maanfee.Dashboard.Services
                          ClaimValue = "Permission",
                          RoleId = "9ea4d1ed-692f-4fa5-8713-5a06de812c0a",
                     },
-                    //new IdentityRoleClaim<string>
-                    //{
-                    //     ClaimType = "Permission.Settings.View",
-                    //     ClaimValue = "Permission",
-                    //     RoleId = "9ea4d1ed-692f-4fa5-8713-5a06de812c0a",
-                    //},
                     new IdentityRoleClaim<string>
                     {
-                         ClaimType = "Permission.Settings.ReleaseManagementView",
+                         ClaimType = "Permission.Users.Create",
                          ClaimValue = "Permission",
                          RoleId = "9ea4d1ed-692f-4fa5-8713-5a06de812c0a",
                     },
                     new IdentityRoleClaim<string>
                     {
-                         ClaimType = "Permission.Settings.SwaggersView",
+                         ClaimType = "Permission.Dashboard.Settings.MonitorLogs",
+                         ClaimValue = "Permission",
+                         RoleId = "9ea4d1ed-692f-4fa5-8713-5a06de812c0a",
+                    },
+                    new IdentityRoleClaim<string>
+                    {
+                         ClaimType = "Permission.Dashboard.Settings.Swaggers",
+                         ClaimValue = "Permission",
+                         RoleId = "9ea4d1ed-692f-4fa5-8713-5a06de812c0a",
+                    },
+                    new IdentityRoleClaim<string>
+                    {
+                         ClaimType = "Permission.Dashboard.Settings.ReleaseManagemen",
+                         ClaimValue = "Permission",
+                         RoleId = "9ea4d1ed-692f-4fa5-8713-5a06de812c0a",
+                    },
+                    new IdentityRoleClaim<string>
+                    {
+                         ClaimType = "Permission.Dashboard.Settings",
+                         ClaimValue = "Permission",
+                         RoleId = "9ea4d1ed-692f-4fa5-8713-5a06de812c0a",
+                    },
+                    new IdentityRoleClaim<string>
+                    {
+                         ClaimType = "Permission.Dashboard",
                          ClaimValue = "Permission",
                          RoleId = "9ea4d1ed-692f-4fa5-8713-5a06de812c0a",
                     },
 
                     #endregion
-              
                 };
                 IdentityRoleClaims.ForEach(s => context.AspNetRoleClaims.Add(s));
 

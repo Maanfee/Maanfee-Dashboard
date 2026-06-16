@@ -1,7 +1,7 @@
-﻿@page "/Departments/DepartmentView"
+﻿@page "/Permissions/PermissionView"
 @inherits _BaseView
 
-<MaanfeeDashboardPage PageTitle="@DashboardResource.StringDepartment">
+<MaanfeeDashboardPage PageTitle="@DashboardResource.StringPermission">
     @if (!IsLoaded)
     {
         <SVGOverlay Random="true" />
@@ -11,59 +11,64 @@
         <MudCard>
             <MudCardHeader>
                 <MudText Typo="Typo.button" Color="Color.Primary">
-                    @DashboardResource.StringDepartment
+                    @DashboardResource.StringPermission
                 </MudText>
             </MudCardHeader>
             <MudDivider DividerType="DividerType.FullWidth" />
             <MudCardContent>
                 <MudGrid>
                     <MudItem md="6" xs="6">
-                        <EditForm OnValidSubmit="OnSubmit" Model="SubmitDepartmentViewModel">
+                        <EditForm OnValidSubmit="OnSubmit" Model="Model">
                             <DataAnnotationsValidator />
                             <MudCard>
                                 <MudCardContent>
                                     <MudGrid>
                                         <MudItem md="12">
                                             <MudTextField Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AccountTree"
-                                                          @bind-Value="SubmitDepartmentViewModel.Title"
-                                                          For="@(() => SubmitDepartmentViewModel.Title)"
-                                                          Label="@DashboardResource.StringDepartment" />
+                                                          @bind-Value="Model.Title"
+                                                          For="@(() => Model.Title)"
+                                                          Label="@DashboardResource.StringTitle" />
                                         </MudItem>
                                         <MudItem md="12">
-                                            <MudAutocomplete T="DropDownDepartmentViewModel" Label="@DashboardResource.StringParent"
+                                            <MudTextField Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AccountTree"
+                                                          @bind-Value="Model.DisplayTitle"
+                                                          For="@(() => Model.DisplayTitle)"
+                                                          Label="@DashboardResource.StringDisplayTitle" />
+                                        </MudItem>
+                                        <MudItem md="12">
+                                            <MudAutocomplete T="DropDownPermissionViewModel" Label="@DashboardResource.StringParent"
                                                              ResetValueOnEmptyText="true" Clearable="true" MaxItems="null"
-                                                             @bind-Value="SubmitDepartmentViewModel.Parent" Variant="Variant.Outlined"
+                                                             @bind-Value="Model.Parent" Variant="Variant.Outlined"
                                                              SearchFunc="GetParentsAsync" ToStringFunc="@(e=> e==null?null : $"{e.Title}")" />
+                                        </MudItem>
+                                        <MudItem md="12">
+                                            <MudTextField Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AccountTree"
+                                                          @bind-Value="Model.FullName" Disabled
+                                                          For="@(() => Model.FullName)"
+                                                          Label="@DashboardResource.StringName" />
                                         </MudItem>
                                     </MudGrid>
                                 </MudCardContent>
                             </MudCard>
-
                             <MudPaper Class="pa-3 my-2 ActionColor" Elevation="3" Outlined="true" Square="true">
                                 <MudStack Row="true" Spacing="2" AlignItems="AlignItems.Start">
-                                    @if (_PermissionCreate)
-                                    {
-                                        <MudButton Disabled="@IsProcessing" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Tertiary">
-                                            @if (IsProcessing)
-                                            {
-                                                <MudProgressCircular Size="Size.Small" Indeterminate="true" />
-                                                <MudText Class="ms-2">@DashboardResource.StringProcessing</MudText>
-                                            }
-                                            else
-                                            {
-                                                <MudIcon Icon="@Icons.Material.Filled.Save" Color="Color.Surface" />
-                                                <MudText>@DashboardResource.StringSave</MudText>
-                                            }
-                                        </MudButton>
-                                    }
-                                    @if (_PermissionDelete)
-                                    {
-                                        <MudButton OnClick="@((e) => OpenDeleteDialog())" Variant="Variant.Filled" Color="Color.Error"
-                                                   Disabled=@(SubmitDepartmentViewModel?.Id == 0 ||SubmitDepartmentViewModel?.Id == null ? true : false)>
-                                            <MudIcon Icon="@Icons.Material.Filled.DeleteForever" Color="Color.Surface" />
-                                            <MudText>@DashboardResource.StringDelete</MudText>
-                                        </MudButton>
-                                    }
+                                    <MudButton Disabled="@IsProcessing" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Tertiary">
+                                        @if (IsProcessing)
+                                        {
+                                            <MudProgressCircular Size="Size.Small" Indeterminate="true" />
+                                            <MudText Class="ms-2">@DashboardResource.StringProcessing</MudText>
+                                        }
+                                        else
+                                        {
+                                            <MudIcon Icon="@Icons.Material.Filled.Save" Color="Color.Surface" />
+                                            <MudText>@DashboardResource.StringSave</MudText>
+                                        }
+                                    </MudButton>
+                                    <MudButton OnClick="@((e) => OpenDeleteDialog())" Variant="Variant.Filled" Color="Color.Error"
+                                               Disabled=@(string.IsNullOrEmpty(Model.Id) ? true : false)>
+                                        <MudIcon Icon="@Icons.Material.Filled.DeleteForever" Color="Color.Surface" />
+                                        <MudText>@DashboardResource.StringDelete</MudText>
+                                    </MudButton>
                                     <MudButton OnClick="@ResetAsync" Variant="Variant.Filled" Color="Color.Secondary"
                                                StartIcon="@Icons.Material.Filled.Refresh" IconColor="Color.Surface">
                                         @DashboardResource.StringReload
@@ -74,9 +79,11 @@
                             @{
                                 if (SelectedValue != null)
                                 {
-                                    SubmitDepartmentViewModel.Id = SelectedValue?.Id ?? null;
-                                    SubmitDepartmentViewModel.Title = SelectedValue?.Title;
-                                    SubmitDepartmentViewModel.Parent = Parents.FirstOrDefault(x => x.Id == SelectedValue?.IdParent) ?? null;
+                                    Model.Id = SelectedValue?.Id ?? null;
+                                    Model.Title = SelectedValue?.Title;
+                                    Model.DisplayTitle = SelectedValue?.DisplayTitle;
+                                    Model.FullName = SelectedValue?.FullName;
+                                    Model.Parent = Parents.FirstOrDefault(x => x.Id == SelectedValue?.IdParent) ?? null;
 
                                     SelectedValue = null;
                                 }
@@ -98,10 +105,10 @@
                             </MudCardHeader>
                             <MudDivider DividerType="DividerType.FullWidth" />
                             <MudCardContent>
-                                <MudTreeView ServerData="@LoadServerData" Items="@TreeItems" T="Department"
+                                <MudTreeView ServerData="@LoadServerData" Items="@TreeItems" T="Permission"
                                              Hover="true" Color="Color.Tertiary" @bind-SelectedValue="SelectedValue">
                                     <ItemTemplate>
-                                        <MudTreeViewItem T="Department"
+                                        <MudTreeViewItem T="Permission"
                                                          IconColor="Color.Primary"
                                                          ExpandButtonIconColor="Color.Primary"
                                                          Value="@context.Value"

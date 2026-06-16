@@ -27,6 +27,5 @@ namespace Maanfee.Dashboard.Domain
         public virtual ApplicationUser? ApplicationUser { get; set; }
 
         // ******************************************************************
-
     }
 }

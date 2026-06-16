@@ -19,11 +19,6 @@ namespace Maanfee.Dashboard.Views.Core
 
         protected ClaimsPrincipal? PermissionCurrentUser { get; set; }
 
-        //protected bool ViewPermissions = false;
-
-        [Inject]
-        protected PermissionService? PermissionService { get; set; }
-
         #endregion
 
         // *****************************************

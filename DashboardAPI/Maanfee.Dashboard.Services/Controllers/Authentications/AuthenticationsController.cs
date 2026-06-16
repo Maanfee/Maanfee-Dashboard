@@ -284,10 +284,10 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 {
                     if (Model.Role != null)
                     {
-                        bool IsRoleExists = await RolesManager.RoleExistsAsync(Model.Role.Name!);
+                        bool IsRoleExists = await RolesManager.RoleExistsAsync(Model.Role.Title!);
                         if (IsRoleExists)
                         {
-                            var Role = await RolesManager.FindByNameAsync(Model.Role.Name!);
+                            var Role = await RolesManager.FindByNameAsync(Model.Role.Title!);
                             if (Role != null)
                             {
                                 await UserManager.AddToRoleAsync(user, Role.Name!);
@@ -295,7 +295,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                         }
                         else
                         {
-                            await RolesManager.CreateAsync(new IdentityRole(Model.Role.Name!));
+                            await RolesManager.CreateAsync(new IdentityRole(Model.Role.Title!));
                         }
                     }
                     else
@@ -443,10 +443,10 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 {
                     if (Model.Role != null)
                     {
-                        bool IsRoleExists = await RolesManager.RoleExistsAsync(Model.Role.Name!);
+                        bool IsRoleExists = await RolesManager.RoleExistsAsync(Model.Role.Title!);
                         if (IsRoleExists)
                         {
-                            var Role = await RolesManager.FindByNameAsync(Model.Role.Name!);
+                            var Role = await RolesManager.FindByNameAsync(Model.Role.Title!);
                             if (Role != null)
                             {
                                 var ExistingRole = await db_SQLServer.AspNetUserRoles

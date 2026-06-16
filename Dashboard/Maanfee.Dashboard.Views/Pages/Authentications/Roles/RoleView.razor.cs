@@ -1,14 +1,11 @@
 ﻿using Maanfee.Dashboard.Core;
 using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Dashboard.Resources;
-using Maanfee.Dashboard.Views.Base;
 using Maanfee.Dashboard.Views.Core;
 using Maanfee.Logging.Domain;
 using Maanfee.Web.Core;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR.Client;
 using MudBlazor;
-using MudBlazor.Utilities;
 using System.Net.Http.Json;
 using FilterViewModel = Maanfee.Dashboard.Domain.ViewModels.FilterRoleViewModel;
 using TableViewModel = Maanfee.Dashboard.Domain.ViewModels.GetRoleViewModel;
@@ -21,10 +18,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
         private MudTable<TableViewModel> Table = new();
         private TableStateViewModel<FilterViewModel> TableState = new();
 
-        private bool _PermissionCreate = false;
-        private bool _PermissionEdit = false;
-        private bool _PermissionDelete = false;
-        private bool _PermissionPermission = false;
+        public const string View = "Permission.Dashboard.Roles";
 
         protected override async Task OnInitializedAsync()
         {
@@ -43,13 +37,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 
             try
             {
-                await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.Role.View, AuthenticationState,
-                    AuthorizationService, Navigation);
-
-                _PermissionCreate = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.Create)).Succeeded;
-                _PermissionEdit = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.Edit)).Succeeded;
-                _PermissionDelete = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.Delete)).Succeeded;
-                _PermissionPermission = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.Role.Permission)).Succeeded;
+                PermissionStateContainer.HasPermissionToDisplayView(View, Navigation);
             }
             catch (Exception ex)
             {

@@ -9,13 +9,13 @@
                 @DashboardResource.StringRole
             </MudText>
             <MudSpacer />
-            <MudTooltip Text="@DashboardResource.StringCreate" Color="Color.Tertiary" Arrow>
-                <MudIconButton Disabled="@(!_PermissionCreate)" OnClick="@(() => OpenCrudateDialog("0"))" Color="Color.Primary" Icon="@Icons.Material.Outlined.Add" />
+            <MudTooltip Text="@($"{DashboardResource.StringCreate} ({DashboardResource.StringShortcutN})")" Color="Color.Tertiary" Arrow>
+                <MudIconButton OnClick="@(() => OpenCrudateDialog("0"))" Color="Color.Primary" Icon="@Icons.Material.Outlined.Add" />
             </MudTooltip>
-            <MudTooltip Text="@DashboardResource.StringReload" Color="Color.Tertiary" Arrow>
+            <MudTooltip Text="@($"{DashboardResource.StringReload} ({DashboardResource.StringShortcutF5})")" Color="Color.Tertiary" Arrow>
                 <MudIconButton OnClick="OnReloadData" Icon="@Icons.Material.Outlined.Refresh" Color="Color.Secondary" />
             </MudTooltip>
-            <MudTooltip Text="@DashboardResource.StringSearch" Color="Color.Tertiary" Arrow>
+            <MudTooltip Text="@($"{DashboardResource.StringSearch} ({DashboardResource.StringShortcutF3})")" Color="Color.Tertiary" Arrow>
                 <MudIconButton OnClick="OpenSearchDialog" Icon="@Icons.Material.Filled.ManageSearch" Color="Color.Tertiary" />
             </MudTooltip>
         </MudToolBar>
@@ -59,16 +59,16 @@
                     <MudTd>@context.NormalizedName</MudTd>
                     <MudTd>
                         <MudTooltip Text="@DashboardResource.StringManagePermission" Color="Color.Tertiary" Arrow>
-                            <MudIconButton Disabled="@(!_PermissionPermission)" OnClick="()=>OpenPermissionDialog(context.Id, context.Name)" Icon="@Icons.Material.Filled.PermDataSetting" Color="Color.Secondary" Size="Size.Small"></MudIconButton>
+                            <MudIconButton OnClick="()=>OpenPermissionDialog(context.Id, context.Name)" Icon="@Icons.Material.Filled.PermDataSetting" Color="Color.Secondary" Size="Size.Small"></MudIconButton>
                         </MudTooltip>
                         <MudTooltip Text="@DashboardResource.StringDetails" Color="Color.Tertiary" Arrow>
                             <MudIconButton OnClick="()=>OpenDetailsDialog(context.Id)" Icon="@Icons.Material.Filled.Details" Color="Color.Primary" Size="Size.Small"></MudIconButton>
                         </MudTooltip>
                         <MudTooltip Text="@DashboardResource.StringEdit" Color="Color.Tertiary" Arrow>
-                            <MudIconButton Disabled="@(!_PermissionEdit)" OnClick="()=>OpenCrudateDialog(context.Id)" Icon="@Icons.Material.Filled.Edit" Color="Color.Success" Size="Size.Small"></MudIconButton>
+                            <MudIconButton OnClick="()=>OpenCrudateDialog(context.Id)" Icon="@Icons.Material.Filled.Edit" Color="Color.Success" Size="Size.Small"></MudIconButton>
                         </MudTooltip>
                         <MudTooltip Text="@DashboardResource.StringDelete" Color="Color.Tertiary" Arrow>
-                            <MudIconButton Disabled="@(!_PermissionDelete)" OnClick="()=>OpenDeleteDialog(context.Id)" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"></MudIconButton>
+                            <MudIconButton OnClick="()=>OpenDeleteDialog(context.Id)" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"></MudIconButton>
                         </MudTooltip>
                     </MudTd>
                 </RowTemplate>

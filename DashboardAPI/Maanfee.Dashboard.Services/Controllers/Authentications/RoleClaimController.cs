@@ -53,7 +53,6 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                     .Where(x => x.RoleId == Role.Id)
                     .ToListAsync();
 
-
                 return new CallbackResult<IList<GetRoleClaimViewModel>>(RoleClaims, null);
             }
             catch (Exception ex)
@@ -71,46 +70,37 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
 
         [HttpPost("CreateRange")]
         // POST: api/RoleClaim/CreateRange
-        public async Task<CallbackResult<IList<SubmitRoleClaimViewModel>>> CreateRange(SubmitRoleClaimViewModel[] Models)
+        public async Task<CallbackResult<IList<SubmitRoleClaimViewModel>>> CreateRange(SubmitRoleClaimViewModel[] SubmitModels)
         {
             try
             {
-                if (Models == null)
+                if (SubmitModels == null)
                 {
                     return new CallbackResult<IList<SubmitRoleClaimViewModel>>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));
                 }
 
-                var AddRoleClaims = Models.Where(z => z.Id == 0 && z.IsSelected)
-                    .Select(x => new IdentityRoleClaim<string>
+                var RoleClaims = await db_SQLServer!.RoleClaims.Where(x => x.RoleId == SubmitModels.FirstOrDefault()!.RoleId).ToListAsync();
+                if (RoleClaims.Any())
+                {
+                    db_SQLServer!.RoleClaims.RemoveRange(RoleClaims);
+
+                    var AddRoleClaims = SubmitModels.Select(x => new IdentityRoleClaim<string>
                     {
                         ClaimType = x.ClaimType,
                         ClaimValue = x.ClaimValue,
-                        Id = x.Id,
                         RoleId = x.RoleId!,
                     });
-
-                if (AddRoleClaims.Any())
-                {
-                    db_SQLServer!.RoleClaims.AddRange(AddRoleClaims);
-                }
-
-                var RemoveRoleClaims = Models.Where(z => z.Id > 0 && !z.IsSelected)
-                    .Select(x => new IdentityRoleClaim<string>
+                    if (AddRoleClaims.Any())
                     {
-                        ClaimType = x.ClaimType,
-                        ClaimValue = x.ClaimValue,
-                        Id = x.Id,
-                        RoleId = x.RoleId!,
-                    });
+                        db_SQLServer!.RoleClaims.AddRange(AddRoleClaims);
+                    }
 
-                if (RemoveRoleClaims.Any())
-                {
-                    db_SQLServer!.RoleClaims.RemoveRange(RemoveRoleClaims);
+                    Logger!.LogInformation($"+++{RoleClaims.Count()} - {SubmitModels.Count()} - {AddRoleClaims.Count()}+++");
+
+                    await db_SQLServer!.SaveChangesAsync();
                 }
 
-                await db_SQLServer!.SaveChangesAsync();
-
-                return new CallbackResult<IList<SubmitRoleClaimViewModel>>(Models, null);
+                return new CallbackResult<IList<SubmitRoleClaimViewModel>>(SubmitModels, null);
             }
             catch (Exception ex)
             {
@@ -124,10 +114,50 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 }
                 else
                 {
-                    return new CallbackResult<IList<SubmitRoleClaimViewModel>>(null, new ExceptionError(ex.Message));
+                    return new CallbackResult<IList<SubmitRoleClaimViewModel>>(null, new ExceptionError(ex.Message + " | " + ex.InnerException));
                 }
             }
         }
 
+        [HttpGet("GetRoleClaimsByUserId")]
+        // GET: api/RoleClaim/GetRoleClaimsByUserId?IdUser=
+        public async Task<CallbackResult<IList<string>>> GetRoleClaimsByUserId(string IdUser)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(IdUser))
+                {
+                    return new CallbackResult<IList<string>>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));
+                }
+
+                var Role = await db_SQLServer!.AspNetUserRoles.AsNoTracking().FirstOrDefaultAsync(x => x.UserId == IdUser);
+                if (Role == null)
+                {
+                    return new CallbackResult<IList<string>>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));
+                }
+
+                var RoleClaimsType = await db_SQLServer
+         .AspNetRoleClaims
+         .AsNoTracking()
+         .Where(x => x.RoleId == Role.RoleId)
+         .Select(x => x.ClaimType!)
+         .Where(claimType => !string.IsNullOrEmpty(claimType))
+         .Distinct() 
+         .ToListAsync();
+
+                return new CallbackResult<IList<string>>(RoleClaimsType, null);
+            }
+            catch (Exception ex)
+            {
+                if (ex.ToString().Contains("The DELETE statement conflicted with the SAME TABLE REFERENCE constraint"))
+                {
+                    return new CallbackResult<IList<string>>(null, new DeleteError(DashboardResource.MessageDeleteConstraint));
+                }
+                else
+                {
+                    return new CallbackResult<IList<string>>(null, new ExceptionError(ex.Message));
+                }
+            }
+        }
     }
 }

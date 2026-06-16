@@ -5,10 +5,8 @@ using Maanfee.Dashboard.Views.Base;
 using Maanfee.Dashboard.Views.Core;
 using Maanfee.Logging.Domain;
 using Maanfee.Web.Core;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR.Client;
 using MudBlazor;
-using MudBlazor.Utilities;
 using System.Net.Http.Json;
 using FilterViewModel = Maanfee.Dashboard.Domain.ViewModels.FilterUserViewModel;
 using TableViewModel = Maanfee.Dashboard.Domain.ViewModels.GetUserViewModel;
@@ -21,9 +19,14 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
         private MudTable<TableViewModel> Table = new();
         private TableStateViewModel<FilterViewModel> TableState = new();
 
-        private bool _PermissionCreate = false;
-        private bool _PermissionEdit = false;
-        private bool _PermissionDelete = false;
+        public const string View = "Permission.Users.View";
+        public const string Edit = "Permission.Users.Edit";
+        public const string Delete = "Permission.Users.Delete";
+        public const string Create = "Permission.Users.Create";
+
+        private bool _PermissionCreate  => PermissionStateContainer.HasPermission(Create);
+        private bool _PermissionEdit => PermissionStateContainer.HasPermission(Edit);
+        private bool _PermissionDelete => PermissionStateContainer.HasPermission(Delete);
 
         protected override async Task OnInitializedAsync()
         {
@@ -42,12 +45,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Users
 
             try
             {
-                await PermissionService.CheckAuthorizeAsync(PermissionDefaultValue.User.View, AuthenticationState,
-                    AuthorizationService, Navigation);
-
-                _PermissionCreate = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.User.Create)).Succeeded;
-                _PermissionEdit = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.User.Edit)).Succeeded;
-                _PermissionDelete = (await AuthorizationService.AuthorizeAsync(PermissionCurrentUser, PermissionDefaultValue.User.Delete)).Succeeded;
+                PermissionStateContainer.HasPermissionToDisplayView(View, Navigation);
             }
             catch (Exception ex)
             {

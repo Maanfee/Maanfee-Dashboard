@@ -56,9 +56,12 @@
                                 {
                                     @MaanfeeDashboardDialogHeaderAction
                                 }
-                                <MudTooltip Text="@DashboardResource.StringInformation" Color="Color.Tertiary" Arrow>
-                                    <MudIconButton OnClick="OpenInformationDialog" Icon="@Icons.Material.Filled.Settings" Color="Color.Success" />
-                                </MudTooltip>
+                                @if (_PermissionDebug)
+                                {
+                                    <MudTooltip Text="@DashboardResource.StringInformation" Color="Color.Tertiary" Arrow>
+                                        <MudIconButton OnClick="OpenInformationDialog" Icon="@Icons.Material.Filled.Settings" Color="Color.Success" />
+                                    </MudTooltip>
+                                }
                                 <MudTooltip Text="@DashboardResource.StringCancel" Color="Color.Tertiary" Arrow>
                                     <MudIconButton OnClick="@(() => Close())" Icon="@Icons.Material.Filled.Close" Color="Color.Error" />
                                 </MudTooltip>

@@ -6,6 +6,7 @@ using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System.Net.Http.Json;
+using static MudBlazor.CategoryTypes;
 
 namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 {
@@ -172,13 +173,27 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 
             try
             {
-                foreach (var item in SelectedValues)
+                if (SelectedValues.Any())
                 {
+                    foreach (var item in SelectedValues)
+                    {
+                        var RoleClaim = new SubmitRoleClaimViewModel();
+                        RoleClaim.ClaimType = item.FullName;
+                        RoleClaim.ClaimValue = PermissionClaimValue;
+                        RoleClaim.RoleId = IdRole;
+                        RoleClaim.IsSelected = true;
+
+                        SubmitModels.Add(RoleClaim);
+                    }
+                }
+                else
+                {
+                    // در صورتیکه قبلا ایتمی وجود داشته و حالا حذف شده کل درخت را پاک می کند
                     var RoleClaim = new SubmitRoleClaimViewModel();
-                    RoleClaim.ClaimType = item.FullName;
+                    RoleClaim.ClaimType = string.Empty;
                     RoleClaim.ClaimValue = PermissionClaimValue;
                     RoleClaim.RoleId = IdRole;
-                    RoleClaim.IsSelected = true;
+                    RoleClaim.IsSelected = false;
 
                     SubmitModels.Add(RoleClaim);
                 }
@@ -191,6 +206,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
                     {
                         await GetRoleClaimViewModelsAsync();
                         Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
+                        MDialog.Close();
                     }
                     else
                     {

@@ -7,6 +7,10 @@ namespace Maanfee.Dashboard.Views.Core
 {
     public partial class MaanfeeDashboardDialog : _BaseView
     {
+        private const string Debug = "Permission.Settings.Debug";
+
+        private bool _PermissionDebug => PermissionStateContainer!.HasPermission(Debug);
+
         protected override async Task OnInitializedAsync()
         {
             StartTimer();

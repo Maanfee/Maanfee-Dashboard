@@ -27,16 +27,30 @@
 
 		<ProjectReference Include="..\..\DashboardAPI\Maanfee.Dashboard.Domain\Maanfee.Dashboard.Domain.csproj" />
 		<ProjectReference Include="..\..\DashboardAPI\Maanfee.Dashboard.Resources\Maanfee.Dashboard.Resources.csproj" />
-		<ProjectReference Include="..\Maanfee.Dashboard.Views.Base\Maanfee.Dashboard.Views.Base.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Content Update="wwwroot\config.json">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
+	  <Compile Update="Resources\ApplicationResource.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ApplicationResource.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 		<Content Update="wwwroot\Gateway.json">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Resources\ApplicationResource.fa.resx">
+	    <SubType>Designer</SubType>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\ApplicationResource.resx">
+	    <LastGenOutput>ApplicationResource.Designer.cs</LastGenOutput>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 </Project>

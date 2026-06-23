@@ -70,37 +70,44 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
 
         [HttpPost("CreateRange")]
         // POST: api/RoleClaim/CreateRange
-        public async Task<CallbackResult<IList<SubmitRoleClaimViewModel>>> CreateRange(SubmitRoleClaimViewModel[] SubmitModels)
+        public async Task<CallbackResult<IList<SubmitRoleClaimViewModel>>> CreateRange(IList<SubmitRoleClaimViewModel> SubmitModels)
         {
             try
             {
-                if (SubmitModels == null)
+                var strategy = db_SQLServer!.Database.CreateExecutionStrategy();
+                return await strategy.ExecuteAsync(async () =>
                 {
-                    return new CallbackResult<IList<SubmitRoleClaimViewModel>>(null, new Error(ErrorCode.ChangeIsNotPossible, DashboardResource.MessageChangeIsNotPossible));
-                }
-
-                var RoleClaims = await db_SQLServer!.RoleClaims.Where(x => x.RoleId == SubmitModels.FirstOrDefault()!.RoleId).ToListAsync();
-                if (RoleClaims.Any())
-                {
-                    db_SQLServer!.RoleClaims.RemoveRange(RoleClaims);
-
-                    var AddRoleClaims = SubmitModels.Select(x => new IdentityRoleClaim<string>
+                    using var transaction = await db_SQLServer.Database.BeginTransactionAsync();
+                    try
                     {
-                        ClaimType = x.ClaimType,
-                        ClaimValue = x.ClaimValue,
-                        RoleId = x.RoleId!,
-                    });
-                    if (AddRoleClaims.Any())
-                    {
-                        db_SQLServer!.RoleClaims.AddRange(AddRoleClaims);
+                        var ExistingRoleClaims = await db_SQLServer!.RoleClaims.Where(x => x.RoleId == SubmitModels.FirstOrDefault()!.RoleId).ToListAsync();
+                        if (ExistingRoleClaims.Any())
+                        {
+                            db_SQLServer!.RoleClaims.RemoveRange(ExistingRoleClaims);
+                        }
+
+                        var NewRoleClaims = SubmitModels.Select(x => new IdentityRoleClaim<string>
+                        {
+                            ClaimType = x.ClaimType,
+                            ClaimValue = x.ClaimValue,
+                            RoleId = x.RoleId!,
+                        });
+                        if (NewRoleClaims.Any())
+                        {
+                            db_SQLServer!.RoleClaims.AddRange(NewRoleClaims);
+                        }
+
+                        await db_SQLServer!.SaveChangesAsync();
+                        await transaction.CommitAsync();
+
+                        return new CallbackResult<IList<SubmitRoleClaimViewModel>>(SubmitModels, null);
                     }
-
-                    Logger!.LogInformation($"+++{RoleClaims.Count()} - {SubmitModels.Count()} - {AddRoleClaims.Count()}+++");
-
-                    await db_SQLServer!.SaveChangesAsync();
-                }
-
-                return new CallbackResult<IList<SubmitRoleClaimViewModel>>(SubmitModels, null);
+                    catch
+                    {
+                        await transaction.RollbackAsync();
+                        return new CallbackResult<IList<SubmitRoleClaimViewModel>>(SubmitModels, null);
+                    }
+                });
             }
             catch (Exception ex)
             {
@@ -142,7 +149,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
          .Where(x => x.RoleId == Role.RoleId)
          .Select(x => x.ClaimType!)
          .Where(claimType => !string.IsNullOrEmpty(claimType))
-         .Distinct() 
+         .Distinct()
          .ToListAsync();
 
                 return new CallbackResult<IList<string>>(RoleClaimsType, null);

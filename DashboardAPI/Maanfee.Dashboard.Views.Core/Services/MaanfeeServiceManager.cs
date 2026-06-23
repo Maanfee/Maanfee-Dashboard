@@ -108,29 +108,6 @@ namespace Maanfee.Dashboard.Views.Base
 
         private static void RegisterPermissionClaims(AuthorizationOptions options)
         {
-            //builder.Services.AddScoped<GetCurrentPermissionsService>();
-            //using var TempProvider = builder.Services.BuildServiceProvider();
-            //var GetCurrentPermissionsService = TempProvider.GetRequiredService<GetCurrentPermissionsService>();
-
-            //Task.Run(async () =>
-            //{
-            //    var Permissions = await GetCurrentPermissionsService.GetUserPermissionsAsync();
-
-            //var Permissions = new List<string>
-            //{
-            //     "Permission.Dashboard.Departments",
-            //     "Permission.Departments.Create",
-            //     "Permission.Departments.Delete",
-            //};
-            //if (Permissions.Any())
-            //{
-            //    foreach (var permission in Permissions)
-            //    {
-            //        options.AddPolicy(permission, policy => policy.RequireClaim(permission, PermissionClaimTypes.Permission));
-            //    }
-            //}
-            //});
-
             //foreach (var prop in typeof(PermissionDefaultValue).GetNestedTypes().SelectMany(c => c.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)))
             //{
             //    var propertyValue = prop.GetValue(null);

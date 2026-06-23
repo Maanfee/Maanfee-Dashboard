@@ -19,7 +19,7 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
         private MudTable<TableViewModel> Table = new();
         private TableStateViewModel<FilterViewModel> TableState = new();
 
-        public const string View = "Permission.Dashboard.Settings.ReleaseManagemen";
+        public const string View = "Permission.Settings.ReleaseManagement";
 
         protected override async Task OnInitializedAsync()
         {

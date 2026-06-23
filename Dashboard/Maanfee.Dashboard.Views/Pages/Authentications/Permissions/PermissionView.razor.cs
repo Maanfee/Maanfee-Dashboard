@@ -18,7 +18,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Permissions
         private Permission SelectedValue = new();
         //private HashSet<Permission> SelectedValues { get; set; }
 
-        public const string View = "Permission.Dashboard.Permissions";
+        public const string View = "Permission.UserManagement.Permissions";
 
         protected override async Task OnInitializedAsync()
         {
@@ -46,8 +46,6 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Permissions
 
         #region - Tree Builder -
 
-        //private MudTreeView<Department> TreeView;
-
         private List<TreeItemData<Permission>> TreeItems { get; set; } = new();
 
         private async Task BuildTreeAsync()
@@ -66,7 +64,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Permissions
                 var treeItem = new TreeItemData<Permission>
                 {
                     Value = dept,
-                    Text = dept.Title,
+                    Text = $"{dept.Title} ({dept.DisplayTitle})",
                     Expandable = Permissions.Any(child => child.IdParent == dept.Id),
                     Icon = Icons.Material.Filled.Groups,
                     Children = new List<TreeItemData<Permission>>()
@@ -95,7 +93,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Permissions
                     return roots.Select(d => new TreeItemData<Permission>
                     {
                         Value = d,
-                        Text = d.Title,
+                        Text = $"{d.Title} ({d.DisplayTitle})",
                         Expandable = Permissions.Any(child => child.IdParent == d.Id),
                         Children = new List<TreeItemData<Permission>>()
                     }).ToList().AsReadOnly();
@@ -107,7 +105,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Permissions
                     return children.Select(d => new TreeItemData<Permission>
                     {
                         Value = d,
-                        Text = d.Title,
+                        Text = $"{d.Title} ({d.DisplayTitle})",
                         Expandable = Permissions.Any(child => child.IdParent == d.Id),
                         Children = new List<TreeItemData<Permission>>()
                     }).ToList().AsReadOnly();
@@ -232,9 +230,9 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Permissions
             Model.Parent = null;
         }
 
-		#region - Delete Dialog -
+        #region - Delete Dialog -
 
-		private async Task OpenDeleteDialog()
+        private async Task OpenDeleteDialog()
         {
             DialogParameters parameters = new DialogParameters();
 

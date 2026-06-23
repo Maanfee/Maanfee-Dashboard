@@ -669,4 +669,7 @@
   <data name="StringDisplayTitle" xml:space="preserve">
     <value>نمایش عنوان</value>
   </data>
+  <data name="StringFullName" xml:space="preserve">
+    <value>نام کامل</value>
+  </data>
 </root>

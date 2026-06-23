@@ -18,7 +18,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
         private MudTable<TableViewModel> Table = new();
         private TableStateViewModel<FilterViewModel> TableState = new();
 
-        public const string View = "Permission.Dashboard.Roles";
+        public const string View = "Permission.UserManagement.Roles";
 
         protected override async Task OnInitializedAsync()
         {

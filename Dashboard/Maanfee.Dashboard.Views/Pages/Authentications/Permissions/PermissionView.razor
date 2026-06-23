@@ -45,7 +45,7 @@
                                             <MudTextField Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AccountTree"
                                                           @bind-Value="Model.FullName" Disabled
                                                           For="@(() => Model.FullName)"
-                                                          Label="@DashboardResource.StringName" />
+                                                          Label="@DashboardResource.StringFullName" />
                                         </MudItem>
                                     </MudGrid>
                                 </MudCardContent>
@@ -106,7 +106,7 @@
                             <MudDivider DividerType="DividerType.FullWidth" />
                             <MudCardContent>
                                 <MudTreeView ServerData="@LoadServerData" Items="@TreeItems" T="Permission"
-                                             Hover="true" Color="Color.Tertiary" @bind-SelectedValue="SelectedValue">
+                                             Hover Color="Color.Tertiary" @bind-SelectedValue="SelectedValue">
                                     <ItemTemplate>
                                         <MudTreeViewItem T="Permission"
                                                          IconColor="Color.Primary"

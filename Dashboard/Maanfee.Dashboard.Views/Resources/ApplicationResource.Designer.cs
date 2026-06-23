@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Maanfee.Dashboard.Views.Base.Resources {
+namespace Maanfee.Dashboard.Views.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Maanfee.Dashboard.Views.Base.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Maanfee.Dashboard.Views.Base.Resources.ApplicationResource", typeof(ApplicationResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Maanfee.Dashboard.Views.Resources.ApplicationResource", typeof(ApplicationResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

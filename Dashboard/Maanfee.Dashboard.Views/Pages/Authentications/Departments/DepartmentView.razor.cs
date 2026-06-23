@@ -23,7 +23,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
 
         private bool _PermissionDelete => PermissionStateContainer.HasPermission(Delete);
 
-        public const string View = "Permission.Dashboard.Departments";
+        public const string View = "Permission.UserManagement.Departments";
 
         public const string Create = "Permission.Departments.Create";
 

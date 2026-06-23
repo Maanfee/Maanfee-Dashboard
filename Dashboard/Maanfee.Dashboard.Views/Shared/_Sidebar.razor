@@ -72,12 +72,9 @@
     }
 
     <MudNavGroup Title="@DashboardResource.StringAbout" Icon="@Icons.Material.Filled.Feed" ExpandIcon="@Icons.Material.Filled.ExpandMore">
-        @if (_PermissionReleaseManagement)
-        {
-            <MudNavLink Href="/Releases/ReleaseView">
-                @DashboardResource.StringRelease
-            </MudNavLink>
-        }
+        <MudNavLink Href="/Releases/ReleaseView">
+            @DashboardResource.StringRelease
+        </MudNavLink>
         @if (_PermissionPublicSwagger)
         {
             <MudNavLink Href="/swagger/index.html" Target="_blank">
@@ -92,19 +89,14 @@
 
 @code {
 
-    // [CascadingParameter]
-    // private Task<AuthenticationState> PermissionAuthenticationState { get; set; }
-
-    private bool _PermissionRoles => PermissionStateContainer.HasPermission("Permission.Dashboard.Roles");
-    private bool _PermissionDepartments => PermissionStateContainer.HasPermission("Permission.Dashboard.Departments");
-    private bool _PermissionGroups => PermissionStateContainer.HasPermission("Permission.Dashboard.Groups");
-    private bool _PermissionUsers => PermissionStateContainer.HasPermission("Permission.Dashboard.Users");
-    private bool _PermissionPublicSwagger => PermissionStateContainer.HasPermission("Permission.Dashboard.Settings.Swaggers");
-    private bool _PermissionReleaseManagement => PermissionStateContainer.HasPermission("Permission.Dashboard.Settings.ReleaseManagemen");
-    private bool _PermissionMonitoringLogs => PermissionStateContainer.HasPermission("Permission.Dashboard.Settings.MonitorLogs");
-    private bool _PermissionPermissions => PermissionStateContainer.HasPermission("Permission.Dashboard.Permissions");
-
-    // var PermissionCurrentUser = (await PermissionAuthenticationState).User;
+    private bool _PermissionRoles => PermissionStateContainer.HasPermission("Permission.UserManagement.Roles");
+    private bool _PermissionDepartments => PermissionStateContainer.HasPermission("Permission.UserManagement.Departments");
+    private bool _PermissionGroups => PermissionStateContainer.HasPermission("Permission.UserManagement.Groups");
+    private bool _PermissionUsers => PermissionStateContainer.HasPermission("Permission.UserManagement.Users");
+    private bool _PermissionPublicSwagger => PermissionStateContainer.HasPermission("Permission.Settings.Swaggers");
+    private bool _PermissionReleaseManagement => PermissionStateContainer.HasPermission("Permission.Settings.ReleaseManagement");
+    private bool _PermissionMonitoringLogs => PermissionStateContainer.HasPermission("Permission.Settings.MonitorLogs");
+    private bool _PermissionPermissions => PermissionStateContainer.HasPermission("Permission.UserManagement.Permissions");
 
     protected override void OnInitialized()
     {

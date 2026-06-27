@@ -66,9 +66,6 @@ Server=your_server_ip;Database=YourDB;User Id=username;Password=password;
 - `User Id/Password`: SQL authentication
 - `MultipleActiveResultSets`: Enable MARS feature
 
-#### 🔐 Security Note:
-> Always keep connection strings secure and never commit sensitive credentials to version control.
-
 ### Configure Startup Projects
 Right click on the solution name and then select 
 "properties->multiple startup projects" then set followings project 

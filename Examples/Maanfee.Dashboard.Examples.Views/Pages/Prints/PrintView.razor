@@ -68,14 +68,14 @@
 
     private void OnPrint()
     {
-        Navigation.NavigateTo("/print");
+        Navigation!.NavigateTo("/print");
     }
 
     private async void OpenPrintDialog()
     {
         DialogParameters DialogParameters = new DialogParameters();
 
-        var dialog = await Dialog.ShowAsync<DialogPrint>(string.Empty, DialogParameters,
+        var dialog = await Dialog!.ShowAsync<DialogPrint>(string.Empty, DialogParameters,
                 new DialogOptions()
                     {
                         NoHeader = true,

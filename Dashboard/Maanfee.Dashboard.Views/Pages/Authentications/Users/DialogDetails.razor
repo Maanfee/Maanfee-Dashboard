@@ -103,11 +103,11 @@
     // *****************************************************
 
     [Parameter]
-    public string Id { get; set; }
+    public string? Id { get; set; }
 
     private GetUserViewModel Model = new();
 
-    private string StringAvatar;
+    private string? StringAvatar;
 
     protected override async Task OnInitializedAsync()
     {
@@ -117,25 +117,27 @@
 
         try
         {
-            var Callback = await Http.GetFromJsonAsync<CallbackResult<GetUserViewModel>>($"api/Users/GetUserById/{Id}");
+            var Callback = await Http!.GetFromJsonAsync<CallbackResult<GetUserViewModel>>($"api/Users/GetUserById/{Id}");
 
-            if (Callback.Data != null)
+            if (Callback!.Data != null)
             {
                 Model = Callback.Data;
 
-                StringAvatar = ("data:image/png;base64," + Convert.ToBase64String(Model.Avatar));
+                StringAvatar = ("data:image/png;base64," + Convert.ToBase64String(Model.Avatar!));
             }
             else
             {
-                Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+                Snackbar!.Add(Callback.Error!.ToString(), Severity.Error);
             }
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+            Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
         }
-
-        IsLoaded = true;
+        finally
+        {
+            IsLoaded = true;
+        }
     }
 
 }

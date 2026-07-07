@@ -31,7 +31,7 @@
                     <MudDatePicker Label="@DashboardResource.StringDate" Rounded="true"
                                    @bind-Date="SubmitReleaseViewModel.ReleaseDate" Variant="Variant.Outlined"
                                    For="@(() => SubmitReleaseViewModel.ReleaseDate)"
-                                   Culture="@GetCalendarCulture(CultureInfo.DefaultThreadCurrentUICulture.Name)"
+                                   Culture="@GetCalendarCulture(CultureInfo.DefaultThreadCurrentUICulture!.Name)"
                                    Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.CalendarToday"
                                    PickerVariant="PickerVariant.Dialog" TitleDateFormat="dddd, dd MMMM" />
                 </MudItem>
@@ -60,7 +60,7 @@
     // *****************************************************
 
     [Parameter]
-    public string Id { get; set; }
+    public string? Id { get; set; }
 
     private SubmitReleaseViewModel SubmitReleaseViewModel = new();
 
@@ -72,9 +72,9 @@
         {
             if (!string.IsNullOrEmpty(Id) && Id != "0")
             {
-                var Callback = await Http.GetFromJsonAsync<CallbackResult<SysRelease>>($"api/SysReleases/Details/{Id}");
+                var Callback = await Http!.GetFromJsonAsync<CallbackResult<SysRelease>>($"api/SysReleases/Details/{Id}");
 
-                if (Callback.Data != null)
+                if (Callback!.Data != null)
                 {
                     SubmitReleaseViewModel = new SubmitReleaseViewModel
                     {
@@ -89,19 +89,19 @@
                         Id = x.Id,
                         Comment = x.Comment,
                         IdSysReleaseType = x.IdSysReleaseType,
-                        SysReleaseTypeTitle = x.SysReleaseType.Title,
+                        SysReleaseTypeTitle = x.SysReleaseType!.Title,
                         FeatureDate = x.FeatureDate,
                     }).ToList();
                 }
                 else
                 {
-                    Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+                    Snackbar!.Add(Callback.Error!.ToString(), Severity.Error);
                 }
             }
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+            Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
         }
 
         IsLoaded = true;
@@ -119,49 +119,51 @@
 
             if (Id == "0")
             {
-                var PostResult = await Http.PostAsJsonAsync($"api/SysReleases/Create", SubmitReleaseViewModel.TrimStringAndCheckPersianSpecialLetter());
+                var PostResult = await Http!.PostAsJsonAsync($"api/SysReleases/Create", SubmitReleaseViewModel.TrimStringAndCheckPersianSpecialLetter());
                 if (PostResult.IsSuccessStatusCode)
                 {
                     var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<SubmitReleaseViewModel>>();
-                    if (JsonResult.Data != null)
+                    if (JsonResult!.Data != null)
                     {
-                        Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
+                        Snackbar!.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
                         MDialog.Close(DialogResult.Ok(SubmitReleaseViewModel));
                     }
                     else
                     {
-                        Snackbar.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
+                        Snackbar!.Add(MessageHandler.ErrorHandler(JsonResult.Error!), Severity.Error);
                     }
                 }
                 else
                 {
-                    Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
+                    Snackbar!.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
                 }
             }
             else
             {
-                var PutResult = await Http.PutAsJsonAsync($"api/SysReleases/Edit", SubmitReleaseViewModel.TrimStringAndCheckPersianSpecialLetter());
+                var PutResult = await Http!.PutAsJsonAsync($"api/SysReleases/Edit", SubmitReleaseViewModel.TrimStringAndCheckPersianSpecialLetter());
                 if (PutResult.IsSuccessStatusCode)
                 {
                     var JsonResult = await PutResult.Content.ReadFromJsonAsync<CallbackResult<SubmitReleaseViewModel>>();
-                    if (JsonResult.Data != null)
+                    if (JsonResult!.Data != null)
                     {
-                        Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
+                        Snackbar!.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
                         MDialog.Close(DialogResult.Ok(SubmitReleaseViewModel));
                     }
                     else
                     {
-                        Snackbar.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
+                        Snackbar!.Add(MessageHandler.ErrorHandler(JsonResult.Error!), Severity.Error);
                     }
                 }
             }
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+            Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
         }
-
-        IsProcessing = false;
+        finally
+        {
+            IsProcessing = false;
+        }
     }
 
 }

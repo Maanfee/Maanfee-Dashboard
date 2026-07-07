@@ -2,7 +2,6 @@
 using Maanfee.Dashboard.Domain.Entities;
 using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Dashboard.Resources;
-using Maanfee.Dashboard.Views.Base;
 using Maanfee.Dashboard.Views.Core;
 using Maanfee.Web.Core;
 using MudBlazor;
@@ -27,11 +26,11 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
 
             try
             {
-                PermissionStateContainer.HasPermissionToDisplayView(View, Navigation);
+                PermissionStateContainer!.HasPermissionToDisplayView(View, Navigation!);
             }
             catch (Exception ex)
             {
-                Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+                Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
             }
         }
 
@@ -53,23 +52,23 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
                     SortDirection = state.SortDirection,
                     SortLabel = state.SortLabel,
                 };
-                TableState._UserName = AccountStateContainer.UserName;
+                TableState._UserName = AccountStateContainer!.UserName;
                 TableState._Name = AccountStateContainer.Name;
                 if (FilterViewModel != null)
                 {
                     TableState.Filter = FilterViewModel;
                 }
 
-                var PostResult = await Http.PostAsJsonAsync($"api/SysReleases/PaginationIndex", TableState, token);
+                var PostResult = await Http!.PostAsJsonAsync($"api/SysReleases/PaginationIndex", TableState, token);
                 if (PostResult.IsSuccessStatusCode)
                 {
                     var stringcallback = await PostResult.Content.ReadAsStringAsync();
                     var JObjectData = Newtonsoft.Json.Linq.JObject.Parse(stringcallback);
 
-                    var List = JsonConvert.DeserializeObject<List<SysRelease>>(JObjectData["data"]?["list"]?.ToString());
-                    int TotalItems = JsonConvert.DeserializeObject<int>(JObjectData["data"]?["totalPages"]?.ToString());
+                    var List = JsonConvert.DeserializeObject<List<SysRelease>>(JObjectData["data"]?["list"]?.ToString()!);
+                    int TotalItems = JsonConvert.DeserializeObject<int>(JObjectData["data"]?["totalPages"]?.ToString()!);
 
-                    Data = List.AsEnumerable().Select((data, index) => new TableViewModel
+                    Data = List!.AsEnumerable().Select((data, index) => new TableViewModel
                     {
                         RowNum = ((state.Page - 1) * state.PageSize) + (index + 1),
                         Id = data.Id,
@@ -88,7 +87,7 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
                 }
                 else
                 {
-                    Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
+                    Snackbar!.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
                     IsTableLoading = false;
                     return new TableData<TableViewModel>()
                     {
@@ -99,7 +98,7 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
             }
             catch (Exception ex)
             {
-                Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+                Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
                 IsTableLoading = false;
                 return new TableData<TableViewModel>()
                 {
@@ -123,7 +122,7 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
             DialogParameters Parameters = new DialogParameters();
             Parameters.Add("FilterViewModel", FilterViewModel);
 
-            var dialog = await Dialog.ShowAsync<DialogFilter>(DashboardResource.StringSearch, Parameters,
+            var dialog = await Dialog!.ShowAsync<DialogFilter>(DashboardResource.StringSearch, Parameters,
                 new DialogOptions()
                 {
                     NoHeader = true,
@@ -135,7 +134,7 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
 
             var result = await dialog.Result;
 
-            if (!result.Canceled)
+            if (!result!.Canceled)
             {
                 if (result.Data != null)
                 {
@@ -154,7 +153,7 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
             DialogParameters parameters = new DialogParameters();
             parameters.Add("Id", Id);
 
-            var dialog = await Dialog.ShowAsync<DialogCrudate>(string.Empty, parameters,
+            var dialog = await Dialog!.ShowAsync<DialogCrudate>(string.Empty, parameters,
                 new DialogOptions()
                 {
                     NoHeader = true,
@@ -167,7 +166,7 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
 
             var result = await dialog.Result;
 
-            if (!result.Canceled)
+            if (!result!.Canceled)
             {
                 if (result.Data != null)
                 {
@@ -186,7 +185,7 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
             DialogParameters parameters = new DialogParameters();
             parameters.Add("Id", Id);
 
-            var dialog = await Dialog.ShowAsync<DialogDetails>(string.Empty, parameters,
+            var dialog = await Dialog!.ShowAsync<DialogDetails>(string.Empty, parameters,
                 new DialogOptions()
                 {
                     NoHeader = true,
@@ -206,7 +205,7 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
         {
             DialogParameters parameters = new DialogParameters();
 
-            var dialog = await Dialog.ShowAsync<DialogDelete>(DashboardResource.StringAlert, parameters,
+            var dialog = await Dialog!.ShowAsync<DialogDelete>(DashboardResource.StringAlert, parameters,
                 new DialogOptions()
                 {
                     MaxWidth = MaxWidth.ExtraSmall,
@@ -217,32 +216,32 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
 
             var result = await dialog.Result;
 
-            if (!result.Canceled)
+            if (!result!.Canceled)
             {
                 try
                 {
-                    var DeleteResult = await Http.DeleteAsync($"api/SysReleases/Delete/{Id}");
+                    var DeleteResult = await Http!.DeleteAsync($"api/SysReleases/Delete/{Id}");
                     if (DeleteResult.IsSuccessStatusCode)
                     {
                         var JsonResult = await DeleteResult.Content.ReadFromJsonAsync<CallbackResult<SysRelease>>();
-                        if (JsonResult.Data != null)
+                        if (JsonResult!.Data != null)
                         {
-                            Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageDeletedSuccessfully, Severity.Success);
+                            Snackbar!.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageDeletedSuccessfully, Severity.Success);
                             await Table.ReloadServerData();
                         }
                         else
                         {
-                            Snackbar.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
+                            Snackbar!.Add(MessageHandler.ErrorHandler(JsonResult.Error!), Severity.Error);
                         }
                     }
                     else
                     {
-                        Snackbar.Add(DeleteResult.Content.ReadAsStringAsync().Result, Severity.Error);
+                        Snackbar!.Add(DeleteResult.Content.ReadAsStringAsync().Result, Severity.Error);
                     }
                 }
                 catch (Exception ex)
                 {
-                    Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+                    Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
                 }
             }
         }
@@ -256,13 +255,13 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
             // Snackbar.Add(TableRowClickEventArgs.Item.Name, Severity.Error);
             if (TableRowClickEventArgs.MouseEventArgs.Detail == 2)
             {
-                await OpenDetailsDialog(TableRowClickEventArgs.Item.Id);
+                await OpenDetailsDialog(TableRowClickEventArgs.Item!.Id);
             }
         }
 
         private string TableRowClass(TableViewModel element, int rowNumber)
         {
-            if (Table.SelectedItem != null && Table.SelectedItem.Id.Equals(element.Id))
+            if (Table.SelectedItem != null && Table.SelectedItem.Id!.Equals(element.Id))
             {
                 return "TableRowSelected";
             }

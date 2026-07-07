@@ -32,20 +32,20 @@
 
         try
         {
-            var Callback = await Http.GetFromJsonAsync<CallbackResult<Group>>($"api/Groups/Details/{Id}");
+            var Callback = await Http!.GetFromJsonAsync<CallbackResult<Group>>($"api/Groups/Details/{Id}");
 
-            if (Callback.Data != null)
+            if (Callback!.Data != null)
             {
                 Details = Callback.Data;
             }
             else
             {
-                Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+                Snackbar!.Add(Callback.Error!.ToString(), Severity.Error);
             }
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+            Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
         }
         finally
         {

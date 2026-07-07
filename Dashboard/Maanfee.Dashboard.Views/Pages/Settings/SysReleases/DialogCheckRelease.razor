@@ -369,12 +369,12 @@
                             <MudText Align=Align.Center Typo="Typo.h6"
                                      Style="text-transform: uppercase;letter-spacing: 0.05rem;">
                                 <small>
-                                    @string.Format(DashboardResource.MessageCompareReleases, SharedLayoutSettings.CurrentVersion, SysRelease.Version)
+                                    @string.Format(DashboardResource.MessageCompareReleases, SharedLayoutSettings.CurrentVersion, SysRelease!.Version)
                                 </small>
                             </MudText>
                             <MudText Align=Align.Center Typo="Typo.h6"
                                      Style="color: #f66867;text-transform: uppercase;letter-spacing: 0.05rem;">
-                                @DashboardResource.StringReleaseTime @SysRelease.ReleaseDate.ToDateString()
+                                @DashboardResource.StringReleaseTime @SysRelease!.ReleaseDate!.ToDateString()
                             </MudText>
                         </MudItem>
                         <MudItem md="12">
@@ -394,20 +394,20 @@
 @code {
 
     [CascadingParameter]
-    public IMudDialogInstance MudDialog { get; set; }
+    public IMudDialogInstance? MudDialog { get; set; }
 
     private async void Close()
     {
-        SharedLayoutSettings.CurrentVersion = SysRelease.Version;
-        await LocalConfiguration.SetConfigurationAsync();
+        SharedLayoutSettings.CurrentVersion = SysRelease!.Version;
+        await LocalConfiguration!.SetConfigurationAsync();
 
-        MudDialog.Close();
+        MudDialog!.Close();
     }
 
     // *****************************************************
 
     [Parameter]
-    public SysRelease SysRelease { get; set; }
+    public SysRelease? SysRelease { get; set; }
 
     protected override async Task OnInitializedAsync()
     {

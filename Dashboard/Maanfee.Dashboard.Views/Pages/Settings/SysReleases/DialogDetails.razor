@@ -10,7 +10,7 @@
             </MudItem>
             <MudItem md="4">
                 <MudField Disabled="true" Label="@DashboardResource.StringDate" Variant="Variant.Outlined">
-                    @Model.ReleaseDate.ToDateString()
+                    @Model.ReleaseDate!.ToDateString()
                 </MudField>
             </MudItem>
             <MudItem md="4" Class="my-3">
@@ -21,14 +21,14 @@
                 <MudTable Items="@Model.SysReleaseFeatures" FixedHeader FixedFooter Dense Height="320px"
                           Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
                     <HeaderContent>
-                        <MudTh><MudTableSortLabel SortBy="new Func<SysReleaseFeature, object>(x => x.Comment)">@DashboardResource.StringComment</MudTableSortLabel></MudTh>
-                        <MudTh><MudTableSortLabel SortBy="new Func<SysReleaseFeature, object>(x => x.SysReleaseType.Title)">@DashboardResource.StringTitle</MudTableSortLabel></MudTh>
-                        <MudTh><MudTableSortLabel SortBy="new Func<SysReleaseFeature, object>(x => x.FeatureDate)">@DashboardResource.StringDate</MudTableSortLabel></MudTh>
+                        <MudTh><MudTableSortLabel SortBy="new Func<SysReleaseFeature, object>(x => x.Comment!)">@DashboardResource.StringComment</MudTableSortLabel></MudTh>
+                        <MudTh><MudTableSortLabel SortBy="new Func<SysReleaseFeature, object>(x => x.SysReleaseType!.Title!)">@DashboardResource.StringTitle</MudTableSortLabel></MudTh>
+                        <MudTh><MudTableSortLabel SortBy="new Func<SysReleaseFeature, object>(x => x.FeatureDate!)">@DashboardResource.StringDate</MudTableSortLabel></MudTh>
                     </HeaderContent>
                     <RowTemplate>
                         <MudTd>@context.Comment</MudTd>
-                        <MudTd>@context.SysReleaseType.Title</MudTd>
-                        <MudTd>@context.FeatureDate.ToDateString() - @context.FeatureDate.ToTimeString()</MudTd>
+                        <MudTd>@context.SysReleaseType!.Title</MudTd>
+                        <MudTd>@context.FeatureDate!.ToDateString() - @context.FeatureDate!.ToTimeString()</MudTd>
                     </RowTemplate>
                 </MudTable>
             </MudItem>
@@ -43,7 +43,7 @@
     // *****************************************************
 
     [Parameter]
-    public string Id { get; set; }
+    public string? Id { get; set; }
 
     private SysRelease Model = new();
 
@@ -53,20 +53,20 @@
 
         try
         {
-            var Callback = await Http.GetFromJsonAsync<CallbackResult<SysRelease>>($"api/SysReleases/Details/{Id}");
+            var Callback = await Http!.GetFromJsonAsync<CallbackResult<SysRelease>>($"api/SysReleases/Details/{Id}");
 
-            if (Callback.Data != null)
+            if (Callback!.Data != null)
             {
                 Model = Callback.Data;
             }
             else
             {
-                Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+                Snackbar!.Add(Callback.Error!.ToString(), Severity.Error);
             }
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+            Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
         }
 
         IsLoaded = true;

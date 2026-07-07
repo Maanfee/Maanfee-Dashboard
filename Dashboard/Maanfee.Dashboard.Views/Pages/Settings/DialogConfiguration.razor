@@ -33,7 +33,7 @@
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"{DashboardResource.StringError} : {ex.ToString()}", Severity.Error);
+            Snackbar!.Add($"{DashboardResource.StringError} : {ex.ToString()}", Severity.Error);
         }
         finally
         {
@@ -45,12 +45,12 @@
     {
         try
         {
-            await LocalStorage.ClearAsync();
+            await LocalStorage!.ClearAsync();
             await CheckAvailableStorage();
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"{DashboardResource.StringError} : {ex.ToString()}", Severity.Error);
+            Snackbar!.Add($"{DashboardResource.StringError} : {ex.ToString()}", Severity.Error);
         }
     }
 
@@ -58,7 +58,7 @@
     {
         try
         {
-            Storages = await LocalStorage.KeysAsync();
+            Storages = await LocalStorage!.KeysAsync();
 
             if (!Storages.Where(x => x.Contains("ConfigurationStorage") || x.Contains("CultureStorage")).Any())
             {
@@ -67,7 +67,7 @@
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"{DashboardResource.StringError} : {ex.ToString()}", Severity.Error);
+            Snackbar!.Add($"{DashboardResource.StringError} : {ex.ToString()}", Severity.Error);
         }
     }
 

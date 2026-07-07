@@ -76,27 +76,29 @@
 
         try
         {
-            var PostResult = await Http.PostAsJsonAsync("api/Authentications/ChangePassword", SubmitChangePasswordViewModel.TrimStringAndCheckPersianSpecialLetter());
+            var PostResult = await Http!.PostAsJsonAsync("api/Authentications/ChangePassword", SubmitChangePasswordViewModel.TrimStringAndCheckPersianSpecialLetter());
             if (PostResult.IsSuccessStatusCode)
             {
-                Snackbar.Add(DashboardResource.MessageSavedSuccessfully, Severity.Success);
+                Snackbar!.Add(DashboardResource.MessageSavedSuccessfully, Severity.Success);
 
                 await Task.Delay(1000);
 
-                await AuthenticationStateProvider.Logout();
-                Navigation.NavigateTo("/login");
+                await AuthenticationStateProvider!.Logout();
+                Navigation!.NavigateTo("/login");
             }
             else
             {
-                Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
+                Snackbar!.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
             }
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+            Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
         }
-
-        IsProcessing = false;
+        finally
+        {
+            IsProcessing = false;
+        }
     }
 
     // *****************************************************

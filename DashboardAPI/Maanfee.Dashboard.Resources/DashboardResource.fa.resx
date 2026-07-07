@@ -672,4 +672,19 @@
   <data name="StringFullName" xml:space="preserve">
     <value>نام کامل</value>
   </data>
+  <data name="MessageErrorSystem" xml:space="preserve">
+    <value>ادامه برنامه با مشکل مواجه شده است. لطفا مراحل زیر را به ترتیب انجام دهید. 
+1- بر روی دکمه تلاش مجدد کلیک کنید. 
+2-کش مرورگر را پاک کنید.
+3-با مدیر سیستم تماس بگیرید</value>
+  </data>
+  <data name="StringTryAgain" xml:space="preserve">
+    <value>تلاش مجدد</value>
+  </data>
+  <data name="MessageCaptchaEnterance" xml:space="preserve">
+    <value>کد امنیتی را وارد کنید</value>
+  </data>
+  <data name="MessageCaptchaIsWrong" xml:space="preserve">
+    <value>کد امنیتی اشتباه است</value>
+  </data>
 </root>

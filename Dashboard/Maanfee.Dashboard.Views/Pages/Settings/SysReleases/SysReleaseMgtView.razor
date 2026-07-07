@@ -60,7 +60,7 @@
                         @context?.Version
                     </MudTd>
                     <MudTd>
-                        @context?.ReleaseDate.Value.ToDateString()
+                        @context.ReleaseDate!.ToDateString()
                     </MudTd>
                     <MudTd>
                         @context?.IsActive

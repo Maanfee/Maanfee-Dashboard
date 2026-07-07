@@ -1,7 +1,6 @@
 ﻿using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using System;
 
 namespace Maanfee.Dashboard.Services.Controllers.SystemConfigurations
 {

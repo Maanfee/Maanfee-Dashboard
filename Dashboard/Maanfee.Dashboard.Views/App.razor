@@ -43,13 +43,13 @@
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+            Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
         }
     }
 
     protected override async Task OnInitializedAsync()
     {
-        IDialogReference dialog = null;
+        IDialogReference? dialog = null;
 
         await LoggingInitializer.InitializedAsync();
         LoggingInitializer.Closed += async () =>
@@ -59,7 +59,7 @@
                     DialogParameters DialogParameters = new DialogParameters();
                     DialogParameters.Add("IsRTL", SharedLayoutSettings.IsRTL);
 
-                    dialog = await Dialog.ShowAsync<DialogServerConnection>(string.Empty, DialogParameters,
+                    dialog = await Dialog!.ShowAsync<DialogServerConnection>(string.Empty, DialogParameters,
                         new DialogOptions()
                         {
                             NoHeader = true,

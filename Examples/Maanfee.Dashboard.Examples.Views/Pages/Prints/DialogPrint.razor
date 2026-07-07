@@ -1,4 +1,5 @@
-﻿@using Maanfee.Web.Printing;
+﻿@inherits _BaseView
+@using Maanfee.Web.Printing;
 @implements IDisposable
 
 <style>
@@ -16,9 +17,8 @@
 
 </style>
 
-<MudRTLProvider RightToLeft="@SharedLayoutSettings.IsRTL">
-	<MudDialog>
-		<DialogContent>
+<MaanfeeDashboardDialog @ref="MDialog" IsDialogLoaded="IsLoaded" Title="@DashboardResource.StringDetails" DialogContentType="@(this.GetType())">
+	<MaanfeeDashboardDialogContent>
 			@for (int i = 0; i < int.Parse(PrintSetting.Multiple); i++)
 			{
 				<div class="@($"sheet")" style="padding:@(PrintSetting.Padding)">
@@ -33,16 +33,12 @@
 					</MudGrid>
 				</div>
 			}
-		</DialogContent>
-	</MudDialog>
-</MudRTLProvider>
+	</MaanfeeDashboardDialogContent>
+</MaanfeeDashboardDialog>
 
 @code {
 
-	[CascadingParameter]
-	public IMudDialogInstance MudDialog { get; set; }
-
-	private void Close() => MudDialog.Close();
+	private MaanfeeDashboardDialog MDialog = new();
 
 	// ******************************************
 
@@ -54,11 +50,11 @@
 			{
 				await PrintingService.PrintAsync(false);
 				await Task.Delay(500);
-				Close();
+				MDialog.Close();
 			}
 			catch (Exception ex)
 			{
-				Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+				Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
 			}
 		}
 	}

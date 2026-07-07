@@ -92,7 +92,7 @@
 @code {
 
     [Parameter]
-    public string Title { get; set; }
+    public string? Title { get; set; }
 
     private IEnumerable<GetLogInfo> Data = new List<GetLogInfo>();
     private MudTable<GetLogInfo> Table = new();
@@ -127,17 +127,17 @@
                 TableState.Filter = FilterViewModel;
             }
 
-            var PostResult = await Http.PostAsJsonAsync($"{GatewayApi.ToUri}/Logging/PaginationIndex", TableState, token);
+            var PostResult = await Http!.PostAsJsonAsync($"{GatewayApi!.ToUri}/Logging/PaginationIndex", TableState, token);
             if (PostResult.IsSuccessStatusCode)
             {
                 var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<PaginatedListViewModel<LogInfo>>>();
 
-                Data = JsonResult.Data.List.AsEnumerable().Select((data, index) => new GetLogInfo
+                Data = JsonResult!.Data!.List.AsEnumerable().Select((data, index) => new GetLogInfo
                 {
                     RowNum = ((state.Page - 1) * state.PageSize) + (index + 1),
                     Id = data.Id,
                     Message = data?.Message,
-                    LogDate = data.LogDate,
+                    LogDate = data!.LogDate,
                     LoggingLevelTitle = data?.LoggingLevel?.Title,
                     LoggingPlatformTitle = data?.LoggingPlatform?.Title,
                 }).ToList();
@@ -151,7 +151,7 @@
             }
             else
             {
-                Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
+                Snackbar!.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
                 IsTableLoading = false;
                 return new TableData<GetLogInfo>()
                 {
@@ -162,7 +162,7 @@
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+            Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
             IsTableLoading = false;
             return new TableData<GetLogInfo>()
             {
@@ -186,7 +186,7 @@
         DialogParameters parameters = new DialogParameters();
         parameters.Add("FilterViewModel", FilterViewModel);
 
-        var dialog = await Dialog.ShowAsync<DialogFilter>(DashboardResource.StringSearch, parameters,
+        var dialog = await Dialog!.ShowAsync<DialogFilter>(DashboardResource.StringSearch, parameters,
             new DialogOptions()
             {
                 NoHeader = true,
@@ -198,7 +198,7 @@
 
         var result = await dialog.Result;
 
-        if (!result.Canceled)
+        if (!result!.Canceled)
         {
             if (result.Data != null)
             {

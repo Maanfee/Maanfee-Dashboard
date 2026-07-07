@@ -15,7 +15,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Permissions
 
         //private Permission ActivatedValue = new(); 
 
-        private Permission SelectedValue = new();
+        private Permission? SelectedValue = new();
         //private HashSet<Permission> SelectedValues { get; set; }
 
         public const string View = "Permission.UserManagement.Permissions";
@@ -28,7 +28,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Permissions
 
             try
             {
-                PermissionStateContainer.HasPermissionToDisplayView(View, Navigation);
+                PermissionStateContainer!.HasPermissionToDisplayView(View, Navigation!);
 
                 SelectedValue = null;
 
@@ -36,7 +36,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Permissions
             }
             catch (Exception ex)
             {
-                Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+                Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
             }
             finally
             {
@@ -53,7 +53,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Permissions
             TreeItems = await BuildTreeItems(null);
         }
 
-        private Task<List<TreeItemData<Permission>>> BuildTreeItems(string parentId)
+        private Task<List<TreeItemData<Permission>>> BuildTreeItems(string? parentId)
         {
             var items = new List<TreeItemData<Permission>>();
 
@@ -113,7 +113,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Permissions
             }
             catch (Exception ex)
             {
-                Snackbar.Add($"{ex.Message}", Severity.Error);
+                Snackbar!.Add($"{ex.Message}", Severity.Error);
                 return new List<TreeItemData<Permission>>().AsReadOnly();
             }
         }
@@ -139,42 +139,42 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Permissions
                 return;
             IsProcessing = true;
 
-            Model.FullName = $"Permission.{Model?.Parent?.Name}.{Model.Title}".Replace("..",".");
+            Model.FullName = $"Permission.{Model?.Parent?.Name}.{Model!.Title}".Replace("..",".");
 
             try
             {
-                var PostResult = await Http.PostAsJsonAsync("api/Permissions/CreateOrUpdate", Model.TrimStringAndCheckPersianSpecialLetter());
+                var PostResult = await Http!.PostAsJsonAsync("api/Permissions/CreateOrUpdate", Model.TrimStringAndCheckPersianSpecialLetter());
                 if (PostResult.IsSuccessStatusCode)
                 {
                     var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<Permission>>();
                     if (JsonResult?.Data != null)
                     {
-                        Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
+                        Snackbar!.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
 
                         await ResetAsync();
                     }
                     else
                     {
                         // ======== فقط برای این فرم ========
-                        if (JsonResult.Error.Message.Contains("This item could not be a subset of itself"))
+                        if (JsonResult!.Error!.Message!.Contains("This item could not be a subset of itself"))
                         {
-                            Snackbar.Add(DashboardResource.MessageThisItemCouldNoBeASubsetOfItself, Severity.Error);
+                            Snackbar!.Add(DashboardResource.MessageThisItemCouldNoBeASubsetOfItself, Severity.Error);
                         }
                         else
                         {
-                            Snackbar.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
+                            Snackbar!.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
                         }
                         // ==================================
                     }
                 }
                 else
                 {
-                    Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
+                    Snackbar!.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
                 }
             }
             catch (Exception ex)
             {
-                Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+                Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
             }
             finally
             {
@@ -188,14 +188,14 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Permissions
 
         private async Task<IEnumerable<DropDownPermissionViewModel>> GetParentsAsync(string value, CancellationToken token)
         {
-            var Callback = await Http.GetFromJsonAsync<CallbackResult<List<DropDownPermissionViewModel>>>($"api/Permissions/GetDropDownPermissions?value={value}&", token);
-            if (Callback.Data != null)
+            var Callback = await Http!.GetFromJsonAsync<CallbackResult<List<DropDownPermissionViewModel>>>($"api/Permissions/GetDropDownPermissions?value={value}&", token);
+            if (Callback!.Data != null)
             {
                 Parents = Callback.Data.ToList();
             }
             else
             {
-                Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+                Snackbar!.Add(Callback.Error!.ToString(), Severity.Error);
             }
             return Parents;
         }
@@ -206,14 +206,14 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Permissions
 
         private async Task GetPermissionsAsync()
         {
-            var Callback = await Http.GetFromJsonAsync<CallbackResult<List<Permission>>>($"api/Permissions/GetPermissions");
-            if (Callback.Data != null)
+            var Callback = await Http!.GetFromJsonAsync<CallbackResult<List<Permission>>>($"api/Permissions/GetPermissions");
+            if (Callback!.Data != null)
             {
                 Permissions = Callback.Data;
             }
             else
             {
-                Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+                Snackbar!.Add(Callback.Error!.ToString(), Severity.Error);
             }
         }
 
@@ -236,7 +236,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Permissions
         {
             DialogParameters parameters = new DialogParameters();
 
-            var dialog = await Dialog.ShowAsync<DialogDelete>(DashboardResource.StringAlert, parameters,
+            var dialog = await Dialog!.ShowAsync<DialogDelete>(DashboardResource.StringAlert, parameters,
                 new DialogOptions()
                 {
                     MaxWidth = MaxWidth.ExtraSmall,
@@ -246,33 +246,33 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Permissions
 
             var result = await dialog.Result;
 
-            if (!result.Canceled)
+            if (!result!.Canceled)
             {
                 try
                 {
-                    var DeleteResult = await Http.DeleteAsync($"api/Permissions/Delete/{Model.Id}");
+                    var DeleteResult = await Http!.DeleteAsync($"api/Permissions/Delete/{Model.Id}");
                     if (DeleteResult.IsSuccessStatusCode)
                     {
                         var JsonResult = await DeleteResult.Content.ReadFromJsonAsync<CallbackResult<Permission>>();
-                        if (JsonResult.Data != null)
+                        if (JsonResult!.Data != null)
                         {
-                            Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageDeletedSuccessfully, Severity.Success);
+                            Snackbar!.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageDeletedSuccessfully, Severity.Success);
 
                             await ResetAsync();
                         }
                         else
                         {
-                            Snackbar.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
+                            Snackbar!.Add(MessageHandler.ErrorHandler(JsonResult.Error!), Severity.Error);
                         }
                     }
                     else
                     {
-                        Snackbar.Add(DeleteResult.Content.ReadAsStringAsync().Result, Severity.Error);
+                        Snackbar!.Add(DeleteResult.Content.ReadAsStringAsync().Result, Severity.Error);
                     }
                 }
                 catch (Exception ex)
                 {
-                    Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+                    Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
                 }
             }
         }

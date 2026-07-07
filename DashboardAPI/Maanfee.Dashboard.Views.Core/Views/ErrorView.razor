@@ -1,19 +1,90 @@
 ﻿@namespace Maanfee.Dashboard.Views.Core
-@using Microsoft.Extensions.Logging
-@*@inject ILogger<Error> Logger
-*@
-<CascadingValue Value=this>
-    @ChildContent
-</CascadingValue>
+@inherits _BaseLayout
+
+<style>
+
+    .ErrorLayout {
+        background-color: #D3D3D3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .error-container {
+        text-align: center;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        font-size: 5rem;
+        color: #ff5733;
+    }
+
+    p {
+        font-size: 1.5rem;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    button {
+        text-decoration: none;
+        background-color: #ff5733;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 3px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+        button:hover {
+            background-color: #e6482e;
+        }
+</style>
+
+<ErrorBoundary>
+    <ChildContent>
+        @ChildContent
+    </ChildContent>
+    <ErrorContent>
+        <MudLayout>
+            <MudMainContent Class="ErrorLayout">
+                <div class="error-container">
+                    <h1> 404 </h1>
+                    <p>
+                        @DashboardResource.MessageErrorSystem
+                    </p>
+                    <button @onclick="ClearCache">@DashboardResource.StringTryAgain</button>
+                </div>
+            </MudMainContent>
+        </MudLayout>
+    </ErrorContent>
+</ErrorBoundary>
 
 @code {
+
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    public void ProcessError(Exception ex)
+    private string Error = string.Empty;
+
+    private async Task ClearCache()
     {
-        //Logger.LogError("Error:ProcessError - Type: {Type} Message: {Message}",
-        //    ex.GetType(), ex.Message);
-        //StateHasChanged();
+        try
+        {
+            await LocalStorage!.ClearAsync();
+            await Task.Delay(500);
+            Navigation!.NavigateTo(Navigation.Uri, forceLoad: true);
+        }
+        catch (Exception ex)
+        {
+            Error = ex.Message;
+        }
     }
+
+    // **********************************************
+
 }

@@ -2,14 +2,15 @@
 
 	<PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <!--**********************************************-->
     <TieredPGO>true</TieredPGO>
-		<!--**********************************************-->
-		<DebugType>none</DebugType>
-		<RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
-		<RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
-		<RunAnalyzers>false</RunAnalyzers>
-		<!--**********************************************-->
-		<NoWarn>0108</NoWarn>
+    <DebugType>none</DebugType>
+    <!--**********************************************-->
+    <ScopedCssEnabled>true</ScopedCssEnabled>
+    <EnableDefaultScopedCssItems>true</EnableDefaultScopedCssItems>
+    <!--**********************************************-->
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -70,6 +70,24 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter the security code.
+        /// </summary>
+        public static string MessageCaptchaEnterance {
+            get {
+                return ResourceManager.GetString("MessageCaptchaEnterance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The security code is incorrect.
+        /// </summary>
+        public static string MessageCaptchaIsWrong {
+            get {
+                return ResourceManager.GetString("MessageCaptchaIsWrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change is not possible.
         /// </summary>
         public static string MessageChangeIsNotPossible {
@@ -120,6 +138,18 @@ namespace Maanfee.Dashboard.Resources {
         public static string MessageDontShow {
             get {
                 return ResourceManager.GetString("MessageDontShow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The program encountered an issue while continuing. Please follow the steps below in order.
+        ///1- Click on the retry button. 
+        ///2- Clear the browser cache. 
+        ///3- Contact the system administrator..
+        /// </summary>
+        public static string MessageErrorSystem {
+            get {
+                return ResourceManager.GetString("MessageErrorSystem", resourceCulture);
             }
         }
         
@@ -1533,6 +1563,15 @@ namespace Maanfee.Dashboard.Resources {
         public static string StringToggleRTL {
             get {
                 return ResourceManager.GetString("StringToggleRTL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Try again.
+        /// </summary>
+        public static string StringTryAgain {
+            get {
+                return ResourceManager.GetString("StringTryAgain", resourceCulture);
             }
         }
         

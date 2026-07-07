@@ -28,7 +28,7 @@ namespace Maanfee.Dashboard.Server.Controllers
                 using (var stream = System.IO.File.OpenWrite(fileName))
                 {
                     stream.Seek(FileChunk.Offset, SeekOrigin.Begin);
-                    stream.Write(FileChunk.Data, 0, FileChunk.Data.Length);
+                    stream.Write(FileChunk.Data!, 0, FileChunk.Data!.Length);
                 }
 
                 return true;

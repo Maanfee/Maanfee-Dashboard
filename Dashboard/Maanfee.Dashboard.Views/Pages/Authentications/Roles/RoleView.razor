@@ -59,7 +59,7 @@
                     <MudTd>@context.NormalizedName</MudTd>
                     <MudTd>
                         <MudTooltip Text="@DashboardResource.StringManagePermission" Color="Color.Tertiary" Arrow>
-                            <MudIconButton OnClick="()=>OpenPermissionDialog(context.Id, context.Name)" Icon="@Icons.Material.Filled.PermDataSetting" Color="Color.Secondary" Size="Size.Small"></MudIconButton>
+                            <MudIconButton OnClick="()=>OpenPermissionDialog(context.Id, context.Name!)" Icon="@Icons.Material.Filled.PermDataSetting" Color="Color.Secondary" Size="Size.Small"></MudIconButton>
                         </MudTooltip>
                         <MudTooltip Text="@DashboardResource.StringDetails" Color="Color.Tertiary" Arrow>
                             <MudIconButton OnClick="()=>OpenDetailsDialog(context.Id)" Icon="@Icons.Material.Filled.Details" Color="Color.Primary" Size="Size.Small"></MudIconButton>

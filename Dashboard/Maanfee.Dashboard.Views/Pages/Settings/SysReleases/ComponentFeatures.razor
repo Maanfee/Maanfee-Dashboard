@@ -40,10 +40,10 @@
             <RowTemplate>
                 <MudTd DataLabel="Comment">@context.Comment</MudTd>
                 <MudTd DataLabel="SysReleaseTypeTitle">@context.SysReleaseTypeTitle</MudTd>
-                <MudTd DataLabel="FeatureDate">@context.FeatureDate.ToDateString() - @context.FeatureDate.ToTimeString()</MudTd>
+                <MudTd DataLabel="FeatureDate">@context.FeatureDate!.ToDateString() - @context.FeatureDate!.ToTimeString()</MudTd>
                 <MudTd>
                     <MudTooltip Text="@DashboardResource.StringDelete" Color="Color.Tertiary" Arrow>
-                        <MudIconButton OnClick="()=>DeleteDialog(context.Id)" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"></MudIconButton>
+                        <MudIconButton OnClick="()=>DeleteDialog(context.Id!)" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"></MudIconButton>
                     </MudTooltip>
                 </MudTd>
             </RowTemplate>
@@ -69,8 +69,8 @@
 
     private async Task GetSysReleaseTypesAsync()
     {
-        var Callback = await Http.GetFromJsonAsync<CallbackResult<List<SysReleaseType>>>($"api/SysReleases/GetSysReleaseTypes");
-        if (Callback.Data != null)
+        var Callback = await Http!.GetFromJsonAsync<CallbackResult<List<SysReleaseType>>>($"api/SysReleases/GetSysReleaseTypes");
+        if (Callback!.Data != null)
         {
             ReleaseTypes = Callback.Data.Select(x => new DropDownViewModel<int>
                 {
@@ -80,7 +80,7 @@
         }
         else
         {
-            Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+            Snackbar!.Add(Callback.Error!.ToString(), Severity.Error);
         }
     }
 
@@ -92,7 +92,7 @@
             {
                 Id = Guid.NewGuid().ToString(),
                 Comment = SubmitSysReleaseFeatureViewModel.Comment,
-                IdSysReleaseType = SubmitSysReleaseFeatureViewModel.ReleaseType.Id,
+                IdSysReleaseType = SubmitSysReleaseFeatureViewModel.ReleaseType!.Id,
                 SysReleaseTypeTitle = SubmitSysReleaseFeatureViewModel.ReleaseType.Title,
                 FeatureDate = DateTime.Now,
             });
@@ -105,7 +105,7 @@
     {
         DialogParameters parameters = new DialogParameters();
 
-        var dialog = await Dialog.ShowAsync<DialogDelete>(DashboardResource.StringAlert, parameters,
+        var dialog = await Dialog!.ShowAsync<DialogDelete>(DashboardResource.StringAlert, parameters,
             new DialogOptions()
                 {
                     MaxWidth = MaxWidth.ExtraSmall,
@@ -115,9 +115,9 @@
 
         var result = await dialog.Result;
 
-        if (!result.Canceled)
+        if (!result!.Canceled)
         {
-            SysReleaseFeatureViewModels.Remove(SysReleaseFeatureViewModels.FirstOrDefault(x => x.Id == Id));
+            SysReleaseFeatureViewModels.Remove(SysReleaseFeatureViewModels.FirstOrDefault(x => x.Id == Id)!);
         }
     }
 

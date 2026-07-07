@@ -82,7 +82,7 @@
                                     Model.Id = SelectedValue?.Id ?? null;
                                     Model.Title = SelectedValue?.Title;
                                     Model.DisplayTitle = SelectedValue?.DisplayTitle;
-                                    Model.FullName = SelectedValue?.FullName;
+                                    Model.FullName = SelectedValue?.FullName!;
                                     Model.Parent = Parents.FirstOrDefault(x => x.Id == SelectedValue?.IdParent) ?? null;
 
                                     SelectedValue = null;

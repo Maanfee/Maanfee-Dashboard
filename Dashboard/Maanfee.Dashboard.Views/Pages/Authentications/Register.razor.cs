@@ -34,28 +34,28 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications
             {
                 try
                 {
-                    await AuthenticationStateProvider.Register(RegisterViewModelSubmit.TrimStringAndCheckPersianSpecialLetter());
-                    Navigation.NavigateTo("");
+                    await AuthenticationStateProvider!.Register(RegisterViewModelSubmit.TrimStringAndCheckPersianSpecialLetter());
+                    Navigation!.NavigateTo("");
                 }
                 catch (Exception ex)
                 {
                     if (ex.Message.Contains("is already taken"))
                     {
-                        Snackbar.Add($"{RegisterViewModelSubmit.UserName} is already taken", Severity.Error);
+                        Snackbar!.Add($"{RegisterViewModelSubmit.UserName} is already taken", Severity.Error);
                     }
                     else if (ex.Message.Contains("This referral code is not valid."))
                     {
-                        Snackbar.Add("This referral code is not valid.", Severity.Error);
+                        Snackbar!.Add("This referral code is not valid.", Severity.Error);
                     }
                     else
                     {
-                        Snackbar.Add(ex.ToString(), Severity.Error);
+                        Snackbar!.Add(ex.ToString(), Severity.Error);
                     }
                 }
             }
             else
             {
-                Snackbar.Add("You must agree Terms of Service.", Severity.Error);
+                Snackbar!.Add("You must agree Terms of Service.", Severity.Error);
             }
         }
 

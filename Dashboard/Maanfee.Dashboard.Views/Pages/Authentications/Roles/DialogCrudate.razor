@@ -39,7 +39,7 @@
     // *****************************************************
 
     [Parameter]
-    public string Id { get; set; }
+    public string? Id { get; set; }
 
     private SubmitRoleViewModel SubmitRoleViewModel = new();
 
@@ -53,24 +53,26 @@
         {
             if (!string.IsNullOrEmpty(Id) && Id != "0")
             {
-                var Callback = await Http.GetFromJsonAsync<CallbackResult<IdentityRole>>($"api/Roles/Details/{Id}");
-                if (Callback.Data != null)
+                var Callback = await Http!.GetFromJsonAsync<CallbackResult<IdentityRole>>($"api/Roles/Details/{Id}");
+                if (Callback!.Data != null)
                 {
                     SubmitRoleViewModel.Id = Callback.Data.Id;
                     SubmitRoleViewModel.Role = Callback.Data.Name;
                 }
                 else
                 {
-                    Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+                    Snackbar!.Add(Callback.Error!.ToString(), Severity.Error);
                 }
             }
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+            Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
         }
-
-        IsLoaded = true;
+        finally
+        {
+            IsLoaded = true;
+        }
     }
 
     private async Task OnSubmit()
@@ -83,46 +85,46 @@
         {
             if (Id == "0")
             {
-                var PostResult = await Http.PostAsJsonAsync("api/Roles/Create", SubmitRoleViewModel.TrimStringAndCheckPersianSpecialLetter());
+                var PostResult = await Http!.PostAsJsonAsync("api/Roles/Create", SubmitRoleViewModel.TrimStringAndCheckPersianSpecialLetter());
                 if (PostResult.IsSuccessStatusCode)
                 {
                     var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<SubmitRoleViewModel>>();
                     if (JsonResult?.Data != null)
                     {
-                        Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
+                        Snackbar!.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
                         MDialog.Close(DialogResult.Ok(SubmitRoleViewModel));
                     }
                     else
                     {
-                        Snackbar.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
+                        Snackbar!.Add(MessageHandler.ErrorHandler(JsonResult!.Error!), Severity.Error);
                     }
                 }
                 else
                 {
-                    Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
+                    Snackbar!.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
                 }
             }
             else
             {
-                var PutResult = await Http.PutAsJsonAsync("api/Roles/Edit", SubmitRoleViewModel.TrimStringAndCheckPersianSpecialLetter());
+                var PutResult = await Http!.PutAsJsonAsync("api/Roles/Edit", SubmitRoleViewModel.TrimStringAndCheckPersianSpecialLetter());
                 if (PutResult.IsSuccessStatusCode)
                 {
                     var JsonResult = await PutResult.Content.ReadFromJsonAsync<CallbackResult<SubmitRoleViewModel>>();
-                    if (JsonResult.Data != null)
+                    if (JsonResult!.Data != null)
                     {
-                        Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
+                        Snackbar!.Add(JsonResult!.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
                         MDialog.Close(DialogResult.Ok(SubmitRoleViewModel));
                     }
                     else
                     {
-                        Snackbar.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
+                        Snackbar!.Add(MessageHandler.ErrorHandler(JsonResult.Error!), Severity.Error);
                     }
                 }
             }
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+            Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
         }
 
         IsProcessing = false;

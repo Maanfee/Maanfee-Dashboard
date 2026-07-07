@@ -19,7 +19,7 @@
                                     Color="Color.Success" Rounded="true" PickerVariant="PickerVariant.Dialog"
                                     Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.EditCalendar"
                                     Clearable @bind-DateRange="FilterViewModel.Date"
-                                    Culture="@GetCalendarCulture(CultureInfo.DefaultThreadCurrentUICulture.Name)"
+                                    Culture="@GetCalendarCulture(CultureInfo.DefaultThreadCurrentUICulture!.Name)"
                                     Variant="Variant.Outlined" TitleDateFormat="dddd, dd MMMM" />
             </MudItem>
             <MudItem md="12"></MudItem>
@@ -30,7 +30,6 @@
         </MudGrid>
     </MaanfeeDashboardDialogContent>
 </MaanfeeDashboardDialog>
-
 
 @code {
 
@@ -53,20 +52,5 @@
 
     [Parameter]
     public FilterReleaseViewModel FilterViewModel { get; set; } = new();
-
-    #region - Key Events -
-
-    private async Task OnKeyDownAsync(KeyboardEventArgs args)
-    {
-        switch (args.Key)
-        {
-            case "Enter":
-            case "NumpadEnter":
-                await Search();
-                break;
-        }
-    }
-
-    #endregion
 
 }

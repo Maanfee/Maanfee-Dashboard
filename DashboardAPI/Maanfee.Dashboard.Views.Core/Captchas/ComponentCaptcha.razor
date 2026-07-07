@@ -1,0 +1,69 @@
+﻿@namespace Maanfee.Dashboard.Views.Core
+
+<style>
+
+    .mud-input-helper-text{
+        color:red !important;
+    }
+
+</style>
+
+<MudPaper Elevation="0" Class="pa-1 ma-1">
+    <MudStack Row Spacing="2">
+        <MudImage Src="@CaptchaImage" />
+        @*  <MudIconButton OnClick="GenerateNewCaptcha" Icon="@Icons.Material.Filled.Refresh" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Small" /> *@
+        <MudTextField @bind-Value="UserInput" Variant="Variant.Outlined" AdornmentIcon="@Icons.Material.Filled.Refresh"
+                      Adornment="Adornment.Start" OnAdornmentClick="GenerateNewCaptcha" AdornmentColor="Color.Primary"
+                      HelperText="@ErrorMessage" MaxLength="6" autocomplete="off" />
+    </MudStack>
+</MudPaper>
+
+@code {
+    private string CaptchaImage = string.Empty;
+    private string CaptchaText = string.Empty;
+    private string UserInput = string.Empty;
+    private string ErrorMessage = " ";
+
+    [Parameter]
+    public EventCallback<bool> OnValidate { get; set; }
+
+    protected override void OnInitialized()
+    {
+        GenerateNewCaptcha();
+    }
+
+    private void GenerateNewCaptcha()
+    {
+        var result = CaptchaGenerator.GenerateCaptcha();
+        CaptchaImage = result.ImageBase64;
+        CaptchaText = result.CaptchaText;
+        UserInput = string.Empty;
+        // ErrorMessage = " ";
+        StateHasChanged();
+    }
+
+    public async Task ValidateCaptcha()
+    {
+        if (string.IsNullOrEmpty(UserInput))
+        {
+            ErrorMessage = DashboardResource.MessageCaptchaEnterance;
+            await OnValidate.InvokeAsync(false);
+            StateHasChanged();
+            return;
+        }
+
+        if (UserInput.Equals(CaptchaText, StringComparison.OrdinalIgnoreCase))
+        {
+            ErrorMessage = string.Empty;
+            await OnValidate.InvokeAsync(true);
+        }
+        else
+        {
+            ErrorMessage = DashboardResource.MessageCaptchaIsWrong;
+            GenerateNewCaptcha();
+            await OnValidate.InvokeAsync(false);
+        }
+        StateHasChanged();
+    }
+
+}

@@ -1,25 +1,7 @@
-﻿@using Maanfee.Web.Printing
-@using Microsoft.AspNetCore.Http
-@using System.Reflection
-@page "/"
+﻿@page "/"
 @inherits _BaseView
 
-@inject Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment Environment
-
 <MaanfeeDashboardPage PageTitle="@DashboardResource.StringDashboard">
-
-    @*   <p>The application is running in <strong>@Environment.Environment</strong> mode.</p>
-    <p><strong>@GetType().Name</strong></p>
-    <p><strong>@GetFilePath()</strong></p>
-
-    @code{
-        private string GetFilePath([System.Runtime.CompilerServices.CallerFilePath] string filePath = null)
-        {
-        return filePath ?? "Unknown file path";
-        }
-    }
-    *@
-
     <MudGrid>
         <MudItem md="12" xs="12">
             <MudAlert Severity="Severity.Success" ContentAlignment="HorizontalAlignment.Start">
@@ -36,7 +18,7 @@
             <MaanfeeDashboardTile Title="Deleted Users" Value="250" Color="Color.Tertiary" ChartClass="mud-tertiary" Icon="@Icons.Material.Filled.TrendingFlat" Description="Description" />
         </MudItem>
         <MudItem md="6">
-
+     
         </MudItem>
         <MudItem md="12" xs="12">
             @*	@Http.BaseAddress.AbsoluteUri*@
@@ -59,15 +41,15 @@
 
         try
         {
-            var Callback = await Http.GetFromJsonAsync<CallbackResult<SysRelease>>($"api/SysReleases/GetLatestRelease");
-            if (Callback.Data != null)
+            var Callback = await Http!.GetFromJsonAsync<CallbackResult<SysRelease>>($"api/SysReleases/GetLatestRelease");
+            if (Callback!.Data != null)
             {
                 if (string.Compare(Callback.Data.Version, SharedLayoutSettings.CurrentVersion) > 0)
                 {
                     DialogParameters DialogParameters = new DialogParameters();
                     DialogParameters.Add("SysRelease", Callback.Data);
 
-                    var dialog = await Dialog.ShowAsync<Settings.SysReleases.DialogReleaseControl>(string.Empty, DialogParameters,
+                    var dialog = await Dialog!.ShowAsync<Settings.SysReleases.DialogCheckRelease>(string.Empty, DialogParameters,
                                 new DialogOptions()
                                 {
                                     NoHeader = true,
@@ -80,12 +62,12 @@
             }
             else
             {
-                Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+                Snackbar!.Add(Callback.Error!.ToString(), Severity.Error);
             }
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+            Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
         }
     }
 

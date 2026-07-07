@@ -15,7 +15,7 @@
     <Copyright>Copyright (c) 2021-2026 Maanfee</Copyright>
     <Authors>Maanfee Team (MF)</Authors>
     <Company>Maanfee</Company>
-    <Version>9.0.0</Version>
+    <Version>9.2.0</Version>
     <PackageIcon>MaanfeeRed.png</PackageIcon>
     <RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -26,7 +26,6 @@
 
   <ItemGroup>
     <None Include="..\..\LICENSE" Pack="true" Visible="false" PackagePath="" />
-    <None Include="wwwroot\Triangle.css" />
     <None Update="MaanfeeRed.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
@@ -35,11 +34,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.9" PrivateAssets="all" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="10.0.9" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="10.0.9" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="10.0.9" />
   </ItemGroup>
 
   <ItemGroup>

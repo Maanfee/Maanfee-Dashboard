@@ -2,6 +2,7 @@
 @inherits _BaseView
 @layout MainLayout
 @attribute [AllowAnonymous]
+@inject Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment HostEnvironment
 
 <MaanfeeDashboardPage PageTitle="@DashboardResource.StringSignin">
     <EditForm OnValidSubmit="OnSubmit" Model="LoginViewModelSubmit">
@@ -14,7 +15,6 @@
                     </MudItem>
                     <MudItem xs="4">
                         <div class="d-flex justify-center">
-                            @* <MudIcon Icon="@CustomIcons.BlazorHero" Color="Color.Primary" Size="Size.Large" ViewBox="0 0 500 500" Style="width: 100px; height: 100px;" /> *@
                             <MudIcon Icon="@Icons.Material.Filled.Fingerprint" Size="Size.Large"
                                      Color="Color.Error" Title="@DashboardResource.StringSignin" />
                         </div>
@@ -25,7 +25,7 @@
                 </MudGrid>
             </MudItem>
             <MudItem xs="12">
-                <MudText Align="Align.Center" Typo="Typo.h4">
+                <MudText Align="Align.Center" Typo="Typo.h5">
                     @DashboardResource.StringSignin
                 </MudText>
             </MudItem>
@@ -52,13 +52,13 @@
                               OnAdornmentClick="TogglePasswordVisibility" />
             </MudItem>
             <MudItem xs="12" Class="d-flex justify-space-between align-center">
+                @if (!HostEnvironment!.IsDevelopment())
+                {
+                    <ComponentCaptcha @ref="CaptchaComponent" OnValidate="HandleCaptchaResult" />
+                }
                 @* <MudLink Href="/recover">@AppResource.StringForgotPassword</MudLink> *@
             </MudItem>
             <MudItem xs="12" Class="d-flex justify-center">
-                @*   <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" Style="width: 100%;">
-                    @DashboardResource.StringSignin
-                    <MudIcon Icon="@Icons.Material.Filled.Fingerprint" />
-                </MudButton>*@
                 <MudButton Disabled="@IsProcessing" ButtonType="ButtonType.Submit" Variant="Variant.Filled"
                            FullWidth="true" Color="Color.Primary">
                     @if (IsProcessing)
@@ -75,5 +75,4 @@
             </MudItem>
         </MudGrid>
     </EditForm>
-
 </MaanfeeDashboardPage>

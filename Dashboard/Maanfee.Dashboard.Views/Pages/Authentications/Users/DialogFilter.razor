@@ -56,14 +56,14 @@
     protected async Task<IEnumerable<DropDownDepartmentViewModel>> GetDepartmentsAsync(string value, CancellationToken token)
     {
         List<DropDownDepartmentViewModel> Parents = new();
-        var Callback = await Http.GetFromJsonAsync<CallbackResult<List<DropDownDepartmentViewModel>>>($"api/Departments/GetDropDownDepartments?value={value}", token);
-        if (Callback.Data != null)
+        var Callback = await Http!.GetFromJsonAsync<CallbackResult<List<DropDownDepartmentViewModel>>>($"api/Departments/GetDropDownDepartments?value={value}", token);
+        if (Callback!.Data != null)
         {
             Parents = Callback.Data;
         }
         else
         {
-            Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+            Snackbar!.Add(Callback.Error!.ToString(), Severity.Error);
         }
         return Parents;
     }

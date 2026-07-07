@@ -1,12 +1,13 @@
 ﻿using Maanfee.Dashboard.Core;
 using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Logging.Domain;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.AspNetCore.SignalR.Client;
 using MudBlazor;
 
 namespace Maanfee.Dashboard.Views.Pages.Authentications
 {
-    public partial class Login 
+    public partial class Login
     {
         private bool PasswordVisibility;
         private InputType PasswordInput = InputType.Password;
@@ -37,18 +38,27 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications
 
         private async Task OnSubmit()
         {
-            if (IsProcessing)
+            if (CaptchaComponent != null && !HostEnvironment!.IsDevelopment())
+            {
+                await CaptchaComponent.ValidateCaptcha();
+            }
+            else
+            {
+                IsCaptchaValid = true;
+            }
+
+            if (IsProcessing || !IsCaptchaValid)
                 return;
             IsProcessing = true;
 
             try
             {
-                await AuthenticationStateProvider.Login(LoginViewModelSubmit.TrimStringAndCheckPersianSpecialLetter());
-                Navigation.NavigateTo("");
+                await AuthenticationStateProvider!.Login(LoginViewModelSubmit.TrimStringAndCheckPersianSpecialLetter());
+                Navigation!.NavigateTo("");
             }
             catch (Exception ex)
             {
-                Snackbar.Add(ex.Message, Severity.Error);
+                Snackbar!.Add(ex.Message, Severity.Error);
 
                 if (LoggingHubConnection is not null)
                 {
@@ -61,8 +71,19 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications
                     });
                 }
             }
+            finally
+            {
+                IsProcessing = false;
+            }
+        }
 
-            IsProcessing = false;
+        private bool IsCaptchaValid = false;
+        private Core.ComponentCaptcha CaptchaComponent = new();
+
+        private void HandleCaptchaResult(bool isValid)
+        {
+            IsCaptchaValid = isValid;
+            StateHasChanged();
         }
 
     }

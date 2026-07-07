@@ -8,7 +8,7 @@
 		<div class="alert alert-info" role="alert">
 			Standard low-code solution Blazor Component to printing HTML to PDF using the browser's print screen.
 		</div>
-		<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="(() => PrintRef.PrintAsync())">Print</MudButton>
+		<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="(() => PrintRef!.PrintAsync())">Print</MudButton>
 		<PrintComponent @ref="PrintRef" PageName="Forecast Data">
 			<MudAlert Severity="Severity.Normal">The reactor type is RBMK-1000</MudAlert>
 			<MudAlert Severity="Severity.Info">The reactor was fired up successfully</MudAlert>
@@ -21,6 +21,6 @@
 
 @code {
 
-	public PrintComponent PrintRef { get; set; }
+	public PrintComponent? PrintRef { get; set; }
 
 }

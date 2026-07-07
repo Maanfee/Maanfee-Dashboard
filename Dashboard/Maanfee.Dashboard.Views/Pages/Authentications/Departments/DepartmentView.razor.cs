@@ -2,7 +2,6 @@
 using Maanfee.Dashboard.Domain.Entities;
 using Maanfee.Dashboard.Domain.ViewModels;
 using Maanfee.Dashboard.Resources;
-using Maanfee.Dashboard.Views.Base;
 using Maanfee.Dashboard.Views.Core;
 using Maanfee.Web.Core;
 using MudBlazor;
@@ -16,12 +15,12 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
 
         //private Department ActivatedValue = new(); 
 
-        private Department SelectedValue = new();
+        private Department? SelectedValue = new();
         //private HashSet<Department> SelectedValues { get; set; }
 
-        private bool _PermissionCreate => PermissionStateContainer.HasPermission(Create);
+        private bool _PermissionCreate => PermissionStateContainer!.HasPermission(Create);
 
-        private bool _PermissionDelete => PermissionStateContainer.HasPermission(Delete);
+        private bool _PermissionDelete => PermissionStateContainer!.HasPermission(Delete);
 
         public const string View = "Permission.UserManagement.Departments";
 
@@ -37,7 +36,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
 
             try
             {
-                PermissionStateContainer.HasPermissionToDisplayView(View, Navigation);
+                PermissionStateContainer!.HasPermissionToDisplayView(View, Navigation!);
 
                 SelectedValue = null;
 
@@ -45,7 +44,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
             }
             catch (Exception ex)
             {
-                Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+                Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
             }
             finally
             {
@@ -124,7 +123,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
             }
             catch (Exception ex)
             {
-                Snackbar.Add($"{ex.Message}", Severity.Error);
+                Snackbar!.Add($"{ex.Message}", Severity.Error);
                 return new List<TreeItemData<Department>>().AsReadOnly();
             }
         }
@@ -152,38 +151,38 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
 
             try
             {
-                var PostResult = await Http.PostAsJsonAsync("api/Departments/CreateOrUpdate", SubmitDepartmentViewModel.TrimStringAndCheckPersianSpecialLetter());
+                var PostResult = await Http!.PostAsJsonAsync("api/Departments/CreateOrUpdate", SubmitDepartmentViewModel.TrimStringAndCheckPersianSpecialLetter());
                 if (PostResult.IsSuccessStatusCode)
                 {
                     var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<Department>>();
                     if (JsonResult?.Data != null)
                     {
-                        Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
+                        Snackbar!.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
 
                         await ResetAsync();
                     }
                     else
                     {
                         // ======== فقط برای این فرم ========
-                        if (JsonResult.Error.Message.Contains("This item could not be a subset of itself"))
+                        if (JsonResult!.Error!.Message!.Contains("This item could not be a subset of itself"))
                         {
-                            Snackbar.Add(DashboardResource.MessageThisItemCouldNoBeASubsetOfItself, Severity.Error);
+                            Snackbar!.Add(DashboardResource.MessageThisItemCouldNoBeASubsetOfItself, Severity.Error);
                         }
                         else
                         {
-                            Snackbar.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
+                            Snackbar!.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
                         }
                         // ==================================
                     }
                 }
                 else
                 {
-                    Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
+                    Snackbar!.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
                 }
             }
             catch (Exception ex)
             {
-                Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+                Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
             }
             finally
             {
@@ -197,8 +196,8 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
 
         private async Task<IEnumerable<DropDownDepartmentViewModel>> GetParentsAsync(string value, CancellationToken token)
         {
-            var Callback = await Http.GetFromJsonAsync<CallbackResult<List<DropDownDepartmentViewModel>>>($"api/Departments/GetDropDownDepartments?value={value}", token);
-            if (Callback.Data != null)
+            var Callback = await Http!.GetFromJsonAsync<CallbackResult<List<DropDownDepartmentViewModel>>>($"api/Departments/GetDropDownDepartments?value={value}", token);
+            if (Callback!.Data != null)
             {
                 Parents = Callback.Data.Select(x => new DropDownDepartmentViewModel
                 {
@@ -209,7 +208,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
             }
             else
             {
-                Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+                Snackbar!.Add(Callback.Error!.ToString(), Severity.Error);
             }
             return Parents;
         }
@@ -220,14 +219,14 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
 
         private async Task GetDepartmentsAsync()
         {
-            var Callback = await Http.GetFromJsonAsync<CallbackResult<List<Department>>>($"api/Departments/GetDepartments");
-            if (Callback.Data != null)
+            var Callback = await Http!.GetFromJsonAsync<CallbackResult<List<Department>>>($"api/Departments/GetDepartments");
+            if (Callback!.Data != null)
             {
                 Departments = Callback.Data;
             }
             else
             {
-                Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+                Snackbar!.Add(Callback.Error!.ToString(), Severity.Error);
             }
         }
 
@@ -248,7 +247,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
         {
             DialogParameters parameters = new DialogParameters();
 
-            var dialog = await Dialog.ShowAsync<DialogDelete>(DashboardResource.StringAlert, parameters,
+            var dialog = await Dialog!.ShowAsync<DialogDelete>(DashboardResource.StringAlert, parameters,
                 new DialogOptions()
                 {
                     MaxWidth = MaxWidth.ExtraSmall,
@@ -258,33 +257,33 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
 
             var result = await dialog.Result;
 
-            if (!result.Canceled)
+            if (!result!.Canceled)
             {
                 try
                 {
-                    var DeleteResult = await Http.DeleteAsync($"api/Departments/Delete/{SubmitDepartmentViewModel.Id}");
+                    var DeleteResult = await Http!.DeleteAsync($"api/Departments/Delete/{SubmitDepartmentViewModel.Id}");
                     if (DeleteResult.IsSuccessStatusCode)
                     {
                         var JsonResult = await DeleteResult.Content.ReadFromJsonAsync<CallbackResult<Department>>();
-                        if (JsonResult.Data != null)
+                        if (JsonResult!.Data != null)
                         {
-                            Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageDeletedSuccessfully, Severity.Success);
+                            Snackbar!.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageDeletedSuccessfully, Severity.Success);
 
                             await ResetAsync();
                         }
                         else
                         {
-                            Snackbar.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
+                            Snackbar!.Add(MessageHandler.ErrorHandler(JsonResult.Error!), Severity.Error);
                         }
                     }
                     else
                     {
-                        Snackbar.Add(DeleteResult.Content.ReadAsStringAsync().Result, Severity.Error);
+                        Snackbar!.Add(DeleteResult.Content.ReadAsStringAsync().Result, Severity.Error);
                     }
                 }
                 catch (Exception ex)
                 {
-                    Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+                    Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
                 }
             }
         }

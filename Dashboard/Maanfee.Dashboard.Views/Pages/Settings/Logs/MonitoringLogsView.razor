@@ -20,7 +20,7 @@
     {
         await base.OnInitializedAsync();
 
-        PermissionStateContainer.HasPermissionToDisplayView(View, Navigation);
+        PermissionStateContainer!.HasPermissionToDisplayView(View, Navigation!);
     }
 
 }

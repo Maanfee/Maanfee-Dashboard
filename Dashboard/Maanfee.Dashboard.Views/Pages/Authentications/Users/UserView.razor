@@ -61,7 +61,7 @@
                     <MudTd Style="color: var(--mud-palette-primary);">@context.RowNum</MudTd>
                     <MudTd>
                         <MudAvatar Size="Size.Medium">
-                            <MudImage Src="@("data:image/png;base64," + Convert.ToBase64String(context.Avatar))" />
+                            <MudImage Src="@("data:image/png;base64," + Convert.ToBase64String(context.Avatar!))" />
                         </MudAvatar>
                     </MudTd>
                     <MudTd>@context.Name</MudTd>

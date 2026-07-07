@@ -57,7 +57,7 @@
                         <MudStack Row="true" Spacing="1">
                             <MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.CalendarMonth" Size="Size.Small" />
                             <MudText Color="Color.Secondary" Typo="Typo.subtitle2">
-                                @DashboardResource.StringReleasedOn <strong>@Releases.ReleaseDate.ToDateString()</strong>
+                                @DashboardResource.StringReleasedOn <strong>@Releases.ReleaseDate!.ToDateString()</strong>
                             </MudText>
                         </MudStack>
                     </div>
@@ -74,7 +74,7 @@
                         @foreach (var itemGroup in Releases.SysReleaseFeatures.OrderByDescending(x => x.FeatureDate))
                         {
                             <MudStack Row="true" Spacing="2">
-                                @if (itemGroup.SysReleaseType.Id == 1)
+                                @if (itemGroup.SysReleaseType!.Id == 1)
                                 {
                                     <MudChip T="string" Icon="@Icons.Material.Filled.Polymer" Size="Size.Small" Label="true" Color="Color.Success">
                                         @itemGroup.SysReleaseType.Title
@@ -126,15 +126,15 @@
     {
         IsLoaded = false;
 
-        var Callback = await Http.GetFromJsonAsync<CallbackResult<List<SysRelease>>>($"api/SysReleases/GetAllReleases");
+        var Callback = await Http!.GetFromJsonAsync<CallbackResult<List<SysRelease>>>($"api/SysReleases/GetAllReleases");
 
-        if (Callback.Data != null)
+        if (Callback!.Data != null)
         {
             SysReleases = Callback.Data;
         }
         else
         {
-            Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+            Snackbar!.Add(Callback.Error!.ToString(), Severity.Error);
         }
         StateHasChanged();
 
@@ -145,7 +145,7 @@
             await LoggingHubConnection.SendAsync("SendMessageAsync", new LogInfo
             {
                 IdLoggingPlatform = LoggingPlatformDefaultValue.Client,
-                Message = $"{AccountStateContainer.UserName} ({AccountStateContainer.Name}) is Viewing ({DashboardResource.StringRelease})",
+                Message = $"{AccountStateContainer!.UserName} ({AccountStateContainer.Name}) is Viewing ({DashboardResource.StringRelease})",
                 LogDate = DateTime.Now,
                 IdLoggingLevel = LoggingLevelDefaultValue.Information,
             });

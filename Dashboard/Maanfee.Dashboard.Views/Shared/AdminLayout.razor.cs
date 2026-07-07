@@ -19,29 +19,29 @@ namespace Maanfee.Dashboard.Views.Shared
 
             try
             {
-                var State = (await AuthenticationState).User.Identity;
+                var State = (await AuthenticationState!).User.Identity;
 
-                if (!State.IsAuthenticated)
+                if (!State!.IsAuthenticated)
                 {
-                    Navigation.NavigateTo("/login");
+                    Navigation!.NavigateTo("/login");
                 }
                 else
                 {
                     var username = State.Name;
-                    var Callback = await Http.GetFromJsonAsync<CallbackResult<ApplicationUser>>($"/api/Users/GetUserByUserName/{username}");
+                    var Callback = await Http!.GetFromJsonAsync<CallbackResult<ApplicationUser>>($"/api/Users/GetUserByUserName/{username}");
 
-                    if (Callback.Data != null)
+                    if (Callback!.Data != null)
                     {
-                        AccountStateContainer.Id = Callback.Data.Id;
-                        AccountStateContainer.UserName = Callback.Data.UserName;
-                        AccountStateContainer.Name = Callback.Data.Name;
-                        AccountStateContainer.Avatar = "data:image/png;base64," + Convert.ToBase64String(Callback.Data.Avatar);
-                        AccountStateContainer.PersonalCode = Callback.Data.PersonalCode;
+                        AccountStateContainer!.Id = Callback.Data.Id;
+                        AccountStateContainer.UserName = Callback.Data.UserName!;
+                        AccountStateContainer.Name = Callback.Data.Name!;
+                        AccountStateContainer.Avatar = "data:image/png;base64," + Convert.ToBase64String(Callback.Data.Avatar!);
+                        AccountStateContainer.PersonalCode = Callback.Data.PersonalCode!;
                         AccountStateContainer.IdUserDepartments = Callback.Data.UserDepartments.Select(x => x.IdDepartment).ToList();
 
-                        await PermissionStateContainer.LoadPermissionsAsync(Http, AccountStateContainer.Id);
+                        await PermissionStateContainer!.LoadPermissionsAsync(Http!, AccountStateContainer.Id);
 
-                        Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomRight;
+                        Snackbar!.Configuration.PositionClass = Defaults.Classes.Position.BottomRight;
                         Snackbar.Configuration.PreventDuplicates = true;
                         Snackbar.Add($"{DashboardResource.StringWelcome}", Severity.Success);
 
@@ -49,7 +49,7 @@ namespace Maanfee.Dashboard.Views.Shared
                         if (!AccountStateContainer.IdUserDepartments.Any())
                         {
                             await Task.Delay(1000);
-                            await Dialog.ShowAsync<DialogDepartmentNotFound>(string.Empty,
+                            await Dialog!.ShowAsync<DialogDepartmentNotFound>(string.Empty,
                                     new DialogOptions
                                     {
                                         BackdropClick = false,
@@ -63,20 +63,20 @@ namespace Maanfee.Dashboard.Views.Shared
                     }
                     else
                     {
-                        Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+                        Snackbar!.Add(Callback.Error!.ToString(), Severity.Error);
                     }
                 }
             }
             catch (Exception ex)
             {
-                Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+                Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
             }
 
             if (SharedLayoutSettings.IsFullscreenMode)
             {
-                await Fullscreen.RequestFullscreenAsync();
+                await Fullscreen!.RequestFullscreenAsync();
             }
-            Fullscreen.FullscreenChanged += OnFullscreenChanged;
+            Fullscreen!.FullscreenChanged += OnFullscreenChanged!;
         }
 
         //public void Dispose()
@@ -94,7 +94,7 @@ namespace Maanfee.Dashboard.Views.Shared
                 {nameof(DialogLogout.SubmitButtonColor), Color.Error},
             };
 
-            var dialog = await Dialog.ShowAsync<DialogLogout>(DashboardResource.StringLogout, DialogParameters,
+            var dialog = await Dialog!.ShowAsync<DialogLogout>(DashboardResource.StringLogout, DialogParameters,
                new DialogOptions()
                {
                    CloseButton = false,
@@ -110,7 +110,7 @@ namespace Maanfee.Dashboard.Views.Shared
         {
             DialogParameters DialogParameters = new DialogParameters();
 
-            var dialog = await Dialog.ShowAsync<DialogConfiguration>(string.Empty, DialogParameters,
+            var dialog = await Dialog!.ShowAsync<DialogConfiguration>(string.Empty, DialogParameters,
                 new DialogOptions()
                 {
                     NoHeader = true,
@@ -139,7 +139,7 @@ namespace Maanfee.Dashboard.Views.Shared
                 SharedLayoutSettings.IsDarkMode = true;
             }
 
-            await LocalConfiguration.SetConfigurationAsync();
+            await LocalConfiguration!.SetConfigurationAsync();
         }
 
         // ******************************************************
@@ -162,17 +162,17 @@ namespace Maanfee.Dashboard.Views.Shared
         {
             if (Toggled)
             {
-                await Fullscreen.ToggleFullscreenAsync();
+                await Fullscreen!.ToggleFullscreenAsync();
             }
             else
             {
-                await Fullscreen.ExitFullscreenAsync();
+                await Fullscreen!.ExitFullscreenAsync();
             }
         }
 
         private async void OnFullscreenChanged(object sender, bool isFullscreen)
         {
-            TableHeight = TableConfiguration.SetHeight(SharedLayoutSettings.IsRTL, await Fullscreen.IsFullscreenAsync(), _IsTableScroll);
+            TableHeight = TableConfiguration!.SetHeight(SharedLayoutSettings.IsRTL, await Fullscreen!.IsFullscreenAsync(), _IsTableScroll);
 
             await InvokeAsync(StateHasChanged);
         }
@@ -187,7 +187,7 @@ namespace Maanfee.Dashboard.Views.Shared
             // Save for fullscreen mode
             if (!state)
             {
-                await LocalConfiguration.SetConfigurationAsync();
+                await LocalConfiguration!.SetConfigurationAsync();
             }
         }
 
@@ -204,7 +204,7 @@ namespace Maanfee.Dashboard.Views.Shared
         {
             DialogParameters DialogParameters = new DialogParameters();
 
-            var dialog = await Dialog.ShowAsync<DialogUserAccount>(string.Empty, DialogParameters,
+            var dialog = await Dialog!.ShowAsync<DialogUserAccount>(string.Empty, DialogParameters,
                 new DialogOptions()
                 {
                     NoHeader = true,

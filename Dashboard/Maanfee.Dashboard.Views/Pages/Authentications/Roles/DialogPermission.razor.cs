@@ -6,17 +6,16 @@ using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System.Net.Http.Json;
-using static MudBlazor.CategoryTypes;
 
 namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 {
     public partial class DialogPermission
     {
         [Parameter]
-        public string IdRole { get; set; }
+        public string? IdRole { get; set; }
 
         [Parameter]
-        public string RoleName { get; set; }
+        public string? RoleName { get; set; }
 
         public const string PermissionClaimValue = "Permission";
 
@@ -36,7 +35,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
             }
             catch (Exception ex)
             {
-                Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+                Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
             }
             finally
             {
@@ -48,18 +47,18 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 
         private async Task GetPermissionsAsync()
         {
-            var Callback = await Http.GetFromJsonAsync<CallbackResult<List<Permission>>>($"api/Permissions/GetPermissions");
-            if (Callback.Data != null)
+            var Callback = await Http!.GetFromJsonAsync<CallbackResult<List<Permission>>>($"api/Permissions/GetPermissions");
+            if (Callback!.Data != null)
             {
                 Permissions = Callback.Data;
             }
             else
             {
-                Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+                Snackbar!.Add(Callback.Error!.ToString(), Severity.Error);
             }
         }
 
-        public IReadOnlyCollection<Permission> SelectedValues { get; set; }
+        public IReadOnlyCollection<Permission>? SelectedValues { get; set; }
 
         #region - Tree Builder -
 
@@ -70,7 +69,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
             TreeItems = await BuildTreeItems(null);
         }
 
-        private Task<List<TreeItemData<Permission>>> BuildTreeItems(string parentId)
+        private Task<List<TreeItemData<Permission>>> BuildTreeItems(string? parentId)
         {
             var items = new List<TreeItemData<Permission>>();
 
@@ -130,7 +129,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
             }
             catch (Exception ex)
             {
-                Snackbar.Add($"{ex.Message}", Severity.Error);
+                Snackbar!.Add($"{ex.Message}", Severity.Error);
                 return new List<TreeItemData<Permission>>().AsReadOnly();
             }
         }
@@ -145,19 +144,19 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
         {
             try
             {
-                var Callback = await Http.GetFromJsonAsync<CallbackResult<List<GetRoleClaimViewModel>>>($"api/RoleClaim/GetRoleClaims?IdRole={IdRole}");
-                if (Callback.Data != null)
+                var Callback = await Http!.GetFromJsonAsync<CallbackResult<List<GetRoleClaimViewModel>>>($"api/RoleClaim/GetRoleClaims?IdRole={IdRole}");
+                if (Callback!.Data != null)
                 {
                     GetRoleClaimFromDatabase = Callback.Data;
                 }
                 else
                 {
-                    Snackbar.Add(Callback.Error.ToString(), Severity.Error);
+                    Snackbar!.Add(Callback.Error!.ToString(), Severity.Error);
                 }
             }
             catch (Exception ex)
             {
-                Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+                Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
             }
         }
 
@@ -173,9 +172,9 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
 
             try
             {
-                if (SelectedValues.Any())
+                if (SelectedValues!.Any())
                 {
-                    foreach (var item in SelectedValues)
+                    foreach (var item in SelectedValues!)
                     {
                         var RoleClaim = new SubmitRoleClaimViewModel();
                         RoleClaim.ClaimType = item.FullName;
@@ -198,34 +197,34 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
                     SubmitModels.Add(RoleClaim);
                 }
 
-                var PostResult = await Http.PostAsJsonAsync("api/RoleClaim/CreateRange", SubmitModels);
+                var PostResult = await Http!.PostAsJsonAsync("api/RoleClaim/CreateRange", SubmitModels);
                 if (PostResult.IsSuccessStatusCode)
                 {
                     var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<IList<SubmitRoleClaimViewModel>>>();
                     if (JsonResult?.Data != null)
                     {
                         await GetRoleClaimViewModelsAsync();
-                        Snackbar.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
+                        Snackbar!.Add(JsonResult.SuccessMessage ?? DashboardResource.MessageSavedSuccessfully, Severity.Success);
                         MDialog.Close();
                     }
                     else
                     {
-                        Snackbar.Add(MessageHandler.ErrorHandler(JsonResult.Error), Severity.Error);
+                        Snackbar!.Add(MessageHandler.ErrorHandler(JsonResult!.Error!), Severity.Error);
                     }
                 }
                 else
                 {
-                    Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
+                    Snackbar!.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
                 }
             }
             catch (Exception ex)
             {
-                Snackbar.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
+                Snackbar!.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
             }
             finally
             {
                 IsProcessing = false;
-                await PermissionStateContainer?.LoadPermissionsAsync(Http, AccountStateContainer.Id);
+                await PermissionStateContainer?.LoadPermissionsAsync(Http!, AccountStateContainer!.Id)!;
                 StateHasChanged();
             }
         }

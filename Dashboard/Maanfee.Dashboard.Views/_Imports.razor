@@ -1,48 +1,44 @@
-﻿@using System.Net.Http
+﻿@using System.Globalization
+@using System.Net.Http
 @using System.Net.Http.Json
 @using System.Text.Json.Serialization;
-@using System.Globalization
+@using System.Threading
+@using Maanfee.Dashboard.Core
+@using Maanfee.Dashboard.Domain.Entities
+@using Maanfee.Dashboard.Domain.ViewModels
+@using Maanfee.Dashboard.Resources
+@using Maanfee.Dashboard.Views
+@using Maanfee.Dashboard.Views.Base
+@using Maanfee.Dashboard.Views.Core
+@using Maanfee.Dashboard.Views.Core.Services
+@using Maanfee.Dashboard.Views.Resources
+@using Maanfee.Dashboard.Views.Shared
+@using Maanfee.Highcharts;
+@using Maanfee.JsInterop
 @using Maanfee.Logging.Console;
+@using Maanfee.Logging.Domain
+@using Maanfee.Web.Core
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.Forms
 @using Microsoft.AspNetCore.Components.Routing
 @using Microsoft.AspNetCore.Components.Web
 @using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.AspNetCore.Components.WebAssembly.Hosting
 @using Microsoft.AspNetCore.Components.WebAssembly.Http
-@using Microsoft.AspNetCore.Authorization
-@using Microsoft.AspNetCore.Components.Authorization
-@using Microsoft.AspNetCore.SignalR.Client;
-@using Microsoft.JSInterop
-@using Microsoft.Extensions.Localization
 @using Microsoft.AspNetCore.Identity
-@using System.Threading
-
-@using Maanfee.Web.Core
-
-@using Maanfee.Dashboard.Views
-@using Maanfee.Dashboard.Views.Shared
-@using Maanfee.Dashboard.Views.Base
-@using Maanfee.Dashboard.Views.Resources
-
-@using Maanfee.Dashboard.Core
-@using Maanfee.Dashboard.Resources
-
-@using Maanfee.Dashboard.Views.Core
-@using Maanfee.Dashboard.Views.Core.Services
+@using Microsoft.AspNetCore.SignalR.Client;
+@using Microsoft.Extensions.Localization
+@using Microsoft.JSInterop
 @using MudBlazor
 
 @inject UrlStateContainer UrlStateContainer
 
-@using Maanfee.Dashboard.Domain.Entities
-@using Maanfee.Dashboard.Domain.ViewModels
-
 @inject Maanfee.Web.Printing.IPrintingService PrintingService
-@using Maanfee.JsInterop
 @inject Maanfee.JsInterop.Dom Dom
 
-@using Maanfee.Highcharts;
 @inject Chart Chart
 
-@using Maanfee.Logging.Domain
 @inject HubConnection LoggingHubConnection
 @inject LoggingInitializer LoggingInitializer
 

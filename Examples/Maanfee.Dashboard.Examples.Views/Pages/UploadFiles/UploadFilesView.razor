@@ -100,7 +100,7 @@
 @code {
 
     [Inject]
-    private IFilesManagerService FilesManager { get; set; }
+    private IFilesManagerService? FilesManager { get; set; }
 
     private bool IsUploading = false;
     private string ErrorMessage = string.Empty;
@@ -174,7 +174,7 @@
                     FirstChunk = firstChunk
                 };
 
-                await FilesManager.UploadFileChunk(ApiUrl, chunk);
+                await FilesManager!.UploadFileChunk(ApiUrl, chunk);
                 firstChunk = false;
 
                 // Update our progress data and UI
@@ -194,7 +194,7 @@
                     Offset = filesQueue[file.FileId].UploadedBytes,
                     FirstChunk = firstChunk
                 };
-                await FilesManager.UploadFileChunk(ApiUrl, chunk);
+                await FilesManager!.UploadFileChunk(ApiUrl, chunk);
 
                 // Update our progress data and UI
                 filesQueue[file.FileId].UploadedBytes += remainder;

@@ -4,9 +4,10 @@
     <TargetFramework>net10.0</TargetFramework>
     <ServerGarbageCollection>true</ServerGarbageCollection>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
     <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
-    <TieredPGO>true</TieredPGO>
     <!--**********************************************-->
+    <TieredPGO>true</TieredPGO>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <SatelliteResourceLanguages>en;fa</SatelliteResourceLanguages>
   </PropertyGroup>

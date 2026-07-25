@@ -640,7 +640,7 @@
     <value> : تعداد صفحات</value>
   </data>
   <data name="StringInfoFormat" xml:space="preserve">
-    <value>{first_item}-{last_item} of {all_items}</value>
+    <value>{first_item}-{last_item}  {all_items} از</value>
   </data>
   <data name="StringAllItemsText" xml:space="preserve">
     <value>همه</value>
@@ -686,5 +686,14 @@
   </data>
   <data name="MessageCaptchaIsWrong" xml:space="preserve">
     <value>کد امنیتی اشتباه است</value>
+  </data>
+  <data name="MessageUnauthorized" xml:space="preserve">
+    <value>ورود غیرمجاز</value>
+  </data>
+  <data name="MessageTokenIsAvailable" xml:space="preserve">
+    <value>توکن موجود است</value>
+  </data>
+  <data name="StringPlatformInfo" xml:space="preserve">
+    <value>اطلاعات پلتفرم</value>
   </data>
 </root>

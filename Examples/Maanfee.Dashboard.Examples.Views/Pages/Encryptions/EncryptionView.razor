@@ -28,32 +28,40 @@
 
 @code {
 
-	private string TextValue { get; set; } = "Encryption Text";
-	private string EncryptedText = string.Empty;
-	private string DecryptText = string.Empty;
+    private string TextValue { get; set; } = "Encryption Text";
+    private string EncryptedText = string.Empty;
+    private string DecryptText = string.Empty;
 
-	private void Encryption()
-	{
-		// try
-		// {
-		// 	EncryptedText = TextValue.HashData();
-		// }
-		// catch(Exception ex)
-		// {
-		// 	Snackbar.Add(ex.Message, Severity.Error);
-		// }
-	}
+    // private byte[] key = SHA256.HashData(Encoding.UTF8.GetBytes("Maanfee"));
 
-	private void Decryption()
-	{
-		// try
-		// {
-		// 	DecryptText = EncryptedText.DehashData();
-		// }
-		// catch (Exception ex)
-		// {
-		// 	Snackbar.Add(ex.Message, Severity.Error);
-		// }
-	}
+    // private string? storedIv = null;
+    // private string? storedCipherText = null;
 
+    private void Encryption()
+    {
+        // var (cipherText, iv) = AesCbcEncryption.Encrypt(TextValue, key);
+        // storedCipherText = Convert.ToBase64String(cipherText);
+        // storedIv = Convert.ToBase64String(iv);
+        // EncryptedText = storedCipherText;
+    }
+
+    private void Decryption()
+    {
+        // if (string.IsNullOrEmpty(storedCipherText) || string.IsNullOrEmpty(storedIv))
+        //     return;
+
+        // try
+        // {
+        //     var decrypted = AesCbcEncryption.Decrypt(
+        //         Convert.FromBase64String(storedCipherText),
+        //         key,
+        //         Convert.FromBase64String(storedIv)
+        //     );
+        //     DecryptText = decrypted;
+        // }
+        // catch (Exception ex)
+        // {
+        //     DecryptText = $"Error: {ex.Message}";
+        // }
+    }
 }

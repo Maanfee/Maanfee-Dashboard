@@ -271,6 +271,15 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Token is available.
+        /// </summary>
+        public static string MessageTokenIsAvailable {
+            get {
+                return ResourceManager.GetString("MessageTokenIsAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to To see the changes please click here..
         /// </summary>
         public static string MessageToSeeChanges {
@@ -285,6 +294,15 @@ namespace Maanfee.Dashboard.Resources {
         public static string MessageUnableToSendRequest {
             get {
                 return ResourceManager.GetString("MessageUnableToSendRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unauthorized.
+        /// </summary>
+        public static string MessageUnauthorized {
+            get {
+                return ResourceManager.GetString("MessageUnauthorized", resourceCulture);
             }
         }
         
@@ -1122,6 +1140,15 @@ namespace Maanfee.Dashboard.Resources {
         public static string StringPhoneNumber {
             get {
                 return ResourceManager.GetString("StringPhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Platform info.
+        /// </summary>
+        public static string StringPlatformInfo {
+            get {
+                return ResourceManager.GetString("StringPlatformInfo", resourceCulture);
             }
         }
         

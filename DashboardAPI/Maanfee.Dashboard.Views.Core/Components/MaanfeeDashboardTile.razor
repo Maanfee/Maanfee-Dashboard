@@ -1,4 +1,5 @@
 ﻿@namespace Maanfee.Dashboard.Views.Core
+@using System.Timers
 
 <MudCard Class="rounded-lg align-center">
     <MudCardContent>
@@ -11,11 +12,10 @@
                 </div>
             </MudItem>
             <MudItem md="6">
-                <div class="d-flex align-end justify-end">
-                    @for (int i = 0; i <= 10; i++)
+                <div class="d-flex align-end justify-end" style="height: 60px;">
+                    @foreach (var bar in Bars)
                     {
-                        var Ran = $"{new Random().Next(5, 50)}px";
-                        <MudPaper Height="@Ran" Width="6px" Square Class="@chartClass" />
+                        <MudPaper Height="@($"{bar.Height}px")" Width="6px" Square Class="@chartClass" Color="@bar.Color" />
                     }
                 </div>
             </MudItem>
@@ -30,8 +30,10 @@
     </MudCardContent>
 </MudCard>
 
-
 @code {
+    private System.Timers.Timer? timer;
+    private Random random = new Random();
+    private List<BarData> Bars = new();
 
     [Parameter]
     public string Title { get; set; } = "Title";
@@ -53,9 +55,86 @@
     [Parameter]
     public string? Description { get; set; }
 
+    [Parameter]
+    public int BarCount { get; set; } = 10;
+
+    [Parameter]
+    public int MinBarHeight { get; set; } = 5;
+
+    [Parameter]
+    public int MaxBarHeight { get; set; } = 50;
+
+    [Parameter]
+    public double UpdateIntervalSeconds { get; set; } = 1;
+
+    [Parameter]
+    public Color? BarColor { get; set; }
+
+    protected override void OnInitialized()
+    {
+        InitializeBars();
+        StartTimer();
+    }
+
     protected override void OnParametersSet()
     {
         chartClass = $"{ChartClass} mr-1 rounded-t ";
     }
 
+    private void InitializeBars()
+    {
+        Bars.Clear();
+        for (int i = 0; i < BarCount; i++)
+        {
+            Bars.Add(new BarData
+            {
+                Height = random.Next(MinBarHeight, MaxBarHeight + 1),
+                Color = BarColor ?? GetRandomColor()
+            });
+        }
+    }
+
+    private void StartTimer()
+    {
+        timer = new System.Timers.Timer(UpdateIntervalSeconds * 1000);
+        timer.Elapsed += OnTimerElapsed;
+        timer.AutoReset = true;
+        timer.Enabled = true;
+    }
+
+    private async void OnTimerElapsed(object? sender, ElapsedEventArgs e)
+    {
+        UpdateBars();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private void UpdateBars()
+    {
+        foreach (var bar in Bars)
+        {
+            bar.Height = random.Next(MinBarHeight, MaxBarHeight + 1);
+            if (BarColor == null)
+            {
+                bar.Color = GetRandomColor();
+            }
+        }
+    }
+
+    private Color GetRandomColor()
+    {
+        var colors = new[] { Color.Primary, Color.Secondary, Color.Success, Color.Warning, Color.Error, Color.Info };
+        return colors[random.Next(colors.Length)];
+    }
+
+    public void Dispose()
+    {
+        timer?.Stop();
+        timer?.Dispose();
+    }
+
+    private class BarData
+    {
+        public int Height { get; set; }
+        public Color Color { get; set; }
+    }
 }

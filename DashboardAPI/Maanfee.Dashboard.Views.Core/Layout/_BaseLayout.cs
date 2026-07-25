@@ -54,9 +54,6 @@ namespace Maanfee.Dashboard.Views.Core
         [Inject]
         protected Fullscreen? Fullscreen { get; set; }
 
-        [Inject] 
-        protected TableConfigurationService? TableConfiguration { get; set; }
-
         [Inject]
         public PermissionStateContainer? PermissionStateContainer { get; set; }
 
@@ -96,7 +93,7 @@ namespace Maanfee.Dashboard.Views.Core
 
         protected bool _IsTableScroll { get; set; } = true;
 
-        public static string TableHeight { get; set; } = TableConfigurationService.InitTableHeight;
+        public static string TableHeight { get; set; } = "calc(100vh - 220px)";
 
         #endregion
 

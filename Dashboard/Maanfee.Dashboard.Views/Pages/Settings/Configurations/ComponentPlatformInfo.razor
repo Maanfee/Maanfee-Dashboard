@@ -1,0 +1,57 @@
+﻿@using PSC.Blazor.Components.BrowserDetect
+@inherits _BaseView
+
+<BrowserDetect @bind-BrowserInfo="@Info" />
+
+@if (Info is not null)
+{
+    <MudGrid>
+        <MudItem md="4">
+            <MudChip T="string" Label="true" Icon="@Icons.Material.Filled.BrowserNotSupported" Color="Color.Primary">
+                Browser: @Info?.BrowserName @Info?.BrowserVersion
+            </MudChip>
+        </MudItem>
+        <MudItem md="4">
+            <MudChip T="string" Label="true" Icon="@Icons.Material.Filled.SmartScreen" Color="Color.Info">
+                Screen: @Info!.ScreenResolution
+            </MudChip>
+        </MudItem>
+        <MudItem md="4">
+            <MudChip T="string" Label="true" Icon="@Icons.Material.Filled.DeveloperMode" Color="Color.Secondary">
+                OS: @Info?.OSName
+            </MudChip>
+        </MudItem>
+        <MudItem md="4">
+            <MudChip T="string" Label="true" Icon="@Icons.Material.Filled.PestControl" Color="Color.Success">
+                CPU: @Info?.CPUArchitect
+            </MudChip>
+        </MudItem>
+        <MudItem md="4">
+            <MudChip T="string" Label="true" Icon="@Icons.Material.Filled.PestControl" Color="Color.Surface">
+                GPU: @Info?.GPUVendor
+            </MudChip>
+        </MudItem>
+        <MudItem md="4">
+            <MudChip T="string" Label="true" Icon="@Icons.Material.Filled.Devices" Color="Color.Warning">
+                Device: @(Info.IsMobile == true ? "Mobile" : Info.IsTablet == true ? "Tablet" : "Desktop")
+            </MudChip>
+        </MudItem>
+        <MudItem md="4">
+            <MudChip T="string" Label="true" Icon="@Icons.Material.Filled.LockClock" Color="Color.Tertiary">
+                TimeZone: @Info.TimeZone
+            </MudChip>
+        </MudItem>
+    </MudGrid>
+}
+
+@code {
+
+    private BrowserInfo? Info { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        IsLoaded = true;
+    }
+}

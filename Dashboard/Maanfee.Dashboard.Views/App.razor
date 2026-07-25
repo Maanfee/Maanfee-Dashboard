@@ -39,7 +39,7 @@
             };
             LazyLoadedAssemblies.AddRange(LazyLoadedAssemblies);
 
-            await Task.Delay(1);
+            await Task.Delay(10);
         }
         catch (Exception ex)
         {
@@ -49,6 +49,8 @@
 
     protected override async Task OnInitializedAsync()
     {
+        await GatewayApi!.InitializeAsync();
+
         IDialogReference? dialog = null;
 
         await LoggingInitializer.InitializedAsync();

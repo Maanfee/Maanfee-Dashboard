@@ -7,6 +7,7 @@ namespace Maanfee.Dashboard.Views.Base
     public class PermissionStateContainer
     {
         private List<string> _permissions = new List<string>();
+        private TaskCompletionSource<bool> _permissionsLoaded = new TaskCompletionSource<bool>();
         public event Action? OnChange;
 
         public List<string> Permissions
@@ -15,12 +16,21 @@ namespace Maanfee.Dashboard.Views.Base
             set
             {
                 _permissions = value;
+                _permissionsLoaded.TrySetResult(true);
                 NotifyStateChanged();
             }
         }
 
+        public async Task WaitForPermissionsAsync()
+        {
+            await _permissionsLoaded.Task;
+        }
+
         public void HasPermissionToDisplayView(string Permission, NavigationManager Navigation)
         {
+            if (!_permissionsLoaded.Task.IsCompleted)
+                return;
+
             if (!_permissions.Contains(Permission))
             {
                 Navigation.NavigateTo("/AccessDeniedView");
@@ -29,6 +39,9 @@ namespace Maanfee.Dashboard.Views.Base
 
         public bool HasPermission(string Permission, bool IsNavigate = false)
         {
+            if (!_permissionsLoaded.Task.IsCompleted)
+                return false;
+
             return _permissions.Contains(Permission);
         }
 

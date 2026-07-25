@@ -687,4 +687,13 @@
   <data name="MessageCaptchaIsWrong" xml:space="preserve">
     <value>The security code is incorrect</value>
   </data>
+  <data name="MessageUnauthorized" xml:space="preserve">
+    <value>Unauthorized</value>
+  </data>
+  <data name="MessageTokenIsAvailable" xml:space="preserve">
+    <value>Token is available</value>
+  </data>
+  <data name="StringPlatformInfo" xml:space="preserve">
+    <value>Platform info</value>
+  </data>
 </root>

@@ -1,18 +1,15 @@
 ﻿@inherits _BaseView
 
-<MaanfeeDashboardDialog @ref="MDialog" IsDialogLoaded="IsLoaded" Title="@DashboardResource.StringConfiguration" DialogContentType="@(this.GetType())">
-    <MaanfeeDashboardDialogContent>
-        <MudTabs Outlined="true" Position="@Position.Start" Rounded="true" Border="true"
-                 ApplyEffectsToContainer="true" TabPanelsClass="pa-2">
-            <MudTabPanel Text="@DashboardResource.StringStorage" Icon="@Icons.Material.Filled.Storage" PanelClass="pa-4">
-                <MudButton OnClick="ClearCache" Disabled="@IsStorageButtonDisable"
-                           Variant="Variant.Filled" Color="Color.Primary">
-                    @DashboardResource.StringClearCache
-                </MudButton>
-            </MudTabPanel>
-        </MudTabs>
-    </MaanfeeDashboardDialogContent>
-</MaanfeeDashboardDialog>
+<MudGrid>
+    <MudItem md="4"></MudItem>
+    <MudItem md="4">
+        <MudButton OnClick="ClearCache" Disabled="@IsStorageButtonDisable"
+                   Variant="Variant.Filled" Color="Color.Primary">
+            @DashboardResource.StringClearCache
+        </MudButton>
+    </MudItem>
+    <MudItem md="4"></MudItem>
+</MudGrid>
 
 @code {
 

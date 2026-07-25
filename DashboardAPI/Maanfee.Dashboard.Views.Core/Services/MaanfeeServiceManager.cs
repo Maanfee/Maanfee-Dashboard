@@ -66,7 +66,6 @@ namespace Maanfee.Dashboard.Views.Base
             AddLocalStorageConfiguration(builder.Services);
             builder.Services.AddSingleton<AccountStateContainer>();
             builder.Services.AddSingleton<UrlStateContainer>();
-            builder.Services.AddSingleton<TableConfigurationService>();
 
             #endregion
 

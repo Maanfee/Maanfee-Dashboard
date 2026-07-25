@@ -3,6 +3,7 @@ using Maanfee.Dashboard.Resources;
 using Maanfee.Dashboard.Views.Core;
 using Maanfee.Dashboard.Views.Pages.Authentications;
 using Maanfee.Dashboard.Views.Pages.Settings;
+using Maanfee.Dashboard.Views.Pages.Settings.Configurations;
 using Maanfee.Web.Core;
 using MudBlazor;
 using System.Net.Http.Json;
@@ -40,6 +41,7 @@ namespace Maanfee.Dashboard.Views.Shared
                         AccountStateContainer.IdUserDepartments = Callback.Data.UserDepartments.Select(x => x.IdDepartment).ToList();
 
                         await PermissionStateContainer!.LoadPermissionsAsync(Http!, AccountStateContainer.Id);
+                        await PermissionStateContainer.WaitForPermissionsAsync();
 
                         Snackbar!.Configuration.PositionClass = Defaults.Classes.Position.BottomRight;
                         Snackbar.Configuration.PreventDuplicates = true;
@@ -172,8 +174,6 @@ namespace Maanfee.Dashboard.Views.Shared
 
         private async void OnFullscreenChanged(object sender, bool isFullscreen)
         {
-            TableHeight = TableConfiguration!.SetHeight(SharedLayoutSettings.IsRTL, await Fullscreen!.IsFullscreenAsync(), _IsTableScroll);
-
             await InvokeAsync(StateHasChanged);
         }
 

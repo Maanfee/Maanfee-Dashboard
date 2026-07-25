@@ -5,7 +5,6 @@ using Maanfee.Dashboard.Resources;
 using Maanfee.Dashboard.Views.Core;
 using Maanfee.Web.Core;
 using MudBlazor;
-using Newtonsoft.Json;
 using System.Net.Http.Json;
 using FilterViewModel = Maanfee.Dashboard.Domain.ViewModels.FilterReleaseViewModel;
 using TableViewModel = Maanfee.Dashboard.Domain.ViewModels.GetReleaseViewModel;
@@ -62,13 +61,9 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
                 var PostResult = await Http!.PostAsJsonAsync($"api/SysReleases/PaginationIndex", TableState, token);
                 if (PostResult.IsSuccessStatusCode)
                 {
-                    var stringcallback = await PostResult.Content.ReadAsStringAsync();
-                    var JObjectData = Newtonsoft.Json.Linq.JObject.Parse(stringcallback);
+                    var JsonResult = await PostResult.Content.ReadFromJsonAsync<CallbackResult<PaginatedListViewModel<TableViewModel>>>();
 
-                    var List = JsonConvert.DeserializeObject<List<SysRelease>>(JObjectData["data"]?["list"]?.ToString()!);
-                    int TotalItems = JsonConvert.DeserializeObject<int>(JObjectData["data"]?["totalPages"]?.ToString()!);
-
-                    Data = List!.AsEnumerable().Select((data, index) => new TableViewModel
+                    Data = JsonResult!.Data!.List.AsEnumerable().Select((data, index) => new TableViewModel
                     {
                         RowNum = ((state.Page - 1) * state.PageSize) + (index + 1),
                         Id = data.Id,
@@ -81,7 +76,7 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
 
                     return new TableData<TableViewModel>()
                     {
-                        TotalItems = TotalItems,
+                        TotalItems = JsonResult.Data.TotalPages,
                         Items = Data
                     };
                 }

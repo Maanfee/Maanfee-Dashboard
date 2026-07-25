@@ -1,5 +1,4 @@
-﻿using Maanfee.Dashboard.Domain.ViewModels;
-using Maanfee.Dashboard.Resources;
+﻿using Maanfee.Dashboard.Resources;
 using Maanfee.Dashboard.Views.Core.Services;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
@@ -46,8 +45,6 @@ namespace Maanfee.Dashboard.Views.Core
                 AuthenticationState = Task.FromResult(await AuthenticationStateProvider!.GetAuthenticationStateAsync());
                 PermissionCurrentUser = (await AuthenticationState).User;
 
-                await GatewayApi!.InitializeAsync();
-
                 //var ModuleList = await Http!.GetFromJsonAsync<List<ModuleViewModel>>("config.json");
                 //ModuleService.LogServer = ModuleList.FirstOrDefault(x => x.Name == ModuleDefaultValue.LogServer);
             }
@@ -56,13 +53,13 @@ namespace Maanfee.Dashboard.Views.Core
                 Snackbar?.Add($"{DashboardResource.StringError} : " + ex.Message, Severity.Error);
             }
 
-            var Model = new JwtLoginViewModel
-            {
-                UserName = "Maanfee", // loginRequest.UserName,
-                Password = "Maanfee", // loginRequest.Password,
-            };
-
             #region - Log Server -
+
+            //var Model = new JwtLoginViewModel
+            //{
+            //    UserName = "Maanfee", // loginRequest.UserName,
+            //    Password = "Maanfee", // loginRequest.Password,
+            //};
 
             //try
             //{

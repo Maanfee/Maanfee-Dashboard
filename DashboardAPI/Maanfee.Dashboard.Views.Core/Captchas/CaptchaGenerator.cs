@@ -6,7 +6,7 @@ namespace Maanfee.Dashboard.Views.Core
     {
         public static (string ImageBase64, string CaptchaText) GenerateCaptcha()
         {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            const string chars = "ABCDEFGHIJKLMNPQRSTUVWXYZ123456789";
             var random = new Random();
             var captchaText = new string(Enumerable.Repeat(chars, 6)
                 .Select(s => s[random.Next(s.Length)]).ToArray());

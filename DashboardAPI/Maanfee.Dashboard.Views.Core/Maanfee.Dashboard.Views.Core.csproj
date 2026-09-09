@@ -15,7 +15,7 @@
     <Copyright>Copyright (c) 2021-2026 Maanfee</Copyright>
     <Authors>Maanfee Team (MF)</Authors>
     <Company>Maanfee</Company>
-    <Version>9.10.5</Version>
+    <Version>9.23.5</Version>
     <PackageIcon>MaanfeeRed.png</PackageIcon>
     <RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -33,9 +33,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.10" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="10.0.10" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="10.0.12" />
   </ItemGroup>
 
   <ItemGroup>

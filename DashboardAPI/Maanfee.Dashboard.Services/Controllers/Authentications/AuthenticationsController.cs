@@ -8,6 +8,7 @@ using Maanfee.Logging.Console;
 using Maanfee.Logging.Domain;
 using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -63,12 +64,15 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 return BadRequest(DashboardResource.MessageUserIsNotExsist);
             }
 
+            var IP = GetIpAddress();
+
             var CustomClaims = new[]
             {
                 new Claim("Id", user.Id),
                 new Claim("Name", user.Name!),
                 new Claim("UserName", user.UserName!),
-            };
+                new Claim("RemoteIpAddress",IP),
+             };
 
             //await SignInManager.SignInAsync(user, request.RememberMe, CustomClaims);
             await SignInManager.SignInWithClaimsAsync(user, request.RememberMe, CustomClaims);
@@ -80,7 +84,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 {
                     IdLoggingPlatform = LoggingPlatformDefaultValue.Server,
                     LogDate = DateTime.Now,
-                    Message = $"{user.UserName} ({user.Name}) - is logged in",
+                    Message = $"{user.UserName} ({user.Name}) - is logged in : Ip {IP}",
                     IdLoggingLevel = LoggingLevelDefaultValue.Information,
                 });
             }
@@ -582,6 +586,23 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
         }
 
         // *********************************************************
+
+        private string GetIpAddress()
+        {
+            // اولویت با هدرهای استاندارد
+            var ip = Request.Headers["X-Forwarded-For"].FirstOrDefault()?.Split(',').First().Trim();
+
+            if (string.IsNullOrEmpty(ip))
+                ip = Request.Headers["X-Real-IP"].FirstOrDefault();
+
+            if (string.IsNullOrEmpty(ip))
+                ip = Request.Headers["CF-Connecting-IP"].FirstOrDefault(); // اگر از CloudFlare استفاده می‌کنید
+
+            if (string.IsNullOrEmpty(ip))
+                ip = HttpContext.Connection.RemoteIpAddress?.ToString();
+
+            return ip ?? "0.0.0.0";
+        }
 
     }
 }

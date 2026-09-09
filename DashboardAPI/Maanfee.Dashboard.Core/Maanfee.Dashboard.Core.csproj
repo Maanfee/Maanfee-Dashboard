@@ -12,7 +12,7 @@
     <Copyright>Copyright (c) 2021-2026 Maanfee</Copyright>
     <Authors>Maanfee Team (MF)</Authors>
 		<Company>Maanfee</Company>
-    <Version>9.10.5</Version>
+    <Version>9.23.5</Version>
     <PackageIcon>MaanfeeGreen.png</PackageIcon>
 		<RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
@@ -37,11 +37,11 @@
 		<PackageReference Include="Maanfee.Highcharts" Version="1.32.5" />
 		<PackageReference Include="Maanfee.JsInterop" Version="1.13.0" />
 		<PackageReference Include="Maanfee.Lottie" Version="2.8.0" />
-		<PackageReference Include="Maanfee.Turnjs" Version="1.22.0" />
-		<PackageReference Include="MudBlazor" Version="9.7.0" />
-		<PackageReference Include="EPPlus" Version="8.6.3" />
-    <PackageReference Include="SkiaSharp.Views.Blazor" Version="4.150.1" />
-    <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.10" />
+		<PackageReference Include="Maanfee.Turnjs" Version="1.25.0" />
+		<PackageReference Include="MudBlazor" Version="9.9.0" />
+		<PackageReference Include="EPPlus" Version="8.7.0" />
+    <PackageReference Include="SkiaSharp.Views.Blazor" Version="4.152.0" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.12" />
   </ItemGroup>
 
 	<ItemGroup>

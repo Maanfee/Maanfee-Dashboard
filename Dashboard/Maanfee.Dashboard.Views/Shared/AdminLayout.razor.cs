@@ -2,7 +2,6 @@
 using Maanfee.Dashboard.Resources;
 using Maanfee.Dashboard.Views.Core;
 using Maanfee.Dashboard.Views.Pages.Authentications;
-using Maanfee.Dashboard.Views.Pages.Settings;
 using Maanfee.Dashboard.Views.Pages.Settings.Configurations;
 using Maanfee.Web.Core;
 using MudBlazor;
@@ -39,6 +38,7 @@ namespace Maanfee.Dashboard.Views.Shared
                         AccountStateContainer.Avatar = "data:image/png;base64," + Convert.ToBase64String(Callback.Data.Avatar!);
                         AccountStateContainer.PersonalCode = Callback.Data.PersonalCode!;
                         AccountStateContainer.IdUserDepartments = Callback.Data.UserDepartments.Select(x => x.IdDepartment).ToList();
+                        AccountStateContainer.RemoteIpAddress = (await AuthenticationState!).User.FindFirst("RemoteIpAddress")?.Value!;
 
                         await PermissionStateContainer!.LoadPermissionsAsync(Http!, AccountStateContainer.Id);
                         await PermissionStateContainer.WaitForPermissionsAsync();

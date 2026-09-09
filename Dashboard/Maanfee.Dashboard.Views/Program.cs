@@ -1,8 +1,6 @@
 using Maanfee.Dashboard.Views;
 using Maanfee.Dashboard.Views.Base;
 using Maanfee.Dashboard.Views.Core;
-using Maanfee.Turnjs;
-using Maanfee.Web.Core;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using System.Globalization;

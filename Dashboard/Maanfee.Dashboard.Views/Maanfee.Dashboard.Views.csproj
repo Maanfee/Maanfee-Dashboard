@@ -17,7 +17,11 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.10" />
+	  <Content Remove="C:\Users\gordon\.nuget\packages\psc.blazor.components.browserdetect\10.0.3\contentFiles\any\net10.0\psc_logo.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.12" />
     <PackageReference Include="PSC.Blazor.Components.BrowserDetect" Version="10.0.3" />
   </ItemGroup>
 

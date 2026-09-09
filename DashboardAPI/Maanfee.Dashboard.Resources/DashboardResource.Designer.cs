@@ -1423,7 +1423,7 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Left Alt + F5.
+        ///   Looks up a localized string similar to Left Alt + F3.
         /// </summary>
         public static string StringShortcutF3 {
             get {
@@ -1432,7 +1432,7 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Left Alt + F3.
+        ///   Looks up a localized string similar to Left Alt + F5.
         /// </summary>
         public static string StringShortcutF5 {
             get {

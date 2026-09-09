@@ -5,41 +5,50 @@
 
 @if (Info is not null)
 {
-    <MudGrid>
+    <MudGrid Class="pa-6">
         <MudItem md="4">
-            <MudChip T="string" Label="true" Icon="@Icons.Material.Filled.BrowserNotSupported" Color="Color.Primary">
-                Browser: @Info?.BrowserName @Info?.BrowserVersion
-            </MudChip>
+            <div class="d-flex flex-column mt-4">
+                <div class="d-flex align-center my-2">
+                    <MudIcon Icon="@Icons.Material.Filled.BrowserNotSupported" Size="Size.Small" Color="Color.Primary" Class="mr-2" />
+                    <MudText Typo="Typo.caption" Color="Color.Primary">Browser: @Info?.BrowserName @Info?.BrowserVersion</MudText>
+                </div>
+                <div class="d-flex align-center my-2">
+                    <MudIcon Icon="@Icons.Material.Filled.SmartScreen" Size="Size.Small" Color="Color.Dark" Class="mr-2" />
+                    <MudText Typo="Typo.caption" Color="Color.Dark">Screen: @Info!.ScreenResolution</MudText>
+                </div>
+                <div class="d-flex align-center my-2">
+                    <MudIcon Icon="@Icons.Material.Filled.DeveloperMode" Size="Size.Small" Color="Color.Error" Class="mr-2" />
+                    <MudText Typo="Typo.caption" Color="Color.Error">OS: @Info?.OSName</MudText>
+                </div>
+            </div>
         </MudItem>
         <MudItem md="4">
-            <MudChip T="string" Label="true" Icon="@Icons.Material.Filled.SmartScreen" Color="Color.Info">
-                Screen: @Info!.ScreenResolution
-            </MudChip>
+            <div class="d-flex flex-column mt-4">
+                <div class="d-flex align-center my-2">
+                    <MudIcon Icon="@Icons.Material.Filled.PestControl" Size="Size.Small" Color="Color.Info" Class="mr-2" />
+                    <MudText Typo="Typo.caption" Color="Color.Info">CPU: @Info?.CPUArchitect</MudText>
+                </div>
+                <div class="d-flex align-center my-2">
+                    <MudIcon Icon="@Icons.Material.Filled.Architecture" Size="Size.Small" Color="Color.Secondary" Class="mr-2" />
+                    <MudText Typo="Typo.caption" Color="Color.Secondary">GPU: @Info?.GPUVendor</MudText>
+                </div>
+                <div class="d-flex align-center my-2">
+                    <MudIcon Icon="@Icons.Material.Filled.Devices" Size="Size.Small" Color="Color.Success" Class="mr-2" />
+                    <MudText Typo="Typo.caption" Color="Color.Success">Device: @(Info.IsMobile == true ? "Mobile" : Info.IsTablet == true ? "Tablet" : "Desktop")</MudText>
+                </div>
+            </div>
         </MudItem>
         <MudItem md="4">
-            <MudChip T="string" Label="true" Icon="@Icons.Material.Filled.DeveloperMode" Color="Color.Secondary">
-                OS: @Info?.OSName
-            </MudChip>
-        </MudItem>
-        <MudItem md="4">
-            <MudChip T="string" Label="true" Icon="@Icons.Material.Filled.PestControl" Color="Color.Success">
-                CPU: @Info?.CPUArchitect
-            </MudChip>
-        </MudItem>
-        <MudItem md="4">
-            <MudChip T="string" Label="true" Icon="@Icons.Material.Filled.PestControl" Color="Color.Surface">
-                GPU: @Info?.GPUVendor
-            </MudChip>
-        </MudItem>
-        <MudItem md="4">
-            <MudChip T="string" Label="true" Icon="@Icons.Material.Filled.Devices" Color="Color.Warning">
-                Device: @(Info.IsMobile == true ? "Mobile" : Info.IsTablet == true ? "Tablet" : "Desktop")
-            </MudChip>
-        </MudItem>
-        <MudItem md="4">
-            <MudChip T="string" Label="true" Icon="@Icons.Material.Filled.LockClock" Color="Color.Tertiary">
-                TimeZone: @Info.TimeZone
-            </MudChip>
+            <div class="d-flex flex-column mt-4">
+                <div class="d-flex align-center my-2">
+                    <MudIcon Icon="@Icons.Material.Filled.LockClock" Size="Size.Small" Color="Color.Surface" Class="mr-2" />
+                    <MudText Typo="Typo.caption" Color="Color.Surface">TimeZone: @Info.TimeZone</MudText>
+                </div>
+                <div class="d-flex align-center my-2">
+                    <MudIcon Icon="@Icons.Material.Filled.SettingsRemote" Size="Size.Small" Color="Color.Tertiary" Class="mr-2" />
+                    <MudText Typo="Typo.caption" Color="Color.Tertiary">Remote Ip: @AccountStateContainer!.RemoteIpAddress</MudText>
+                </div>
+            </div>
         </MudItem>
     </MudGrid>
 }
@@ -54,4 +63,5 @@
 
         IsLoaded = true;
     }
+
 }

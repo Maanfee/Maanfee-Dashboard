@@ -57,6 +57,17 @@
             }
         }
 
+        private string remoteIpAddress = string.Empty;
+        public string RemoteIpAddress
+        {
+            get => remoteIpAddress;
+            set
+            {
+                remoteIpAddress = value;
+                NotifyStateChanged();
+            }
+        }
+
         private List<int> idUserDepartments = new();
         public List<int> IdUserDepartments
         {

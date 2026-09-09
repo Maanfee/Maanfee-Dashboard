@@ -4,7 +4,6 @@ using Maanfee.Logging.Server.Data;
 using Maanfee.Logging.Server.Services;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
@@ -17,11 +16,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Fixed Self referencing loop detected with type and CaseInsensitive
-builder.Services.AddControllers()
-    .AddNewtonsoftJson(options => { options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; })
-    .AddJsonOptions(options => { options.JsonSerializerOptions.PropertyNameCaseInsensitive = false; });
-
 // Add Databases services.
 #region - Configuring Database -
 
@@ -31,11 +25,6 @@ builder.Services.AddDbContext<_BaseContext_SQLServer>(options =>
 });
 
 #endregion
-
-// Fixed Self referencing loop detected with type and CaseInsensitive
-builder.Services.AddControllers()
-    .AddNewtonsoftJson(options => { options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; })
-    .AddJsonOptions(options => { options.JsonSerializerOptions.PropertyNameCaseInsensitive = false; });
 
 builder.Services.AddResponseCompression(opts =>
 {

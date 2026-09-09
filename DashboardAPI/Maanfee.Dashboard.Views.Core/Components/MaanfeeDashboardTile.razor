@@ -8,14 +8,14 @@
             <MudItem md="6">
                 <div class="d-flex align-center justify-center my-1 me-2 pa-4">
                     <MudIcon Color="@Color" Icon="@Icon" Size="Size.Medium" />
-                    <MudText Typo="Typo.subtitle2">@Value</MudText>
+                    <MudText Typo="Typo.subtitle2">@InitialValue</MudText>
                 </div>
             </MudItem>
             <MudItem md="6">
                 <div class="d-flex align-end justify-end" style="height: 60px;">
                     @foreach (var bar in Bars)
                     {
-                        <MudPaper Height="@($"{bar.Height}px")" Width="6px" Square Class="@chartClass" Color="@bar.Color" />
+                        <MudPaper Height="@($"{bar.Height}px")" Width="6px" Square Class="@chartClass" />
                     }
                 </div>
             </MudItem>
@@ -31,7 +31,8 @@
 </MudCard>
 
 @code {
-    private System.Timers.Timer? timer;
+    private System.Timers.Timer? barTimer;
+    private System.Timers.Timer? counterTimer;
     private Random random = new Random();
     private List<BarData> Bars = new();
 
@@ -39,7 +40,7 @@
     public string Title { get; set; } = "Title";
 
     [Parameter]
-    public string Value { get; set; } = "Value";
+    public decimal Value { get; set; } = 0;
 
     [Parameter]
     public Color Color { get; set; }
@@ -55,14 +56,13 @@
     [Parameter]
     public string? Description { get; set; }
 
-    [Parameter]
-    public int BarCount { get; set; } = 10;
+    private int BarCount { get; set; } = 10;
 
-    [Parameter]
-    public int MinBarHeight { get; set; } = 5;
+    private int MinBarHeight { get; set; } = 5;
 
-    [Parameter]
-    public int MaxBarHeight { get; set; } = 50;
+    private int MaxBarHeight { get; set; } = 50;
+
+    private decimal InitialValue = 0;
 
     [Parameter]
     public double UpdateIntervalSeconds { get; set; } = 1;
@@ -73,12 +73,14 @@
     protected override void OnInitialized()
     {
         InitializeBars();
-        StartTimer();
+        StartBarTimer();
     }
 
     protected override void OnParametersSet()
     {
         chartClass = $"{ChartClass} mr-1 rounded-t ";
+
+        StartCounterTimer();
     }
 
     private void InitializeBars()
@@ -94,15 +96,15 @@
         }
     }
 
-    private void StartTimer()
+    private void StartBarTimer()
     {
-        timer = new System.Timers.Timer(UpdateIntervalSeconds * 1000);
-        timer.Elapsed += OnTimerElapsed;
-        timer.AutoReset = true;
-        timer.Enabled = true;
+        barTimer = new System.Timers.Timer(UpdateIntervalSeconds * 1000);
+        barTimer.Elapsed += OnBarTimerElapsed;
+        barTimer.AutoReset = true;
+        barTimer.Enabled = true;
     }
 
-    private async void OnTimerElapsed(object? sender, ElapsedEventArgs e)
+    private async void OnBarTimerElapsed(object? sender, ElapsedEventArgs e)
     {
         UpdateBars();
         await InvokeAsync(StateHasChanged);
@@ -128,8 +130,11 @@
 
     public void Dispose()
     {
-        timer?.Stop();
-        timer?.Dispose();
+        barTimer?.Stop();
+        barTimer?.Dispose();
+
+        counterTimer?.Stop();
+        counterTimer?.Dispose();
     }
 
     private class BarData
@@ -137,4 +142,48 @@
         public int Height { get; set; }
         public Color Color { get; set; }
     }
+
+    // ************************************
+
+    private void StartCounterTimer()
+    {
+        InitialValue = 0;
+        counterTimer = new System.Timers.Timer(10);
+        counterTimer.Elapsed += OnCounterTimerElapsed;
+        counterTimer.AutoReset = true;
+        counterTimer.Enabled = true;
+    }
+
+    private async void OnCounterTimerElapsed(object? sender, ElapsedEventArgs e)
+    {
+        if (Value > 0 && InitialValue < Value)
+        {
+            if (Value > 10000)
+                InitialValue += 100;
+            else if (Value > 5000)
+                InitialValue += 50;
+            else if (Value > 500)
+                InitialValue += 40;
+            else
+                InitialValue += 2;
+        }
+        else if (Value < 0 && InitialValue > Value)
+        {
+            if (Value < 10000)
+                InitialValue -= 100;
+            else if (Value < 5000)
+                InitialValue -= 50;
+            else if (Value < 500)
+                InitialValue -= 40;
+            else
+                InitialValue -= 2;
+        }
+        else
+        {
+            counterTimer?.Stop();
+            InitialValue = Value;
+        }
+        await InvokeAsync(StateHasChanged);
+    }
+
 }

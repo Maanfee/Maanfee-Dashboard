@@ -44,9 +44,6 @@ namespace Maanfee.Dashboard.Views.Core
             {
                 AuthenticationState = Task.FromResult(await AuthenticationStateProvider!.GetAuthenticationStateAsync());
                 PermissionCurrentUser = (await AuthenticationState).User;
-
-                //var ModuleList = await Http!.GetFromJsonAsync<List<ModuleViewModel>>("config.json");
-                //ModuleService.LogServer = ModuleList.FirstOrDefault(x => x.Name == ModuleDefaultValue.LogServer);
             }
             catch (Exception ex)
             {

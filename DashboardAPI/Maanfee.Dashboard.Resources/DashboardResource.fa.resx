@@ -696,4 +696,7 @@
   <data name="StringPlatformInfo" xml:space="preserve">
     <value>اطلاعات پلتفرم</value>
   </data>
+  <data name="StringDatabaseManager" xml:space="preserve">
+    <value>مدیریت پایگاه داده</value>
+  </data>
 </root>

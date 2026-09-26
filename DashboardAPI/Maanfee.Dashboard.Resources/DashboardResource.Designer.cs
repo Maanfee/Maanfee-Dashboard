@@ -649,6 +649,15 @@ namespace Maanfee.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Database manager.
+        /// </summary>
+        public static string StringDatabaseManager {
+            get {
+                return ResourceManager.GetString("StringDatabaseManager", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date.
         /// </summary>
         public static string StringDate {

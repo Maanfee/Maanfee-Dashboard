@@ -13,7 +13,7 @@
 		<Copyright>Copyright (c) 2023-2026 Maanfee</Copyright>
 		<Authors>Maanfee Team (MF)</Authors>
 		<Company>Maanfee</Company>
-		<Version>3.13.0</Version>
+		<Version>3.15.0</Version>
 		<RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -28,7 +28,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.12" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.12" />
-		<PackageReference Include="MudBlazor" Version="9.9.0" />
+		<PackageReference Include="MudBlazor" Version="9.10.0" />
 	</ItemGroup>
 
 	<ItemGroup>

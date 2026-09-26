@@ -696,4 +696,7 @@
   <data name="StringPlatformInfo" xml:space="preserve">
     <value>Platform info</value>
   </data>
+  <data name="StringDatabaseManager" xml:space="preserve">
+    <value>Database manager</value>
+  </data>
 </root>

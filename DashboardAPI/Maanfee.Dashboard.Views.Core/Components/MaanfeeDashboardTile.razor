@@ -1,5 +1,6 @@
 ﻿@namespace Maanfee.Dashboard.Views.Core
 @using System.Timers
+@implements IDisposable
 
 <MudCard Class="rounded-lg align-center">
     <MudCardContent>
@@ -80,7 +81,10 @@
     {
         chartClass = $"{ChartClass} mr-1 rounded-t ";
 
-        StartCounterTimer();
+        if (Value != counterTarget)
+        {
+            StartCounterTimer();
+        }
     }
 
     private void InitializeBars()
@@ -128,15 +132,6 @@
         return colors[random.Next(colors.Length)];
     }
 
-    public void Dispose()
-    {
-        barTimer?.Stop();
-        barTimer?.Dispose();
-
-        counterTimer?.Stop();
-        counterTimer?.Dispose();
-    }
-
     private class BarData
     {
         public int Height { get; set; }
@@ -145,10 +140,23 @@
 
     // ************************************
 
+    private const double CounterAnimationDurationMs = 1000;
+    private const double CounterTickIntervalMs = 16;
+
+    private decimal counterTarget;
+    private decimal counterStartValue;
+    private DateTime counterStartTime;
+
     private void StartCounterTimer()
     {
-        InitialValue = 0;
-        counterTimer = new System.Timers.Timer(10);
+        counterTimer?.Stop();
+        counterTimer?.Dispose();
+
+        counterStartValue = InitialValue;
+        counterTarget = Value;
+        counterStartTime = DateTime.UtcNow;
+
+        counterTimer = new System.Timers.Timer(CounterTickIntervalMs);
         counterTimer.Elapsed += OnCounterTimerElapsed;
         counterTimer.AutoReset = true;
         counterTimer.Enabled = true;
@@ -156,34 +164,29 @@
 
     private async void OnCounterTimerElapsed(object? sender, ElapsedEventArgs e)
     {
-        if (Value > 0 && InitialValue < Value)
+        var elapsedMs = (DateTime.UtcNow - counterStartTime).TotalMilliseconds;
+        var t = Math.Min(1.0, elapsedMs / CounterAnimationDurationMs);
+        var eased = 1 - Math.Pow(1 - t, 3); // ease-out cubic: fast start, smooth settle
+        var decimals = counterTarget == Math.Truncate(counterTarget) ? 0 : 2;
+
+        InitialValue = Math.Round(counterStartValue + (counterTarget - counterStartValue) * (decimal)eased, decimals);
+
+        if (t >= 1.0)
         {
-            if (Value > 10000)
-                InitialValue += 100;
-            else if (Value > 5000)
-                InitialValue += 50;
-            else if (Value > 500)
-                InitialValue += 40;
-            else
-                InitialValue += 2;
-        }
-        else if (Value < 0 && InitialValue > Value)
-        {
-            if (Value < 10000)
-                InitialValue -= 100;
-            else if (Value < 5000)
-                InitialValue -= 50;
-            else if (Value < 500)
-                InitialValue -= 40;
-            else
-                InitialValue -= 2;
-        }
-        else
-        {
+            InitialValue = counterTarget;
             counterTimer?.Stop();
-            InitialValue = Value;
         }
+
         await InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        barTimer?.Stop();
+        barTimer?.Dispose();
+
+        counterTimer?.Stop();
+        counterTimer?.Dispose();
     }
 
 }

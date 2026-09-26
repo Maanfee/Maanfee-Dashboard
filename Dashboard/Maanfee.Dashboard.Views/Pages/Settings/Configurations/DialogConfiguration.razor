@@ -10,6 +10,7 @@
             <MudTabPanel Text="@DashboardResource.StringPlatformInfo" Icon="@Icons.Material.Filled.Computer" PanelClass="pa-4">
                 <ComponentPlatformInfo />
             </MudTabPanel>
+            <MudTabPanel OnClick="OpenSolutionDialog" Text="@DashboardResource.StringDatabaseManager" Icon="@Icons.Material.Filled.Dataset" PanelClass="pa-4" />
         </MudTabs>
     </MaanfeeDashboardDialogContent>
 </MaanfeeDashboardDialog>
@@ -26,4 +27,24 @@
 
         IsLoaded = true;
     }
+
+    #region - Solution -
+
+    private async Task OpenSolutionDialog()
+    {
+        DialogParameters DialogParameters = new DialogParameters();
+
+        var dialog = await Dialog!.ShowAsync<Trumax.View.Components.DialogSolution>(string.Empty, DialogParameters,
+            new DialogOptions()
+            {
+                NoHeader = true,
+                MaxWidth = MaxWidth.ExtraExtraLarge,
+                FullWidth = true,
+                Position = DialogPosition.Center,
+                BackgroundClass = "Dialog-Blur",
+                CloseOnEscapeKey = true,
+            });
+    }
+
+    #endregion
 }

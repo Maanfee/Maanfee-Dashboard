@@ -12,7 +12,7 @@
     <Copyright>Copyright (c) 2021-2026 Maanfee</Copyright>
     <Authors>Maanfee Team (MF)</Authors>
 		<Company>Maanfee</Company>
-    <Version>9.25.5</Version>
+    <Version>9.33.5</Version>
     <PackageIcon>MaanfeePurple.png</PackageIcon>
 		<RepositoryUrl>https://github.com/Maanfee/Maanfee-Dashboard</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
@@ -30,9 +30,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.12" />
-    <PackageReference Include="Trumax.Services" Version="1.0.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="10.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.13" />
+    <PackageReference Include="Trumax.Services" Version="1.1.0" />
   </ItemGroup>
 
 	<ItemGroup>

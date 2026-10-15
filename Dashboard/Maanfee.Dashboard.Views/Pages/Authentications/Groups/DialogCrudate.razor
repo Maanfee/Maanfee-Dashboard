@@ -102,7 +102,7 @@
                 }
                 else
                 {
-                    Snackbar!.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
+                    Snackbar!.Add(await PostResult.Content.ReadAsStringAsync(), Severity.Error);
                 }
             }
             else

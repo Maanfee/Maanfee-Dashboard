@@ -22,6 +22,26 @@
 ## 📸 Screenshots
 ![Screenshots](SolutionItems/Screenshots/Dashboard.png)
 
+## 🧱 Tech Stack
+- [Blazor WebAssembly](https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor) hosted by an ASP.NET Core server
+- [MudBlazor](https://mudblazor.com/) component library
+- [ASP.NET Core Identity](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity) for authentication/authorization
+- [Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/) with SQL Server / SQLite providers
+
+## 🗂 Project Structure
+| Folder | Description |
+|---|---|
+| `Dashboard/Maanfee.Dashboard.Server` | ASP.NET Core host (startup project) that serves the Blazor WebAssembly client |
+| `Dashboard/Maanfee.Dashboard.Views` | Blazor WebAssembly client (pages, dialogs, components) |
+| `DashboardAPI/Maanfee.Dashboard.Domain` | Entities, ViewModels, DbContext(s) |
+| `DashboardAPI/Maanfee.Dashboard.Services` | API controllers and server-side services |
+| `DashboardAPI/Maanfee.Dashboard.Views.Core` | Shared client-side services/base views |
+| `DashboardAPI/Maanfee.Web.Core` | Cross-cutting helpers (encryption, files, pagination, ...) |
+| `DashboardAPI/Maanfee.Dashboard.Resources` | Localized string resources (`.resx`) |
+| `LoggingPlatforms/Maanfee.Logging.Server` | Standalone centralized logging service |
+| `Gateway/Gateway.Api` | API gateway in front of the backend services |
+| `Examples/Maanfee.Dashboard.Examples.Views` | Sample/demo pages showcasing components |
+
 ## 📋 Prerequisites
 - **Supported .NET version:**  
   - [.NET 10.0](https://dotnet.microsoft.com/en-us/download/dotnet/10.0) 
@@ -67,15 +87,13 @@ Server=your_server_ip;Database=YourDB;User Id=username;Password=password;
 - `MultipleActiveResultSets`: Enable MARS feature
 
 ### Configure Startup Projects
-Right click on the solution name and then select 
-"properties->multiple startup projects" then set followings project 
-as startup.
+Right click on the solution name and then select
+"properties -> multiple startup projects" then set the following projects
+as startup:
 
--`Maanfee.Dashboard.Server` 
-
--`Gateway.Api`
-
--`Maanfee.Logging.Server`
+- `Maanfee.Dashboard.Server`
+- `Gateway.Api`
+- `Maanfee.Logging.Server`
 
 ### Run solution
 ![image](SolutionItems/Screenshots/VisualStudio.png)
@@ -84,7 +102,10 @@ as startup.
     - Password : `123456`
 
 > ⚠️ **Important Notice:**
-Maanfee Dashboard is under active development. Before running a new version, please delete any existing database (SQL Server or SQLite) to avoid migration conflicts.
+> The project currently has no EF Core migrations — the database schema is created with `Database.EnsureCreated()` and seeded on first run. Because of this, **delete any existing database (SQL Server or SQLite) before running a new version** whenever the data model changes; otherwise you'll hit "invalid column name" or similar schema-mismatch errors.
+
+## 📄 License
+Licensed under the [MIT License](LICENSE).
 
 📦 Release History
 - [01-10-08 : Init]()

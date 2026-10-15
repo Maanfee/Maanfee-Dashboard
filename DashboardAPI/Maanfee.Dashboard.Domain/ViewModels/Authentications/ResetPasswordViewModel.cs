@@ -5,6 +5,10 @@ namespace Maanfee.Dashboard.Domain.ViewModels
 {
     public class ResetPasswordViewModel
     {
+        [Display(Name = nameof(DashboardResource.StringUserName), ResourceType = typeof(DashboardResource))]
+        [Required(ErrorMessageResourceName = nameof(DashboardResource.ValidationRequired), ErrorMessageResourceType = typeof(DashboardResource))]
+        public string? UserName { get; set; }
+
         [Display(Name = "Phrase Words")]
         public string? Phrase { get; set; }
 

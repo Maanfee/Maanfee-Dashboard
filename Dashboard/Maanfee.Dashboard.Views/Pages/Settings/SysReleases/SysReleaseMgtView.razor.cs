@@ -82,7 +82,7 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
                 }
                 else
                 {
-                    Snackbar!.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
+                    Snackbar!.Add(await PostResult.Content.ReadAsStringAsync(), Severity.Error);
                     IsTableLoading = false;
                     return new TableData<TableViewModel>()
                     {
@@ -231,7 +231,7 @@ namespace Maanfee.Dashboard.Views.Pages.Settings.SysReleases
                     }
                     else
                     {
-                        Snackbar!.Add(DeleteResult.Content.ReadAsStringAsync().Result, Severity.Error);
+                        Snackbar!.Add(await DeleteResult.Content.ReadAsStringAsync(), Severity.Error);
                     }
                 }
                 catch (Exception ex)

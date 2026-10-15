@@ -34,7 +34,11 @@ builder.Services.AddResponseCompression(opts =>
 
 // RealTime Logging
 builder.Services.AddLoggingConsole(new Uri("http://localhost:22001"), new Uri("http://172.17.17.22"));
-builder.Services.AddSingleton<HttpClient>();
+
+// به‌جای HttpClient دستی: هندلر و connection pool از طریق IHttpClientFactory مدیریت می‌شود
+builder.Services.AddHttpClient("Maanfee");
+builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("Maanfee"));
+
 builder.Services.AddHostedService<LogStoreService>();
 
 var app = builder.Build();

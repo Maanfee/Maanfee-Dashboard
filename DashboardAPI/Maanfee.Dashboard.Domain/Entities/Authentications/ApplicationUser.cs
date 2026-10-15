@@ -37,10 +37,10 @@ namespace Maanfee.Dashboard.Domain.Entities
         [RegularExpression("([0-9][0-9]*)", ErrorMessageResourceName = nameof(DashboardResource.ValidationPositiveNumbers), ErrorMessageResourceType = typeof(DashboardResource))]
         public string? NationalCode { get; set; }
 
-        [Display(Name = nameof(DashboardResource.StringPassword), ResourceType = typeof(DashboardResource))]
-        [StringLength(20, MinimumLength = 6, ErrorMessageResourceName = nameof(DashboardResource.ValidationStringLength), ErrorMessageResourceType = typeof(DashboardResource))]
+        // مقدار رمزنگاری‌شده (AES، دوطرفه) پسورد - فقط از طریق برنامه با IPasswordEncryptionService قابل رمزگشایی است
+        [MaxLength(500)]
         [Required(ErrorMessageResourceName = nameof(DashboardResource.ValidationRequired), ErrorMessageResourceType = typeof(DashboardResource))]
-        public string? Password { get; set; }
+        public string? PLA { get; set; }
 
         [Display(Name = nameof(DashboardResource.StringPersonalCode), ResourceType = typeof(DashboardResource))]
         [StringLength(10, MinimumLength = 4, ErrorMessageResourceName = nameof(DashboardResource.ValidationStringLength), ErrorMessageResourceType = typeof(DashboardResource))]

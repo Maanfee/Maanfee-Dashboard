@@ -20,14 +20,14 @@ namespace Maanfee.Dashboard.Views.Base
     {
         public static WebAssemblyHostBuilder AddDashboardClientServices(this WebAssemblyHostBuilder builder)
         {
-            builder.Services.AddScoped(sp =>
+            // به‌جای new HttpClient دستی: از IHttpClientFactory استفاده می‌شود تا هندلر pooled باشد
+            // و بعداً بتوان روی همین registration پالیسی‌های Polly (retry/timeout) اضافه کرد
+            builder.Services.AddHttpClient("Maanfee", (sp, client) =>
             {
                 var navigationManager = sp.GetRequiredService<NavigationManager>();
-                return new HttpClient
-                {
-                    BaseAddress = new Uri(navigationManager.BaseUri)
-                };
+                client.BaseAddress = new Uri(navigationManager.BaseUri);
             });
+            builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("Maanfee"));
 
             #region MudBlazor Snackbar Configuration
 

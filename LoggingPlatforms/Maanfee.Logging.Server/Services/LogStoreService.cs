@@ -73,7 +73,7 @@ namespace Maanfee.Logging.Server.Services
                     else
                     {
                         // Snackbar.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
-                        Logger.LogInformation(PostResult.Content.ReadAsStringAsync().Result);
+                        Logger.LogInformation(await PostResult.Content.ReadAsStringAsync());
                     }
                 }
                 catch (Exception ex)

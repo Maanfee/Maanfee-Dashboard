@@ -69,7 +69,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
             TreeItems = await BuildTreeItems(null);
         }
 
-        private Task<List<TreeItemData<Permission>>> BuildTreeItems(string? parentId)
+        private async Task<List<TreeItemData<Permission>>> BuildTreeItems(string? parentId)
         {
             var items = new List<TreeItemData<Permission>>();
 
@@ -89,13 +89,13 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
                 // به صورت بازگشتی فرزندان را هم اضافه کن
                 if (treeItem.Expandable)
                 {
-                    treeItem.Children = BuildTreeItems(dept.Id).Result;
+                    treeItem.Children = await BuildTreeItems(dept.Id);
                 }
 
                 items.Add(treeItem);
             }
 
-            return Task.FromResult(items);
+            return items;
         }
 
         public async Task<IReadOnlyCollection<TreeItemData<Permission>>> LoadServerData(Permission parentValue)
@@ -214,7 +214,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Roles
                 }
                 else
                 {
-                    Snackbar!.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
+                    Snackbar!.Add(await PostResult.Content.ReadAsStringAsync(), Severity.Error);
                 }
             }
             catch (Exception ex)

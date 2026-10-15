@@ -21,7 +21,12 @@ builder.Services.AddDashboardCompression();
 builder.Services.AddDashboardApplicationCookieConfigurations();
 builder.Services.AddDashboardDatabaseConfigurations(builder.Configuration);
 builder.Services.AddDashboardControllers();
-builder.Services.AddSingleton<HttpClient>();
+
+// به‌جای HttpClient دستی: هندلر و connection pool از طریق IHttpClientFactory مدیریت می‌شود
+// (پایه‌ای برای افزودن بعدی Polly برای retry/timeout/resilience روی همین registration)
+builder.Services.AddHttpClient("Maanfee");
+builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("Maanfee"));
+
 builder.Services.AddScoped<CommonService>();
 
 // ********************************************

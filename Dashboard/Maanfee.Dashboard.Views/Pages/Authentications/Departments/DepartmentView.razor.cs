@@ -63,7 +63,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
             TreeItems = await BuildTreeItems(null);
         }
 
-        private Task<List<TreeItemData<Department>>> BuildTreeItems(int? parentId)
+        private async Task<List<TreeItemData<Department>>> BuildTreeItems(int? parentId)
         {
             var items = new List<TreeItemData<Department>>();
 
@@ -83,13 +83,13 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
                 // به صورت بازگشتی فرزندان را هم اضافه کن
                 if (treeItem.Expandable)
                 {
-                    treeItem.Children = BuildTreeItems(dept.Id).Result;
+                    treeItem.Children = await BuildTreeItems(dept.Id);
                 }
 
                 items.Add(treeItem);
             }
 
-            return Task.FromResult(items);
+            return items;
         }
 
         public async Task<IReadOnlyCollection<TreeItemData<Department>>> LoadServerData(Department parentValue)
@@ -177,7 +177,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
                 }
                 else
                 {
-                    Snackbar!.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
+                    Snackbar!.Add(await PostResult.Content.ReadAsStringAsync(), Severity.Error);
                 }
             }
             catch (Exception ex)
@@ -278,7 +278,7 @@ namespace Maanfee.Dashboard.Views.Pages.Authentications.Departments
                     }
                     else
                     {
-                        Snackbar!.Add(DeleteResult.Content.ReadAsStringAsync().Result, Severity.Error);
+                        Snackbar!.Add(await DeleteResult.Content.ReadAsStringAsync(), Severity.Error);
                     }
                 }
                 catch (Exception ex)

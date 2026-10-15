@@ -5,6 +5,7 @@ using Maanfee.Dashboard.Resources;
 using Maanfee.Logging.Console;
 using Maanfee.Logging.Domain;
 using Maanfee.Web.Core;
+using Maanfee.Web.Core.Encryptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -48,7 +49,7 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                         Id = x.Id,
                         FirstName = x.FirstName,
                         LastName = x.LastName,
-                        Password = x.Password,
+                        Password = x.PLA,
                         Name = x.Name,
                         Avatar = x.Avatar,
                         FatherName = x.FatherName,
@@ -67,6 +68,9 @@ namespace Maanfee.Dashboard.Services.Controllers.Authentications
                 {
                     return new CallbackResult<GetUserViewModel>(null, new ExceptionError(DashboardResource.MessageChangeIsNotPossible));
                 }
+
+                // رکوردهای قدیمی که هیچ‌وقت رمزنگاری نشده‌اند (متن ساده) هم به همان شکل نمایش داده می‌شوند
+                user.Password = user.Password.TryDecrypt();
 
                 return new CallbackResult<GetUserViewModel>(user, null);
             }

@@ -2,6 +2,7 @@
 using Maanfee.Dashboard.Domain.DAL;
 using Maanfee.Dashboard.Domain.DefaultValues;
 using Maanfee.Dashboard.Domain.Entities;
+using Maanfee.Web.Core.Encryptions;
 using Microsoft.AspNetCore.Identity;
 
 namespace Maanfee.Dashboard.Services
@@ -118,7 +119,7 @@ namespace Maanfee.Dashboard.Services
                         FirstName = "Maan",
                         LastName = "Fee",
                         Name = "Maanfee",
-                        Password = "123456",
+                        PLA = "123456".Encrypt(),
                         PersonalCode = "401011",
                         UserName = "maanfee",
                         ConcurrencyStamp = "03b9e9dc-2b0b-457e-abbf-3d0e69413fe3",
@@ -135,7 +136,7 @@ namespace Maanfee.Dashboard.Services
                         FirstName = "",
                         LastName = "",
                         Name = "",
-                        Password = "123456",
+                        PLA = "123456".Encrypt(),
                         PersonalCode = Guid.NewGuid().ToString().Substring(0, 7).Replace("-", new Random().Next(0, 9).ToString()),
                         UserName = "admin",
                         ConcurrencyStamp = "305ff4e7-d025-4dd0-a2a2-ac3023998a25",

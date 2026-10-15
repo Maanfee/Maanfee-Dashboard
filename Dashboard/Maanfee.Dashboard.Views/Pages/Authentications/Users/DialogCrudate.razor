@@ -18,7 +18,7 @@
                         <MudText>@DashboardResource.StringSave</MudText>
                     }
                 </MudIconButton>
-            </MudTooltip>
+            </MudTooltip> 
         </MaanfeeDashboardDialogHeaderAction>
         <MaanfeeDashboardDialogContent>
             <MudTabs ActivePanelIndexChanged="(TabIndex) => TabIndexChanged(TabIndex)" @ref="Tab" Elevation="2" Rounded ApplyEffectsToContainer TabPanelsClass="pa-2">
@@ -285,7 +285,7 @@
                 }
                 else
                 {
-                    Snackbar!.Add(PostResult.Content.ReadAsStringAsync().Result, Severity.Error);
+                    Snackbar!.Add(await PostResult.Content.ReadAsStringAsync(), Severity.Error);
                 }
             }
             else
@@ -306,7 +306,7 @@
                 }
                 else
                 {
-                    Snackbar!.Add(PutResult.Content.ReadAsStringAsync().Result, Severity.Error);
+                    Snackbar!.Add(await PutResult.Content.ReadAsStringAsync(), Severity.Error);
                 }
             }
         }
